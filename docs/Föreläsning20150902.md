@@ -13,10 +13,14 @@
  - **Vi får fejka signaler** om det är någon signal vi behöver men som inte finns i API:t. Bara det tydligt framgår att vi själva hittat på signalen och hur den fungerar. User discretion is advised.
  - Minst en riktig signal måste användas.
  -  Signalerna kan bara läsas. Envägskommunikation.
- >**Idé:** vibrera/larma någon minut innan man når sin hållplats. Så man kan sova eller vara allmänt ouppmärksam under bussresan.
+ 
+ **Idé:** vibrera/larma någon minut innan man når sin hållplats. Så man kan sova eller vara allmänt ouppmärksam under bussresan.
+ 
  - Icomera står för wifi. Pilotfish är ansvarig för själva routrarna. (?) Kolla på utvecklingsverkstäderna.
-> **Idé:** (cred till Hjort): app för blinda. Gestures. Vibrera när bussen kommer, om det finns plats på bussen mm  
-> Text-to-speech? Morsekodsvibrationer (kom igen, hade varit rätt coolt)? 
+
+ **Idé:** (cred till Hjort): app för blinda. Gestures. Vibrera när bussen kommer, om det finns plats på bussen mm  
+ Text-to-speech? Morsekodsvibrationer (kom igen, hade varit rätt coolt)? 
+ 
  - Konceptstugor och utvecklningsverkstäder kommer att hållas under hösten. Se slides för datum och tider.
  - Juryn är svensktalande. **Svenska** är därför de primära språket i tävlingen.
  ### Konceptstuga
