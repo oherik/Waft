@@ -1,4 +1,16 @@
 * [Week 3](#week3)
+* [Week 4](#week4)
+
+# <a name="week4">Week 4</a>
+
+Sprint planning
+---------------
+
+We planned a sprint. We realized it was hard to not get into techincal details. There are some major issues with having to work distributed. Code standards is one. Coming up with good ways to work on one thing without waiting for another to get done first is another. Slicing is hard.
+
+Estimation is really hard as well. We chose a baseline that seemed reasonable, but estimating other stuff from that baseline was difficult, since everyone had a very different idea of how much work the baseline would actually be. That distorts everything. Using planning poker helps, it gets a conversation started.
+
+I'm scared of the concept of having a product owner as a developer. It feels like the product owner can be persuaded by impletentation aspects. We really should introduce a PO hat or something.
 
 # <a name="week3">Week 3</a>
 
