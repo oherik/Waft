@@ -1,6 +1,7 @@
-package com.alive_n_clickin.commutity.presentation;
+package com.alive_n_clickin.commutity.presentation.flagreport;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,7 +72,8 @@ public class FlagViewAdapter extends BaseAdapter  {
         }
 
         FlagButton button = flags.get(position);
-        flagHolder.flagImage.setImageDrawable(button.getImage());
+        Drawable flagImage = currentContext.getResources().getDrawable(button.getImageID());
+        flagHolder.flagImage.setImageDrawable(flagImage);
         flagHolder.flagText.setText(button.getDescription());
         return currentView;
     }
