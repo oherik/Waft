@@ -1,5 +1,7 @@
 package com.alive_n_clickin.commutity.presentation.flagreport;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -28,9 +30,9 @@ public class FlagVehicleFragment extends Fragment {
         Resources resources = getResources();
 
         //TODO hard coded flag data for testing purposes
-        flagButtons.add(new FlagButton((resources.getDrawable(R.drawable.full)), "Full", FlagType.FULL));
-        flagButtons.add(new FlagButton((resources.getDrawable(R.drawable.full)), "Stökig", FlagType.ROWDY));
-        flagButtons.add(new FlagButton((resources.getDrawable(R.drawable.full)), "Försenad", FlagType.LATE));
+        flagButtons.add(new FlagButton(R.drawable.full, "Full", FlagType.FULL));
+        flagButtons.add(new FlagButton(R.drawable.full, "Stökig", FlagType.ROWDY));
+        flagButtons.add(new FlagButton(R.drawable.full, "Försenad", FlagType.LATE));
 
 
     }
@@ -48,7 +50,20 @@ public class FlagVehicleFragment extends Fragment {
             /* The user clicked on an entry */
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                FlagButton button = flagAdapter.getItem(i);
+                Context currentContext = getActivity().getApplicationContext();
+                FlagButton button= flagAdapter.getItem(i);
+                /*
+                Start an intent for the detail view. The intent contains the bus line image, a
+                description of the issue and the flag image
+                 */
+                Intent detailIntent = new Intent(currentContext, getActivity().getClass());
+                //detailIntent.putExtra("image_url",button.getImage());
+                detailIntent.putExtra(Intent.EXTRA_TEXT, button.getDescription());
+                //startActivity(detailIntent);
+
+
+
+
                 Toast.makeText(getActivity(), "" + button.getDescription(),
                         Toast.LENGTH_SHORT).show();
             }
