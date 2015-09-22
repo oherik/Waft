@@ -9,11 +9,15 @@
     <GridView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/gridView"
+        android:id="@+id/flagGridView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:background="#000000"
         android:numColumns="@integer/flag_columns"
+        android:verticalSpacing="5dp"
+        android:horizontalSpacing="5dp"
+        android:stretchMode="columnWidth"
+        android:gravity="center"
         />
+
 
 </RelativeLayout>

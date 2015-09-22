@@ -33,7 +33,7 @@ public class FlagVehicleFragment extends Fragment {
         //TODO hard coded flag data for testing purposes
         flagButtons.add(new FlagButton((resources.getDrawable(R.drawable.full)), "Full", FlagType.FULL));
         flagButtons.add(new FlagButton((resources.getDrawable(R.drawable.full)), "Stökig", FlagType.ROWDY));
-        flagButtons.add(new FlagButton((resources.getDrawable(R.drawable.full)), "Försenda", FlagType.LATE));
+        flagButtons.add(new FlagButton((resources.getDrawable(R.drawable.full)), "Försenad", FlagType.LATE));
 
 
     }
