@@ -22,9 +22,6 @@ public class FlagVehicleFragment extends Fragment {
     private FlagViewAdapter flagAdapter;
     private ArrayList<FlagButton> flagButtons;
 
-    public FlagVehicleFragment() {
-    }
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         flagButtons = new ArrayList<FlagButton>();
