@@ -18,3 +18,7 @@ hs_err_pid*
 /.idea/libraries
 .DS_Store
 /build
+
+#Idea
+/.idea
+/idea
