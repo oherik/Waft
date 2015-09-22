@@ -5,6 +5,7 @@
     tools:context="com.alive_n_clickin.commutity.presentation.flagreport.FlagVehicleDetail"
     android:weightSum="100"
     android:padding="20dp"
+    android:id="@+id/flagDetail"
     >
 
     <TextView

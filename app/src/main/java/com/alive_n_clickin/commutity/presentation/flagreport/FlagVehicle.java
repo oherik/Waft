@@ -7,24 +7,30 @@ import android.view.MenuItem;
 
 import com.example.erik.commutity.R;
 
-public class FlagVehicle extends AppCompatActivity {
+public class FlagVehicle extends AppCompatActivity implements FlagVehicleFragment.FlagClicked{
+        @Override
+        public void  sendFlagDetailData(FlagButton buttonData, String busData){
+            FlagVehicleDetail  detailFragment = (FlagVehicleDetail)
+                    getSupportFragmentManager().findFragmentById(R.id.flagDetail);
+                detailFragment.setFlagData(buttonData, busData);
+                }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+        @Override
+        protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flag_vehicle);
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+        @Override
+        public boolean onCreateOptionsMenu (Menu menu){
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_flag_vehicle, menu);
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+        @Override
+        public boolean onOptionsItemSelected (MenuItem item){
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
