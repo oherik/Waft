@@ -36,7 +36,7 @@ public class ApiConnection {
         uriBuilder.encodedQuery(query);
         Uri uri = uriBuilder.build();
 
-        Log.e(LogUtils.getLogTag(this), uri.toString());
+        Log.d(LogUtils.getLogTag(this), uri.toString());
 
         HttpURLConnection connection = null;
         try {
