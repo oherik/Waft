@@ -6,74 +6,84 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An adapter for transforming flag data into a grid view
  */
-public class FlagViewAdapter extends ArrayAdapter<FlagButton> {
+public class FlagViewAdapter extends BaseAdapter  {
     private Context currentContext;
-    private int resource;
-    private ArrayList<FlagButton> flags = new ArrayList();
+    private List<FlagButton> flags;
 
     /**
      * Constructor for the adapter
      *
      * @param currentContext The current context
-     * @param resource       The resource ID for a layout file containing a TextView to use when instantiating views.
      * @param flags          Data containing the flag buttons
      */
-    public FlagViewAdapter(Context currentContext, int resource, ArrayList<FlagButton> flags) {
-        super(currentContext, resource);
+    public FlagViewAdapter(Context currentContext, int layoutResourceId, ArrayList<FlagButton> flags) {
         this.currentContext = currentContext;
-        this.resource = resource;
         this.flags = flags;
+    }
+
+    public void setFlags(ArrayList<FlagButton> flags) {
+        this.flags = flags;
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public int getCount() {
+        return flags.size();
+    }
+
+    @Override
+    public FlagButton getItem(int position) {
+        return flags.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        /*
-        View row = convertView;
-        RecordHolder holder = null;
+        Holder flagHolder;
+        View currentView = convertView;
 
-        if (row == null) {
-            LayoutInflater inflater = ((Activity) currentContext).getLayoutInflater();
-            row = inflater.inflate(resource, parent, false);
-            holder = new RecordHolder();
+        if(convertView == null) {
+            LayoutInflater inflater = LayoutInflater.from(currentContext);
+            currentView = inflater.inflate(R.layout.flag_button_layout, parent, false);
 
-            //  TextView textViewTitle = (TextView) row.findViewById(R.id.textView);
-            // ImageView imageViewIte = (ImageView) row.findViewById(R.id.imageView);
-
-
-        }else{
-            holder = (RecordHolder) row.getTag();
-        }
-
-        FlagButton flagButton = flags.get(position);
-        holder.txtTitle.setText(flagButton.getDe);
-        holder.imageItem.setImageBitmap(item.getImage());
-        return row;
-    }
-*/
-
-        ImageView imageView;
-        if (convertView == null) {
-            // if it's not recycled, initialize some attributes
-            imageView = new ImageView(currentContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(8, 8, 8, 8);
+            flagHolder = new Holder();
+            flagHolder.flagText = (TextView) currentView.findViewById(R.id.flagText);
+            flagHolder.flagImage = (ImageView) currentView.findViewById(R.id.flagImage);
+            currentView.setTag(flagHolder);
         } else {
-            imageView = (ImageView) convertView;
+            //Flag holder already exist, retrieve it from the view's tag
+            flagHolder = (Holder) convertView.getTag();
         }
 
-        imageView.setImageDrawable(flags.get(position).getBackground());
-        return imageView;
+        FlagButton button = flags.get(position);
+        flagHolder.flagImage.setImageDrawable(button.getImage());
+        flagHolder.flagText.setText(button.getDescription());
+        return convertView;
+    }
 
+    /**
+     * An class for holding both a image and a text for a flag
+     */
+    private static class Holder{
+        ImageView flagImage;
+        TextView flagText;
     }
 }
