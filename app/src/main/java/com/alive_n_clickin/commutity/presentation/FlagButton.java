@@ -1,4 +1,4 @@
-package com.example.erik.commutity;
+package com.alive_n_clickin.commutity.presentation;
 
 
 import android.graphics.drawable.Drawable;

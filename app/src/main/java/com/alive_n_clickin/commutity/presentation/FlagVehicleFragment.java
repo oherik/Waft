@@ -1,6 +1,5 @@
-package com.example.erik.commutity;
+package com.alive_n_clickin.commutity.presentation;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -11,8 +10,9 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.example.erik.commutity.R;
+
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A placeholder fragment containing a simple view.
