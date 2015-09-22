@@ -29,7 +29,7 @@ public class FlagViewAdapter extends BaseAdapter  {
      * @param currentContext The current context
      * @param flags          Data containing the flag buttons
      */
-    public FlagViewAdapter(Context currentContext, int layoutResourceId, ArrayList<FlagButton> flags) {
+    public FlagViewAdapter(Context currentContext, ArrayList<FlagButton> flags) {
         this.currentContext = currentContext;
         this.flags = flags;
     }
