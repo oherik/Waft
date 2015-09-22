@@ -1,8 +1,6 @@
 package com.alive_n_clickin.commutity.presentation.flagreport;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -12,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import com.example.erik.commutity.R;
 
@@ -62,21 +59,10 @@ public class FlagVehicleFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Context currentContext = getActivity().getApplicationContext();
                 FlagButton button = flagAdapter.getItem(i);
-                /*
-                Start an intent for the detail view. The intent contains the bus line image, a
-                description of the issue and the flag image
-                 */
-                //Intent detailIntent = new Intent(currentContext, FlagVehicleDetail.class);
-                //detailIntent.putExtra("flag_image_id", button.getImageID());
-                //detailIntent.putExtra(Intent.EXTRA_TEXT, button.getDescription());
-                //detailIntent.putExtra("line_image_id", lineNumberImageID);
-                //startActivity(detailIntent);
 
-
-                // Create fragment and give it an argument specifying the article it should show
-                FlagVehicleDetail detailFragment = new FlagVehicleDetail();
+                FlagVehicleDetailFragment detailFragment = new FlagVehicleDetailFragment();
                 Bundle args = new Bundle();
-                args.putInt(FlagVehicleDetail.ARG_POSITION, mCurrentPosition);
+                args.putInt(FlagVehicleDetailFragment.ARG_POSITION, mCurrentPosition);
                 detailFragment.setArguments(args);
 
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();

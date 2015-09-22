@@ -19,10 +19,10 @@ import com.example.erik.commutity.R;
  *
  */
 /*
- Use the {@link FlagVehicleDetail#newInstance} factory method to
+ Use the {@link FlagVehicleDetailFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FlagVehicleDetail extends Fragment {
+public class FlagVehicleDetailFragment extends Fragment {
     final static String ARG_POSITION = "position";
     int mCurrentPosition = -1;
 
