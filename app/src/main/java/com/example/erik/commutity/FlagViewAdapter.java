@@ -76,7 +76,7 @@ public class FlagViewAdapter extends BaseAdapter  {
         FlagButton button = flags.get(position);
         flagHolder.flagImage.setImageDrawable(button.getImage());
         flagHolder.flagText.setText(button.getDescription());
-        return convertView;
+        return currentView;
     }
 
     /**
