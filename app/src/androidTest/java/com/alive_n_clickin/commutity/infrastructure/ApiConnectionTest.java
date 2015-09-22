@@ -1,4 +1,4 @@
-package com.example.erik.commutity.infrastructure;
+package com.alive_n_clickin.commutity.infrastructure;
 
 import android.test.AndroidTestCase;
 
@@ -8,11 +8,11 @@ import android.test.AndroidTestCase;
  */
 public class ApiConnectionTest extends AndroidTestCase {
 
-    private com.example.erik.commutity.infrastructure.ApiConnection connection;
+    private com.alive_n_clickin.commutity.infrastructure.ApiConnection connection;
 
     @Override
     protected void setUp() {
-        connection = new com.example.erik.commutity.infrastructure.ApiConnection();
+        connection = new com.alive_n_clickin.commutity.infrastructure.ApiConnection();
     }
 
     public void testGetRequest() {

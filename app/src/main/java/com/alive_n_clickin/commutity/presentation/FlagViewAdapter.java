@@ -1,4 +1,4 @@
-package com.example.erik.commutity;
+package com.alive_n_clickin.commutity.presentation;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.erik.commutity.R;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.erik.commutity.infrastructure;
+package com.alive_n_clickin.commutity.infrastructure;
 
 import android.test.AndroidTestCase;
 

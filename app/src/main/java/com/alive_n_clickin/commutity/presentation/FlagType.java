@@ -1,4 +1,4 @@
-package com.example.erik.commutity;
+package com.alive_n_clickin.commutity.presentation;
 
 /**
  * The different flag types available

@@ -1,9 +1,11 @@
-package com.example.erik.commutity;
+package com.alive_n_clickin.commutity.presentation;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.erik.commutity.R;
 
 public class FlagVehicle extends AppCompatActivity {
 
