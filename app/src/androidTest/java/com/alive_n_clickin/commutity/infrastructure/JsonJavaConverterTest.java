@@ -10,7 +10,6 @@ import com.google.gson.internal.LinkedTreeMap;
  */
 public class JsonJavaConverterTest extends AndroidTestCase {
 
-    private final String LOG_TAG = getClass().getSimpleName();
     private JsonJavaConverter<BagOfThings> converter;
     private final String JSON_PRIMITIVES = "{\"value1\":1,\"value2\":\"abc\"}";
     private final String JSON_WITH_OBJECT = "{\"objectValue\":{\"value1\":1,\"value2\":\"abc\"},\"value1\":1,\"value2\":\"abc\"}";
@@ -23,12 +22,15 @@ public class JsonJavaConverterTest extends AndroidTestCase {
     }
 
     public void testFromJson() {
+        //Convert object with only primitives
         BagOfThings testObject1 = converter.toJava(JSON_PRIMITIVES);
         assertEquals("Primitive JSON to Java", testObject1, BAG_OF_PRIMITIVES);
 
+        //Convert an object with an object in.
         BagOfThings testObject2 = converter.toJava(JSON_WITH_OBJECT);
         assertEquals("JSON with object to Java", testObject2.value1, BAG_WITH_OBJECT.value1);
         assertEquals("JSON with object to Java", testObject2.value2, BAG_WITH_OBJECT.value2);
+        //The object will become a LinkedTreeMap. We could also test if it contains the right values, but this might be overkill.
         assertTrue("JSON with object to Java", testObject2.objectValue instanceof LinkedTreeMap);
     }
 
