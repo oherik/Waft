@@ -11,8 +11,10 @@ import com.google.gson.internal.LinkedTreeMap;
 public class JsonJavaConverterTest extends AndroidTestCase {
 
     private JsonJavaConverter<BagOfThings> converter;
-    private final String JSON_PRIMITIVES = "{\"value1\":1,\"value2\":\"abc\"}";
-    private final String JSON_WITH_OBJECT = "{\"objectValue\":{\"value1\":1,\"value2\":\"abc\"},\"value1\":1,\"value2\":\"abc\"}";
+    private final String JSON_PRIMITIVES1 = "\"value1\":1";
+    private final String JSON_PRIMITIVES2 = "\"value2\":\"abc\"";
+    private final String JSON_OBJECT = "\"objectValue\":{" + JSON_PRIMITIVES1 + "," + JSON_PRIMITIVES2 + "}";
+    private final String JSON_OBJECT_REVERSE = "\"objectValue\":{" + JSON_PRIMITIVES2 + "," + JSON_PRIMITIVES1 + "}";
     public  final BagOfThings BAG_OF_PRIMITIVES = BagOfThings.getBagOfPrimitives();
     public  final BagOfThings BAG_WITH_OBJECT = BagOfThings.getBagWithObject();
 
@@ -23,11 +25,11 @@ public class JsonJavaConverterTest extends AndroidTestCase {
 
     public void testFromJson() {
         //Convert object with only primitives
-        BagOfThings testObject1 = converter.toJava(JSON_PRIMITIVES);
+        BagOfThings testObject1 = converter.toJava("{" + JSON_PRIMITIVES1 + "," + JSON_PRIMITIVES2 + "}");
         assertEquals("Primitive JSON to Java", testObject1, BAG_OF_PRIMITIVES);
 
-        //Convert an object with an object in.
-        BagOfThings testObject2 = converter.toJava(JSON_WITH_OBJECT);
+        //Convert an object with an object in it.
+        BagOfThings testObject2 = converter.toJava("{" + JSON_PRIMITIVES1 + "," + JSON_PRIMITIVES1 + "," + JSON_OBJECT + "}");
         assertEquals("JSON with object to Java", testObject2.value1, BAG_WITH_OBJECT.value1);
         assertEquals("JSON with object to Java", testObject2.value2, BAG_WITH_OBJECT.value2);
         //The object will become a LinkedTreeMap. We could also test if it contains the right values, but this might be overkill.
@@ -36,11 +38,13 @@ public class JsonJavaConverterTest extends AndroidTestCase {
 
     public void testToJson() {
         //An object with only primitive fields and a Null object field. The null object should be ignored
-        assertEquals("Primitive Java to Json", JSON_PRIMITIVES, converter.toJson(BAG_OF_PRIMITIVES));
+        assertTrue("Primitive Java to Json", converter.toJson(BAG_OF_PRIMITIVES).contains(JSON_PRIMITIVES1));
+        assertTrue("Primitive Java to Json", converter.toJson(BAG_OF_PRIMITIVES).contains(JSON_PRIMITIVES2));
 
         //An object with at least one field that is an object
         String json = converter.toJson(BAG_WITH_OBJECT);
-        assertEquals("Bag with object to Json", JSON_WITH_OBJECT, json);
+        //The order in which the parameters appear int the object value doesn't matter
+        assertTrue("Bag with object to Json", json.contains(JSON_OBJECT) || json.contains(JSON_OBJECT_REVERSE));
     }
 
     private static class BagOfThings {
