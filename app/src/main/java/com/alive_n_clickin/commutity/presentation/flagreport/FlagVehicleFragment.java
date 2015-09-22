@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,8 @@ import java.util.ArrayList;
  */
 public class FlagVehicleFragment extends Fragment {
     FlagClicked mCallback;
+    final static String ARG_POSITION = "position";
+    int mCurrentPosition = -1;
 
     public interface FlagClicked{
         public void sendFlagDetailData(FlagButton buttonData, String busData); //TODO busData needs more specific info (line number etc)
@@ -68,6 +71,23 @@ public class FlagVehicleFragment extends Fragment {
                 //detailIntent.putExtra(Intent.EXTRA_TEXT, button.getDescription());
                 //detailIntent.putExtra("line_image_id", lineNumberImageID);
                 //startActivity(detailIntent);
+
+
+                // Create fragment and give it an argument specifying the article it should show
+                FlagVehicleDetail detailFragment = new FlagVehicleDetail();
+                Bundle args = new Bundle();
+                args.putInt(FlagVehicleDetail.ARG_POSITION, mCurrentPosition);
+                detailFragment.setArguments(args);
+
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+// Replace whatever is in the fragment_container view with this fragment,
+// and add the transaction to the back stack so the user can navigate back
+                transaction.replace(R.id.content_frame, detailFragment);
+                transaction.addToBackStack(null);
+
+// Commit the transaction
+                transaction.commit();
             }
         });
 

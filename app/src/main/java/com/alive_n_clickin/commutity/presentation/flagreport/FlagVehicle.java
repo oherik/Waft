@@ -1,5 +1,6 @@
 package com.alive_n_clickin.commutity.presentation.flagreport;
 
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,7 +8,7 @@ import android.view.MenuItem;
 
 import com.example.erik.commutity.R;
 
-public class FlagVehicle extends AppCompatActivity implements FlagVehicleFragment.FlagClicked{
+public class FlagVehicle extends FragmentActivity implements FlagVehicleFragment.FlagClicked{
         @Override
         public void  sendFlagDetailData(FlagButton buttonData, String busData){
             FlagVehicleDetail  detailFragment = (FlagVehicleDetail)
@@ -19,6 +20,13 @@ public class FlagVehicle extends AppCompatActivity implements FlagVehicleFragmen
         protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flag_vehicle);
+            if (findViewById(R.id.content_frame) != null) {
+                if (savedInstanceState != null) {
+                    return;
+                }
+                FlagVehicleFragment flagFragment = new FlagVehicleFragment();
+                getSupportFragmentManager().beginTransaction().add(R.id.content_frame, flagFragment).commit();
+        }
     }
 
 
