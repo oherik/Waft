@@ -1,7 +1,6 @@
 package com.alive_n_clickin.commutity.presentation.flagreport;
 
-import android.app.Activity;
-import android.net.Uri;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -10,41 +9,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.erik.commutity.R;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
+ * A class for showing the detailed view when flagging a vehicle
+ */
 
- * to handle interaction events.
- *
- */
-/*
- Use the {@link FlagVehicleDetailFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class FlagVehicleDetailFragment extends Fragment {
     final static String ARG_POSITION = "position";
     int mCurrentPosition = -1;
-
-    private final String LOG_TAG = FlagVehicleDetailFragment.class.getSimpleName();
+    private final String LOG_TAG = FlagVehicleDetailFragment.class.getSimpleName(); //TODO for error printing
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-        // If activity recreated (such as from screen rotate), restore
-        // the previous article selection set by onSaveInstanceState().
-        // This is primarily necessary when in the two-pane layout.
         if (savedInstanceState != null) {
             mCurrentPosition = savedInstanceState.getInt(ARG_POSITION);
         }
 
-        // Inflate the layout for this fragment
+        // Layout inflation
         View view =  inflater.inflate(R.layout.fragment_flag_vehicle_detail, container, false);
         Button sendButton = (Button) view.findViewById(R.id.flagDetailSendButton);
         sendButton.setOnClickListener(new View.OnClickListener()
@@ -52,7 +40,11 @@ public class FlagVehicleDetailFragment extends Fragment {
             @Override
             public void onClick(View v)
             {
-                Toast.makeText(getActivity().getApplicationContext(), "Test ok",
+                View rootView = getActivity().findViewById(android.R.id.content);
+                TextView description = (TextView) rootView.findViewById(R.id.flagDetailDescription);
+                String toastText = description.getText().toString();
+
+                Toast.makeText(getActivity().getApplicationContext(), "Flag sent: " + toastText,
                         Toast.LENGTH_SHORT).show();
                 //TODO send request here
 
@@ -73,20 +65,24 @@ public class FlagVehicleDetailFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
-        // During startup, check if there are arguments passed to the fragment.
-        // onStart is a good place to do this because the layout has already been
-        // applied to the fragment at this point so we can safely call the method
-        // below that sets the article text.
+        //Get arguments sent by the starting class
         Bundle args = getArguments();
         if (args != null) {
             // Set article based on argument passed in
-        } else if (mCurrentPosition != -1) {
-            // Set article based on saved instance state define
         }
+        View rootView = getActivity().findViewById(android.R.id.content);
+        //Set data
+
+        TextView description = (TextView) rootView.findViewById(R.id.flagDetailDescription);
+        description.setText(args.getString("flag_description"));
+        ImageView flagImageView = (ImageView) rootView.findViewById(R.id.flagDetailImage);
+        int flagImageID = args.getInt("flag_image_ID");
+        Log.e(LOG_TAG, "FFASDASDASD " + flagImageID);
+        Drawable flagImage = getActivity().getResources().getDrawable(flagImageID);
+        flagImageView.setImageDrawable(flagImage);
+        //TODO add more data
+
     }
-
-
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -95,9 +91,4 @@ public class FlagVehicleDetailFragment extends Fragment {
         // Save the current article selection in case we need to recreate the fragment
         outState.putInt(ARG_POSITION, mCurrentPosition);
     }
-
-    public void setFlagData(FlagButton button, String busData){
-
-    }
-
 }

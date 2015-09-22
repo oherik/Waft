@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +17,14 @@ import com.example.erik.commutity.R;
 import java.util.ArrayList;
 
 /**
- * A placeholder fragment containing a simple view.
+ * The view with several different flags available for the user to flag vehicles. Launches a detailed
+ * view when the user clicks on a flag
  */
 public class FlagVehicleFragment extends Fragment {
-    FlagClicked mCallback;
     final static String ARG_POSITION = "position";
     int mCurrentPosition = -1;
 
-    public interface FlagClicked{
-        public void sendFlagDetailData(FlagButton buttonData, String busData); //TODO busData needs more specific info (line number etc)
-    }
+    private final String LOG_TAG = FlagVehicleFragment.class.getSimpleName();
 
     private FlagViewAdapter flagAdapter;
     private ArrayList<FlagButton> flagButtons;
@@ -60,23 +59,29 @@ public class FlagVehicleFragment extends Fragment {
                 Context currentContext = getActivity().getApplicationContext();
                 FlagButton button = flagAdapter.getItem(i);
 
+                //Prepare arguments
                 FlagVehicleDetailFragment detailFragment = new FlagVehicleDetailFragment();
                 Bundle args = new Bundle();
                 args.putInt(FlagVehicleDetailFragment.ARG_POSITION, mCurrentPosition);
+
+                //Add flag data
+                args.putInt("flag_image_ID", button.getImageID());
+                args.putString("flag_description", button.getDescription());
+                args.putString("bus_data", busData);        //TODO redo
+                args.putInt("flag_type", button.getType().hashCode());  //TODO redo
+                Log.e(LOG_TAG, "FFASDASDASD innan " + button.getImageID());
                 detailFragment.setArguments(args);
 
+                //Switch view
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-
-// Replace whatever is in the fragment_container view with this fragment,
-// and add the transaction to the back stack so the user can navigate back
                 transaction.replace(R.id.content_frame, detailFragment);
                 transaction.addToBackStack(null);
-
-// Commit the transaction
                 transaction.commit();
+
             }
         });
 
         return rootView;
     }
+
 }

@@ -7,13 +7,11 @@ import android.view.MenuItem;
 
 import com.example.erik.commutity.R;
 
-public class FlagVehicle extends FragmentActivity implements FlagVehicleFragment.FlagClicked{
-        @Override
-        public void  sendFlagDetailData(FlagButton buttonData, String busData){
-            FlagVehicleDetailFragment detailFragment = (FlagVehicleDetailFragment)
-                    getSupportFragmentManager().findFragmentById(R.id.flagDetail);
-                detailFragment.setFlagData(buttonData, busData);
-                }
+/**
+ * The main activity for the flag setting tool
+ */
+public class FlagVehicle extends FragmentActivity {
+    private final String LOG_TAG = FragmentActivity.class.getSimpleName();
 
         @Override
         protected void onCreate (Bundle savedInstanceState){
