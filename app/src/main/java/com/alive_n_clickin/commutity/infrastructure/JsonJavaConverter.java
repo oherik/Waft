@@ -3,6 +3,7 @@ package com.alive_n_clickin.commutity.infrastructure;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * @author hjorthjort
@@ -29,5 +30,10 @@ public class JsonJavaConverter<T> {
             Log.e(LOG_TAG, "Stack Overflow: Is there a circular reference in the object you tried to parse? https://sites.google.com/site/gson/gson-user-guide#TOC-Object-Examples", e);
             throw e;
         }
+    }
+
+    public String toPrettyJson(String json) {
+        Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
+        return prettyGson.toJson(GSON.fromJson(json, classType));
     }
 }
