@@ -4,11 +4,13 @@ General Definition of Done
 Documentation
 -------------
 
-All classes should be documented. Things that should be there
+All classes should be documented except test classes where it's optional. Things that should be there:
 
 * A brief class description.
 * Javadoc for public metods and fields. This should simply describe the contract of the method: What does it need, and what will it do.
 * A Markdown document describing any *module* consisting of a couple of classes, that has specific purpose.
+
+
 
 Automated Testing
 -----------------
