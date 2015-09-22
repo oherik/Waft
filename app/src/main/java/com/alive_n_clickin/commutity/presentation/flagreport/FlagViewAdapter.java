@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.erik.commutity.R;
+import com.alive_n_clickin.commutity.R;
 
 import java.util.ArrayList;
 import java.util.List;
