@@ -31,7 +31,7 @@ public class ApiConnection {
      * @return null if the connection didn't work
      * @throws MalformedURLException if the query parameter is invalid.
      */
-    protected String sendGetToElectricity(String query) throws MalformedURLException {
+    protected String sendGetToElectricity(String query) {
         Uri.Builder uriBuilder = Uri.parse(BASE_URL_ELECTRICITY).buildUpon();
         uriBuilder.encodedQuery(query);
         Uri uri = uriBuilder.build();
