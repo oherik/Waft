@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.alive_n_clickin.commutity.presentation.flagreport.FlagVehicleDetail"
+    android:weightSum="100"
+    android:padding="20dp"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:gravity="center"
+        android:id="@+id/flagDetailDescription"
+        android:layout_gravity="center_horizontal" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:id="@+id/flagLineNumberImage"
+        android:layout_gravity="right" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/flagDetailImage"
+        android:layout_gravity="left"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="60"
+        android:text="@string/flag_comment"
+        android:id="@+id/flagDetailCommentField"
+        android:layout_gravity="center"
+        android:gravity="top"
+        android:textIsSelectable="true"
+        android:padding="10dp"
+        android:background="@android:color/white"
+        android:layout_margin="5dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="20"
+        android:text="@string/flag_send"
+        android:id="@+id/flagDetailSendButton"
+        android:layout_gravity="center_horizontal|bottom"
+        android:textSize="40dp"
+        android:background="@android:color/holo_blue_light"
+        android:textColor="@android:color/white"
+        android:padding="10dp" />
+
+</LinearLayout>
