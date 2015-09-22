@@ -1,4 +1,4 @@
-package com.hjorthjort.commutity.util;
+package com.alive_n_clickin.commutity.util;
 
 /**
  * @author hjorthjort
