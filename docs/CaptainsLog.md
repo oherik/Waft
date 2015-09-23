@@ -27,6 +27,8 @@ Coding Dicipline
 * Coding dicipline is really hard to balance with a get-it-done attitude. Between planning ahead, doing refactoring and writing good tests, a lot of time goes by. I think something's gotta give.
 * Another thing I have a problem with is keeping code to the minimum. I implement a lot of things that might not be absolutely necessary. Many "nice to haves", so to speak. This follow from my planning, and these classes might be useful later. But I should probably build according to immediate need first. Check myself more often. I did, and I thought "is what I'm doing *really* adding value to the release?" a few times, with the answer "possibly no". But still, it seemed like a good coding choice.
 
+In general, I have a hard time *not* adding extra complexity as I'm developing. I really need to hold complexity to a *minimum*, even if I'm making things "hacky" in the process
+
 Frameworks
 ----------
 
