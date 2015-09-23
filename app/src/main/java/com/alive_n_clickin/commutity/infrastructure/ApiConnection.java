@@ -17,8 +17,9 @@ import java.util.Scanner;
  *         Created 22/09/15
  *
  * For connecting to different API:s. Allows abstraction by letting us send only the query parameters to the api we want, not bothering about authentication and the likes.
+ * ApiConnection is package private: no need for layers higher up to use it directly!
  */
-public class ApiConnection {
+class ApiConnection {
 
     private static final String BASE_URL_ELECTRICITY = "https://ece01.ericsson.net:4443/ecity";
     //Username and password, base64 encoded
