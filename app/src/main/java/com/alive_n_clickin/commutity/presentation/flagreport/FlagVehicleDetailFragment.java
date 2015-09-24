@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alive_n_clickin.commutity.R;
-import com.alive_n_clickin.commutity.application.HttpPostRequest;
+import com.alive_n_clickin.commutity.application.HttpRequest;
 
 
 /**
@@ -105,13 +105,9 @@ public class FlagVehicleDetailFragment extends Fragment {
             comment="";
         }
 
-        //Set up http client
-        String ipAddress        = "http://95.85.21.47/flags";    //TODO store somewhere else?
-        String query            = String.format("flagType=%s&comment=%s", flagTypeID, comment);
-
         //Call for a request
         AsyncHttpStarter sendRequest = new AsyncHttpStarter();
-        sendRequest.execute(ipAddress, query);
+        sendRequest.execute(String.valueOf(flagTypeID), comment);
     }
 
     /**
@@ -121,8 +117,8 @@ public class FlagVehicleDetailFragment extends Fragment {
     public class AsyncHttpStarter extends AsyncTask<String, Void, Integer> {
         @Override
         protected Integer doInBackground(String... params) {
-            HttpPostRequest request = new HttpPostRequest();
-            request.sendRequest(params);
+            HttpRequest request = new HttpRequest();
+            request.postFlag(Integer.valueOf(params[0]), params[1]);
             return new Integer(request.getServerResponseCode());
         }
         @Override

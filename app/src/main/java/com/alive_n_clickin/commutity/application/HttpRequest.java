@@ -18,14 +18,18 @@ import java.nio.charset.StandardCharsets;
  * An async task handling the network connection, since this cannot be done on the main activity
  * thread. Accepts an URL and a query string.
  */
-public class HttpPostRequest {
+public class HttpRequest {
     private final String LOG_TAG        = FlagVehicleDetailFragment.class.getSimpleName();
     private int serverResponseCode;
-    public Void sendRequest(String... urls) {
-        //Get parameters
-        String ipAddress        = urls[0];
-        String query            = urls[1];
+    private final String baseIP = "http://95.85.21.47";
 
+    public void postFlag(int flagTypeID, String comment){
+        String ipAddress = baseIP + "/flags";
+        String query = String.format("flagType=%s&comment=%s", flagTypeID, comment);
+        post(ipAddress, query);
+    }
+
+    public Void post(String ipAddress, String query) {
         //Define variables
         String charset          = "UTF-8";
         String contentType      = "application/x-www-form-urlencoded";
