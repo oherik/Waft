@@ -38,6 +38,11 @@ public class WifiHelper {
         getWifiManager(context).startScan();
     }
 
+    public WifiInfo getCurrentWifiConnection(Context context) {
+        WifiManager wifiManager = getWifiManager(context);
+        return wifiManager.getConnectionInfo();
+    }
+
     /**
      * Get objects representing all nearby wifis, with MAC Address (BSSID), Name (SSID) and more. See
      * {@link ScanResult} for all available fields
