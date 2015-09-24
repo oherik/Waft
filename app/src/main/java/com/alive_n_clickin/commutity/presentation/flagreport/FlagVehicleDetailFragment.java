@@ -1,6 +1,7 @@
 package com.alive_n_clickin.commutity.presentation.flagreport;
 
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -14,39 +15,40 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alive_n_clickin.commutity.R;
+import com.alive_n_clickin.commutity.application.HttpRequest;
+
 
 /**
  * A class for showing the detailed view when flagging a vehicle
  */
 
 public class FlagVehicleDetailFragment extends Fragment {
-    final static String ARG_POSITION = "position";
-    int mCurrentPosition = -1;
-    private final String LOG_TAG = FlagVehicleDetailFragment.class.getSimpleName(); //TODO for error printing
+    final static String ARG_POSITION    = "position";
+    int mCurrentPosition                = -1;
+    private final String LOG_TAG        = FlagVehicleDetailFragment.class.getSimpleName();
+    int flagTypeID;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        if (savedInstanceState != null) {
-            mCurrentPosition = savedInstanceState.getInt(ARG_POSITION);
+        if (savedInstanceState  != null) {
+            mCurrentPosition    = savedInstanceState.getInt(ARG_POSITION);
         }
 
         // Layout inflation
-        View view =  inflater.inflate(R.layout.fragment_flag_vehicle_detail, container, false);
-        Button sendButton = (Button) view.findViewById(R.id.flagDetailSendButton);
-        sendButton.setOnClickListener(new View.OnClickListener()
-        {
+        View view               =  inflater.inflate(R.layout.fragment_flag_vehicle_detail,
+                container, false);
+        Button sendButton       = (Button) view.findViewById(R.id.flagDetailSendButton);
+        sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 View rootView = getActivity().findViewById(android.R.id.content);
-                TextView description = (TextView) rootView.findViewById(R.id.flagDetailDescription);
-                String toastText = description.getText().toString();
+                TextView commentView = (TextView) rootView.findViewById(R.id.flagDetailCommentField);
 
-                Toast.makeText(getActivity().getApplicationContext(), "Flag sent: " + toastText,
-                        Toast.LENGTH_SHORT).show();
-                //TODO send request here
+                //Send request
+                setUpHttpRequest(commentView.getText().toString(), flagTypeID);
 
                 //Change back to the previous view
                 FlagVehicleFragment flagFragment = new FlagVehicleFragment();
@@ -65,21 +67,21 @@ public class FlagVehicleDetailFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
         //Get arguments sent by the starting class
         Bundle args = getArguments();
-        if (args != null) {
-            // Set article based on argument passed in
-        }
-        View rootView = getActivity().findViewById(android.R.id.content);
-        //Set data
 
-        TextView description = (TextView) rootView.findViewById(R.id.flagDetailDescription);
+        //Set images, text etc
+        View rootView           = getActivity().findViewById(android.R.id.content);
+        TextView description    = (TextView) rootView.findViewById(R.id.flagDetailDescription);
         description.setText(args.getString("flag_description"));
         ImageView flagImageView = (ImageView) rootView.findViewById(R.id.flagDetailImage);
-        int flagImageID = args.getInt("flag_image_ID");
-        Log.e(LOG_TAG, "FFASDASDASD " + flagImageID);
-        Drawable flagImage = getActivity().getResources().getDrawable(flagImageID);
+        int flagImageID         = args.getInt("flag_image_ID");
+        Drawable flagImage      = getActivity().getResources().getDrawable(flagImageID);
         flagImageView.setImageDrawable(flagImage);
+
+        //Set additional data
+        flagTypeID = args.getInt("flag_type_ID");
         //TODO add more data
 
     }
@@ -90,5 +92,59 @@ public class FlagVehicleDetailFragment extends Fragment {
 
         // Save the current article selection in case we need to recreate the fragment
         outState.putInt(ARG_POSITION, mCurrentPosition);
+    }
+
+    /**
+     * Send the flag info to the server
+     * @param comment   The user submitted extra information
+     * @param flagTypeID  The type of flag
+     */
+    private void setUpHttpRequest(String comment, int flagTypeID){
+        //If the query doesn't accept null
+        if(comment == null){
+            comment="";
+        }
+
+        //Call for a request
+        AsyncHttpStarter sendRequest = new AsyncHttpStarter();
+        sendRequest.execute(String.valueOf(flagTypeID), comment);
+    }
+
+    /**
+     * An async task handling the network connection, since this cannot be done on the main activity
+     * thread. Accepts an URL and a query string. Calls for a controller to do the main work.
+     */
+    public class AsyncHttpStarter extends AsyncTask<String, Void, Integer> {
+        @Override
+        protected Integer doInBackground(String... params) {
+            HttpRequest request = new HttpRequest();
+            request.postFlag(Integer.valueOf(params[0]), params[1]);
+            return new Integer(request.getServerResponseCode());
+        }
+        @Override
+        protected void onPostExecute(Integer result){
+            displayServerToast(result.intValue());
+        }
+
+        /**
+         * What to do after the request, i.e. show a message if it has failed or not
+         * @param serverResponseCode    The result from the background task
+         */
+        private void displayServerToast(Integer serverResponseCode) {
+            int responseCode = serverResponseCode.intValue();
+            String toastText;
+            switch (responseCode){
+                case 400:
+                    Log.e(LOG_TAG, "Server error " + responseCode);
+                    toastText = "Server error " + responseCode + ". Could not send flag.";
+                    break;
+                default:
+                    toastText = "Flag sent.";
+                    break;
+            }
+            //Make toast to alert the user of this
+            Toast.makeText(getActivity().getApplicationContext(), toastText,
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 }
