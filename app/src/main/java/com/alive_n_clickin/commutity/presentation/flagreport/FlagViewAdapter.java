@@ -60,19 +60,19 @@ public class FlagViewAdapter extends BaseAdapter  {
 
         if(convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(currentContext);
-            currentView = inflater.inflate(R.layout.flag_button_layout, parent, false);
+            currentView             = inflater.inflate(R.layout.flag_button_layout, parent, false);
 
-            flagHolder = new Holder();
-            flagHolder.flagText = (TextView) currentView.findViewById(R.id.flagText);
-            flagHolder.flagImage = (ImageView) currentView.findViewById(R.id.flagImage);
+            flagHolder              = new Holder();
+            flagHolder.flagText     = (TextView) currentView.findViewById(R.id.flagText);
+            flagHolder.flagImage    = (ImageView) currentView.findViewById(R.id.flagImage);
             currentView.setTag(flagHolder);
         } else {
             //Flag holder already exist, retrieve it from the view's tag
             flagHolder = (Holder) convertView.getTag();
         }
 
-        FlagButton button = flags.get(position);
-        Drawable flagImage = currentContext.getResources().getDrawable(button.getImageID());
+        FlagButton button   = flags.get(position);
+        Drawable flagImage  = currentContext.getResources().getDrawable(button.getImageID());
         flagHolder.flagImage.setImageDrawable(flagImage);
         flagHolder.flagText.setText(button.getDescription());
         return currentView;
