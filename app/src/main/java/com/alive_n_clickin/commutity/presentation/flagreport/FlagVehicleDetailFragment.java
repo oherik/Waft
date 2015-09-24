@@ -56,9 +56,6 @@ public class FlagVehicleDetailFragment extends Fragment {
                 //Send request
                 setUpHttpRequest(commentView.getText().toString(), flagTypeID);
 
-                //Make toast to alert the user of this
-                Toast.makeText(getActivity().getApplicationContext(), "Flag sent",
-                        Toast.LENGTH_SHORT).show();
 
                 //Change back to the previous view
                 FlagVehicleFragment flagFragment = new FlagVehicleFragment();
@@ -118,15 +115,17 @@ public class FlagVehicleDetailFragment extends Fragment {
         //Set up http client
         String ipAddress        = "http://95.85.21.47/flags";    //TODO store somewhere else?
         String query            = String.format("flagType=%s&comment=%s",flagTypeID,comment);
-        new SendHttpRequest().execute(ipAddress, query);
+        SendHttpRequest request = new SendHttpRequest();
+        request.execute(ipAddress, query);
+
     }
 
     /**
      * An async task handling the network connection, since this cannot be done on the main activity
      * thread. Accepts an URL and a query string.
      */
-    private class SendHttpRequest extends AsyncTask<String, Void, String> {
-        protected String doInBackground(String... urls) {
+    private class SendHttpRequest extends AsyncTask<String, Void, Integer> {
+        protected Integer doInBackground(String... urls) {
             //Get parameters
             String ipAddress        = urls[0];
             String query            = urls[1];
@@ -160,7 +159,7 @@ public class FlagVehicleDetailFragment extends Fragment {
                 int status = serverConnection.getResponseCode();
                 Log.v(LOG_TAG,"Response " + status);
 
-                return String.valueOf(status);
+                return new Integer(status);
 
             } catch(MalformedURLException e){
                 Log.e(LOG_TAG, "Invalid URL. Current URL input was " + ipAddress +
@@ -169,6 +168,28 @@ public class FlagVehicleDetailFragment extends Fragment {
                 Log.e(LOG_TAG, "Could not connect to server. Error message: " +e);
             }
             return null;
+        }
+
+        /**
+         * What to do after the request, i.e. show a message if it has failed or not
+         * @param result    The result from the background task
+         */
+        protected void onPostExecute(Integer result) {
+            int responseCode = result.intValue();
+            String toastText;
+           switch (responseCode){
+               case 400:
+                   Log.e(LOG_TAG,  "Server error " + responseCode);
+                   toastText = "Server error " + responseCode + ". Could not send flag.";
+                   break;
+               default:
+                   toastText = "Flag sent.";
+                   break;
+           }
+            //Make toast to alert the user of this
+            Toast.makeText(getActivity().getApplicationContext(), toastText,
+                    Toast.LENGTH_SHORT).show();
+
         }
     }
 }
