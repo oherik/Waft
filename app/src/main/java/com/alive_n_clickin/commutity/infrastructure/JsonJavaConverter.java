@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 /**
  * @author hjorthjort
  *         Created 22/09/15
+ * Methods for parsing JSON in to Java Objects of a given class, and vice versa
  */
 public class JsonJavaConverter<T> {
     
@@ -14,14 +15,28 @@ public class JsonJavaConverter<T> {
     private static final Gson GSON = new Gson();
     private final Class<T> classType;
 
+    /**
+     * Create a converter that will be able to parse and return objects of a certain type
+     * @param classType The Class object for the class which the converter will be able to work with
+     */
     public JsonJavaConverter(Class<T> classType) {
         this.classType = classType;
     }
 
+    /**
+     * Take a JSON object an turn it into an object of the type matching the class of the converter
+     * @param json
+     * @return
+     */
     public T toJava(String json) {
         return GSON.fromJson(json, classType);
     }
 
+    /**
+     * Turn a Java object into a JSON object.
+     * @param object
+     * @return
+     */
     public String toJson(T object) {
         try {
             return GSON.toJson(object);
