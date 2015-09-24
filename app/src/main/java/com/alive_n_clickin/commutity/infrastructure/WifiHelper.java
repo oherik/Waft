@@ -38,6 +38,11 @@ public class WifiHelper {
         getWifiManager(context).startScan();
     }
 
+    /**
+     * Get information on the WiFi the device is connected to.
+     * @param context
+     * @return
+     */
     public WifiInfo getCurrentWifiConnection(Context context) {
         WifiManager wifiManager = getWifiManager(context);
         return wifiManager.getConnectionInfo();
