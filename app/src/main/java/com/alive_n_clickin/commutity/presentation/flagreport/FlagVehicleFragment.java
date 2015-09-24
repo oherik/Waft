@@ -93,6 +93,7 @@ public class FlagVehicleFragment extends Fragment {
             public void onClick(View v) {
 
                 //TODO Debug to find out why the isWifiEnabled never gives true.
+                //Works on my physical device –Rikard
                 if(WifiHelper.getInstance().isWifiEnabled(getContext())){
                     String bestGuess = NearbyVehiclesScanner.getInstance().getBestGuess(getContext());
                     TextView textView = (TextView) rootView.findViewById(R.id.textViewBusInformation);
