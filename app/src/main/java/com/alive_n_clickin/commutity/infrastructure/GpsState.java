@@ -7,22 +7,26 @@ import android.location.LocationManager;
 /**
  * Created by OscarEvertsson on 24/09/15.
  */
-public class GpsState implements IGpsState {
-    private IGpsState instance = null;
+public class GpsState {
+    private static GpsState instance = null;
     private Location location;
     private LocationManager locationManager = null;
 
     private GpsState() {
     }
 
-    public IGpsState getInstance() {
-        if (this.instance == null) {
-            this.instance = new GpsState();
+
+    public static GpsState getInstance() {
+        if (instance == null) {
+            instance = new GpsState();
         }
-        return this.instance;
+        return instance;
     }
 
-    @Override
+    /**
+     * Fetches the last location and returns it.
+     * @return current location.
+     */
     public Location getLastLocation(Context context) {
         try {
             if (this.locationManager == null){
