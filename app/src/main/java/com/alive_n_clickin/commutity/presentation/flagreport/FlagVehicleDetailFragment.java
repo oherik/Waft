@@ -1,7 +1,6 @@
 package com.alive_n_clickin.commutity.presentation.flagreport;
 
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,31 +16,22 @@ import android.widget.Toast;
 
 import com.alive_n_clickin.commutity.R;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
-import javax.net.ssl.HttpsURLConnection;
 
 /**
  * A class for showing the detailed view when flagging a vehicle
  */
 
 public class FlagVehicleDetailFragment extends Fragment {
-    final static String ARG_POSITION = "position";
-    int mCurrentPosition = -1;
-    private final String LOG_TAG = FlagVehicleDetailFragment.class.getSimpleName();
+    final static String ARG_POSITION    = "position";
+    int mCurrentPosition                = -1;
+    private final String LOG_TAG        = FlagVehicleDetailFragment.class.getSimpleName();
     int flagTypeID;
 
 
@@ -49,13 +39,14 @@ public class FlagVehicleDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        if (savedInstanceState != null) {
-            mCurrentPosition = savedInstanceState.getInt(ARG_POSITION);
+        if (savedInstanceState  != null) {
+            mCurrentPosition    = savedInstanceState.getInt(ARG_POSITION);
         }
 
         // Layout inflation
-        View view =  inflater.inflate(R.layout.fragment_flag_vehicle_detail, container, false);
-        Button sendButton = (Button) view.findViewById(R.id.flagDetailSendButton);
+        View view               =  inflater.inflate(R.layout.fragment_flag_vehicle_detail,
+                                    container, false);
+        Button sendButton       = (Button) view.findViewById(R.id.flagDetailSendButton);
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,19 +77,17 @@ public class FlagVehicleDetailFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
         //Get arguments sent by the starting class
         Bundle args = getArguments();
-        if (args != null) {
-            // Set article based on argument passed in //TODO might have to remove
-        }
 
         //Set images, text etc
-        View rootView = getActivity().findViewById(android.R.id.content);
-        TextView description = (TextView) rootView.findViewById(R.id.flagDetailDescription);
+        View rootView           = getActivity().findViewById(android.R.id.content);
+        TextView description    = (TextView) rootView.findViewById(R.id.flagDetailDescription);
         description.setText(args.getString("flag_description"));
         ImageView flagImageView = (ImageView) rootView.findViewById(R.id.flagDetailImage);
-        int flagImageID = args.getInt("flag_image_ID");
-        Drawable flagImage = getActivity().getResources().getDrawable(flagImageID);
+        int flagImageID         = args.getInt("flag_image_ID");
+        Drawable flagImage      = getActivity().getResources().getDrawable(flagImageID);
         flagImageView.setImageDrawable(flagImage);
 
         //Set additional data
@@ -121,14 +110,14 @@ public class FlagVehicleDetailFragment extends Fragment {
      * @param flagTypeID  The type of flag
      */
     private void setUpHttpRequest(String comment, int flagTypeID){
-        //The query doesn't accept null
+        //If the query doesn't accept null
         if(comment == null){
             comment="";
         }
 
         //Set up http client
-        String ipAddress = "http://95.85.21.47/flags";    //TODO store somewhere else?
-        String query = String.format("flagType=%s&comment=%s",flagTypeID,comment);
+        String ipAddress        = "http://95.85.21.47/flags";    //TODO store somewhere else?
+        String query            = String.format("flagType=%s&comment=%s",flagTypeID,comment);
         new SendHttpRequest().execute(ipAddress, query);
     }
 
@@ -138,33 +127,34 @@ public class FlagVehicleDetailFragment extends Fragment {
      */
     private class SendHttpRequest extends AsyncTask<String, Void, String> {
         protected String doInBackground(String... urls) {
-            String ipAddress = urls[0];
-            String urlParameters = urls[1];
+            //Get parameters
+            String ipAddress        = urls[0];
+            String query            = urls[1];
 
-            //String query = urls[1];
+            //Define variables
+            String charset          = "UTF-8";
+            String contentType      = "application/x-www-form-urlencoded";
             try {
-                //Send request
+                //Get the url from the address
                 URL url = new URL(ipAddress);
-                String charset = "UTF-8";
 
                 //Convert the parameters to UTF-8
-                byte[] postData       = urlParameters.getBytes( StandardCharsets.UTF_8 );
-                int    postDataLength = postData.length;
+                byte[] bodyData       = query.getBytes(StandardCharsets.UTF_8);
+                int    bodyDataLength = bodyData.length;
 
                 //Set up server request
                 HttpURLConnection serverConnection= (HttpURLConnection) url.openConnection();
                 serverConnection.setDoOutput(true);
                 serverConnection.setInstanceFollowRedirects(false);
                 serverConnection.setRequestMethod("POST");
-                serverConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                serverConnection.setRequestProperty("Content-Type", contentType);
                 serverConnection.setRequestProperty("charset", charset);
-                serverConnection.setRequestProperty("Content-Length", Integer.toString(postDataLength));
+                serverConnection.setRequestProperty("Content-Length", Integer.toString(bodyDataLength));
                 serverConnection.setUseCaches(false);
 
                 //Send data
-                try( DataOutputStream wr = new DataOutputStream( serverConnection.getOutputStream())) {
-                    wr.write( postData );
-                }
+                DataOutputStream serverOutput = new DataOutputStream(serverConnection.getOutputStream());
+                serverOutput.write(bodyData);
 
                 //Log response code
                 int status = serverConnection.getResponseCode();
