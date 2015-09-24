@@ -61,6 +61,7 @@ public class FlagVehicleFragment extends Fragment {
             /* The user clicked on an entry */
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //TODO Move all this to a background service that posts when it finds a bus.
                 Context currentContext = getActivity().getApplicationContext();
                 FlagButton button = flagAdapter.getItem(i);
 
@@ -72,7 +73,8 @@ public class FlagVehicleFragment extends Fragment {
                 //Add flag data
                 args.putInt("flag_image_ID", button.getImageID());
                 args.putString("flag_description", button.getDescription());
-                args.putString("bus_data", busData);        //TODO redo
+                busData = NearbyVehiclesScanner.getInstance().getBestGuess(currentContext);
+                args.putString("bus_data", busData);
                 args.putInt("flag_type_ID", button.getType().flagTypeID);
                 detailFragment.setArguments(args);
 
