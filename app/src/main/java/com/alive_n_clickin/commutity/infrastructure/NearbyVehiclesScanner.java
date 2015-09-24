@@ -66,8 +66,11 @@ public class NearbyVehiclesScanner {
     public String getBestGuess(Context context) {
         WifiHelper wifiHelper = WifiHelper.getInstance();
         WifiInfo wifiInfo = wifiHelper.getCurrentWifiConnection(context);
-        if (wifiInfo.getBSSID() != null && !wifiInfo.getBSSID().equals("00:00:00:00:00:00")) {
-            return VEHICHLE_ADDRESSES.get(wifiInfo.getBSSID());
+        String bssid = wifiInfo.getBSSID();
+        if (bssid != null && !bssid.equals("00:00:00:00:00:00")) {
+            if (VEHICHLE_ADDRESSES.containsKey(bssid)) {
+                return VEHICHLE_ADDRESSES.get(wifiInfo.getBSSID());
+            }
         }
 
         List<ScanResult> scanResults = wifiHelper.getNearbyMacAddresses(context);
