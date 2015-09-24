@@ -8,8 +8,10 @@ import com.google.gson.Gson;
  * @author hjorthjort
  *         Created 22/09/15
  * Methods for parsing JSON in to Java Objects of a given class, and vice versa
+ *
+ * Package private, this class handles low level functionality, and should not be visible to other packages.
  */
-public class JsonJavaConverter<T> {
+class JsonJavaConverter<T> {
     
     private final String LOG_TAG = this.getClass().getSimpleName();
     private static final Gson GSON = new Gson();
