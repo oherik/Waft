@@ -31,6 +31,16 @@ public class WifiHelper {
     }
 
     /**
+     * Checks whether or not the wifi is enabled.
+     * @param context
+     * @return true if wifi is enabled or false when disabled.
+     */
+    public boolean isWifiEnabled(Context context) {
+        WifiManager wifiManager = getWifiManager(context);
+        return wifiManager.isWifiEnabled();
+    }
+
+    /**
      * Initate a scan for wifis to make them up to date
      * @param context
      */
