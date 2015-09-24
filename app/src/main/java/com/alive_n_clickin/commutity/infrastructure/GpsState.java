@@ -1,13 +1,17 @@
 package com.alive_n_clickin.commutity.infrastructure;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 
 /**
- * Created by OscarEvertsson on 24/09/15.
+ *
  */
 public class GpsState implements LocationListener{
     private static GpsState instance;
@@ -31,19 +35,14 @@ public class GpsState implements LocationListener{
 
     public Location getLocation(Context context){
         if (locationManager == null){
-            try {
-                locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
+            locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         }
 
         isGpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
         if(!isNetworkEnabled && !isGpsEnabled) {
-            //Cant do shit
+            showNetworkAndGpsDisabledMessage(context);
         } else {
             if(isNetworkEnabled) {
                 try{
@@ -52,7 +51,6 @@ public class GpsState implements LocationListener{
                             MIN_TIME_BW_UPDATES_IN_MILLSECONDS,
                             MIN_DISTANCE_CHANGE_FOR_UPDATE_IN_METERS,
                             this);
-
                     this.location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                 } catch (SecurityException e) {
                     e.printStackTrace();
@@ -97,5 +95,22 @@ public class GpsState implements LocationListener{
     @Override
     public void onProviderDisabled(String provider) {
 
+    }
+
+    private void showNetworkAndGpsDisabledMessage(final Context context){
+        AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+        alertDialog.setTitle("Can't receive coordinates");
+        alertDialog.setMessage("Please turn on your internet connection and gps position");
+        alertDialog.setButton(1, "OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Intent i = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
+                context.startActivity(i);
+            }
+        });
+        alertDialog.setButton(0, "No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
     }
 }
