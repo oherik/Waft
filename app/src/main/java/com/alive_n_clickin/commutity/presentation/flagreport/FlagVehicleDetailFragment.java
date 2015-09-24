@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.erik.commutity.R;
+import com.alive_n_clickin.commutity.R;
 
 /**
  * A class for showing the detailed view when flagging a vehicle
