@@ -38,6 +38,7 @@ public class FlagVehicleFragment extends Fragment {
         flagButtons.add(new FlagButton(R.drawable.full, "Full", FlagType.FULL));
         flagButtons.add(new FlagButton(R.drawable.full, "Stökig", FlagType.ROWDY));
         flagButtons.add(new FlagButton(R.drawable.full, "Försenad", FlagType.LATE));
+        flagButtons.add(new FlagButton(R.drawable.full, "Övrigt", FlagType.OTHER));
         busData = "55";
 
     }
@@ -67,8 +68,7 @@ public class FlagVehicleFragment extends Fragment {
                 args.putInt("flag_image_ID", button.getImageID());
                 args.putString("flag_description", button.getDescription());
                 args.putString("bus_data", busData);        //TODO redo
-                args.putInt("flag_type", button.getType().hashCode());  //TODO redo
-                Log.e(LOG_TAG, "FFASDASDASD innan " + button.getImageID());
+                args.putInt("flag_type_ID", button.getType().flagTypeID);
                 detailFragment.setArguments(args);
 
                 //Switch view

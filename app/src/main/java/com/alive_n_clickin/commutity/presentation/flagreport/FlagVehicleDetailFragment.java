@@ -1,6 +1,8 @@
 package com.alive_n_clickin.commutity.presentation.flagreport;
 
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -15,6 +17,23 @@ import android.widget.Toast;
 
 import com.alive_n_clickin.commutity.R;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
+import javax.net.ssl.HttpsURLConnection;
+
 /**
  * A class for showing the detailed view when flagging a vehicle
  */
@@ -22,7 +41,9 @@ import com.alive_n_clickin.commutity.R;
 public class FlagVehicleDetailFragment extends Fragment {
     final static String ARG_POSITION = "position";
     int mCurrentPosition = -1;
-    private final String LOG_TAG = FlagVehicleDetailFragment.class.getSimpleName(); //TODO for error printing
+    private final String LOG_TAG = FlagVehicleDetailFragment.class.getSimpleName();
+    int flagTypeID;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,18 +56,18 @@ public class FlagVehicleDetailFragment extends Fragment {
         // Layout inflation
         View view =  inflater.inflate(R.layout.fragment_flag_vehicle_detail, container, false);
         Button sendButton = (Button) view.findViewById(R.id.flagDetailSendButton);
-        sendButton.setOnClickListener(new View.OnClickListener()
-        {
+        sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 View rootView = getActivity().findViewById(android.R.id.content);
-                TextView description = (TextView) rootView.findViewById(R.id.flagDetailDescription);
-                String toastText = description.getText().toString();
+                TextView commentView = (TextView) rootView.findViewById(R.id.flagDetailCommentField);
 
-                Toast.makeText(getActivity().getApplicationContext(), "Flag sent: " + toastText,
+                //Send request
+                setUpHttpRequest(commentView.getText().toString(), flagTypeID);
+
+                //Make toast to alert the user of this
+                Toast.makeText(getActivity().getApplicationContext(), "Flag sent",
                         Toast.LENGTH_SHORT).show();
-                //TODO send request here
 
                 //Change back to the previous view
                 FlagVehicleFragment flagFragment = new FlagVehicleFragment();
@@ -68,18 +89,20 @@ public class FlagVehicleDetailFragment extends Fragment {
         //Get arguments sent by the starting class
         Bundle args = getArguments();
         if (args != null) {
-            // Set article based on argument passed in
+            // Set article based on argument passed in //TODO might have to remove
         }
-        View rootView = getActivity().findViewById(android.R.id.content);
-        //Set data
 
+        //Set images, text etc
+        View rootView = getActivity().findViewById(android.R.id.content);
         TextView description = (TextView) rootView.findViewById(R.id.flagDetailDescription);
         description.setText(args.getString("flag_description"));
         ImageView flagImageView = (ImageView) rootView.findViewById(R.id.flagDetailImage);
         int flagImageID = args.getInt("flag_image_ID");
-        Log.e(LOG_TAG, "FFASDASDASD " + flagImageID);
         Drawable flagImage = getActivity().getResources().getDrawable(flagImageID);
         flagImageView.setImageDrawable(flagImage);
+
+        //Set additional data
+        flagTypeID = args.getInt("flag_type_ID");
         //TODO add more data
 
     }
@@ -90,5 +113,72 @@ public class FlagVehicleDetailFragment extends Fragment {
 
         // Save the current article selection in case we need to recreate the fragment
         outState.putInt(ARG_POSITION, mCurrentPosition);
+    }
+
+    /**
+     * Send the flag info to the server
+     * @param comment   The user submitted extra information
+     * @param flagTypeID  The type of flag
+     */
+    private void setUpHttpRequest(String comment, int flagTypeID){
+        //The query doesn't accept null
+        if(comment == null){
+            comment="";
+        }
+
+        //Set up http client
+        String ipAddress = "http://95.85.21.47/flags";    //TODO store somewhere else?
+        String query = String.format("flagType=%s&comment=%s",flagTypeID,comment);
+        new SendHttpRequest().execute(ipAddress, query);
+    }
+
+    /**
+     * An async task handling the network connection, since this cannot be done on the main activity
+     * thread. Accepts an URL and a query string.
+     */
+    private class SendHttpRequest extends AsyncTask<String, Void, String> {
+        protected String doInBackground(String... urls) {
+            String ipAddress = urls[0];
+            String urlParameters = urls[1];
+
+            //String query = urls[1];
+            try {
+                //Send request
+                URL url = new URL(ipAddress);
+                String charset = "UTF-8";
+
+                //Convert the parameters to UTF-8
+                byte[] postData       = urlParameters.getBytes( StandardCharsets.UTF_8 );
+                int    postDataLength = postData.length;
+
+                //Set up server request
+                HttpURLConnection serverConnection= (HttpURLConnection) url.openConnection();
+                serverConnection.setDoOutput(true);
+                serverConnection.setInstanceFollowRedirects(false);
+                serverConnection.setRequestMethod("POST");
+                serverConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                serverConnection.setRequestProperty("charset", charset);
+                serverConnection.setRequestProperty("Content-Length", Integer.toString(postDataLength));
+                serverConnection.setUseCaches(false);
+
+                //Send data
+                try( DataOutputStream wr = new DataOutputStream( serverConnection.getOutputStream())) {
+                    wr.write( postData );
+                }
+
+                //Log response code
+                int status = serverConnection.getResponseCode();
+                Log.v(LOG_TAG,"Response " + status);
+
+                return String.valueOf(status);
+
+            } catch(MalformedURLException e){
+                Log.e(LOG_TAG, "Invalid URL. Current URL input was " + ipAddress +
+                        ". Error message: " + e);
+            } catch(IOException e){
+                Log.e(LOG_TAG, "Could not connect to server. Error message: " +e);
+            }
+            return null;
+        }
     }
 }
