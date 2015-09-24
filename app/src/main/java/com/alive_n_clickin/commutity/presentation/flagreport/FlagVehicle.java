@@ -5,8 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.erik.commutity.R;
-
+import com.alive_n_clickin.commutity.R;
 /**
  * The main activity for the flag setting tool
  */
