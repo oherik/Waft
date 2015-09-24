@@ -95,31 +95,39 @@ public class FlagVehicleFragment extends Fragment {
                 //TODO Debug to find out why the isWifiEnabled never gives true.
                 //Works on my physical device –Rikard
                 if(WifiHelper.getInstance().isWifiEnabled(getContext())){
-                    String bestGuess = NearbyVehiclesScanner.getInstance().getBestGuess(getContext());
-                    TextView textView = (TextView) rootView.findViewById(R.id.textViewBusInformation);
-                    Log.d(LOG_TAG,"Wifi enabled");
-
-                    if(bestGuess != null){
-                        textView.setText(bestGuess);
-                    } else {
-                        textView.setText("No buses near :(");
-                    }
+                    writeOutBestGuess(rootView);
                 } else {
-                    AlertDialog alertDialog = new AlertDialog.Builder(getContext())
-                        .setTitle("Please turn on your wifi")
-                        .setMessage("To access your current location we need access to your wifi please turn it on :)")
-                        .setPositiveButton("Change Setting", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                WifiHelper.getInstance().enableWifi(getContext());
-                            }
-                        })
-                        .show();
+                    showEnableWifiAlert();
                 }
             }
         });
 
         return rootView;
+    }
+
+    private void writeOutBestGuess(View rootView) {
+        String bestGuess = NearbyVehiclesScanner.getInstance().getBestGuess(getContext());
+        TextView textView = (TextView) rootView.findViewById(R.id.textViewBusInformation);
+        Log.d(LOG_TAG, "Wifi enabled");
+
+        if(bestGuess != null){
+            textView.setText(bestGuess);
+        } else {
+            textView.setText("No buses near :(");
+        }
+    }
+
+    private void showEnableWifiAlert() {
+        AlertDialog alertDialog = new AlertDialog.Builder(getContext())
+                .setTitle("Please turn on your wifi")
+                .setMessage("To access your current location we need access to your wifi please turn it on :)")
+                .setPositiveButton("Change Setting", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        WifiHelper.getInstance().enableWifi(getContext());
+                    }
+                })
+                .show();
     }
 
 }
