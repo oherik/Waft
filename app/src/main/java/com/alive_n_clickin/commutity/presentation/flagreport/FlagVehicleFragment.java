@@ -121,15 +121,15 @@ public class FlagVehicleFragment extends Fragment {
 
     private void showEnableWifiAlert() {
         AlertDialog alertDialog = new AlertDialog.Builder(getContext())
-                .setTitle("Please turn on your wifi")
-                .setMessage("To access your current location we need access to your wifi please turn it on :)")
-                .setPositiveButton("Change Setting", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.enable_wifi_alert_title)
+                .setMessage(R.string.enable_wifi_alert_message)
+                .setPositiveButton(R.string.enable_wifi_alert_yesbutton, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         WifiHelper.getInstance().enableWifi(getContext());
                     }
 
-                }).setNegativeButton("Avbryt", new DialogInterface.OnClickListener() {
+                }).setNegativeButton(R.string.enable_wifi_alert_nobutton, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //Do nothing
