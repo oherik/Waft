@@ -7,19 +7,48 @@
     android:id="@+id/fragmentContainer">
 
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <GridView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/flagGridView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:numColumns="@integer/flag_columns"
-        android:verticalSpacing="5dp"
-        android:horizontalSpacing="5dp"
-        android:stretchMode="columnWidth"
-        android:gravity="center"
-        />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="90dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Large Text"
+                android:id="@+id/textViewBusInformation"
+                android:layout_weight="0.7"
+                android:textAlignment="center"
+                android:gravity="center_vertical" />
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/positionButton"
+                android:layout_weight="0.3"
+                android:background="@drawable/gpsposition" />
+
+        </LinearLayout>
+
+        <GridView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/flagGridView"
+            android:layout_centerHorizontal="true"
+            android:numColumns="@integer/flag_columns"
+            android:verticalSpacing="5dp"
+            android:horizontalSpacing="5dp"
+            android:stretchMode="columnWidth"
+            android:gravity="center"
+            />
+
+    </LinearLayout>
 
 
 </RelativeLayout>
