@@ -23,13 +23,23 @@ public class HttpRequest {
     private int serverResponseCode;
     private final String baseIP = "http://95.85.21.47";
 
+    /**
+     * Posts a new flag to the server
+     * @param flagTypeID    The type of flag
+     * @param comment       The flag comment
+     */
     public void postFlag(int flagTypeID, String comment){
         String ipAddress = baseIP + "/flags";
         String query = String.format("flagType=%s&comment=%s", flagTypeID, comment);
         post(ipAddress, query);
     }
 
-    public Void post(String ipAddress, String query) {
+    /**
+     * Posts a http request to the server
+     * @param ipAddress The ip address, including /flags or similar
+     * @param query The query
+     */
+    public void post(String ipAddress, String query) {
         //Define variables
         String charset          = "UTF-8";
         String contentType      = "application/x-www-form-urlencoded";
@@ -67,7 +77,6 @@ public class HttpRequest {
         } catch(IOException e){
             Log.e(LOG_TAG, "Could not connect to server. Error message: " +e);
         }
-        return null;
     }
 
     public int getServerResponseCode(){
