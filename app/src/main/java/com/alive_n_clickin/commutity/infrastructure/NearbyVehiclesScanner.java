@@ -3,7 +3,6 @@ package com.alive_n_clickin.commutity.infrastructure;
 import android.content.Context;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
-import android.util.Log;
 
 import java.util.HashMap;
 import java.util.List;
@@ -76,7 +75,6 @@ public class NearbyVehiclesScanner {
         List<ScanResult> scanResults = wifiHelper.getNearbyMacAddresses(context);
         for (ScanResult result :
                 scanResults) {
-            Log.d("BSSID", result.BSSID);
             if (VEHICHLE_ADDRESSES.containsKey(result.BSSID)) {
                 return VEHICHLE_ADDRESSES.get(result.BSSID);
             }
