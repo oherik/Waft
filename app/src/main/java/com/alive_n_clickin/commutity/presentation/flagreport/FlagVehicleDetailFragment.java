@@ -15,13 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alive_n_clickin.commutity.R;
-
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
+import com.alive_n_clickin.commutity.application.HttpPostRequest;
 
 
 /**
@@ -45,7 +39,7 @@ public class FlagVehicleDetailFragment extends Fragment {
 
         // Layout inflation
         View view               =  inflater.inflate(R.layout.fragment_flag_vehicle_detail,
-                                    container, false);
+                container, false);
         Button sendButton       = (Button) view.findViewById(R.id.flagDetailSendButton);
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +49,6 @@ public class FlagVehicleDetailFragment extends Fragment {
 
                 //Send request
                 setUpHttpRequest(commentView.getText().toString(), flagTypeID);
-
 
                 //Change back to the previous view
                 FlagVehicleFragment flagFragment = new FlagVehicleFragment();
@@ -114,82 +107,48 @@ public class FlagVehicleDetailFragment extends Fragment {
 
         //Set up http client
         String ipAddress        = "http://95.85.21.47/flags";    //TODO store somewhere else?
-        String query            = String.format("flagType=%s&comment=%s",flagTypeID,comment);
-        SendHttpRequest request = new SendHttpRequest();
-        request.execute(ipAddress, query);
+        String query            = String.format("flagType=%s&comment=%s", flagTypeID, comment);
 
+        //Call for a request
+        AsyncHttpStarter sendRequest = new AsyncHttpStarter();
+        sendRequest.execute(ipAddress, query);
     }
 
     /**
      * An async task handling the network connection, since this cannot be done on the main activity
-     * thread. Accepts an URL and a query string.
+     * thread. Accepts an URL and a query string. Calls for a controller to do the main work.
      */
-    private class SendHttpRequest extends AsyncTask<String, Void, Integer> {
-        protected Integer doInBackground(String... urls) {
-            //Get parameters
-            String ipAddress        = urls[0];
-            String query            = urls[1];
-
-            //Define variables
-            String charset          = "UTF-8";
-            String contentType      = "application/x-www-form-urlencoded";
-            try {
-                //Get the url from the address
-                URL url = new URL(ipAddress);
-
-                //Convert the parameters to UTF-8
-                byte[] bodyData       = query.getBytes(StandardCharsets.UTF_8);
-                int    bodyDataLength = bodyData.length;
-
-                //Set up server request
-                HttpURLConnection serverConnection= (HttpURLConnection) url.openConnection();
-                serverConnection.setDoOutput(true);
-                serverConnection.setInstanceFollowRedirects(false);
-                serverConnection.setRequestMethod("POST");
-                serverConnection.setRequestProperty("Content-Type", contentType);
-                serverConnection.setRequestProperty("charset", charset);
-                serverConnection.setRequestProperty("Content-Length", Integer.toString(bodyDataLength));
-                serverConnection.setUseCaches(false);
-
-                //Send data
-                DataOutputStream serverOutput = new DataOutputStream(serverConnection.getOutputStream());
-                serverOutput.write(bodyData);
-
-                //Log response code
-                int status = serverConnection.getResponseCode();
-                Log.v(LOG_TAG,"Response " + status);
-
-                return new Integer(status);
-
-            } catch(MalformedURLException e){
-                Log.e(LOG_TAG, "Invalid URL. Current URL input was " + ipAddress +
-                        ". Error message: " + e);
-            } catch(IOException e){
-                Log.e(LOG_TAG, "Could not connect to server. Error message: " +e);
-            }
-            return null;
+    public class AsyncHttpStarter extends AsyncTask<String, Void, Integer> {
+        @Override
+        protected Integer doInBackground(String... params) {
+            HttpPostRequest request = new HttpPostRequest();
+            request.sendRequest(params);
+            return new Integer(request.getServerResponseCode());
+        }
+        @Override
+        protected void onPostExecute(Integer result){
+            displayServerToast(result.intValue());
         }
 
         /**
          * What to do after the request, i.e. show a message if it has failed or not
-         * @param result    The result from the background task
+         * @param serverResponseCode    The result from the background task
          */
-        protected void onPostExecute(Integer result) {
-            int responseCode = result.intValue();
+        private void displayServerToast(Integer serverResponseCode) {
+            int responseCode = serverResponseCode.intValue();
             String toastText;
-           switch (responseCode){
-               case 400:
-                   Log.e(LOG_TAG,  "Server error " + responseCode);
-                   toastText = "Server error " + responseCode + ". Could not send flag.";
-                   break;
-               default:
-                   toastText = "Flag sent.";
-                   break;
-           }
+            switch (responseCode){
+                case 400:
+                    Log.e(LOG_TAG, "Server error " + responseCode);
+                    toastText = "Server error " + responseCode + ". Could not send flag.";
+                    break;
+                default:
+                    toastText = "Flag sent.";
+                    break;
+            }
             //Make toast to alert the user of this
             Toast.makeText(getActivity().getApplicationContext(), toastText,
                     Toast.LENGTH_SHORT).show();
-
         }
     }
 }
