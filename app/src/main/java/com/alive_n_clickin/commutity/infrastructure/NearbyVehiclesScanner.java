@@ -11,6 +11,8 @@ import java.util.Map;
 /**
  * @author hjorthjort
  *         Created 24/09/15
+ *
+ * Class for finding nearby vehicles based on wifi position.
  */
 public class NearbyVehiclesScanner {
 
@@ -45,6 +47,7 @@ public class NearbyVehiclesScanner {
                 "00:13:95:13:5f:20"
         };
 
+        //Associate the addresses with busses, using the addresses as keys
         for (int i = 0; i < vehicles.length; i++) {
             VEHICHLE_ADDRESSES.put(macAddresses[i], vehicles[i]);
         }
@@ -58,9 +61,17 @@ public class NearbyVehiclesScanner {
     }
 
     /**
-     * Get the best guess for which bus you are one depending on value of wifi connection
-     * @param context
-     * @return
+     * Get the best guess for which bus you are one depending on value of wifi connection. The best candidate
+     * is selected by
+     *      first: checking if the phone is connected to a bus wifi
+     *      second: checking which of the buses, if any, has the strongest wifi nearby
+     * If there is a match on the first, then that bus is returned. If there is a match on the second,
+     * the one with the strongest wifi signal is returned.
+     *
+     * If no bus is found, null is returned.
+     *
+     * @param context The context for which the WiFi state will be checked to fins busses
+     * @return the dgw of the best candidate for closest bus, or null if none is found.
      */
     public String getBestGuess(Context context) {
         WifiHelper wifiHelper = WifiHelper.getInstance();
