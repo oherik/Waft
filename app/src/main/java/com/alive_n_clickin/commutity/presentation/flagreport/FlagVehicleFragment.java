@@ -3,9 +3,7 @@ package com.alive_n_clickin.commutity.presentation.flagreport;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -112,11 +110,10 @@ public class FlagVehicleFragment extends Fragment {
                         .setPositiveButton("Change Setting", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                                WifiHelper.getInstance().enableWifi(getContext());
                             }
                         })
                         .show();
-                    //TODO Handle the change/no change to wifi
                 }
             }
         });

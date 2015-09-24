@@ -86,4 +86,13 @@ public class WifiHelper {
     private WifiManager getWifiManager(Context context) {
         return (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
     }
+
+    /**
+     * Enables the devices WifiConnection, if it isn't already enabled
+     * @param context
+     */
+    public void enableWifi(Context context) {
+        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        wifiManager.setWifiEnabled(true);
+    }
 }
