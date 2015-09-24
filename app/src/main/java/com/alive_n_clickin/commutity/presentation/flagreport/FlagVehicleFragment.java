@@ -88,10 +88,13 @@ public class FlagVehicleFragment extends Fragment {
             }
         });
 
+        //TODO handle the location button click properly
         ImageButton imageButton = (ImageButton) rootView.findViewById(R.id.positionButton);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //TODO Debug to find out why the isWifiEnabled never gives true.
                 if(WifiHelper.getInstance().isWifiEnabled(getContext())){
                     String bestGuess = NearbyVehiclesScanner.getInstance().getBestGuess(getContext());
                     TextView textView = (TextView) rootView.findViewById(R.id.textViewBusInformation);
@@ -102,7 +105,6 @@ public class FlagVehicleFragment extends Fragment {
                     } else {
                         textView.setText("No buses near :(");
                     }
-
                 } else {
                     AlertDialog alertDialog = new AlertDialog.Builder(getContext())
                         .setTitle("Please turn on your wifi")
@@ -114,6 +116,7 @@ public class FlagVehicleFragment extends Fragment {
                             }
                         })
                         .show();
+                    //TODO Handle the change/no change to wifi
                 }
             }
         });
