@@ -10,4 +10,8 @@
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="enable_wifi_alert_title" type="id">Aktivera WiFi</string>
+    <string name="enable_wifi_alert_message">Aktivera WiFi så avgör appen automatiskt vilket fordon du är på.</string>
+    <string name="enable_wifi_alert_yesbutton">Slå på WiFi</string>
+    <string name="enable_wifi_alert_nobutton">Avbryt</string>
 </resources>
