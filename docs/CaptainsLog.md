@@ -18,7 +18,12 @@ Using Git Flow
 Git flow does have its merits, but it also has a number of issues:
 
 * Features can be *big*. Sticking to the rule "merge only when you are done with a feature"-rule seems dangerous. Continous merges is a safguard against large scale conflicts. An alternative approach is the continous rebase, which is better. But merging often gives the others access to the tools you build.
-* We have said previously that all merges to develop should me made through a pull request. After day 1 of coding, we have not done a single pull request, but many merges. So far it seem alright. But we should probably start using the PR strategy, and communicate more about our merges. Today only two people were working in the main repo, but this will soon no be the case.
+* We have said previously that all merges to develop should me made through a pull request. After day 1 of coding, we have not done a single pull request, but many merges. So far it seem alright. But we should probably start using the PR strategy, and communicate more about our merges. Today only two people were working in the main repo, but this will soon no be the case. Another case for not using this controlled pull request way of working is that Sebastian sugested and has experience with this workflow, so why implement it when he is not available?
+* In the beinning, Git Flow (or working distributed) is hard in general, beacuse there will be a lot of
+    * Setting up package structure.
+    * Creating very basic classes.
+    * Deciding on coding standards
+... which means there will be lots of stepping on each others' toes.
 
 Coding Dicipline
 ---------------
