@@ -6,7 +6,6 @@ import android.net.wifi.WifiManager;
 
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -34,7 +33,7 @@ public class WifiHelper {
         getWifiManager(context).startScan();
     }
 
-    public List<String> getNearbyMacAddresses(Context context) {
+    public List<ScanResult> getNearbyMacAddresses(Context context) {
         scanForWifis(context);
         List<ScanResult> scanResults = getWifiManager(context).getScanResults();
 
@@ -50,14 +49,7 @@ public class WifiHelper {
 //                scanResults) {
 //            Log.d(LogUtils.getLogTag(this), "STRENGTH: "+result.level);
 //        }
-
-        List<String> addresses = new LinkedList<>();
-        for (ScanResult result :
-                scanResults) {
-            addresses.add(result.BSSID);
-        }
-
-        return addresses;
+        return scanResults;
     }
 
     private WifiManager getWifiManager(Context context) {
