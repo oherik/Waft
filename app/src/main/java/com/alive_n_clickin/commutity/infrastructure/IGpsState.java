@@ -1,6 +1,7 @@
 package com.alive_n_clickin.commutity.infrastructure;
 
 
+import android.content.Context;
 import android.location.Location;
 
 /**
@@ -9,8 +10,10 @@ import android.location.Location;
 public interface IGpsState {
 
     /**
-     * Fetches the newest location and returns it.
+     * Fetches the last location and returns it.
      * @return current location.
      */
-     Location getCurrentLocation();
+    Location getLastLocation(Context context);
+
+    IGpsState getInstance();
 }
