@@ -15,13 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alive_n_clickin.commutity.R;
-
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
+import com.alive_n_clickin.commutity.application.HttpRequest;
 
 
 /**
@@ -45,7 +39,7 @@ public class FlagVehicleDetailFragment extends Fragment {
 
         // Layout inflation
         View view               =  inflater.inflate(R.layout.fragment_flag_vehicle_detail,
-                                    container, false);
+                container, false);
         Button sendButton       = (Button) view.findViewById(R.id.flagDetailSendButton);
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,10 +49,6 @@ public class FlagVehicleDetailFragment extends Fragment {
 
                 //Send request
                 setUpHttpRequest(commentView.getText().toString(), flagTypeID);
-
-                //Make toast to alert the user of this
-                Toast.makeText(getActivity().getApplicationContext(), "Flag sent",
-                        Toast.LENGTH_SHORT).show();
 
                 //Change back to the previous view
                 FlagVehicleFragment flagFragment = new FlagVehicleFragment();
@@ -115,60 +105,46 @@ public class FlagVehicleDetailFragment extends Fragment {
             comment="";
         }
 
-        //Set up http client
-        String ipAddress        = "http://95.85.21.47/flags";    //TODO store somewhere else?
-        String query            = String.format("flagType=%s&comment=%s",flagTypeID,comment);
-        new SendHttpRequest().execute(ipAddress, query);
+        //Call for a request
+        AsyncHttpStarter sendRequest = new AsyncHttpStarter();
+        sendRequest.execute(String.valueOf(flagTypeID), comment);
     }
 
     /**
      * An async task handling the network connection, since this cannot be done on the main activity
-     * thread. Accepts an URL and a query string.
+     * thread. Accepts an URL and a query string. Calls for a controller to do the main work.
      */
-    private class SendHttpRequest extends AsyncTask<String, Void, String> {
-        protected String doInBackground(String... urls) {
-            //Get parameters
-            String ipAddress        = urls[0];
-            String query            = urls[1];
+    public class AsyncHttpStarter extends AsyncTask<String, Void, Integer> {
+        @Override
+        protected Integer doInBackground(String... params) {
+            HttpRequest request = new HttpRequest();
+            request.postFlag(Integer.valueOf(params[0]), params[1]);
+            return new Integer(request.getServerResponseCode());
+        }
+        @Override
+        protected void onPostExecute(Integer result){
+            displayServerToast(result.intValue());
+        }
 
-            //Define variables
-            String charset          = "UTF-8";
-            String contentType      = "application/x-www-form-urlencoded";
-            try {
-                //Get the url from the address
-                URL url = new URL(ipAddress);
-
-                //Convert the parameters to UTF-8
-                byte[] bodyData       = query.getBytes(StandardCharsets.UTF_8);
-                int    bodyDataLength = bodyData.length;
-
-                //Set up server request
-                HttpURLConnection serverConnection= (HttpURLConnection) url.openConnection();
-                serverConnection.setDoOutput(true);
-                serverConnection.setInstanceFollowRedirects(false);
-                serverConnection.setRequestMethod("POST");
-                serverConnection.setRequestProperty("Content-Type", contentType);
-                serverConnection.setRequestProperty("charset", charset);
-                serverConnection.setRequestProperty("Content-Length", Integer.toString(bodyDataLength));
-                serverConnection.setUseCaches(false);
-
-                //Send data
-                DataOutputStream serverOutput = new DataOutputStream(serverConnection.getOutputStream());
-                serverOutput.write(bodyData);
-
-                //Log response code
-                int status = serverConnection.getResponseCode();
-                Log.v(LOG_TAG,"Response " + status);
-
-                return String.valueOf(status);
-
-            } catch(MalformedURLException e){
-                Log.e(LOG_TAG, "Invalid URL. Current URL input was " + ipAddress +
-                        ". Error message: " + e);
-            } catch(IOException e){
-                Log.e(LOG_TAG, "Could not connect to server. Error message: " +e);
+        /**
+         * What to do after the request, i.e. show a message if it has failed or not
+         * @param serverResponseCode    The result from the background task
+         */
+        private void displayServerToast(Integer serverResponseCode) {
+            int responseCode = serverResponseCode.intValue();
+            String toastText;
+            switch (responseCode){
+                case 400:
+                    Log.e(LOG_TAG, "Server error " + responseCode);
+                    toastText = "Server error " + responseCode + ". Could not send flag.";
+                    break;
+                default:
+                    toastText = "Flag sent.";
+                    break;
             }
-            return null;
+            //Make toast to alert the user of this
+            Toast.makeText(getActivity().getApplicationContext(), toastText,
+                    Toast.LENGTH_SHORT).show();
         }
     }
 }
