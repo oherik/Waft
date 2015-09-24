@@ -12,8 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-import com.example.erik.commutity.R;
-
+import com.alive_n_clickin.commutity.R;
 import java.util.ArrayList;
 
 /**
