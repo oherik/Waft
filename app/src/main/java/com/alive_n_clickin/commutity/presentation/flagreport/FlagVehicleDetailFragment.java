@@ -53,6 +53,9 @@ public class FlagVehicleDetailFragment extends Fragment {
                    switchToFlagFragment();
                }else{
                    //Request couldn't be made due to the comment length not being satisfactory
+                   //TODO make the comment field blink or make some other non-intrusive indicator.
+                   Toast.makeText(getActivity().getApplicationContext(), "Vänligen skriv in en " +
+                                   "kommentar\n(minst fem tecken)", Toast.LENGTH_SHORT).show();
                }
             }
         });
