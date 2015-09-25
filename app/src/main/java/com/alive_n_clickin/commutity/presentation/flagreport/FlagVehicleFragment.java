@@ -11,6 +11,8 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.alive_n_clickin.commutity.R;
+import com.alive_n_clickin.commutity.util.FlagType;
+
 import java.util.ArrayList;
 
 /**

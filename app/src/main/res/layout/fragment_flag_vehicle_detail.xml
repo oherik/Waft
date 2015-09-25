@@ -39,7 +39,8 @@
         android:gravity="top"
         android:padding="10dp"
         android:background="@android:color/white"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp"
+        android:hint="@string/flag_comment"/>
 
     <Button
         android:layout_width="wrap_content"
