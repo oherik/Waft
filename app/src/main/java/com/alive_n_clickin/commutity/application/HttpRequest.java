@@ -12,7 +12,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 /**
- * An async task handling the network connection, since this cannot be done on the main activity
+ * An class handling the network connection, since this cannot be done on the main activity
  * thread. Accepts an URL and a query string. The IP address of the server is hard coded into
  * this class
  */
