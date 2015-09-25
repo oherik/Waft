@@ -5,7 +5,7 @@ package com.alive_n_clickin.commutity.util;
  */
 public enum FlagType {
 
-    OTHER(1),FULL(2), LATE(3), DIRTY(4), ROWDY(5), WHEELCHAIR(6);
+    OTHER(1), OVERCROWDED(2), DELAYED(3), MESSY(4), BAD_CLIMATE(5), DISTURBANCES(6);
 
     public final int flagTypeID;
 
