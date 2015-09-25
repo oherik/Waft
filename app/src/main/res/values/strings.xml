@@ -7,6 +7,10 @@
     <string name="flag_description">Flagga</string>
     <string name="flag_comment">Skriv din kommentar här...</string>
     <string name="flag_send">Flagga!</string>
+    <string name="flag_longer_comment_needed">Vänligen skriv in en kommentar\n(minst fem tecken)</string>
+    <string name="flag_sent">Flagga skickad</string>
+    <string name="server_error">Serverfel</string>
+    <string name="flag_not_sent">Flaggan kunde inte skickas</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
