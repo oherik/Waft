@@ -2,7 +2,7 @@ package com.alive_n_clickin.commutity.application;
 
 import android.util.Log;
 
-import com.alive_n_clickin.commutity.presentation.flagreport.FlagType;
+import com.alive_n_clickin.commutity.util.FlagType;
 import com.alive_n_clickin.commutity.presentation.flagreport.FlagVehicleDetailFragment;
 
 import java.io.DataOutputStream;
