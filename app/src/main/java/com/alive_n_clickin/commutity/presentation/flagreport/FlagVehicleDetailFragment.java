@@ -54,8 +54,8 @@ public class FlagVehicleDetailFragment extends Fragment {
                }else{
                    //Request couldn't be made due to the comment length not being satisfactory
                    //TODO make the comment field blink or make some other non-intrusive indicator.
-                   Toast.makeText(getActivity().getApplicationContext(), "Vänligen skriv in en " +
-                                   "kommentar\n(minst fem tecken)", Toast.LENGTH_SHORT).show();
+                   Toast.makeText(getActivity().getApplicationContext(),
+                           getString(R.string.flag_longer_comment_needed), Toast.LENGTH_SHORT).show();
                }
             }
         });
@@ -152,11 +152,11 @@ public class FlagVehicleDetailFragment extends Fragment {
             String toastText;
             switch (responseCode){
                 case 400:
-                    Log.e(LOG_TAG, "Server error " + responseCode);
-                    toastText = "Server error " + responseCode + ". Could not send flag.";
+                    toastText = getString(R.string.server_error)+ ": " + responseCode +
+                            getString(R.string.flag_not_sent);
                     break;
                 default:
-                    toastText = "Flag sent.";
+                    toastText = getString(R.string.flag_sent);
                     break;
             }
             //Make toast to alert the user of this
