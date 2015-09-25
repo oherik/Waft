@@ -118,8 +118,7 @@ public class FlagVehicleDetailFragment extends Fragment {
         @Override
         protected Integer doInBackground(String... params) {
             HttpRequest request = new HttpRequest();
-            request.postFlag(Integer.valueOf(params[0]), params[1]);
-            return new Integer(request.getServerResponseCode());
+            return new Integer(request.postFlag(Integer.valueOf(params[0]), params[1]));
         }
         @Override
         protected void onPostExecute(Integer result){
