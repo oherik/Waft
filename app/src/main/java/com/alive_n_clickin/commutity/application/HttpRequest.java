@@ -2,6 +2,7 @@ package com.alive_n_clickin.commutity.application;
 
 import android.util.Log;
 
+import com.alive_n_clickin.commutity.util.FlagType;
 import com.alive_n_clickin.commutity.presentation.flagreport.FlagVehicleDetailFragment;
 
 import java.io.DataOutputStream;
@@ -19,11 +20,12 @@ import java.nio.charset.StandardCharsets;
 public class HttpRequest {
     private final String LOG_TAG        = FlagVehicleDetailFragment.class.getSimpleName();
 
-    //Set up server handling strings
+    //Set up server handling variables
     private final String baseIP         = "http://95.85.21.47/";
     private final String flags          = "flags";
     private final String charset        = "UTF-8";
     private final String contentType    = "application/x-www-form-urlencoded";
+    private static final int minumumOtherCommentLength = 5;
 
     /**
      * Posts a new flag to the server
@@ -35,6 +37,20 @@ public class HttpRequest {
         String ipAddress = baseIP + flags;
         String query = String.format("flagType=%s&comment=%s", flagTypeID, comment);
         return post(ipAddress, query);
+    }
+
+    /**
+     * Makes sure the flag can be sent in regards to the comment length
+     * @param comment   The comment from the comment field
+     * @return  True if the http request can be sent, false otherwise
+     */
+    public static boolean assertCommentLength(int flagTypeID, String comment){
+        //"Other" flag
+        if(flagTypeID == FlagType.OTHER.flagTypeID){
+            String trimmedComment = comment.trim();
+            return trimmedComment.length()>=minumumOtherCommentLength;
+        }
+        return true;
     }
 
     /**

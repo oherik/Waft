@@ -1,4 +1,4 @@
-package com.alive_n_clickin.commutity.presentation.flagreport;
+package com.alive_n_clickin.commutity.util;
 
 /**
  * The different flag types available
