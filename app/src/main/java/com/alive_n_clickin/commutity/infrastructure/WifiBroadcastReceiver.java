@@ -1,8 +1,10 @@
-package com.alive_n_clickin.commutity.presentation.flagreport;
+package com.alive_n_clickin.commutity.infrastructure;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+
+import com.alive_n_clickin.commutity.presentation.flagreport.WifiChangeListener;
 
 import java.util.LinkedList;
 import java.util.List;
