@@ -124,7 +124,7 @@ public class FlagVehicleFragment extends Fragment implements WifiChangeListener 
         if(bestGuess != null){
             textView.setText(bestGuess);
         } else {
-            textView.setText("No buses near :(");
+            textView.setText(R.string.no_buses_near);
         }
     }
 

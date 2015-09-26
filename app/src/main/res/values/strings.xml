@@ -11,4 +11,7 @@
     <string name="enable_wifi_alert_message">Aktivera WiFi så avgör appen automatiskt vilket fordon du är på.</string>
     <string name="enable_wifi_alert_yesbutton">Slå på WiFi</string>
     <string name="enable_wifi_alert_nobutton">Avbryt</string>
+    <string name="no_buses_near">Inga bussar nära dig</string>
+
+    <!-- Programmatic constants -->
 </resources>
