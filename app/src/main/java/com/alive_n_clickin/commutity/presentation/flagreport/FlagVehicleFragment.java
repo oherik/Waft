@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.infrastructure.NearbyVehiclesScanner;
+import com.alive_n_clickin.commutity.infrastructure.WifiBroadcastReceiver;
 import com.alive_n_clickin.commutity.infrastructure.WifiHelper;
 
 import java.util.ArrayList;

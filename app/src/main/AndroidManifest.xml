@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <receiver
-            android:name=".presentation.flagreport.WifiBroadcastReceiver"
+            android:name=".infrastructure.WifiBroadcastReceiver"
             android:enabled="true" >
             <intent-filter>
                 <action android:name="android.net.wifi.SCAN_RESULTS" />
