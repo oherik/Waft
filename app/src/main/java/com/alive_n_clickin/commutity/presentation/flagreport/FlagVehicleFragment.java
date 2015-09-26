@@ -21,11 +21,13 @@ import com.alive_n_clickin.commutity.infrastructure.WifiHelper;
 
 import java.util.ArrayList;
 
+import lombok.NonNull;
+
 /**
  * The view with several different flags available for the user to flag vehicles. Launches a detailed
  * view when the user clicks on a flag
  */
-public class FlagVehicleFragment extends Fragment {
+public class FlagVehicleFragment extends Fragment implements WifiChangeListener {
     final static String ARG_POSITION    = "position";
     int mCurrentPosition                = -1;
 
@@ -34,6 +36,12 @@ public class FlagVehicleFragment extends Fragment {
     private FlagViewAdapter flagAdapter;
     private ArrayList<FlagButton> flagButtons;
     private String busData;
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        WifiBroadcastReceiver.unregister(this);
+    }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +53,7 @@ public class FlagVehicleFragment extends Fragment {
         flagButtons.add(new FlagButton(R.drawable.full, "Försenad", FlagType.LATE));
         flagButtons.add(new FlagButton(R.drawable.full, "Övrigt", FlagType.OTHER));
         busData = "55";
+        WifiBroadcastReceiver.register(this);
 
     }
 
@@ -107,7 +116,7 @@ public class FlagVehicleFragment extends Fragment {
         return rootView;
     }
 
-    private void writeOutBestGuess(View rootView) {
+    private void writeOutBestGuess(@NonNull View rootView) {
         String bestGuess = NearbyVehiclesScanner.getInstance().getBestGuess(getContext());
         TextView textView = (TextView) rootView.findViewById(R.id.textViewBusInformation);
         Log.d(LOG_TAG, "Wifi enabled");
@@ -138,4 +147,8 @@ public class FlagVehicleFragment extends Fragment {
                 .show();
     }
 
+    @Override
+    public void onWifiChanged() {
+        writeOutBestGuess(getView());
+    }
 }
