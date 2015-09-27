@@ -39,6 +39,15 @@ Frameworks
 
 How much frameworks should we use? It's really difficult to guess. I'm scared of diving into something and learning something new, especially when I have 20 alotted hours. I want to use stuff I know how do. This is probably a bad idea. I spent quite a lot of hours on struggling with GSON instead of just sitting with the documentation. Take a step back so that you can get some momentum instead of hust trying to push throug a wall.
 
+Planning
+-------
+
+Lack of planning might just have gotten the best of us. We still have problems with package names, I think (using the default, com.example.erik), and we seem to hinge too much on the FlagVechicle activity. Or maybe I'm just lacking overview. And then there's the GUI. 
+
+All in all, I don't think these small issues could have been avoided. *However*, moving forward, I am afraid that if we don't plan carefully and deliberately, we could experience software rot according to the Broken Window principle, which is amplified by the fast mindset of Scrum, the lack of experience with the platform and the code-now-fix-later approach that Git in general, and Git flow in particular, enables. I experienced this yesterday: I felt like it "just had to work", let the code look as it may. Today, reading "The Pragmatic Programmer", I got a sting of bad concience as they wrote about pride, broken windows and the striving to be better. I especially took to heart the advice "Don't make lame excuses", as I, when I was coding something that I felt was becoming strange and complex, could hear myself excusing myself beforehand by referring to the stressful conditions. This is a good way of becoming more stressed, less happy, and (most likely) dying early from heart attack.
+
+Let go. Think hard. Come what may. We're a great team, and we'll manage, so long as we work together. Together we stand, divided we fall, and all that hippie crap.
+
 # <a name="week3">Week 3</a>
 
 ## What we did
