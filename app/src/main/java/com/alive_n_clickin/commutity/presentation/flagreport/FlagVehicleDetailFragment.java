@@ -1,5 +1,6 @@
 package com.alive_n_clickin.commutity.presentation.flagreport;
 
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -85,12 +87,12 @@ public class FlagVehicleDetailFragment extends Fragment {
         TextView description    = (TextView) rootView.findViewById(R.id.flagDetailDescription);
         description.setText(args.getString("flag_description"));
 
-        /* TODO Talk to the product owners regarding the "send flag view"
+
         ImageView flagImageView = (ImageView) rootView.findViewById(R.id.flagDetailImage);
         int flagImageID         = args.getInt("flag_image_ID");
         Drawable flagImage      = getActivity().getResources().getDrawable(flagImageID);
         flagImageView.setImageDrawable(flagImage);
-        */
+
 
         //Set additional data
         flagTypeID = args.getInt("flag_type_ID");
