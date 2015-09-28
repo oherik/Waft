@@ -1,5 +1,59 @@
 * [Week 3](#week3)
 * [Week 4](#week4)
+* [Week 5](#week5)
+
+# <a name="week5">Week 5</a>
+
+Sustainable Pace (Working Weekends)
+-----------------------------------
+
+We encountered a team problem of some magnitude. Two of us had worked a bit over the weekend. One uf us told the others "now I have made this thing". This created a weird power balance, and weird expectations, since we had agreed not to work on the weekend.
+
+Now all of a sudden, we had a situation where 
+1. someone had taken on a task without any consultation with the team, effectively deciding, without consulting anyone, that they would come up with the solution. I theory, this would just be *a* solution, not *the* solution. But in practice, with tight deadlines, that solution will probably live on.
+2. people felt expectations had shifted. Even if there is an agreement to keep a sustainable pace, if one person starts pulling extra weight, how does that effect me. Should I feel guilty. Even if the others expect nothing, *will* I feel guilty, because that is how I feel when something like this happens? 
+
+All in all, we saw very clearly there was a problem that needed addressing. On the one hand, we all really like coding, and it would be strange to restrict the urge to solve a current problem when it arises. On the other hand, there are the problems mentioned above. What to do?
+
+We talked about three possible solutions:
+1. Keep of the codebase on the weekend.
+2. Change sprints to extend Monday to Monday, instead of Monday to Friday.
+3. A more novel solution – a "Scrum, but …" kind of thing: keep the sprints as they are, but after the review and retrospecitve, run through some "weekend problems" – things that it would be good to look at, problems we'd like to solve. These are up for grabs, and are sanctioned by the group to work at during weekends. If any one of them is solved on Monday, all the better. If not, then no problem, they'll likely appear in the next sprint.
+
+Needless to say, we opted for option 3. We will try this novel solution to a pretty strange problem, and we'll evaluate after.
+
+More "Scrum, but …"
+----------------
+
+Not all of us are happy with the whole Sprint retrospective. To some degree, the group feels it would be good to be able to just grab problems and work on them, taking another one when the first one is done. What we lose with that solution is the weeky sync, the continous shipping (what if something is semi-implemented on the develop branch, and we're ready for a release in other regard? Do we pick out the semi-feature commits? Do we ship with dead code?). We decided to do antoher "Scrum, but …" by saying that some items are sprint items, that really should get done by the end of the week, giving us a feeling of a deadline. After that, there are some items that are just up for grabs, to take and work on when we want.
+
+Testing
+-------
+
+We realized we spent a *lot* of time writing tests last week, in large part because it is hard to test some things in Android, like wifi connection and such. Unit tests don't come with a complete context for finding those things.
+
+We will thus limit testing to "functional testing" when unit tests seem too hard to create within reasonable time. This is a prototype, we argued. And there is no point spending more time on testing than on developing, if we can be fairly sure that our code works, with more crude or high level testing than unit tests.
+
+"Test where it makes sense. Leave the rest."
+
+The hat
+-------
+
+We started using a hat for the product owners. When they wear it, they are product owners. When they don't, they are developers. This works pretty well, giving everyone a clear sense of when someone is in a ceertain role.
+
+The sprint planning
+------------------
+
+The planning took a lot more time this week. Not everyone was happy with this. I (Rikard) felt that lack of sync was a problem last week, as was a lack of vision. (By the way, *have* we written a vision? Mental note: check that.) Some people felt we should be getting to work faster. What to do? How can we sync everyone's preferences? I don't know. And it absolutely might hurt morale.
+
+One thing I could do, as Srcum master, is spending more time in Trello, splitting up and refining tasks, adding more detail, and such, to give everyone else better a better position to do a good job. I should spend less time coding, more time aligning the stars and planets in our favor.
+
+Software architecture
+---------------------
+
+We thought about layered architecture, which we decided last week we would work with. But in the first week, we crated *no* model classes. We should probably discuss high level issues like this more inbetween us, so that integration does not become hell. This time, we threw ourselves into to coding, bit of large pieces and perhaps it was in some ways more than we could chew.
+
+"Skynda långsamt" is probably a good motto for the upcoming weeks.
 
 # <a name="week4">Week 4</a>
 
