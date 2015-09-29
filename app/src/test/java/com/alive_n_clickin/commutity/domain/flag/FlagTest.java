@@ -8,14 +8,17 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class FlagTest {
 
     private IFlagType mockFlagType = mock(IFlagType.class);
-    private IFlagType mockFlagType2 = mock(IFlagType.class);
 
     @Test
     public void testConstructorIllegalArguments() throws Exception {
+        IFlagType mockFlagTypeWithCommentRequired = mock(IFlagType.class);
+        when(mockFlagTypeWithCommentRequired.isCommentRequired()).thenReturn(true);
+
         boolean exception;
 
         exception = false;
@@ -37,6 +40,78 @@ public class FlagTest {
         exception = false;
         try {
             new Flag(null);
+        } catch (IllegalArgumentException e) {
+            exception = true;
+        }
+        assertTrue(exception);
+
+        exception = false;
+        try {
+            new Flag(mockFlagTypeWithCommentRequired, null, new Date());
+        } catch (IllegalArgumentException e) {
+            exception = true;
+        }
+        assertTrue(exception);
+
+        exception = false;
+        try {
+            new Flag(mockFlagTypeWithCommentRequired, "", new Date());
+        } catch (IllegalArgumentException e) {
+            exception = true;
+        }
+        assertTrue(exception);
+
+        exception = false;
+        try {
+            new Flag(mockFlagTypeWithCommentRequired, "asdf", new Date());
+        } catch (IllegalArgumentException e) {
+            exception = true;
+        }
+        assertTrue(exception);
+
+        exception = false;
+        try {
+            new Flag(mockFlagTypeWithCommentRequired, "asdfg", new Date());
+        } catch (IllegalArgumentException e) {
+            exception = true;
+        }
+        assertFalse(exception);
+
+        exception = false;
+        try {
+            new Flag(mockFlagTypeWithCommentRequired, null);
+        } catch (IllegalArgumentException e) {
+            exception = true;
+        }
+        assertTrue(exception);
+
+        exception = false;
+        try {
+            new Flag(mockFlagTypeWithCommentRequired, "");
+        } catch (IllegalArgumentException e) {
+            exception = true;
+        }
+        assertTrue(exception);
+
+        exception = false;
+        try {
+            new Flag(mockFlagTypeWithCommentRequired, "asdf");
+        } catch (IllegalArgumentException e) {
+            exception = true;
+        }
+        assertTrue(exception);
+
+        exception = false;
+        try {
+            new Flag(mockFlagTypeWithCommentRequired, "asdfg");
+        } catch (IllegalArgumentException e) {
+            exception = true;
+        }
+        assertFalse(exception);
+
+        exception = false;
+        try {
+            new Flag(mockFlagTypeWithCommentRequired);
         } catch (IllegalArgumentException e) {
             exception = true;
         }
@@ -98,6 +173,7 @@ public class FlagTest {
     public void testEquals() throws Exception {
         Flag flag1;
         Flag flag2;
+        IFlagType mockFlagType2 = mock(IFlagType.class);
         Date date1 = new Date(1934, 8, 21);
         Date date2 = new Date(1966, 9, 12);
 
