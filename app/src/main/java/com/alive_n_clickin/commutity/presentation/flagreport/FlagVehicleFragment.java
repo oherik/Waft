@@ -34,12 +34,12 @@ public class FlagVehicleFragment extends Fragment {
         flagButtons = new ArrayList();
 
         //TODO hard coded flag data for testing purposes
-        flagButtons.add(new FlagButton(R.drawable.flag_full_300px, "Full", FlagType.OVERCROWDED));
-        flagButtons.add(new FlagButton(R.drawable.flag_rowdy_300px, "Stökig", FlagType.DISTURBANCES));
-        flagButtons.add(new FlagButton(R.drawable.flag_delayed_300px, "Försenad", FlagType.DELAYED));
-        flagButtons.add(new FlagButton(R.drawable.flag_dirty_300px, "Smutsig", FlagType.MESSY));
-        flagButtons.add(new FlagButton(R.drawable.flag_pram_300px, "Försenad", FlagType.NO_PRAMS));
-        flagButtons.add(new FlagButton(R.drawable.flag_other_300px, "Övrigt", FlagType.OTHER));
+        flagButtons.add(new FlagButton(R.drawable.flag_full_300px, getString(R.string.flag_overcrowded), FlagType.OVERCROWDED));
+        flagButtons.add(new FlagButton(R.drawable.flag_rowdy_300px, getString(R.string.flag_disturbance), FlagType.DISTURBANCES));
+        flagButtons.add(new FlagButton(R.drawable.flag_delayed_300px, getString(R.string.flag_delayed), FlagType.DELAYED));
+        flagButtons.add(new FlagButton(R.drawable.flag_dirty_300px, getString(R.string.flag_messy), FlagType.MESSY));
+        flagButtons.add(new FlagButton(R.drawable.flag_pram_300px, getString(R.string.flag_pram), FlagType.NO_PRAMS));
+        flagButtons.add(new FlagButton(R.drawable.flag_other_300px, getString(R.string.flag_other), FlagType.OTHER));
         busData = "55";
 
     }
