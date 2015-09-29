@@ -55,6 +55,36 @@ We thought about layered architecture, which we decided last week we would work 
 
 "Skynda långsamt" is probably a good motto for the upcoming weeks.
 
+Being on time and keeping time
+------------------------------
+
+Timeliness has become an issue. Two people in the group are timely people that think it is very disrespectful to be late. Three people are less punctual and less concerned about keeping time. This is of course an issue, and perhaps the hardest nut to crack, since what we are dealing with here is a fundamental clash of personalities.
+
+We held a ten minute meeting after todays stand up where we discussed the issue, and we didn't come up with any one solution to the problem.
+
+Being a part in the case, I will still try to boil down, as impartially I can, the arguments on both sides:
+
+### For timeliness
+
+* It is a "just do it" kind of thing. If we decide on a time, just keep that time.
+* Making people wait is disrespectful.
+* If the people that are on time have to wait for the others, that builds irritation that lingers on. The bad mood sticks and affects the meeting coming after, perhaps the performance for the whole day.
+* It's a slippery slope. If we allow five or ten minute delays, then why couldn't there be 30 minute delays? Where do we draw a line? And if we draw a line, then that just become a new boundary to break. Either you are on time, or you are not. Period.
+* In the professional world, you will be expected to always be on time. Tardiness is not taken lightly in the world of business.
+* If you are late, even just a little, then notify.
+
+### For unstrict timekeeping
+
+* It is, at its heart, a matter of personality trait. Time optimists can try to keep better time, and time pessimists can try to be more relaxed about it, but at the end of the day, people don't change.
+* Having strict time rules causes unnecessary stress and irritation about being there just in time or before, when really it is not that important from the point of view of efficiency. 
+* To an extent, tardy people can try to keep better time. But to an extent, timely people can manage their feelings and expectations about tardiness as well.
+* People can keep tardiness reasonable. No one will start being 30 minutes late to 15 minute meeting just because we have an accepting attitude towards 5 minute delays.
+* In professional life, you can't expect everyone to always keep time. You will always have to manage that some people are a little late a lot of the time.
+
+We did not reach any conclusions. To my understanding, both sides in this argument want the other to behave and feel more like them. Both sides also feel that they are in the right here, and that their way of reasoning and behaving should be the norm. So we have a deadlock.
+
+A similar issue was raised regarding keeping meetings within the time frame. If we draw over, then we must stop and ask everyone if that is alright, not just keep going, like yesterday, and blow more than 1 hour over schedule. Everyone thought this was a good idea. And the agreement was that everyone, both the people bothered and unbothered by this, should keep an eye out for this kind of thing.
+
 # <a name="week4">Week 4</a>
 
 Sprint planning
