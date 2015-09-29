@@ -27,6 +27,7 @@
     <string name="no_buses_near">Inga bussar nära dig</string>
     <string name="loading_looking_for_vehicle">Letar efter ditt fordon ...</string>
     <string name="you_must_activate_wifi">Aktivera wifi för att rapportera</string>
+    <string name="activating_wifi">Aktiverar wifi ...</string>
 
     <!-- Programmatic constants -->
 </resources>
