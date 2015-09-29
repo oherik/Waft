@@ -1,14 +1,14 @@
 <!-- the parent view -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:gravity="center"
     android:padding="10dp" >
 
     <ImageView android:id="@+id/flagImage"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:padding="1dp"
         android:contentDescription="@string/flag_description"
         android:layout_alignParentTop="true"
