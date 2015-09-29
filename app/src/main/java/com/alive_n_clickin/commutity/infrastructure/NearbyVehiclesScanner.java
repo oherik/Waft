@@ -36,15 +36,15 @@ public class NearbyVehiclesScanner {
         //All the addresses in order
         String[] macAddresses = {
                 "00:13:95:13:49:f5",
-                "00:13:95:13:4b:be",
-                "00:13:95:14:3b:f0",
-                "00:13:95:14:69:8a",
+                "04:f0:21:10:09:df",
+                "04:f0:21:10:09:e8",
+                "04:f0:21:10:09:b8",
                 "00:13:95:13:49:f7",
-                "00:13:95:0f:92:a4",
-                "00:13:95:13:62:96",
-                "00:13:95:13:4b:bc",
+                "04:f0:21:10:09:5b",
+                "04:f0:21:10:09:53",
+                "04:f0:21:10:09:b9",
                 "00:13:95:14:3b:f2",
-                "00:13:95:13:5f:20"
+                "04:f0:21:10:09:b7"
         };
 
         //Associate the addresses with busses, using the addresses as keys
