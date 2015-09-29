@@ -1,18 +1,14 @@
 package com.alive_n_clickin.commutity.presentation.flagreport;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.alive_n_clickin.commutity.R;
@@ -100,22 +96,7 @@ public class FlagVehicleFragment extends Fragment implements WifiChangeListener 
             }
         });
 
-        //TODO handle the location button click properly
-        ImageButton imageButton = (ImageButton) rootView.findViewById(R.id.positionButton);
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //TODO Debug to find out why the isWifiEnabled never gives true.
-                //Works on my physical device –Rikard
-                if (WifiHelper.getInstance().isWifiEnabled(getContext())) {
-                    writeOutBestGuess(rootView);
-                } else {
-                    showEnableWifiAlert();
-                }
-            }
-        });
-
+        writeOutBestGuess(rootView);
 
         return rootView;
     }
@@ -127,34 +108,27 @@ public class FlagVehicleFragment extends Fragment implements WifiChangeListener 
     }
 
     private void writeOutBestGuess(@NonNull View rootView) {
+        showWifiPromptIfNeeded();
         String bestGuess = NearbyVehiclesScanner.getInstance().getBestGuess(getContext());
         TextView textView = (TextView) rootView.findViewById(R.id.textViewBusInformation);
-        Log.d(LOG_TAG, "Wifi enabled");
 
-        if(bestGuess != null){
+        if (!WifiHelper.getInstance().isWifiEnabled(getContext())) {
+            textView.setText(R.string.you_must_activate_wifi);
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    WifiHelper.getInstance().enableWifi(getContext());
+                }
+            });
+        }
+        else if (bestGuess != null) {
             textView.setText(bestGuess);
         } else {
             textView.setText(R.string.no_buses_near);
         }
     }
 
-    private void showEnableWifiAlert() {
-        AlertDialog alertDialog = new AlertDialog.Builder(getContext())
-                .setTitle(R.string.enable_wifi_alert_title)
-                .setMessage(R.string.enable_wifi_alert_message)
-                .setPositiveButton(R.string.enable_wifi_alert_yesbutton, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        WifiHelper.getInstance().enableWifi(getContext());
-                    }
-
-                }).setNegativeButton(R.string.enable_wifi_alert_nobutton, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //Do nothing
-                    }
-                })
-                .show();
+    private void showWifiPromptIfNeeded() {
     }
 
     @Override

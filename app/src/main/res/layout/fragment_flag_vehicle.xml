@@ -21,18 +21,11 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Large Text"
+                android:text="@string/loading_looking_for_vehicle"
                 android:id="@+id/textViewBusInformation"
                 android:layout_weight="0.7"
                 android:textAlignment="center"
                 android:gravity="center_vertical" />
-
-            <ImageButton
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:id="@+id/positionButton"
-                android:layout_weight="0.3"
-                android:background="@drawable/gpsposition" />
 
         </LinearLayout>
 
