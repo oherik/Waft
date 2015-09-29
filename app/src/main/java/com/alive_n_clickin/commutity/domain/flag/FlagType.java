@@ -4,8 +4,12 @@ package com.alive_n_clickin.commutity.domain.flag;
  * An enum for different flag types. Each flag type is associated with a string.
  */
 public enum FlagType implements IFlagType {
-    FOO ("Foo"),
-    BAR ("Bar");
+    DELAY ("Försenad"),
+    CROWDED ("Full"),
+    MESSY ("Stökig"),
+    BAD_CLIMATE ("Dåligt klimat"),
+    VANDALIZED ("Vandalisering"),
+    OTHER ("Övrigt");
 
     private final String name;
 
