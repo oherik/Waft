@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.alive_n_clickin.commutity.R;
-import com.alive_n_clickin.commutity.infrastructure.WifiHelper;
 
 /**
  * This class handles the first view presented to the user.
@@ -26,6 +25,5 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        WifiHelper.getInstance().scanForWifis(getApplicationContext());
     }
 }
