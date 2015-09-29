@@ -85,6 +85,13 @@ We did not reach any conclusions. To my understanding, both sides in this argume
 
 A similar issue was raised regarding keeping meetings within the time frame. If we draw over, then we must stop and ask everyone if that is alright, not just keep going, like yesterday, and blow more than 1 hour over schedule. Everyone thought this was a good idea. And the agreement was that everyone, both the people bothered and unbothered by this, should keep an eye out for this kind of thing.
 
+The curse of week 1
+-------------------
+
+Distributed work is a big issue. When a project starts up, there are tons of things to do, lots of interconnected functionality, and a lot of decisions to be made that will linger on for a long time. It is really hard to work at different times in the same system. When the system is small, it is almost as if it's a room that is too small. It seems to easy to step on each others code toes. Having some people work on server and some on client is a good thing, but as we move into more and more the same files, I expect troubles.
+
+Another thing that is the curse of week one (and probably the curse on any of these projects that will run for no more than a couple of weeks!) is that as we work together, we develop common knowledge, about both the system and each other. We develop a common vision. We might peak right when the project ends. Which is sad. I get the idea of working this intensly, but I feel a lot of knowledge about smart ways to work is yet to come, and maybe even won't come, because the project deadline will cut that knowledge short.
+
 # <a name="week4">Week 4</a>
 
 Sprint planning
