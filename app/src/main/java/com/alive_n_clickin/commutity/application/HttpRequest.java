@@ -1,9 +1,8 @@
 package com.alive_n_clickin.commutity.application;
 
-import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
+import com.alive_n_clickin.commutity.util.FlagType;
 import com.alive_n_clickin.commutity.presentation.flagreport.FlagVehicleDetailFragment;
 
 import java.io.DataOutputStream;
@@ -13,77 +12,87 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-
 /**
- * An async task handling the network connection, since this cannot be done on the main activity
- * thread. Accepts an URL and a query string.
+ * An class handling the network connection, since this cannot be done on the main activity
+ * thread. Accepts an URL and a query string. The IP address of the server is hard coded into
+ * this class
  */
 public class HttpRequest {
     private final String LOG_TAG        = FlagVehicleDetailFragment.class.getSimpleName();
-    private int serverResponseCode;
-    private final String baseIP = "http://95.85.21.47";
+
+    //Set up server handling variables
+    private final String baseIP         = "http://95.85.21.47/";
+    private final String flags          = "flags";
+    private final String charset        = "UTF-8";
+    private final String contentType    = "application/x-www-form-urlencoded";
+    private static final int minumumOtherCommentLength = 5;
 
     /**
      * Posts a new flag to the server
      * @param flagTypeID    The type of flag
      * @param comment       The flag comment
+     * @return The response code from the server, or -1 if the flag couldn't be sent
      */
-    public void postFlag(int flagTypeID, String comment){
-        String ipAddress = baseIP + "/flags";
+    public int postFlag(int flagTypeID, String comment){
+        String ipAddress = baseIP + flags;
         String query = String.format("flagType=%s&comment=%s", flagTypeID, comment);
-        post(ipAddress, query);
+        return post(ipAddress, query);
+    }
+
+    /**
+     * Makes sure the flag can be sent in regards to the comment length
+     * @param comment   The comment from the comment field
+     * @return  True if the http request can be sent, false otherwise
+     */
+    public static boolean assertCommentLength(int flagTypeID, String comment){
+        //"Other" flag
+        if(flagTypeID == FlagType.OTHER.flagTypeID){
+            String trimmedComment = comment.trim();
+            return trimmedComment.length()>=minumumOtherCommentLength;
+        }
+        return true;
     }
 
     /**
      * Posts a http request to the server
-     * @param ipAddress The ip address, including /flags or similar
-     * @param query The query
+     * @param serverAddress The full address for the location where to send the request
+     * @param query The query to post in the body of the request
+     * @return The response code from the server, or -1 if the request couldn't be sent
      */
-    public void post(String ipAddress, String query) {
-        //Define variables
-        String charset          = "UTF-8";
-        String contentType      = "application/x-www-form-urlencoded";
+    public int post(String serverAddress, String query) {
         try {
             //Get the url from the address
-            URL url = new URL(ipAddress);
+            URL url = new URL(serverAddress);
 
             //Convert the parameters to UTF-8
-            byte[] bodyData       = query.getBytes(StandardCharsets.UTF_8);
-            int    bodyDataLength = bodyData.length;
+            byte[] bodyPostData     = query.getBytes(StandardCharsets.UTF_8);
+            int bodyPostDataLength  = bodyPostData.length;
 
             //Set up server request
-            HttpURLConnection serverConnection= (HttpURLConnection) url.openConnection();
+            HttpURLConnection serverConnection = (HttpURLConnection) url.openConnection();
             serverConnection.setDoOutput(true);
             serverConnection.setInstanceFollowRedirects(false);
             serverConnection.setRequestMethod("POST");
             serverConnection.setRequestProperty("Content-Type", contentType);
             serverConnection.setRequestProperty("charset", charset);
-            serverConnection.setRequestProperty("Content-Length", Integer.toString(bodyDataLength));
+            serverConnection.setRequestProperty("Content-Length", Integer.toString(bodyPostDataLength));
             serverConnection.setUseCaches(false);
 
             //Send data
             DataOutputStream serverOutput = new DataOutputStream(serverConnection.getOutputStream());
-            serverOutput.write(bodyData);
+            serverOutput.write(bodyPostData);
 
             //Log response code
             int status = serverConnection.getResponseCode();
             Log.v(LOG_TAG, "Response " + status);
 
-            this.serverResponseCode = status;
-
-        } catch(MalformedURLException e){
-            Log.e(LOG_TAG, "Invalid URL. Current URL input was " + ipAddress +
+            return status;
+        } catch (MalformedURLException e) {
+            Log.e(LOG_TAG, "Invalid URL. Current URL input was " + serverAddress +
                     ". Error message: " + e);
-        } catch(IOException e){
-            Log.e(LOG_TAG, "Could not connect to server. Error message: " +e);
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Server connection error. Error message: " + e);
         }
+        return -1; //Could not send request
     }
-
-    public int getServerResponseCode(){
-        if(serverResponseCode==0){
-            Log.e(LOG_TAG, "No server code stored, have you made a request?");
-        }
-        return serverResponseCode;
-    }
-
 }

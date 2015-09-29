@@ -6,6 +6,19 @@
     <string name="flag_description">Flagga</string>
     <string name="flag_comment">Skriv din kommentar här...</string>
     <string name="flag_send">Flagga!</string>
+    <string name="flag_longer_comment_needed">Vänligen skriv in en kommentar\n(minst fem tecken)</string>
+    <string name="flag_sent">Flagga skickad</string>
+    <string name="server_error">Serverfel</string>
+    <string name="flag_not_sent">Flaggan kunde inte skickas</string>
+
+    <!-- Flag types -->
+    <string name="flag_disturbance">Stökig</string>
+    <string name="flag_pram">Inga barnvagnsplatser</string>
+    <string name="flag_overcrowded">Full</string>
+    <string name="flag_messy">Smutsig</string>
+    <string name="flag_delayed">Försenad</string>
+    <string name="flag_other">Övrigt</string>
+
 
     <string name="enable_wifi_alert_title" type="id">Aktivera WiFi</string>
     <string name="enable_wifi_alert_message">Aktivera WiFi så avgör appen automatiskt vilket fordon du är på.</string>
