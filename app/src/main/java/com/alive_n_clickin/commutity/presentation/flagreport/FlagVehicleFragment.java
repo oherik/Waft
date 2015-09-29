@@ -42,7 +42,6 @@ public class FlagVehicleFragment extends Fragment implements WifiChangeListener 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        WifiBroadcastReceiver.unregister(this);
     }
 
     public void onCreate(Bundle savedInstanceState) {
@@ -57,13 +56,13 @@ public class FlagVehicleFragment extends Fragment implements WifiChangeListener 
         flagButtons.add(new FlagButton(R.drawable.flag_pram_300px, getString(R.string.flag_pram), FlagType.NO_PRAMS));
         flagButtons.add(new FlagButton(R.drawable.flag_other_black_300px, getString(R.string.flag_other), FlagType.OTHER));
         busData = "55";
-        WifiBroadcastReceiver.register(this);
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        WifiBroadcastReceiver.register(this);
 
         final View rootView   = inflater.inflate(R.layout.fragment_flag_vehicle, container, false);
         flagAdapter     = new FlagViewAdapter(getActivity(), flagButtons);
@@ -109,7 +108,7 @@ public class FlagVehicleFragment extends Fragment implements WifiChangeListener 
 
                 //TODO Debug to find out why the isWifiEnabled never gives true.
                 //Works on my physical device –Rikard
-                if(WifiHelper.getInstance().isWifiEnabled(getContext())){
+                if (WifiHelper.getInstance().isWifiEnabled(getContext())) {
                     writeOutBestGuess(rootView);
                 } else {
                     showEnableWifiAlert();
@@ -117,7 +116,14 @@ public class FlagVehicleFragment extends Fragment implements WifiChangeListener 
             }
         });
 
+
         return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        WifiBroadcastReceiver.unregister(this);
     }
 
     private void writeOutBestGuess(@NonNull View rootView) {
