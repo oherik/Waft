@@ -7,7 +7,9 @@ import android.view.View;
 
 import com.alive_n_clickin.commutity.R;
 
-
+/**
+ * This class handles the first view presented to the user.
+ */
 public class MainActivity extends Activity {
     @Override
     public void onCreate(Bundle bundle) {
@@ -15,11 +17,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.main_activity);
     }
 
-    public void clickHandler(View view){
+    public void plusButtonOnClick(View view){
         Intent intent = new Intent(this,FlagVehicle.class);
         startActivity(intent);
-        finish();
     }
-
-
 }
