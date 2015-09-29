@@ -25,6 +25,8 @@
     <string name="enable_wifi_alert_yesbutton">Slå på WiFi</string>
     <string name="enable_wifi_alert_nobutton">Avbryt</string>
     <string name="no_buses_near">Inga bussar nära dig</string>
+    <string name="loading_looking_for_vehicle">Letar efter ditt fordon ...</string>
+    <string name="you_must_activate_wifi">Aktivera wifi för att rapportera</string>
 
     <!-- Programmatic constants -->
 </resources>
