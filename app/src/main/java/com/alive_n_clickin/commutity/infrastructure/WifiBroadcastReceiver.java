@@ -28,11 +28,11 @@ public class WifiBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    static void register(WifiChangeListener newListener) {
+    public static void register(WifiChangeListener newListener) {
         listeners.add(newListener);
     }
 
-    static void unregister(WifiChangeListener listener) {
+    public static void unregister(WifiChangeListener listener) {
         listeners.remove(listener);
     }
 }
