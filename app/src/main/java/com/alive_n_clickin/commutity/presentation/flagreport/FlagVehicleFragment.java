@@ -34,10 +34,12 @@ public class FlagVehicleFragment extends Fragment {
         flagButtons = new ArrayList();
 
         //TODO hard coded flag data for testing purposes
-        flagButtons.add(new FlagButton(R.drawable.full, "Full", FlagType.OVERCROWDED));
-        flagButtons.add(new FlagButton(R.drawable.full, "Stökig", FlagType.MESSY));
-        flagButtons.add(new FlagButton(R.drawable.full, "Försenad", FlagType.DELAYED));
-        flagButtons.add(new FlagButton(R.drawable.full, "Övrigt", FlagType.OTHER));
+        flagButtons.add(new FlagButton(R.drawable.flag_full_300px, getString(R.string.flag_overcrowded), FlagType.OVERCROWDED));
+        flagButtons.add(new FlagButton(R.drawable.flag_rowdy_300px, getString(R.string.flag_disturbance), FlagType.DISTURBANCES));
+        flagButtons.add(new FlagButton(R.drawable.flag_delayed_300px, getString(R.string.flag_delayed), FlagType.DELAYED));
+        flagButtons.add(new FlagButton(R.drawable.flag_dirty_alt2_300px, getString(R.string.flag_messy), FlagType.MESSY));
+        flagButtons.add(new FlagButton(R.drawable.flag_pram_300px, getString(R.string.flag_pram), FlagType.NO_PRAMS));
+        flagButtons.add(new FlagButton(R.drawable.flag_other_black_300px, getString(R.string.flag_other), FlagType.OTHER));
         busData = "55";
 
     }
