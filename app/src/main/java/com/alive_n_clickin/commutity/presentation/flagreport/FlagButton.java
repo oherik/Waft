@@ -1,7 +1,7 @@
 package com.alive_n_clickin.commutity.presentation.flagreport;
 
 
-import android.graphics.drawable.Drawable;
+import com.alive_n_clickin.commutity.util.FlagType;
 
 /**
  * A class containing data for a flag button

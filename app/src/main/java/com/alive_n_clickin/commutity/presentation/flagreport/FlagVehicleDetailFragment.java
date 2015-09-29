@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +25,7 @@ public class FlagVehicleDetailFragment extends Fragment {
     final static String ARG_POSITION    = "position";
     int mCurrentPosition                = -1;
     private final String LOG_TAG        = FlagVehicleDetailFragment.class.getSimpleName();
-    int flagTypeID;
-
+    private int flagTypeID;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,22 +44,35 @@ public class FlagVehicleDetailFragment extends Fragment {
             public void onClick(View v) {
                 View rootView = getActivity().findViewById(android.R.id.content);
                 TextView commentView = (TextView) rootView.findViewById(R.id.flagDetailCommentField);
+                String comment = commentView.getText().toString();
 
                 //Send request
-                setUpHttpRequest(commentView.getText().toString(), flagTypeID);
-
-                //Change back to the previous view
-                FlagVehicleFragment flagFragment = new FlagVehicleFragment();
-                Bundle args = new Bundle();
-                args.putInt(FlagVehicleDetailFragment.ARG_POSITION, mCurrentPosition);
-                flagFragment.setArguments(args);
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.content_frame, flagFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+               if(setUpHttpRequest(flagTypeID, comment)) {
+                   //Request made, change back to the previous view
+                   switchToFlagFragment();
+               }else{
+                   //Request couldn't be made due to the comment length not being satisfactory
+                   //TODO make the comment field blink or make some other non-intrusive indicator.
+                   Toast.makeText(getActivity().getApplicationContext(),
+                           getString(R.string.flag_longer_comment_needed), Toast.LENGTH_SHORT).show();
+               }
             }
         });
         return view;
+    }
+
+    /**
+     * Switches the view back to the main flag fragment
+     */
+    private void switchToFlagFragment(){
+        FlagVehicleFragment flagFragment = new FlagVehicleFragment();
+        Bundle args = new Bundle();
+        args.putInt(FlagVehicleDetailFragment.ARG_POSITION, mCurrentPosition);
+        flagFragment.setArguments(args);
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.content_frame, flagFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     @Override
@@ -75,10 +86,13 @@ public class FlagVehicleDetailFragment extends Fragment {
         View rootView           = getActivity().findViewById(android.R.id.content);
         TextView description    = (TextView) rootView.findViewById(R.id.flagDetailDescription);
         description.setText(args.getString("flag_description"));
+
+
         ImageView flagImageView = (ImageView) rootView.findViewById(R.id.flagDetailImage);
         int flagImageID         = args.getInt("flag_image_ID");
         Drawable flagImage      = getActivity().getResources().getDrawable(flagImageID);
         flagImageView.setImageDrawable(flagImage);
+
 
         //Set additional data
         flagTypeID = args.getInt("flag_type_ID");
@@ -96,18 +110,24 @@ public class FlagVehicleDetailFragment extends Fragment {
 
     /**
      * Send the flag info to the server
-     * @param comment   The user submitted extra information
      * @param flagTypeID  The type of flag
+     * @param comment   The user submitted extra information
+     * @return True if the flag could be sent, false otherwise (i.e. the comment was too short)
      */
-    private void setUpHttpRequest(String comment, int flagTypeID){
+    private boolean setUpHttpRequest(int flagTypeID, String comment){
         //If the query doesn't accept null
         if(comment == null){
             comment="";
         }
 
-        //Call for a request
-        AsyncHttpStarter sendRequest = new AsyncHttpStarter();
-        sendRequest.execute(String.valueOf(flagTypeID), comment);
+        //See if the flag can be sent
+        if(HttpRequest.assertCommentLength(flagTypeID, comment)){
+            //Call for a request
+            AsyncHttpStarter sendRequest = new AsyncHttpStarter();
+            sendRequest.execute(String.valueOf(flagTypeID), comment);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -118,8 +138,7 @@ public class FlagVehicleDetailFragment extends Fragment {
         @Override
         protected Integer doInBackground(String... params) {
             HttpRequest request = new HttpRequest();
-            request.postFlag(Integer.valueOf(params[0]), params[1]);
-            return new Integer(request.getServerResponseCode());
+            return new Integer(request.postFlag(Integer.valueOf(params[0]), params[1]));
         }
         @Override
         protected void onPostExecute(Integer result){
@@ -135,11 +154,11 @@ public class FlagVehicleDetailFragment extends Fragment {
             String toastText;
             switch (responseCode){
                 case 400:
-                    Log.e(LOG_TAG, "Server error " + responseCode);
-                    toastText = "Server error " + responseCode + ". Could not send flag.";
+                    toastText = getString(R.string.server_error)+ ": " + responseCode +
+                            getString(R.string.flag_not_sent);
                     break;
                 default:
-                    toastText = "Flag sent.";
+                    toastText = getString(R.string.flag_sent);
                     break;
             }
             //Make toast to alert the user of this
