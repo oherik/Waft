@@ -59,9 +59,26 @@ public class FlagVehicleFragment extends Fragment implements WifiChangeListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         WifiBroadcastReceiver.register(this);
+        WifiHelper.getInstance().scanForWifis(getContext());
 
         final View rootView   = inflater.inflate(R.layout.fragment_flag_vehicle, container, false);
         flagAdapter     = new FlagViewAdapter(getActivity(), flagButtons);
+        final TextView textView = (TextView) rootView.findViewById(R.id.textViewBusInformation);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WifiHelper wifiHelper = WifiHelper.getInstance();
+                boolean wifiIsEnabled = wifiHelper.isWifiEnabled(getContext());
+                if (wifiIsEnabled) {
+                    textView.setText(R.string.loading_looking_for_vehicle);
+                    wifiHelper.scanForWifis(getContext());
+                }
+                else {
+                    textView.setText(R.string.activating_wifi);
+                    wifiHelper.enableWifi(getContext());
+                }
+            }
+        });
 
         GridView flagGrid   = (GridView) rootView.findViewById(R.id.flagGridView);
         flagGrid.setAdapter(flagAdapter);
@@ -96,8 +113,6 @@ public class FlagVehicleFragment extends Fragment implements WifiChangeListener 
             }
         });
 
-        writeOutBestGuess(rootView);
-
         return rootView;
     }
 
@@ -108,27 +123,17 @@ public class FlagVehicleFragment extends Fragment implements WifiChangeListener 
     }
 
     private void writeOutBestGuess(@NonNull View rootView) {
-        showWifiPromptIfNeeded();
         String bestGuess = NearbyVehiclesScanner.getInstance().getBestGuess(getContext());
-        TextView textView = (TextView) rootView.findViewById(R.id.textViewBusInformation);
+        final TextView textView = (TextView) rootView.findViewById(R.id.textViewBusInformation);
 
         if (!WifiHelper.getInstance().isWifiEnabled(getContext())) {
             textView.setText(R.string.you_must_activate_wifi);
-            textView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    WifiHelper.getInstance().enableWifi(getContext());
-                }
-            });
         }
         else if (bestGuess != null) {
             textView.setText(bestGuess);
         } else {
             textView.setText(R.string.no_buses_near);
         }
-    }
-
-    private void showWifiPromptIfNeeded() {
     }
 
     @Override
