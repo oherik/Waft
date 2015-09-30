@@ -16,6 +16,7 @@ import com.alive_n_clickin.commutity.presentation.search.SearchFragment;
 /**
  * This class handles the first view presented to the user.
  */
+//TODO Make the UI a fragment to ease switching
 public class MainActivity extends FragmentActivity {
     private final String LOG_TAG = FragmentActivity.class.getSimpleName();
     @Override
@@ -40,11 +41,15 @@ public class MainActivity extends FragmentActivity {
      */
     public void switchToSearchFragment(View view){
         SearchFragment searchFragment = new SearchFragment();
+
+        //Set arguments
         String currentStop = ((TextView) view.findViewById(R.id.currentStop)).getText().toString();
         Bundle args = new Bundle();
         args.putString(Intent.EXTRA_TEXT, currentStop);
         searchFragment.setArguments(args);
-        FragmentTransaction transaction = this.getSupportFragmentManager().beginTransaction();
+
+        //Start transaction. Replace the current view with the fragment.
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_content_frame, searchFragment);
         transaction.addToBackStack(null);
         transaction.commit();
