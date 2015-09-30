@@ -1,4 +1,4 @@
-package com.alive_n_clickin.commutity.presentation.flagreport;
+package com.alive_n_clickin.commutity.presentation.main;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.alive_n_clickin.commutity.R;
+import com.alive_n_clickin.commutity.presentation.flagreport.FlagVehicle;
 import com.alive_n_clickin.commutity.presentation.search.SearchFragment;
 
 /**
