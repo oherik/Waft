@@ -19,6 +19,8 @@
     <string name="flag_delayed">Försenad</string>
     <string name="flag_other">Övrigt</string>
 
+    <!-- Search related strings -->
+    <string name="stop_search_hint">Hållplats</string>
 
     <string name="enable_wifi_alert_title" type="id">Aktivera WiFi</string>
     <string name="enable_wifi_alert_message">Aktivera WiFi så avgör appen automatiskt vilket fordon du är på.</string>
@@ -28,6 +30,9 @@
     <string name="loading_looking_for_vehicle">Letar efter ditt fordon ...</string>
     <string name="you_must_activate_wifi">Aktivera wifi för att rapportera</string>
     <string name="activating_wifi">Aktiverar wifi ...</string>
+    <string name="title_activity_stop_search">StopSearch</string>
+
+    <string name="hello_world">Hello world!</string>
 
     <!-- Programmatic constants -->
 </resources>
