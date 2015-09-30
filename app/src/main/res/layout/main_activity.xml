@@ -6,31 +6,6 @@
         android:id="@+id/main_content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <TextView
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/currentStop"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:onClick="switchToSearchFragment"
-            android:background="#e4e9ff"
-            android:text="Hållplats-palceholder" />
-
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/imageButton"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:onClick="plusButtonOnClick"
-            android:src="@android:drawable/ic_input_add"
-            android:adjustViewBounds="false"
-            android:background="@android:color/transparent"
-            android:scaleType="fitXY"
-            android:layout_gravity="right|bottom" />
-
     </FrameLayout>
 
 </RelativeLayout>

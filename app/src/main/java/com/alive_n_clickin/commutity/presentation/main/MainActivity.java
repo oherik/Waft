@@ -11,28 +11,34 @@ import android.widget.TextView;
 
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.presentation.flagreport.FlagVehicle;
+import com.alive_n_clickin.commutity.presentation.flagreport.FlagVehicleFragment;
 import com.alive_n_clickin.commutity.presentation.search.SearchFragment;
 
 /**
  * This class handles the first view presented to the user.
  */
-//TODO Make the UI a fragment to ease switching
 public class MainActivity extends FragmentActivity {
     private final String LOG_TAG = FragmentActivity.class.getSimpleName();
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.main_activity);
-    }
-
-    public void plusButtonOnClick(View view){
-        Intent intent = new Intent(this,FlagVehicle.class);
-        startActivity(intent);
+        MainFragment mainFragment = new MainFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.main_content_frame, mainFragment).commit();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    /**
+     * Starts the flag report activity
+     * @param view THe current view
+     */
+    public void plusButtonOnClick(View view){
+        Intent intent = new Intent(this,FlagVehicle.class);
+        startActivity(intent);
     }
 
     /**
@@ -53,6 +59,6 @@ public class MainActivity extends FragmentActivity {
         transaction.replace(R.id.main_content_frame, searchFragment);
         transaction.addToBackStack(null);
         transaction.commit();
-        Log.e(LOG_TAG, "LOLOL");
     }
+
 }
