@@ -21,4 +21,9 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(this,FlagVehicle.class);
         startActivity(intent);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }
