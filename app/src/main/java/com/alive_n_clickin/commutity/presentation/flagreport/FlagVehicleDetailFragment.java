@@ -21,19 +21,19 @@ import com.alive_n_clickin.commutity.infrastructure.WifiHelper;
 
 
 /**
- * A class for showing the detailed view when flagging a vehicle
+ * A class for showing the detailed view when flagging a vehicle. The view contains a flag, its name,
+ * a comment field and a button for sending the flag. This fragment class handles then visual elements
+ * of this.
  */
 
 public class FlagVehicleDetailFragment extends Fragment {
     final static String ARG_POSITION    = "position";
     int mCurrentPosition                = -1;
-    private final String LOG_TAG        = FlagVehicleDetailFragment.class.getSimpleName();
     private int flagTypeID;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         if (savedInstanceState  != null) {
             mCurrentPosition    = savedInstanceState.getInt(ARG_POSITION);
         }
@@ -42,6 +42,8 @@ public class FlagVehicleDetailFragment extends Fragment {
         View view               =  inflater.inflate(R.layout.fragment_flag_vehicle_detail,
                 container, false);
         Button sendButton       = (Button) view.findViewById(R.id.flagDetailSendButton);
+
+        //Check if wifi is enabled, if not display a message, if it is, try sending the flag
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,11 +58,18 @@ public class FlagVehicleDetailFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Tries sending the flag data by calling on the http request class. If it's successful it
+     * switches back to the previous view, otherwise it displays a message why it couldn't be sent.
+     * At the moment the only possible error is that the comment is too short when submitting an
+     * "other" flag, so a toast about this is displayed.
+     */
     private void trySendingFlag() {
         View rootView = getActivity().findViewById(android.R.id.content);
         TextView commentView = (TextView) rootView.findViewById(R.id.flagDetailCommentField);
         String comment = commentView.getText().toString();
 
+        //TODO change in the future so the http request can send an error code back
         //Send request
         if (setUpHttpRequest(flagTypeID, comment)) {
             //Request made, change back to the previous view
@@ -73,6 +82,9 @@ public class FlagVehicleDetailFragment extends Fragment {
         }
     }
 
+    /**
+     * Alerts the user that  wifi need to be enabled.
+     */
     private void showEnableWifiAlert() {
         TextView busInfo = (TextView) getView().findViewById(R.id.textViewBusInformation);
 
@@ -114,12 +126,12 @@ public class FlagVehicleDetailFragment extends Fragment {
         //Get arguments sent by the starting class
         Bundle args = getArguments();
 
-        //Set images, text etc
+        //Set text
         View rootView           = getActivity().findViewById(android.R.id.content);
         TextView description    = (TextView) rootView.findViewById(R.id.flagDetailDescription);
         description.setText(args.getString("flag_description"));
 
-
+        //Set images
         ImageView flagImageView = (ImageView) rootView.findViewById(R.id.flagDetailImage);
         int flagImageID         = args.getInt("flag_image_ID");
         Drawable flagImage      = getActivity().getResources().getDrawable(flagImageID);
