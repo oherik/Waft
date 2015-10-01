@@ -17,7 +17,7 @@ import android.widget.SearchView;
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
 import com.alive_n_clickin.commutity.infrastructure.api.IVasttrafikAdapter;
-import com.alive_n_clickin.commutity.infrastructure.api.Stop;g
+import com.alive_n_clickin.commutity.infrastructure.api.Stop;
 import com.alive_n_clickin.commutity.presentation.main.MainActivity;
 import com.alive_n_clickin.commutity.presentation.main.MainFragment;
 
