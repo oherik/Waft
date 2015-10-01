@@ -35,21 +35,6 @@
                 <action android:name="android.net.wifi.STATE_CHANGE" />
             </intent-filter>
         </receiver>
-
-        <activity
-            android:name=".presentation.search.SearchableActivity"
-            android:label="@string/title_activity_stop_search" >
-            <!--
-            Specifies that this is the activity used for searches
-            Because of the way Android search works no default category
-            is needed in the intent filter.
-             -->
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-            <meta-data android:name="android.app.searchable"
-                android:resource="@xml/searchable"/>
-        </activity>
 </application>
 
 </manifest>
