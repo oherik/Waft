@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Commutity</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
     <!-- Flag related strings -->
@@ -12,6 +11,23 @@
     <string name="server_error">Serverfel</string>
     <string name="flag_not_sent">Flaggan kunde inte skickas</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Flag types -->
+    <string name="flag_disturbance">Stökig</string>
+    <string name="flag_pram">Inga barnvagnsplatser</string>
+    <string name="flag_overcrowded">Full</string>
+    <string name="flag_messy">Smutsig</string>
+    <string name="flag_delayed">Försenad</string>
+    <string name="flag_other">Övrigt</string>
+
+
+    <string name="enable_wifi_alert_title" type="id">Aktivera WiFi</string>
+    <string name="enable_wifi_alert_message">Aktivera WiFi så avgör appen automatiskt vilket fordon du är på.</string>
+    <string name="enable_wifi_alert_yesbutton">Slå på WiFi</string>
+    <string name="enable_wifi_alert_nobutton">Avbryt</string>
+    <string name="no_buses_near">Inga bussar nära dig</string>
+    <string name="loading_looking_for_vehicle">Letar efter ditt fordon ...</string>
+    <string name="you_must_activate_wifi">Aktivera wifi för att rapportera</string>
+    <string name="activating_wifi">Aktiverar wifi ...</string>
+
+    <!-- Programmatic constants -->
 </resources>
