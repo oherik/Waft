@@ -22,6 +22,7 @@
     <!-- Search related strings -->
     <string name="stop_search_hint">Hållplats</string>
     <string name="stop_search_no_results">Inga hållplatser hittade</string>
+    <string name="stop_search_label">Sök hållplats</string>
 
     <string name="enable_wifi_alert_title" type="id">Aktivera WiFi</string>
     <string name="enable_wifi_alert_message">Aktivera WiFi så avgör appen automatiskt vilket fordon du är på.</string>

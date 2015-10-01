@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.alive_n_clickin.commutity.R;
@@ -46,6 +47,7 @@ public class MainActivity extends FragmentActivity {
      * @param view The current view
      */
     public void switchToSearchFragment(View view){
+
         SearchFragment searchFragment = new SearchFragment();
 
         //Set arguments
