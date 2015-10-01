@@ -36,7 +36,7 @@ class JsonJavaConverter<T> {
      */
     public T toJava(String json,String startNode) {
         JsonObject obj = PARSER.parse(json).getAsJsonObject();
-        return GSON.fromJson(obj.get(startNode), classType);
+            return GSON.fromJson(obj.get(startNode), classType);
     }
 
     /**

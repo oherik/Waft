@@ -29,7 +29,7 @@ public class MainActivity extends FragmentActivity {
         new Thread(new Runnable() {
             public void run() {
                 VasttrafikAdapter a = new VasttrafikAdapter();
-                Log.d("ASD", "" + a.getNearbyStations(11.978722,57.689061).toString());
+            //    Log.d("ASD", "" + a.getNearbyStations(11.978722,57.689061).toString());
             }
         }).start();
     }
