@@ -1,4 +1,4 @@
-package com.alive_n_clickin.commutity.infrastructure;
+package com.alive_n_clickin.commutity.infrastructure.api;
 
 import android.net.Uri;
 import android.util.Log;
@@ -13,7 +13,7 @@ import java.net.URL;
 /**
  * Created by OscarEvertsson on 30/09/15.
  */
-public class ElectricityApiConnection {
+class ElectricityApiConnection {
 
     private static final String BASE_URL_ELECTRICITY = "https://ece01.ericsson.net:4443/ecity";
     //Username and password, base64 encoded
