@@ -1,14 +1,18 @@
 package com.alive_n_clickin.commutity.presentation.search;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -18,9 +22,14 @@ import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.application.HttpRequest;
 import com.alive_n_clickin.commutity.infrastructure.Stop;
 import com.alive_n_clickin.commutity.infrastructure.VasttrafikAdapter;
+import com.alive_n_clickin.commutity.presentation.flagreport.FlagVehicleFragment;
+import com.alive_n_clickin.commutity.presentation.main.MainActivity;
+import com.alive_n_clickin.commutity.presentation.main.MainFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import lombok.core.Main;
 
 /**
  * A fragment for the search function. Contains a edit text field for inputting a search term
@@ -53,11 +62,26 @@ public class SearchFragment extends Fragment {
         search.setQueryHint("Test om hint fungerar");
         searchResults = (ListView) rootView.findViewById(R.id.searchResults);
 
-        List<Stop> emptyStops = new ArrayList<Stop>();
+        //Add adapter
+        List<Stop> emptyStops = new ArrayList();
         resultAdapter = new SearchResultAdapter(getActivity(),emptyStops);
         searchResults.setAdapter(resultAdapter);
 
+        //Add click listener on the adapter
+        searchResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            // The user clicked on an entry
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Context context = getActivity().getApplicationContext();
+                Stop stop = resultAdapter.getItem(i);
 
+                //Send back the stop to the main view
+                setMainStop(stop);
+
+                //Close this fragment
+                switchToMainFragment(stop);
+            }
+        });
 
         search.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -78,10 +102,10 @@ public class SearchFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 if (newText != null) {
-              //      searchResults.setVisibility(rootView.VISIBLE);
+                    //      searchResults.setVisibility(rootView.VISIBLE);
                     searchStops(search.getQuery().toString());
                 } else {
-                //    searchResults.setVisibility(rootView.INVISIBLE);
+                    //    searchResults.setVisibility(rootView.INVISIBLE);
                 }
 
 
@@ -91,6 +115,27 @@ public class SearchFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    private void setMainStop(Stop stop){
+        MainActivity mainActivity = (MainActivity) getActivity();
+        mainActivity.setCurrentStop(stop);
+
+    }
+
+    /**
+     * Switch view to the main fragment
+     */
+    private void switchToMainFragment(Stop stop){
+        MainFragment mainFragment = new MainFragment();
+        Bundle args = new Bundle();
+        args.putLong(Intent.EXTRA_RETURN_RESULT, stop.getId());
+        mainFragment.setArguments(args);
+
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_content_frame, mainFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     private void searchStops(String query){

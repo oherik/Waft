@@ -10,6 +10,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.alive_n_clickin.commutity.R;
+import com.alive_n_clickin.commutity.infrastructure.Stop;
 import com.alive_n_clickin.commutity.infrastructure.VasttrafikAdapter;
 import com.alive_n_clickin.commutity.presentation.flagreport.FlagVehicle;
 import com.alive_n_clickin.commutity.presentation.search.SearchFragment;
@@ -19,19 +20,14 @@ import com.alive_n_clickin.commutity.presentation.search.SearchFragment;
  */
 public class MainActivity extends FragmentActivity {
     private final String LOG_TAG = FragmentActivity.class.getSimpleName();
+    private Stop currentStop;
+
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.main_activity);
         MainFragment mainFragment = new MainFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.main_content_frame, mainFragment).commit();
-
-        new Thread(new Runnable() {
-            public void run() {
-                VasttrafikAdapter a = new VasttrafikAdapter();
-            //    Log.d("ASD", "" + a.getNearbyStations(11.978722,57.689061).toString());
-            }
-        }).start();
     }
 
     @Override
@@ -67,6 +63,14 @@ public class MainActivity extends FragmentActivity {
         transaction.replace(R.id.main_content_frame, searchFragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    public Stop getCurrentStop(){
+        return currentStop;
+    }
+
+    public void setCurrentStop(Stop stop){
+            this.currentStop = currentStop;
     }
 
 }

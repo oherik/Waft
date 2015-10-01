@@ -33,6 +33,19 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.main_fragment, container, false);
+        /*
+        MainActivity mainActivity = (MainActivity) getActivity();
+        TextView stopTextView = (TextView) container.findViewById(R.id.currentStop);
+        if(mainActivity.getCurrentStop()!=null) {
+            stopTextView.setText(mainActivity.getCurrentStop().getName());
+        }
+         */
+        Bundle args = getArguments();
+        if(args!=null) {
+            long result = args.getLong(Intent.EXTRA_RETURN_RESULT);
+            TextView stopTextView = (TextView) rootView.findViewById(R.id.currentStop);
+            stopTextView.setText(String.valueOf(result));
+        }
         return rootView;
     }
 }
