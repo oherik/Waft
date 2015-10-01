@@ -31,7 +31,8 @@ class JsonJavaConverter<T> {
     /**
      * Take a JSON object an turn it into an object of the type matching the class of the converter.
      * IMPORTANT! The format of the string should be in json NOT jsonp.
-     * @param json
+     * @param json is simply the string in json format.
+     * @param startNode is the node within the json file to start converting data from.
      * @return the type matching the class of the converter or null if unsuccessful
      */
     public T toJava(String json,String startNode) {
