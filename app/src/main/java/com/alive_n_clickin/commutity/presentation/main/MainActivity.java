@@ -1,6 +1,5 @@
 package com.alive_n_clickin.commutity.presentation.main;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -11,8 +10,8 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.alive_n_clickin.commutity.R;
+import com.alive_n_clickin.commutity.infrastructure.VasttrafikAdapter;
 import com.alive_n_clickin.commutity.presentation.flagreport.FlagVehicle;
-import com.alive_n_clickin.commutity.presentation.flagreport.FlagVehicleFragment;
 import com.alive_n_clickin.commutity.presentation.search.SearchFragment;
 
 /**
@@ -26,6 +25,13 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.main_activity);
         MainFragment mainFragment = new MainFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.main_content_frame, mainFragment).commit();
+
+        new Thread(new Runnable() {
+            public void run() {
+                VasttrafikAdapter a = new VasttrafikAdapter();
+                Log.d("ASD", "" + a.getNearbyStations(11.978722,57.689061).toString());
+            }
+        }).start();
     }
 
     @Override
