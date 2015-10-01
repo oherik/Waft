@@ -1,9 +1,7 @@
 package com.alive_n_clickin.commutity.presentation.search;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,23 +11,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import com.alive_n_clickin.commutity.R;
-import com.alive_n_clickin.commutity.application.HttpRequest;
-import com.alive_n_clickin.commutity.infrastructure.Stop;
-import com.alive_n_clickin.commutity.infrastructure.VasttrafikAdapter;
-import com.alive_n_clickin.commutity.presentation.flagreport.FlagVehicleFragment;
+import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
+import com.alive_n_clickin.commutity.infrastructure.api.IVasttrafikAdapter;
+import com.alive_n_clickin.commutity.infrastructure.api.Stop;g
 import com.alive_n_clickin.commutity.presentation.main.MainActivity;
 import com.alive_n_clickin.commutity.presentation.main.MainFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import lombok.core.Main;
 
 /**
  * A fragment for the search function. Contains a edit text field for inputting a search term
@@ -40,7 +33,7 @@ public class SearchFragment extends Fragment {
     int mCurrentPosition                = -1;
     SearchView search;
     ListView searchResults;
-    VasttrafikAdapter vAdapter;
+    IVasttrafikAdapter vAdapter;
     SearchResultAdapter resultAdapter;
 
     private final String LOG_TAG = getClass().getSimpleName();
@@ -52,8 +45,9 @@ public class SearchFragment extends Fragment {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        vAdapter = new VasttrafikAdapter();
-            }
+        vAdapter = ApiAdapterFactory.createVasttrafikAdapter();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
