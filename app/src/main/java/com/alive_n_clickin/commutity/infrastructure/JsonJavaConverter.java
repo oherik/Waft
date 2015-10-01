@@ -3,6 +3,8 @@ package com.alive_n_clickin.commutity.infrastructure;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 /**
  * @author hjorthjort
@@ -15,6 +17,7 @@ class JsonJavaConverter<T> {
     
     private final String LOG_TAG = this.getClass().getSimpleName();
     private static final Gson GSON = new Gson();
+    private static final JsonParser PARSER = new JsonParser();
     private final Class<T> classType;
 
     /**
@@ -26,12 +29,14 @@ class JsonJavaConverter<T> {
     }
 
     /**
-     * Take a JSON object an turn it into an object of the type matching the class of the converter
+     * Take a JSON object an turn it into an object of the type matching the class of the converter.
+     * IMPORTANT! The format of the string should be in json NOT jsonp.
      * @param json
      * @return
      */
-    public T toJava(String json) {
-        return GSON.fromJson(json, classType);
+    public T toJava(String json,String startNode) {
+        JsonObject obj = PARSER.parse(json).getAsJsonObject();
+        return GSON.fromJson(obj.get(startNode), classType);
     }
 
     /**
