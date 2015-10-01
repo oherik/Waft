@@ -4,14 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.alive_n_clickin.commutity.R;
-import com.alive_n_clickin.commutity.infrastructure.Stop;
-import com.alive_n_clickin.commutity.infrastructure.VasttrafikAdapter;
+import com.alive_n_clickin.commutity.infrastructure.api.Stop;
 import com.alive_n_clickin.commutity.presentation.flagreport.FlagVehicle;
 import com.alive_n_clickin.commutity.presentation.search.SearchFragment;
 
