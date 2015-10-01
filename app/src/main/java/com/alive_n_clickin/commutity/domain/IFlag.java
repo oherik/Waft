@@ -1,4 +1,4 @@
-package com.alive_n_clickin.commutity.domain.flag;
+package com.alive_n_clickin.commutity.domain;
 
 import java.util.Date;
 

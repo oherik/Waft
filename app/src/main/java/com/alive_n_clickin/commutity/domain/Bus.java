@@ -1,6 +1,4 @@
-package com.alive_n_clickin.commutity.domain.flaggable;
-
-import com.alive_n_clickin.commutity.domain.flag.IFlag;
+package com.alive_n_clickin.commutity.domain;
 
 import java.util.ArrayList;
 import java.util.List;

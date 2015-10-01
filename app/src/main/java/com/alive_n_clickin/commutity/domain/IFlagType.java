@@ -1,4 +1,4 @@
-package com.alive_n_clickin.commutity.domain.flag;
+package com.alive_n_clickin.commutity.domain;
 
 /**
  * An interface for flag types.
