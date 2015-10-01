@@ -2,13 +2,17 @@ package com.alive_n_clickin.commutity.presentation.search;
 
 import android.app.ListActivity;
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.alive_n_clickin.commutity.R;
@@ -21,6 +25,8 @@ import java.util.ArrayList;
  */
 public class SearchableActivity extends ListActivity {
 
+    private final String LOG_TAG = SearchableActivity.class.getSimpleName();
+
     private TextView stopTextView;
     private ListView stopResultView;
 
@@ -28,8 +34,17 @@ public class SearchableActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stop_search);
-        stopTextView = (TextView) findViewById(R.id.search_text);
-        stopResultView = (ListView) findViewById(R.id.search_result_list);
+       // stopTextView = (TextView) findViewById(R.id.search_text);
+      //  stopResultView = (ListView) findViewById(R.id.list);
+
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) findViewById(R.id.stopSearchView);
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+
+
         parseIntent(getIntent());
     }
 
@@ -48,7 +63,8 @@ public class SearchableActivity extends ListActivity {
      * @return A list of all stops that are related to the query
      */
     private ArrayList<String> searchStops(String query){
-        //TODO call the api helper and perform a search
+        Log.e(LOG_TAG, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA  " + query);
+                //TODO call the api helper and perform a search
         return null; //TODO placeholder
     }
 
@@ -59,8 +75,8 @@ public class SearchableActivity extends ListActivity {
 
     private void parseIntent(Intent queryIntent) {
         //Get the query from the intent, if it's a search intent
-        if(queryIntent.getAction().equals(Intent.ACTION_SEARCH)){
-            String query = queryIntent.getExtras().getString(SearchManager.QUERY);
+        if (Intent.ACTION_SEARCH.equals(queryIntent.getAction())) {
+            String query = queryIntent.getStringExtra(SearchManager.QUERY);
             searchStops(query);
         }
         //TODO handle when the user clicks on a stop
