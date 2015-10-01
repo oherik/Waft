@@ -31,11 +31,10 @@ public class VasttrafikApiConnection {
         uriBuilder.encodedQuery(query);
         uriBuilder.appendQueryParameter("authKey", API_KEY);
         uriBuilder.appendQueryParameter("format","json");
-        uriBuilder.appendQueryParameter("jsonpCallback","processJSON");
+        //uriBuilder.appendQueryParameter("jsonpCallback","processJSON");
 
         Uri uri = uriBuilder.build();
 
-        Log.d(LogUtils.getLogTag(this), uri.toString());
 
         HttpURLConnection connection = null;
         try {
@@ -51,6 +50,5 @@ public class VasttrafikApiConnection {
             Log.e(LogUtils.getLogTag(this), errorMessage, e);
         }
         return null;
-
     }
 }
