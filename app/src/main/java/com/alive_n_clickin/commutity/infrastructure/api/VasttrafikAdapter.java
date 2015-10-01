@@ -1,4 +1,4 @@
-package com.alive_n_clickin.commutity.infrastructure;
+package com.alive_n_clickin.commutity.infrastructure.api;
 
 import android.net.Uri;
 import android.util.Log;
@@ -6,7 +6,7 @@ import android.util.Log;
 import java.util.List;
 
 
-public class VasttrafikAdapter implements IVasttrafikAdapter {
+class VasttrafikAdapter implements IVasttrafikAdapter {
     private final VasttrafikApiConnection vasttrafikApiConnection = new VasttrafikApiConnection();
 
 
