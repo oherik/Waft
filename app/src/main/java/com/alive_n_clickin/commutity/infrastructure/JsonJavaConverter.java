@@ -32,11 +32,15 @@ class JsonJavaConverter<T> {
      * Take a JSON object an turn it into an object of the type matching the class of the converter.
      * IMPORTANT! The format of the string should be in json NOT jsonp.
      * @param json
-     * @return
+     * @return the type matching the class of the converter or null if unsuccessful
      */
     public T toJava(String json,String startNode) {
         JsonObject obj = PARSER.parse(json).getAsJsonObject();
-        return GSON.fromJson(obj.get(startNode), classType);
+        try{
+            return GSON.fromJson(obj.get(startNode), classType);
+        } catch(com.google.gson.JsonSyntaxException e) {
+            return null;
+        }
     }
 
     /**
