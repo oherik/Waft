@@ -15,12 +15,6 @@ public class VasttrafikAdapter implements IVasttrafikAdapter {
         String response = vasttrafikApiConnection.sendGetToVasttrafik(
                 "location.nearbystops",
                 "&originCoordLat=" + latitude + "&originCoordLong=" + longitude);
-
-        /*Gson gson = new Gson();
-        JsonParser parser = new JsonParser();
-        JsonObject obj = parser.parse(response).getAsJsonObject();
-        LocationList locationList = gson.fromJson(obj.get("LocationList"), LocationList.class);*/
-        //return locationList.getStopLocations();
         return new JsonJavaConverter<LocationList>(LocationList.class).toJava(
                 response,"LocationList").getStopLocations();
     }
