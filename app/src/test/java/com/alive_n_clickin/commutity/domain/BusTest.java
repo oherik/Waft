@@ -1,6 +1,4 @@
-package com.alive_n_clickin.commutity.domain.flaggable;
-
-import com.alive_n_clickin.commutity.domain.flag.IFlag;
+package com.alive_n_clickin.commutity.domain;
 
 import org.junit.Test;
 
