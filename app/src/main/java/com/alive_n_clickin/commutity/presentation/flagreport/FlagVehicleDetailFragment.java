@@ -1,5 +1,7 @@
 package com.alive_n_clickin.commutity.presentation.flagreport;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.application.HttpRequest;
+import com.alive_n_clickin.commutity.infrastructure.WifiHelper;
 
 
 /**
@@ -42,25 +45,54 @@ public class FlagVehicleDetailFragment extends Fragment {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                View rootView = getActivity().findViewById(android.R.id.content);
-                TextView commentView = (TextView) rootView.findViewById(R.id.flagDetailCommentField);
-                String comment = commentView.getText().toString();
-
-                //Send request
-               if(setUpHttpRequest(flagTypeID, comment)) {
-                   //Request made, change back to the previous view
-                   switchToFlagFragment();
-               }else{
-                   //Request couldn't be made due to the comment length not being satisfactory
-                   //TODO make the comment field blink or make some other non-intrusive indicator.
-                   Toast.makeText(getActivity().getApplicationContext(),
-                           getString(R.string.flag_longer_comment_needed), Toast.LENGTH_SHORT).show();
-               }
+                boolean isWifiEnabled = WifiHelper.getInstance().isWifiEnabled(getContext());
+                if (!isWifiEnabled) {
+                    showEnableWifiAlert();
+                } else {
+                    trySendingFlag();
+                }
             }
         });
         return view;
     }
 
+    private void trySendingFlag() {
+        View rootView = getActivity().findViewById(android.R.id.content);
+        TextView commentView = (TextView) rootView.findViewById(R.id.flagDetailCommentField);
+        String comment = commentView.getText().toString();
+
+        //Send request
+        if (setUpHttpRequest(flagTypeID, comment)) {
+            //Request made, change back to the previous view
+            switchToFlagFragment();
+        } else {
+            //Request couldn't be made due to the comment length not being satisfactory
+            //TODO make the comment field blink or make some other non-intrusive indicator.
+            Toast.makeText(getActivity().getApplicationContext(),
+                    getString(R.string.flag_longer_comment_needed), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void showEnableWifiAlert() {
+        TextView busInfo = (TextView) getView().findViewById(R.id.textViewBusInformation);
+
+        AlertDialog alertDialog = new AlertDialog.Builder(getContext())
+                .setTitle(R.string.enable_wifi_alert_title)
+                .setMessage(R.string.enable_wifi_alert_message)
+                .setPositiveButton(R.string.enable_wifi_alert_yesbutton, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        WifiHelper.getInstance().enableWifi(getContext());
+                    }
+
+                }).setNegativeButton(R.string.enable_wifi_alert_nobutton, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Do nothing
+                    }
+                })
+                .show();
+    }
     /**
      * Switches the view back to the main flag fragment
      */
@@ -138,7 +170,7 @@ public class FlagVehicleDetailFragment extends Fragment {
         @Override
         protected Integer doInBackground(String... params) {
             HttpRequest request = new HttpRequest();
-            return new Integer(request.postFlag(Integer.valueOf(params[0]), params[1]));
+            return request.postFlag(Integer.valueOf(params[0]), params[1]);
         }
         @Override
         protected void onPostExecute(Integer result){
