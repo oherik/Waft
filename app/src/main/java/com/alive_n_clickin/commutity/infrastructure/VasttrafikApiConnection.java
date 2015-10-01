@@ -31,7 +31,6 @@ public class VasttrafikApiConnection {
         uriBuilder.encodedQuery(query);
         uriBuilder.appendQueryParameter("authKey", API_KEY);
         uriBuilder.appendQueryParameter("format","json");
-        //uriBuilder.appendQueryParameter("jsonpCallback","processJSON");
 
         Uri uri = uriBuilder.build();
 
