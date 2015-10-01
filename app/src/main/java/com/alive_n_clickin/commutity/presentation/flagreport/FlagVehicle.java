@@ -13,8 +13,8 @@ import com.alive_n_clickin.commutity.R;
  */
 public class FlagVehicle extends FragmentActivity {
 
-        @Override
-        protected void onCreate (Bundle savedInstanceState){
+    @Override
+    protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flag_vehicle);
             if (findViewById(R.id.content_frame) != null) {
@@ -33,7 +33,6 @@ public class FlagVehicle extends FragmentActivity {
         FlagVehicleFragment flagFragment = new FlagVehicleFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.content_frame, flagFragment).commit() ;
     }
-
 
     @Override
     public boolean onCreateOptionsMenu (Menu menu){
