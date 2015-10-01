@@ -31,7 +31,6 @@ public class SearchFragment extends Fragment {
     int mCurrentPosition                = -1;
     SearchView search;
     ListView searchResults;
-    int minumumSearchLength             = 3;
     VasttrafikAdapter vAdapter;
     SearchResultAdapter resultAdapter;
 
@@ -78,7 +77,7 @@ public class SearchFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if (newText.length() >= minumumSearchLength) {
+                if (newText != null) {
               //      searchResults.setVisibility(rootView.VISIBLE);
                     searchStops(search.getQuery().toString());
                 } else {
