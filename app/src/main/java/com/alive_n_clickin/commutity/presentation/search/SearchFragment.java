@@ -123,7 +123,7 @@ public class SearchFragment extends Fragment {
     private void switchToMainFragment(Stop stop){
         MainFragment mainFragment = new MainFragment();
         Bundle args = new Bundle();
-        args.putLong(Intent.EXTRA_RETURN_RESULT, stop.getId());
+        args.putSerializable(Intent.EXTRA_RETURN_RESULT, stop);
         mainFragment.setArguments(args);
 
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();

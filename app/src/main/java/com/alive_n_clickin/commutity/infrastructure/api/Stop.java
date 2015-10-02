@@ -1,12 +1,20 @@
 package com.alive_n_clickin.commutity.infrastructure.api;
 
+import java.io.Serializable;
+
 import lombok.Getter;
 import lombok.ToString;
 
 /**
+ * A class containing the different data for bus stops, as per the ElectriCity API.
  * Created by OscarEvertsson on 01/10/15.
  */
-@ToString public class Stop {
+@ToString public class Stop implements Serializable {
+
+    /**
+     * Used for making sure that a de-serialized file is compatible with this class.
+     */
+    private static final long serialVersionUID = 1337L;
 
     @Getter private String name;
     @Getter private long id;

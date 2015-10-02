@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.infrastructure.WifiBroadcastReceiver;
 import com.alive_n_clickin.commutity.infrastructure.WifiHelper;
+import com.alive_n_clickin.commutity.infrastructure.api.Stop;
 import com.alive_n_clickin.commutity.presentation.flagreport.FlagVehicle;
 import com.alive_n_clickin.commutity.presentation.search.SearchFragment;
 
@@ -42,9 +43,9 @@ public class MainFragment extends Fragment {
          */
         Bundle args = getArguments();
         if(args!=null) {
-            long result = args.getLong(Intent.EXTRA_RETURN_RESULT);
+            Stop currentStop = (Stop) args.getSerializable(Intent.EXTRA_RETURN_RESULT);
             TextView stopTextView = (TextView) rootView.findViewById(R.id.currentStop);
-            stopTextView.setText(String.valueOf(result));
+            stopTextView.setText(String.valueOf(currentStop.getName()));
         }
         return rootView;
     }
