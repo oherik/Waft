@@ -12,6 +12,7 @@ import java.util.Set;
 /**
  * @author hjorthjort
  *         Created 29/09/15
+ * @since 0.1
  */
 public class WifiHelperTest extends AndroidTestCase {
 

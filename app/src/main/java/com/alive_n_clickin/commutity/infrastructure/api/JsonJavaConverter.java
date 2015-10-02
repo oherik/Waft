@@ -12,6 +12,7 @@ import com.google.gson.JsonParser;
  * Methods for parsing JSON in to Java Objects of a given class, and vice versa
  *
  * Package private, this class handles low level functionality, and should not be visible to other packages.
+ * @since 0.1
  */
 class JsonJavaConverter<T> {
     

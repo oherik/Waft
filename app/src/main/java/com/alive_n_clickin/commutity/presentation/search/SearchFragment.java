@@ -27,6 +27,7 @@ import java.util.List;
 /**
  * A fragment for the search function. Contains a edit text field for inputting a search term
  * and a list containing the results
+ * @since 0.1
  */
 public class SearchFragment extends Fragment {
     SearchView search;

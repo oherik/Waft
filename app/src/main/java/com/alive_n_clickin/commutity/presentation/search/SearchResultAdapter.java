@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * Converts the stop to a string to display in a view, i.e. the search result list
+ * @since 0.1
  */
 public class SearchResultAdapter extends ArrayAdapter<Stop> {
     public SearchResultAdapter(Context context, List<Stop> result) {
