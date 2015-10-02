@@ -2,6 +2,8 @@ package com.alive_n_clickin.commutity.infrastructure;
 
 import android.test.AndroidTestCase;
 
+import com.alive_n_clickin.commutity.infrastructure.api.ApiConnection;
+
 /**
  * @author hjorthjort
  *         Created 22/09/15
