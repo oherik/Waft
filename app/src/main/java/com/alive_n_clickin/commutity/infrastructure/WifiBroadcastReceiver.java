@@ -12,6 +12,8 @@ import java.util.List;
 /**
  * @author hjorthjort
  *         Created 26/09/15
+ *
+ * Class for delegating new about changed wifi states to all interested listeners
  * @since 0.1
  */
 public class WifiBroadcastReceiver extends BroadcastReceiver {

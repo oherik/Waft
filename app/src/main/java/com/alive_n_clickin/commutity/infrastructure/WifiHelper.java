@@ -13,7 +13,7 @@ import java.util.List;
  * @author hjorthjort
  *         Created 24/09/15
  *
- * Singleton tool for getting wifi information
+ * Singleton tool for getting wifi information, such as nearby wifis and the current connection, if any.
  * @since 0.1
  */
 public class WifiHelper {
