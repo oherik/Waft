@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.widget.TextView;
+
+import lombok.Setter;
+import lombok.Getter;
 
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.infrastructure.api.Stop;
@@ -13,16 +15,18 @@ import com.alive_n_clickin.commutity.presentation.flagreport.FlagVehicle;
 import com.alive_n_clickin.commutity.presentation.search.SearchFragment;
 
 /**
- * This class handles the first view presented to the user.
+ * This class handles the first view presented to the user. It has a content frame to hold different
+ * fragments.
  */
 public class MainActivity extends FragmentActivity {
-    private final String LOG_TAG = FragmentActivity.class.getSimpleName();
-    private Stop currentStop;
+    @Getter @Setter private Stop currentStop;
 
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.main_activity);
+
+        //Set the main fragment as the first fragment presented to the user
         MainFragment mainFragment = new MainFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.main_content_frame, mainFragment).commit();
     }
@@ -33,11 +37,11 @@ public class MainActivity extends FragmentActivity {
     }
 
     /**
-     * Starts the flag report activity
-     * @param view THe current view
+     * Starts the flag report activity by sending an intent to the flag vehicle class
+     * @param view The current view
      */
     public void plusButtonOnClick(View view){
-        Intent intent = new Intent(this,FlagVehicle.class);
+        Intent intent = new Intent(this, FlagVehicle.class);
         startActivity(intent);
     }
 
@@ -46,14 +50,7 @@ public class MainActivity extends FragmentActivity {
      * @param view The current view
      */
     public void switchToSearchFragment(View view){
-
         SearchFragment searchFragment = new SearchFragment();
-
-        //Set arguments
-        String currentStop = ((TextView) view.findViewById(R.id.currentStop)).getText().toString();
-        Bundle args = new Bundle();
-        args.putString(Intent.EXTRA_TEXT, currentStop);
-        searchFragment.setArguments(args);
 
         //Start transaction. Replace the current view with the fragment.
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -61,13 +58,4 @@ public class MainActivity extends FragmentActivity {
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
-    public Stop getCurrentStop(){
-        return currentStop;
-    }
-
-    public void setCurrentStop(Stop stop){
-            this.currentStop = currentStop;
-    }
-
 }

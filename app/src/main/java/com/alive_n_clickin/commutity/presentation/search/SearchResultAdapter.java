@@ -13,7 +13,7 @@ import com.alive_n_clickin.commutity.infrastructure.api.Stop;
 import java.util.List;
 
 /**
- * Converts the stop to a string to display in a view
+ * Converts the stop to a string to display in a view, i.e. the search result list
  */
 public class SearchResultAdapter extends ArrayAdapter<Stop> {
     public SearchResultAdapter(Context context, List<Stop> result) {

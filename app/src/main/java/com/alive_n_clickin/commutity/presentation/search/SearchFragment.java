@@ -30,8 +30,6 @@ import java.util.List;
  * and a list containing the results
  */
 public class SearchFragment extends Fragment {
-    final static String ARG_POSITION    = "position";
-    int mCurrentPosition                = -1;
     SearchView search;
     ListView searchResults;
     IVasttrafikAdapter vAdapter;
@@ -76,14 +74,7 @@ public class SearchFragment extends Fragment {
                 setMainStop(stop);
 
                 //Close this fragment
-                switchToMainFragment(stop);
-            }
-        });
-
-        search.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                // TODO Add a timer as well
+                switchToMainFragment();
             }
         });
 
@@ -109,6 +100,10 @@ public class SearchFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * Sets the current stop in the activity
+     * @param stop The selected stop
+     */
     private void setMainStop(Stop stop){
         MainActivity mainActivity = (MainActivity) getActivity();
         mainActivity.setCurrentStop(stop);
@@ -116,13 +111,11 @@ public class SearchFragment extends Fragment {
     }
 
     /**
-     * Switch view to the main fragment
+     * Switch view to the main fragment by replacing which fragment that will be in the main
+     * activity's container
      */
-    private void switchToMainFragment(Stop stop){
+    private void switchToMainFragment(){
         MainFragment mainFragment = new MainFragment();
-        Bundle args = new Bundle();
-        args.putSerializable(Intent.EXTRA_RETURN_RESULT, stop);
-        mainFragment.setArguments(args);
 
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_content_frame, mainFragment);
@@ -134,23 +127,28 @@ public class SearchFragment extends Fragment {
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
 
+    /**
+     * Starts the async task for getting results based on the query
+     * @param query The stop search query
+     */
     private void searchStops(String query){
         SearchStopTask task = new SearchStopTask();
         task.execute(query);
         Log.e(LOG_TAG, query);
     }
 
-
+    /**
+     * An async class calling the api helper for receiving result based on a search query
+     */
     public class SearchStopTask extends AsyncTask<String, Void, List<Stop>> {
         @Override
         protected List<Stop> doInBackground(String... params) {
-
             try {
                 return vAdapter.getSearchStops(params[0]);
             }catch(NullPointerException e){
                 Log.e(LOG_TAG, e.getStackTrace()+"");
             }
-
+            //No results found, return null
             return null;
         }
         @Override
@@ -158,13 +156,15 @@ public class SearchFragment extends Fragment {
             displayResults(result);
         }
     }
+
+    /**
+     * Clears the result view and display the new results
+     * @param stops The results of the search
+     */
     private void displayResults(List<Stop> stops){
         if(stops!=null) {
-
             resultAdapter.clear();
             resultAdapter.addAll(stops);
         }
-
     }
-
 }
