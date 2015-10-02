@@ -12,6 +12,7 @@ import android.provider.Settings;
 
 /**
  *
+ * @since 0.1
  */
 public class GpsState implements LocationListener{
     private static GpsState instance;

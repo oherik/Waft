@@ -10,6 +10,7 @@ import java.util.List;
  * Use the ApiAdapterFactory to gain access to this class. {@link ApiAdapterFactory}
  *
  * This class is used to create a suitable request string, which is then passed along to {@link VasttrafikApiConnection}
+ * @since 0.1
  */
 class VasttrafikAdapter implements IVasttrafikAdapter {
     private final VasttrafikApiConnection vasttrafikApiConnection = new VasttrafikApiConnection();

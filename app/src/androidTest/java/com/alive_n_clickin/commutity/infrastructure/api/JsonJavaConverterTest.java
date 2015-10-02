@@ -2,12 +2,12 @@ package com.alive_n_clickin.commutity.infrastructure.api;
 
 import android.test.AndroidTestCase;
 
-import com.alive_n_clickin.commutity.infrastructure.api.JsonJavaConverter;
 import com.google.gson.internal.LinkedTreeMap;
 
 /**
  * @author hjorthjort
  *         Created 22/09/15
+ * @since 0.1
  */
 public class JsonJavaConverterTest extends AndroidTestCase {
 

@@ -14,6 +14,7 @@ import java.util.List;
  *         Created 24/09/15
  *
  * Singleton tool for getting wifi information
+ * @since 0.1
  */
 public class WifiHelper {
 
