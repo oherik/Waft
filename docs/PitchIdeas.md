@@ -27,3 +27,9 @@ With the statistics and live data, stakeholders can decide whether to put in mor
 ### Using the screens on the stops
 
 The data displayed in the app can be displayed to the screens on the stops as well. Instead of using an ordinary time table, people can see the actual traffic and the status of it.
+
+### "Hur vill du har det?"
+
+The public transport companies of the city created the poll "Hur vill du ha det" to gather data about he public's opinions about public transport. They estimate that *3,000,000* people visited the site (HOLY SHIT!) but only 1,100 people answered the poll. Imagine that. Why? Because it was a boring and pointless way to query people. And how are you as a travler supposed to remember the small nuiscances of everyday travels when asked about them later on?
+
+Our app makes people report things *right when they are thinking of the*, giving higher quality data.
