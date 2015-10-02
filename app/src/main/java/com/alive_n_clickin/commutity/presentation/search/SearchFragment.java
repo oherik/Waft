@@ -95,11 +95,11 @@ public class SearchFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if (newText != null) {
-                    //      searchResults.setVisibility(rootView.VISIBLE);
+                if (newText != null && !newText.isEmpty()) {
+                          searchResults.setVisibility(rootView.VISIBLE);
                     searchStops(search.getQuery().toString());
                 } else {
-                    //    searchResults.setVisibility(rootView.INVISIBLE);
+                        searchResults.setVisibility(rootView.INVISIBLE);
                 }
 
 
