@@ -17,11 +17,11 @@ public class FlagVehicle extends FragmentActivity {
     protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flag_vehicle);
-            if (findViewById(R.id.content_frame) != null) {
-                if (savedInstanceState != null) {
-                    return;
-                }
-                switchToDefaultFragment();
+        if (findViewById(R.id.content_frame) != null) {
+            if (savedInstanceState != null) {
+                return;
+            }
+            switchToDefaultFragment();
         }
     }
 
