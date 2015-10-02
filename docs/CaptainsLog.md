@@ -92,6 +92,25 @@ Distributed work is a big issue. When a project starts up, there are tons of thi
 
 Another thing that is the curse of week one (and probably the curse on any of these projects that will run for no more than a couple of weeks!) is that as we work together, we develop common knowledge, about both the system and each other. We develop a common vision. We might peak right when the project ends. Which is sad. I get the idea of working this intensly, but I feel a lot of knowledge about smart ways to work is yet to come, and maybe even won't come, because the project deadline will cut that knowledge short.
 
+The Bug Backlog
+---------------
+
+Reading the [Scrum Alliance Article article on bug backlog](https://www.scrumalliance.org/community/articles/2013/october/dealing-with-bugs-in-the-product-backlog) and using our own judgement based on how we as a team work together, we decided to create a separate "Bug Backlog" in Trello. These can then be quickly added by *both* developers and Product Owners. Why let developers add to the bug backlog? Because developers run the code a lot more often, do a lot more edge case testing, and have a basic feel (like any human being) for what is to be considered a bug.
+
+The bug that made us start using the Bug Backlog is this:
+
+1. The user chooses to post a flag.
+1. The user clicks on a flag, writes the comment and sends the flag.
+1. Now, when the user returns the flagging view: if the user presses the Android back button, they will be taken through all subsequent fragments, *including the previous view for posting flags*. 
+
+This is obviously a flag, and was discovered by a developer. Where to put it? The ice box seems to lame a place. And the bug is too small to warrant a complete rejection of this week's sprint, as we want to start user testing and hallway testing. The bug is relevant, but not relevant enough to dicredit the whole user story, which is centered around having a working prototype.
+
+So we invented the Bug Backlog. Anyone can put a bug in here. It should be described in terms of behavior, and what the *expected* behavior is. Before a sprint, the product owner puts the bugs in the backlog, and prioritizes them. 
+
+Why prioritize bugs, rather than just fixing them? Because the product owner might feel it is more important to add a feature than to fix a bug. But the bug might higher priority than certain features. This approach gives us a good idea of the importance of bugs, and whether the developers should spend time fixing them or just let them slide for now. The development team can still decide what to work on, as they have the best knowledge of how much time something will take to fix in proportion to the importance. 
+
+Let the product owner prioritize, and the team decide on whether it is worth it or not. Just like a user story.
+
 # <a name="week4">Week 4</a>
 
 Sprint planning
