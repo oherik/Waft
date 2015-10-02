@@ -32,11 +32,6 @@ public class FlagViewAdapter extends BaseAdapter  {
         this.flags = flags;
     }
 
-    public void setFlags(ArrayList<FlagButton> flags) {
-        this.flags = flags;
-        notifyDataSetChanged();
-    }
-
     @Override
     public int getCount() {
         return flags.size();
@@ -58,6 +53,7 @@ public class FlagViewAdapter extends BaseAdapter  {
         Holder flagHolder;
         View currentView = convertView;
 
+        //Set a new flag holder
         if(convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(currentContext);
             currentView             = inflater.inflate(R.layout.flag_button_layout, parent, false);
@@ -71,6 +67,7 @@ public class FlagViewAdapter extends BaseAdapter  {
             flagHolder = (Holder) convertView.getTag();
         }
 
+        //Set the image and text in the holder based ono what's in the button data object
         FlagButton button   = flags.get(position);
         Drawable flagImage  = currentContext.getResources().getDrawable(button.getImageID());
         flagHolder.flagImage.setImageDrawable(flagImage);
