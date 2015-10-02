@@ -174,6 +174,9 @@ public class FlagVehicleDetailFragment extends Fragment {
         return false;
     }
 
+    //TODO: Switch to using a service. If we use an AsyncTask, it might not be performed, 
+    //since it it tied to the view that started it. If we use a service it can be performed safely and 
+    //reliably in the background.
     /**
      * An async task handling the network connection, since this cannot be done on the main activity
      * thread. Accepts an URL and a query string. Calls for a controller to do the main work.
