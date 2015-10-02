@@ -1,6 +1,5 @@
 package com.alive_n_clickin.commutity.presentation.main;
 
-import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,10 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import lombok.Getter;
-
 import com.alive_n_clickin.commutity.R;
-import com.alive_n_clickin.commutity.infrastructure.api.Stop;
 
 /**
  * This class handles the first view presented to the user. It holds the stop the user has selected,
