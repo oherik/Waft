@@ -52,12 +52,14 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView   = inflater.inflate(R.layout.search_fragment, container, false);
-        search=(SearchView) rootView.findViewById(R.id.fragmentSearch);
-        search.setQueryHint("Test om hint fungerar");
-        search.setIconified(false);
-        searchResults = (ListView) rootView.findViewById(R.id.searchResults);
 
-        //Add adapter
+        //Initialize the search window
+        search=(SearchView) rootView.findViewById(R.id.fragmentSearch);
+        search.setQueryHint(getString(R.string.stop_search_hint));
+        search.setIconified(false);
+
+        //Add adapter to the result view
+        searchResults = (ListView) rootView.findViewById(R.id.searchResults);
         List<Stop> emptyStops = new ArrayList();
         resultAdapter = new SearchResultAdapter(getActivity(),emptyStops);
         searchResults.setAdapter(resultAdapter);
@@ -67,7 +69,6 @@ public class SearchFragment extends Fragment {
             // The user clicked on an entry
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Context context = getActivity().getApplicationContext();
                 Stop stop = resultAdapter.getItem(i);
 
                 //Send back the stop to the main view
@@ -101,13 +102,9 @@ public class SearchFragment extends Fragment {
                 } else {
                     searchResults.setVisibility(rootView.INVISIBLE);
                 }
-
-
                 return false;
             }
-
         });
-
         return rootView;
     }
 
