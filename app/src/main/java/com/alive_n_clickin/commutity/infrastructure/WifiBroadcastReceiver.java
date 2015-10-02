@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * @author hjorthjort
  *         Created 26/09/15
+ * @since 0.1
  */
 public class WifiBroadcastReceiver extends BroadcastReceiver {
 

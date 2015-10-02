@@ -2,6 +2,7 @@ package com.alive_n_clickin.commutity.util;
 
 /**
  * The different flag types available
+ * @since 0.1
  */
 public enum FlagType {
 
