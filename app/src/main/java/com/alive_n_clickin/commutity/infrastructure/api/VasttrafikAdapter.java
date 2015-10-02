@@ -9,7 +9,8 @@ import java.util.List;
  * This class is not meant to be instantiated. The reason is to remove as much coupling as possible.
  * Use the ApiAdapterFactory to gain access to this class. {@link ApiAdapterFactory}
  *
- * This class is used to create a suitable request string, which is then passed along to {@link VasttrafikApiConnection}
+ * This class represents high level methods that crate suitable request string, which are
+ * then passed along to {@link VasttrafikApiConnection}
  * @since 0.1
  */
 class VasttrafikAdapter implements IVasttrafikAdapter {
