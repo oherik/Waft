@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * This interface represent the possible request to the Vasttrafik API combined with their responses.
+ * @since 0.1
  */
 public interface IVasttrafikAdapter {
 

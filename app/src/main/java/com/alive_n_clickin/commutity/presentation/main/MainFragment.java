@@ -13,6 +13,7 @@ import com.alive_n_clickin.commutity.R;
 /**
  * This class handles the first view presented to the user. It holds the stop the user has selected,
  * as well as handling the switching to the search fragment when the user presses the stop text view.
+ * @since 0.1
  */
 
 public class MainFragment extends Fragment {

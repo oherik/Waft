@@ -1,13 +1,13 @@
-package com.alive_n_clickin.commutity.infrastructure;
+package com.alive_n_clickin.commutity.infrastructure.api;
 
 import android.test.AndroidTestCase;
 
-import com.alive_n_clickin.commutity.infrastructure.api.JsonJavaConverter;
 import com.google.gson.internal.LinkedTreeMap;
 
 /**
  * @author hjorthjort
  *         Created 22/09/15
+ * @since 0.1
  */
 public class JsonJavaConverterTest extends AndroidTestCase {
 
@@ -26,11 +26,11 @@ public class JsonJavaConverterTest extends AndroidTestCase {
 
     public void testFromJson() {
         //Convert object with only primitives
-        BagOfThings testObject1 = converter.toJava("{" + JSON_PRIMITIVES1 + "," + JSON_PRIMITIVES2 + "}");
+        BagOfThings testObject1 = converter.toJava("{start: {" + JSON_PRIMITIVES1 + "," + JSON_PRIMITIVES2 + "} }", "start");
         assertEquals("Primitive JSON to Java", testObject1, BAG_OF_PRIMITIVES);
 
         //Convert an object with an object in it.
-        BagOfThings testObject2 = converter.toJava("{" + JSON_PRIMITIVES1 + "," + JSON_PRIMITIVES1 + "," + JSON_OBJECT + "}");
+        BagOfThings testObject2 = converter.toJava("{start: {" + JSON_PRIMITIVES1 + "," + JSON_PRIMITIVES1 + "," + JSON_OBJECT + "} }", "start");
         assertEquals("JSON with object to Java", testObject2.value1, BAG_WITH_OBJECT.value1);
         assertEquals("JSON with object to Java", testObject2.value2, BAG_WITH_OBJECT.value2);
         //The object will become a LinkedTreeMap. We could also test if it contains the right values, but this might be overkill.

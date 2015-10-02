@@ -6,17 +6,18 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
-import lombok.Setter;
-import lombok.Getter;
-
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.infrastructure.api.Stop;
 import com.alive_n_clickin.commutity.presentation.flagreport.FlagVehicle;
 import com.alive_n_clickin.commutity.presentation.search.SearchFragment;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * This class handles the first view presented to the user. It has a content frame to hold different
  * fragments.
+ * @since 0.1
  */
 public class MainActivity extends FragmentActivity {
     @Getter @Setter private Stop currentStop;
