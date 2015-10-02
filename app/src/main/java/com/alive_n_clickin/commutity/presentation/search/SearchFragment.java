@@ -54,6 +54,7 @@ public class SearchFragment extends Fragment {
         final View rootView   = inflater.inflate(R.layout.search_fragment, container, false);
         search=(SearchView) rootView.findViewById(R.id.fragmentSearch);
         search.setQueryHint("Test om hint fungerar");
+        search.setIconified(false);
         searchResults = (ListView) rootView.findViewById(R.id.searchResults);
 
         //Add adapter
@@ -81,7 +82,6 @@ public class SearchFragment extends Fragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 // TODO Add a timer as well
-                //search(search.getQuery().toString());
             }
         });
 
@@ -96,10 +96,10 @@ public class SearchFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 if (newText != null && !newText.isEmpty()) {
-                          searchResults.setVisibility(rootView.VISIBLE);
+                    searchResults.setVisibility(rootView.VISIBLE);
                     searchStops(search.getQuery().toString());
                 } else {
-                        searchResults.setVisibility(rootView.INVISIBLE);
+                    searchResults.setVisibility(rootView.INVISIBLE);
                 }
 
 
