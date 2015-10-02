@@ -1,10 +1,13 @@
 package com.alive_n_clickin.commutity.presentation.main;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +27,7 @@ import com.alive_n_clickin.commutity.presentation.search.SearchFragment;
 //TODO Make the UI a fragment to ease switching
 public class MainFragment extends Fragment {
     private final String LOG_TAG = FragmentActivity.class.getSimpleName();
+    private Stop currentStop;
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
@@ -34,19 +38,18 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.main_fragment, container, false);
-        /*
-        MainActivity mainActivity = (MainActivity) getActivity();
-        TextView stopTextView = (TextView) container.findViewById(R.id.currentStop);
-        if(mainActivity.getCurrentStop()!=null) {
-            stopTextView.setText(mainActivity.getCurrentStop().getName());
-        }
-         */
+        TextView stopTextView = (TextView) rootView.findViewById(R.id.currentStop);
+
         Bundle args = getArguments();
+
+        //If a stop is received, set it as the current stop
         if(args!=null) {
-            Stop currentStop = (Stop) args.getSerializable(Intent.EXTRA_RETURN_RESULT);
-            TextView stopTextView = (TextView) rootView.findViewById(R.id.currentStop);
-            stopTextView.setText(String.valueOf(currentStop.getName()));
+            currentStop = (Stop) args.getSerializable(Intent.EXTRA_RETURN_RESULT);
+            stopTextView.setText(currentStop.getName());
         }
+
+        //Underline the text
+        stopTextView.setPaintFlags(stopTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         return rootView;
     }
 }
