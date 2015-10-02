@@ -1,6 +1,7 @@
 package com.alive_n_clickin.commutity.presentation.flagreport;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -10,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -117,6 +119,10 @@ public class FlagVehicleDetailFragment extends Fragment {
         transaction.replace(R.id.content_frame, flagFragment);
         transaction.addToBackStack(null);
         transaction.commit();
+
+        //Hide keyboard
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
 
     @Override
