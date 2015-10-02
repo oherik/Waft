@@ -5,7 +5,12 @@ import android.util.Log;
 
 import java.util.List;
 
-
+/**
+ * This class is not meant to be instantiated. The reason is to remove as much coupling as possible.
+ * Use the ApiAdapterFactory to gain access to this class. {@link ApiAdapterFactory}
+ *
+ * This class is used to create a suitable request string, which is then passed along to {@link VasttrafikApiConnection}
+ */
 class VasttrafikAdapter implements IVasttrafikAdapter {
     private final VasttrafikApiConnection vasttrafikApiConnection = new VasttrafikApiConnection();
 
@@ -15,16 +20,16 @@ class VasttrafikAdapter implements IVasttrafikAdapter {
         String response = vasttrafikApiConnection.sendGetToVasttrafik(
                 "location.nearbystops",
                 "&originCoordLat=" + latitude + "&originCoordLong=" + longitude);
-        return new JsonJavaConverter<LocationList>(LocationList.class).toJava(
-                response,"LocationList").getStopLocations();
+        if(response != null){
+            return new JsonJavaConverter<LocationList>(LocationList.class).toJava(
+                    response,"LocationList").getStopLocations();
+        } else {
+            return null;
+        }
+
     }
 
-    /**
-     * This functions gives you a list of stops related to the search string you provide.
-     * @param searchString
-     * @returns a list of stops if the search was successful.
-     * Otherwise returns null since there was no result.
-     */
+    @Override
     public List<Stop> getSearchStops(String searchString) {
         String response = vasttrafikApiConnection.sendGetToVasttrafik(
                 "location.name",

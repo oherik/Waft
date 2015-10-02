@@ -8,7 +8,8 @@ import lombok.ToString;
 /**
  * A class containing the different data for bus stops, as per the ElectriCity API. It's serializable
  * so it can be sent in intents, bundles, etc.
- * Created by OscarEvertsson on 01/10/15.
+ *
+ * The class is used within {@link JsonJavaConverter} to convert the json into a java object.
  */
 @ToString public class Stop implements Serializable {
 

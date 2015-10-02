@@ -11,7 +11,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * Created by OscarEvertsson on 30/09/15.
+ * This class creates a valid http connection for the Electricity API, which is then passed along to {@link ApiConnection}.
+ *
+ * ElectricityApiConnection is package private, no need for higher layers to use it directly.
  */
 class ElectricityApiConnection {
 

@@ -3,7 +3,7 @@ package com.alive_n_clickin.commutity.infrastructure.api;
 import java.util.List;
 
 /**
- * Created by OscarEvertsson on 30/09/15.
+ * This class models the response from the Vasttrafik API and is used within {@link JsonJavaConverter} to convert into a java object.
  */
 public class LocationList {
     private String noNamespaceSchemaLocation;

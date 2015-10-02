@@ -11,7 +11,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * Created by OscarEvertsson on 30/09/15.
+ * This class creates a valid http connection for the Vasttrafik API, which is then passed along to {@link ApiConnection}.
+ *
+ * The class is not meant to be instantiated directly. It's only used within {@link VasttrafikAdapter} to remove coupling.
  */
 class VasttrafikApiConnection {
     private static final String BASE_URL_VASTTRAFIK =
