@@ -32,7 +32,6 @@ public class BusManager implements IBusManager, IObserver {
             // notify backend that a new flag has been added to currentBus
             IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
             waftAdapter.flagBus(this.currentBus, flag);
-            waftAdapter.flagBus(new Bus("", "", "", "", new ArrayList<IFlag>()), flag);
         }
     }
 
