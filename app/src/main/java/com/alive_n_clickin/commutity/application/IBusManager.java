@@ -8,5 +8,6 @@ import com.alive_n_clickin.commutity.util.event.IObservable;
 public interface IBusManager extends IObservable {
     // TODO: Documentation
     void addFlagToCurrentBus(IFlag flag);
+    boolean isOnBus();
     IBus getCurrentBus();
 }
