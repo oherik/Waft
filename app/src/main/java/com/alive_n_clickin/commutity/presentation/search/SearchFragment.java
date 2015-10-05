@@ -119,7 +119,6 @@ public class SearchFragment extends Fragment {
 
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_content_frame, mainFragment);
-        transaction.addToBackStack(null);
         transaction.commit();
 
         //Hide keyboard

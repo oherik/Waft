@@ -118,7 +118,6 @@ public class FlagVehicleDetailFragment extends Fragment {
         flagFragment.setArguments(args);
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.content_frame, flagFragment);
-        transaction.addToBackStack(null);
         transaction.commit();
 
         //Hide keyboard
