@@ -32,14 +32,14 @@ class ApiConnection {
      */
     static String getResponseFromHttpConnection(URL url, Map.Entry<String, String>... requestProperties) {
         HttpURLConnection connection = establishGetConnection(url);
-        for (Map.Entry<String, String> keyValuePair :
-                requestProperties
-                ) {
-            connection.setRequestProperty(keyValuePair.getKey(), keyValuePair.getValue());
-        }
 
         if(connection != null){
             try {
+                for (Map.Entry<String, String> keyValuePair :
+                        requestProperties
+                        ) {
+                    connection.setRequestProperty(keyValuePair.getKey(), keyValuePair.getValue());
+                }
                 connection.connect();
                 InputStream inputStream = connection.getInputStream();
                 if (inputStream == null) {
