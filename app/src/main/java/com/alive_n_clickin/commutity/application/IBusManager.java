@@ -4,7 +4,9 @@ import com.alive_n_clickin.commutity.domain.IBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.util.event.IObservable;
 
+// TODO: Documentation
 public interface IBusManager extends IObservable<CurrentBusChangeEvent> {
+    // TODO: Documentation
     void addFlagToCurrentBus(IFlag flag);
     IBus getCurrentBus();
 }
