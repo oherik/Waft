@@ -22,7 +22,7 @@ public class Bus implements IBus {
      * @param journeyName The journey name for the journey that the bus is on currently. This is
      *                    Västtrafiks "turnummer".
      * @param routeNumber The route number for the bus. For example "55".
-     * @param flags The flags that this bus should be flagged with. Can be null.
+     * @param flags The flags that this bus should be flagged with.
      * @throws IllegalArgumentException if any of the parameters are null.
      */
     public Bus(String DGW, String destination, String journeyName, String routeNumber, List<IFlag> flags) {
