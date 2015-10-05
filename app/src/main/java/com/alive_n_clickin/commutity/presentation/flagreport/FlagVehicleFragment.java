@@ -128,10 +128,10 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
         WifiHelper wifiHelper = new WifiHelper(this.getActivity());
         if (this.busManager.isOnBus()) {
             textView.setText(this.busManager.getCurrentBus().getDGW());
-        } else if (wifiHelper.isWifiEnabled()) {
-            textView.setText(R.string.loading_looking_for_vehicle);
-        } else {
+        } else if (!wifiHelper.isWifiEnabled()) {
             textView.setText(R.string.you_must_activate_wifi);
+        } else {
+            textView.setText(R.string.no_buses_near);
         }
     }
 
