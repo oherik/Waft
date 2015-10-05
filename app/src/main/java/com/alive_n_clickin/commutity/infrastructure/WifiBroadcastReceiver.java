@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.wifi.WifiManager;
 
 import com.alive_n_clickin.commutity.event.WifiBSSIDChangeEvent;
 import com.alive_n_clickin.commutity.event.WifiStateChangeEvent;
@@ -13,6 +14,7 @@ import com.alive_n_clickin.commutity.util.event.IObservableHelper;
 import com.alive_n_clickin.commutity.util.event.IObserver;
 import com.alive_n_clickin.commutity.util.event.ObservableHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,7 +34,7 @@ public class WifiBroadcastReceiver extends BroadcastReceiver implements IObserva
     public WifiBroadcastReceiver(Application application) {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("android.net.wifi.SCAN_RESULTS");
-        intentFilter.addAction("android.net.wifi.STATE_CHANGE");
+        intentFilter.addAction("android.net.wifi.WIFI_STATE_CHANGED");
         application.registerReceiver(this, intentFilter);
     }
 
@@ -44,14 +46,21 @@ public class WifiBroadcastReceiver extends BroadcastReceiver implements IObserva
      */
     @Override
     public void onReceive(Context context, Intent intent) {
-        WifiHelper wifiHelper = new WifiHelper(context);
+        String action = intent.getAction();
 
-        if (intent.getAction().equals("android.net.wifi.SCAN_RESULTS")) {
+        WifiHelper wifiHelper = new WifiHelper(context);
+        if (action.equals("android.net.wifi.SCAN_RESULTS")) {
             List<String> nearbyBSSIDs = wifiHelper.getNearbyBSSIDs();
             observableHelper.notifyObservers(new WifiBSSIDChangeEvent(nearbyBSSIDs));
-        } else if (intent.getAction().equals("android.net.wifi.STATE_CHANGE")) {
-            boolean wifiEnabled = wifiHelper.isWifiEnabled();
-            observableHelper.notifyObservers(new WifiStateChangeEvent(wifiEnabled));
+        } else if (intent.getAction().equals("android.net.wifi.WIFI_STATE_CHANGED")) {
+            int wifiState = intent.getIntExtra("wifi_state", -1);
+
+            if (wifiState == WifiManager.WIFI_STATE_ENABLED
+                    || wifiState == WifiManager.WIFI_STATE_DISABLED) {
+                boolean wifiEnabled = wifiHelper.isWifiEnabled();
+                observableHelper.notifyObservers(new WifiBSSIDChangeEvent(new ArrayList<String>()));
+                observableHelper.notifyObservers(new WifiStateChangeEvent(wifiEnabled));
+            }
         }
     }
 
