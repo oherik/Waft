@@ -3,9 +3,13 @@ package com.alive_n_clickin.commutity.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
 /**
  * A concrete implementation of the IBus interface.
  */
+@EqualsAndHashCode
 public class Bus implements IBus {
     @Getter private String DGW;
     @Getter private String destination;
@@ -45,27 +49,6 @@ public class Bus implements IBus {
     @Override
     public List<IFlag> getFlags() {
         return new ArrayList<>(this.flags);
-    }
-
-    /**
-     * {@inheritDoc}<br><br>
-     *
-     * Two buses are equal if their DGW, destination, journeyName and routeNumber are equal.
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        } else if (obj == null || !obj.getClass().equals(this.getClass())) {
-            return false;
-        }
-
-        Bus other = (Bus) obj;
-
-        return this.DGW.equals(other.DGW)
-                && this.destination.equals(other.destination)
-                && this.journeyName.equals(other.journeyName)
-                && this.routeNumber.equals(other.routeNumber);
     }
 
     @Override
