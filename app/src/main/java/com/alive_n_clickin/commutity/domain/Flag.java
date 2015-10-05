@@ -2,11 +2,13 @@ package com.alive_n_clickin.commutity.domain;
 
 import java.util.Date;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
  * A concrete implementation of the IFlag interface. Objects of this class are immutable.
  */
+@EqualsAndHashCode
 public class Flag implements IFlag {
     /**
      * An enum for different flag types. Each flag type is associated with a string and a boolean that
@@ -55,7 +57,6 @@ public class Flag implements IFlag {
             }
         }
 
-        @Override
         @Override
         public boolean isCommentRequired() {
             return this.requiresComment;
@@ -139,27 +140,6 @@ public class Flag implements IFlag {
     @Override
     public Date getCreatedTime() {
         return new Date(createdTime.getTime());
-    }
-
-    /**
-     * {@inheritDoc}<br><br>
-     *
-     * Two flags are equal if they are of the same type, have the same comment and were created
-     * at the same time.
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        } else if (obj == null || !obj.getClass().equals(this.getClass())) {
-            return false;
-        }
-
-        Flag other = (Flag) obj;
-
-        return this.type.equals(other.type)
-                && this.comment.equals(other.comment)
-                && this.createdTime.equals(other.createdTime);
     }
 
     @Override
