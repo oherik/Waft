@@ -1,6 +1,26 @@
 * [Week 3](#week3)
 * [Week 4](#week4)
 * [Week 5](#week5)
+* [Week 6](#week6)
+
+# <a name="week6">Week 6</a>
+
+Git Flow
+--------
+
+An issue that Git Flow doesn't address is documentation. Documentation often needs to be updated. Maybe it has nothing to do with a certain feature, or even really with the code. In our case, we put reflections, the outcomes of meetings, etc., in a documentation folder.
+
+So where do you push it? The obvious choice is `master`: it's the go-to place for writing that regards the application as a whole.
+
+But what about merging to develop? There is no point in continously merging master to develop everytime a reflection text (like this one) changes – too much work, confusing to follow branches, especially since the docs have little to do with functionality.
+
+So when it comes to docs, master and develop are not in sync. In fact, develop doesn't even have the docs, so they don't become outdated. This is a good feature. The docs don't conflict with merges from the release branch.
+
+There is only one issue: now you can't merge a hotfix branch directly. The hotfix branch branches off from develop, so it contains all docs. If you merge it directly to develop, you get a lot of stuff that don't have anything to do with the fix. 
+
+Our solution: do a cherry-pick – take the hotfix and cherry-pick that commit to develop. This gives you only the fix, nothing else. But you lose the merge history, just a new commit on develop. You can put in the commit message that it is a cherry pick. But you don't get the nice, clean tree structure. 
+
+All in all, this still feels like an alright trade-off.
 
 # <a name="week5">Week 5</a>
 
