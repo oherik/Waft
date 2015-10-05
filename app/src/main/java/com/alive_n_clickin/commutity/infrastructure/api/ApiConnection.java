@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -26,10 +27,16 @@ class ApiConnection {
     /**
      * Returns the response of a connection. Handles parsing and exceptions
      * @param url takes the url to make a connection to
+     * @param requestProperties an optional amount of request properties, ordered as key value pairs
      * @return the response if there is one, null otherwise. Check log messages if null is returned
      */
-    static String getResponseFromHttpConnection(URL url) {
+    static String getResponseFromHttpConnection(URL url, Map.Entry<String, String>... requestProperties) {
         HttpURLConnection connection = establishGetConnection(url);
+        for (Map.Entry<String, String> keyValuePair :
+                requestProperties
+                ) {
+            connection.setRequestProperty(keyValuePair.getKey(), keyValuePair.getValue());
+        }
 
         if(connection != null){
             try {
