@@ -1,7 +1,9 @@
 package com.alive_n_clickin.commutity.application;
 
-import com.alive_n_clickin.commutity.infrastructure.WifiBSSIDChangeEvent;
+import com.alive_n_clickin.commutity.event.NewBusNearbyEvent;
+import com.alive_n_clickin.commutity.event.WifiBSSIDChangeEvent;
 import com.alive_n_clickin.commutity.infrastructure.WifiBroadcastReceiver;
+import com.alive_n_clickin.commutity.util.event.IEvent;
 import com.alive_n_clickin.commutity.util.event.IObservable;
 import com.alive_n_clickin.commutity.util.event.IObservableHelper;
 import com.alive_n_clickin.commutity.util.event.IObserver;
@@ -16,8 +18,8 @@ import java.util.Map;
  * If it finds a match, it sends a NewBusNearbyEvent with the DGW of the found bus. If no match is
  * found, it sends a NewBusNearbyEvent with the DGW parameter set to null.
  */
-public class NearbyBusScanner implements IObserver<WifiBSSIDChangeEvent>, IObservable<NewBusNearbyEvent> {
-    private IObservableHelper<NewBusNearbyEvent> observableHelper = new ObservableHelper<>();
+public class NearbyBusScanner implements IObserver, IObservable {
+    private IObservableHelper observableHelper = new ObservableHelper();
 
     private static Map<String, String> buses = new HashMap<>();
 
@@ -48,7 +50,13 @@ public class NearbyBusScanner implements IObserver<WifiBSSIDChangeEvent>, IObser
      * @param event
      */
     @Override
-    public void onEvent(WifiBSSIDChangeEvent event) {
+    public void onEvent(IEvent event) {
+        if (event instanceof WifiBSSIDChangeEvent) {
+            handleWifiBSSIDChangeEvent((WifiBSSIDChangeEvent) event);
+        }
+    }
+
+    private void handleWifiBSSIDChangeEvent(WifiBSSIDChangeEvent event) {
         List<String> BSSIDs = event.getBSSIDs();
         for (String BSSID : BSSIDs) {
             if (buses.containsKey(BSSID)) {
@@ -63,12 +71,12 @@ public class NearbyBusScanner implements IObserver<WifiBSSIDChangeEvent>, IObser
     }
 
     @Override
-    public void addObserver(IObserver<NewBusNearbyEvent> observer) {
+    public void addObserver(IObserver observer) {
         observableHelper.addObserver(observer);
     }
 
     @Override
-    public void removeObserver(IObserver<NewBusNearbyEvent> observer) {
+    public void removeObserver(IObserver observer) {
         observableHelper.removeObserver(observer);
     }
 }
