@@ -8,9 +8,9 @@ import java.util.List;
  */
 public class Bus implements IBus {
     private String DGW;
-    private String VIN;
-    private String licenseNumber;
-    private String wifiBSSID;
+    private String destination;
+    private String journeyName; // Västtrafiks "turnummer"
+    private String routeNumber;
 
     private List<IFlag> flags = new ArrayList<>();
 
@@ -18,40 +18,28 @@ public class Bus implements IBus {
      * Instantiates a new bus with the supplied DGW, VIN, licenseNumber, wifiBSSID and flags.
      *
      * @param DGW The Device Gateway for the bus. For example "Ericsson$100020".
-     * @param VIN The Vehicle Identification Number for the bus. For example "YV3U0V222FA100020".
-     * @param licenseNumber The number on the license plate of the bus. For example "EPO 131".
-     * @param wifiBSSID The BSSID for the WiFi connection on board the bus. For example "00:13:95:13:49:f5".
+     * @param destination The destination for the bus. For example "Lindholmen".
+     * @param journeyName The journey name for the journey that the bus is on currently. This is
+     *                    Västtrafiks "turnummer".
+     * @param routeNumber The route number for the bus. For example "55".
      * @param flags The flags that this bus should be flagged with. Can be null.
      * @throws IllegalArgumentException if any of the parameters are null.
      */
-    public Bus(String DGW, String VIN, String licenseNumber, String wifiBSSID, List<IFlag> flags) {
+    public Bus(String DGW, String destination, String journeyName, String routeNumber, List<IFlag> flags) {
         // TODO: Add stricter checking of the parameters to ensure that all the ID:s are valid?
         if (DGW == null
-                || VIN == null
-                || licenseNumber == null
-                || wifiBSSID == null
+                || destination == null
+                || journeyName == null
+                || routeNumber == null
                 || flags == null) {
             throw new IllegalArgumentException();
         }
 
         this.DGW = DGW;
-        this.VIN = VIN;
-        this.licenseNumber = licenseNumber;
-        this.wifiBSSID = wifiBSSID;
+        this.destination = destination;
+        this.journeyName = journeyName;
+        this.routeNumber = routeNumber;
         this.flags = new ArrayList<>(flags);
-    }
-
-    /**
-     * Instantiates a new bus with the supplied DGW, VIN, licenseNumber, wifiBSSID.
-     *
-     * @param DGW The Device Gateway for the bus. For example "Ericsson$100020".
-     * @param VIN The Vehicle Identification Number for the bus. For example "YV3U0V222FA100020".
-     * @param licenseNumber The number on the license plate of the bus. For example "EPO 131".
-     * @param wifiBSSID The BSSID for the WiFi connection on board the bus. For example "00:13:95:13:49:f5".
-     * @throws IllegalArgumentException if any of the parameters are null.
-     */
-    public Bus(String DGW, String VIN, String licenseNumber, String wifiBSSID) {
-        this(DGW, VIN, licenseNumber, wifiBSSID, new ArrayList<IFlag>());
     }
 
     @Override
@@ -60,18 +48,18 @@ public class Bus implements IBus {
     }
 
     @Override
-    public String getVIN() {
-        return VIN;
+    public String getDestination() {
+        return this.destination;
     }
 
     @Override
-    public String getLicenseNumber() {
-        return licenseNumber;
+    public String getJourneyName() {
+        return this.journeyName;
     }
 
     @Override
-    public String getWifiBSSID() {
-        return wifiBSSID;
+    public String getRouteNumber() {
+        return this.routeNumber;
     }
 
     @Override
@@ -82,8 +70,7 @@ public class Bus implements IBus {
     /**
      * {@inheritDoc}<br><br>
      *
-     * Two buses are equal if their DGW, VIN, licenseNumber and wifiBSSID are equal, and if all
-     * their flags are equal.
+     * Two buses are equal if their DGW, destination, journeyName and routeNumber are equal.
      */
     @Override
     public boolean equals(Object obj) {
@@ -96,15 +83,14 @@ public class Bus implements IBus {
         Bus other = (Bus) obj;
 
         return this.DGW.equals(other.DGW)
-                && this.VIN.equals(other.VIN)
-                && this.licenseNumber.equals(other.licenseNumber)
-                && this.wifiBSSID.equals(other.wifiBSSID)
-                && this.flags.equals(other.flags);
+                && this.destination.equals(other.destination)
+                && this.journeyName.equals(other.journeyName)
+                && this.routeNumber.equals(other.routeNumber);
     }
 
     @Override
     public String toString() {
-        return String.format("Bus [DGW=%s, VIN=%s, licenseNumber=%s, wifiBSSID=%s]",
-                this.DGW, this.VIN, this.licenseNumber, this.wifiBSSID);
+        return String.format("Bus [DGW=%s, destination=%s, journeyName=%s, routeNumber=%s]",
+                this.DGW, this.destination, this.journeyName, this.routeNumber);
     }
 }
