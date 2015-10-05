@@ -12,17 +12,17 @@ import static org.mockito.Mockito.verify;
  */
 public class ObservableHelperTest {
 
-    private ObservableHelper<IEvent> observableHelper;
+    private ObservableHelper observableHelper;
 
     @Before
     public void initialize() {
-        observableHelper = new ObservableHelper<>();
+        observableHelper = new ObservableHelper();
     }
 
     @Test
     public void testNotifyObservers() throws Exception {
         IEvent mockEvent = mock(IEvent.class);
-        IObserver<IEvent> mockObserver;
+        IObserver mockObserver;
 
         // assert that onEvent gets called on added observers
         mockObserver = mock(IObserver.class);
