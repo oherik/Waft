@@ -2,6 +2,8 @@ package com.alive_n_clickin.commutity.domain;
 
 import java.util.Date;
 
+import lombok.Getter;
+
 /**
  * A concrete implementation of the IFlag interface. Objects of this class are immutable.
  */
@@ -19,7 +21,7 @@ public class Flag implements IFlag {
         DISTURBANCES (6),
         NO_PRAMS (7);
 
-        private final int id;
+        @Getter private final int id;
         private final boolean requiresComment;
 
         Type(int id) {
@@ -54,10 +56,6 @@ public class Flag implements IFlag {
         }
 
         @Override
-        public int getID() {
-            return this.id;
-        }
-
         @Override
         public boolean isCommentRequired() {
             return this.requiresComment;

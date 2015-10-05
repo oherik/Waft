@@ -100,7 +100,7 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
                 args.putInt("flag_image_ID", button.getImageID());
                 args.putString("flag_description", button.getDescription());
 //                args.putString("bus_data", currentBus.getDGW());
-                args.putInt("flag_type_ID", button.getType().getID());
+                args.putInt("flag_type_ID", button.getType().getId());
                 detailFragment.setArguments(args);
 
                 //Switch view
