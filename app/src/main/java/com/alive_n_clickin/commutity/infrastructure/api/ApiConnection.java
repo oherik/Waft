@@ -74,9 +74,6 @@ class ApiConnection {
      */
     static int post(URL url,String query) {
         try {
-            //Get the url from the address
-
-
             //Convert the parameters to UTF-8
             byte[] bodyPostData     = query.getBytes(StandardCharsets.UTF_8);
             int bodyPostDataLength  = bodyPostData.length;
