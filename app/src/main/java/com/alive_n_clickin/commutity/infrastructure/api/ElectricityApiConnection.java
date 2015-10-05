@@ -1,12 +1,7 @@
 package com.alive_n_clickin.commutity.infrastructure.api;
 
 import android.net.Uri;
-import android.util.Log;
 
-import com.alive_n_clickin.commutity.util.LogUtils;
-
-import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -33,22 +28,13 @@ class ElectricityApiConnection {
         uriBuilder.encodedQuery(query);
         Uri uri = uriBuilder.build();
 
-        Log.d(LogUtils.getLogTag(this), uri.toString());
-
-        HttpURLConnection connection = null;
         try {
             URL url = new URL(uri.toString());
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.setRequestProperty("Authorization", AUTHORIZATION);
-            return ApiConnection.getResponseFromHttpConnection(connection);
-        } catch (IOException e) {
-            String errorMessage = "Error connection to Electricity API";
-            if (connection != null) {
-                errorMessage = ApiConnection.readStream(connection.getErrorStream());
-            }
-            Log.e(LogUtils.getLogTag(this), errorMessage, e);
+            return ApiConnection.getResponseFromHttpConnection(url);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
         }
+
         return null;
     }
 }
