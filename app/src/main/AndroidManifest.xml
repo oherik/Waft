@@ -25,7 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.flagreport.FlagVehicle" >
+        <activity
+            android:name=".presentation.flagreport.FlagVehicle"
+            android:parentActivityName=".presentation.main.MainActivity">
         </activity>
     </application>
 
