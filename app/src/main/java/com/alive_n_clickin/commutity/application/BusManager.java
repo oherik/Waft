@@ -2,13 +2,16 @@ package com.alive_n_clickin.commutity.application;
 
 import com.alive_n_clickin.commutity.domain.IBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
+import com.alive_n_clickin.commutity.event.CurrentBusChangeEvent;
+import com.alive_n_clickin.commutity.event.NewBusNearbyEvent;
+import com.alive_n_clickin.commutity.util.event.IEvent;
 import com.alive_n_clickin.commutity.util.event.IObservableHelper;
 import com.alive_n_clickin.commutity.util.event.IObserver;
 import com.alive_n_clickin.commutity.util.event.ObservableHelper;
 
 // TODO: Documentation
-public class BusManager implements IBusManager, IObserver<NewBusNearbyEvent> {
-    private IObservableHelper<CurrentBusChangeEvent> observableHelper = new ObservableHelper<>();
+public class BusManager implements IBusManager, IObserver {
+    private IObservableHelper observableHelper = new ObservableHelper();
 
     private IBus currentBus = null;
 
@@ -31,7 +34,13 @@ public class BusManager implements IBusManager, IObserver<NewBusNearbyEvent> {
 
     // TODO: Documentation
     @Override
-    public void onEvent(NewBusNearbyEvent event) {
+    public void onEvent(IEvent event) {
+        if (event instanceof NewBusNearbyEvent) {
+            handleNewBusNearbyEvent((NewBusNearbyEvent) event);
+        }
+    }
+
+    private void handleNewBusNearbyEvent(NewBusNearbyEvent event) {
         String DGW = event.getDGW();
         currentBus = BusFactory.getBus(DGW);
         observableHelper.notifyObservers(new CurrentBusChangeEvent(currentBus));
@@ -39,13 +48,13 @@ public class BusManager implements IBusManager, IObserver<NewBusNearbyEvent> {
 
     // TODO: Documentation
     @Override
-    public void addObserver(IObserver<CurrentBusChangeEvent> observer) {
+    public void addObserver(IObserver observer) {
         observableHelper.addObserver(observer);
     }
 
     // TODO: Documentation
     @Override
-    public void removeObserver(IObserver<CurrentBusChangeEvent> observer) {
+    public void removeObserver(IObserver observer) {
         observableHelper.removeObserver(observer);
     }
 }
