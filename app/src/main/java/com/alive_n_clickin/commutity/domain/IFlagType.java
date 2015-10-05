@@ -5,9 +5,9 @@ package com.alive_n_clickin.commutity.domain;
  */
 public interface IFlagType {
     /**
-     * @return the name associated with this flag type. The name should never be null.
+     * @return the unique id used to identify this flag.
      */
-    String getName();
+    int getID();
 
     /**
      * @return true if a comment is required for this flag type, otherwise false.
