@@ -16,11 +16,10 @@ class WaftAdapter implements IWaftAdapter{
 
     @Override
     public List<IFlag> getFlagsForBus(IBus bus) {
-        String response = waftApiConnection.sendGetToWaft("/flags","busDGW=" + bus.getDGW());
+        String response = waftApiConnection.sendGetToWaft("flags","busDGW=" + bus.getDGW());
         if(response != null){
             //TODO: Convert from json to java and return that instead + error handling
         }
-
         return null;
     }
 
