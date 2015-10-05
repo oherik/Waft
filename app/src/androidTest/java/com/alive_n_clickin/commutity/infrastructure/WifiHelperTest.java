@@ -22,21 +22,16 @@ public class WifiHelperTest extends AndroidTestCase {
     public void testScanning() {
         WifiManager wifiManager = (WifiManager) getContext().getSystemService(Context.WIFI_SERVICE);
         List<ScanResult> lastScans = wifiManager.getScanResults();
-        List<ScanResult> scansToTest = WifiHelper.getInstance().getNearbyMacAddresses(getContext());
+        List<String> scansToTest = new WifiHelper(getContext()).getNearbyBSSIDs();
 
         Set<String> bssids = new HashSet<>();
-        Set<String> bssidsToTest = new HashSet<>();
 
         for (ScanResult result :
                 lastScans) {
             bssids.add(result.BSSID);
         }
 
-        for (ScanResult result :
-        scansToTest) {
-            bssidsToTest.add(result.BSSID);
-        }
-        bssids.retainAll(bssidsToTest);
+        bssids.retainAll(scansToTest);
 
         assertFalse("No common bssids", bssids.isEmpty());
 
