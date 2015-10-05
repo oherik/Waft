@@ -37,6 +37,8 @@ public class NearbyBusScanner implements IObserver, IObservable {
         buses.put("04:f0:21:10:09:e8", "Ericsson$100022"); // EPO 143
         buses.put("04:f0:21:10:09:b7", "Ericsson$171330"); // EOG 634
         buses.put("04:f0:21:10:09:53", "Ericsson$171327"); // EOG 622
+
+        buses.put("d0:c7:89:33:27:3e", "Ericsson$000000"); // TEST
     }
 
     /**
@@ -57,17 +59,17 @@ public class NearbyBusScanner implements IObserver, IObservable {
     }
 
     private void handleWifiBSSIDChangeEvent(WifiBSSIDChangeEvent event) {
+        String DGW = null;
+
         List<String> BSSIDs = event.getBSSIDs();
         for (String BSSID : BSSIDs) {
             if (buses.containsKey(BSSID)) {
-                String DGW = buses.get(BSSID);
-                observableHelper.notifyObservers(new NewBusNearbyEvent(DGW));
+                DGW = buses.get(BSSID);
                 break;
             }
         }
 
-        // if no bus is in range, send a new event with DGW null
-        observableHelper.notifyObservers(new NewBusNearbyEvent(null));
+        observableHelper.notifyObservers(new NewBusNearbyEvent(DGW));
     }
 
     @Override
