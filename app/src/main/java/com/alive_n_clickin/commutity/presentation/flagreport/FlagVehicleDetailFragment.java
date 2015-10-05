@@ -207,12 +207,12 @@ public class FlagVehicleDetailFragment extends Fragment {
             int responseCode = serverResponseCode.intValue();
             String toastText;
             switch (responseCode){
-                case 400:
-                    toastText = getString(R.string.server_error)+ ": " + responseCode +
-                            getString(R.string.flag_not_sent);
+                case 200:
+                    toastText = getString(R.string.flag_sent);
                     break;
                 default:
-                    toastText = getString(R.string.flag_sent);
+                    toastText = getString(R.string.server_error)+ ": " + responseCode +
+                            getString(R.string.flag_not_sent);
                     break;
             }
             //Make toast to alert the user of this
