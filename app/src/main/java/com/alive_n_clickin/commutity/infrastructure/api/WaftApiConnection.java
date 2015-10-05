@@ -18,7 +18,7 @@ class WaftApiConnection {
      * The query must be well formed.
      * @param path the path to append for the base url
      * @param query the query to append, leave out ? in the beginning
-     * @return
+     * @return a json string if successful otherwise null.
      */
     public String sendGetToWaft(String path,String query) {
         Uri.Builder uriBuilder = Uri.parse(BASE_URL_WAFT).buildUpon();
@@ -35,6 +35,12 @@ class WaftApiConnection {
         return null;
     }
 
+    /**
+     *
+     * @param path the path to be appended to the base url
+     * @param postQuery
+     * @return the status code from the response or -1 if unsuccessful
+     */
     public int sendPostToWaft(String path,String postQuery) {
         Uri.Builder uriBuilder = Uri.parse(BASE_URL_WAFT).buildUpon();
         uriBuilder.appendPath(path);

@@ -27,16 +27,16 @@ class WaftAdapter implements IWaftAdapter{
     @Override
     public void flagBus(IBus bus, IFlag flag) {
         waftApiConnection.sendPostToWaft(
-                "/flags",
+                "flags",
                 getFormattedPostFlagString(bus, flag)
                 );
     }
 
     private String getFormattedPostFlagString(IBus bus, IFlag flag){
         //TODO: Check whether or not the parameters are added properly
-        String query = "flagType=" + flag.getType() +
+        String query = "flagType=" + flag.getType().getID() +
                 "&comment=" + flag.getComment() +
-                "&time=" + flag.getCreatedTime() +
+                "&time=" + flag.getCreatedTime().toString() +
                 "&busDGW" + bus.getDGW();
         return query;
     }
