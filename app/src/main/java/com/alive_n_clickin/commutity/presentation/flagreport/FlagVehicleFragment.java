@@ -14,7 +14,6 @@ import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.application.IBusManager;
 import com.alive_n_clickin.commutity.domain.Flag;
-import com.alive_n_clickin.commutity.domain.IBus;
 import com.alive_n_clickin.commutity.event.CurrentBusChangeEvent;
 import com.alive_n_clickin.commutity.event.WifiStateChangeEvent;
 import com.alive_n_clickin.commutity.infrastructure.WifiBroadcastReceiver;
@@ -82,7 +81,8 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
             }
         });
 
-        //
+        this.updateBusText(rootView);
+
         GridView flagGrid = (GridView) rootView.findViewById(R.id.flagGridView);
         flagGrid.setAdapter(flagAdapter);
         flagGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -122,6 +122,23 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
         this.wifiBroadcastReceiver.removeObserver(this);
     }
 
+    private void updateBusText(View view) {
+        final TextView textView = (TextView) view.findViewById(R.id.textViewBusInformation);
+
+        WifiHelper wifiHelper = new WifiHelper(this.getActivity());
+        if (this.busManager.isOnBus()) {
+            textView.setText(this.busManager.getCurrentBus().getDGW());
+        } else if (wifiHelper.isWifiEnabled()) {
+            textView.setText(R.string.loading_looking_for_vehicle);
+        } else {
+            textView.setText(R.string.you_must_activate_wifi);
+        }
+    }
+
+    private void updateBusText() {
+        this.updateBusText(getView());
+    }
+
     /**
      * Adds the different buttons. At the moment it's all hard coded for testing purposes
      */
@@ -148,18 +165,10 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
     }
 
     private void handleCurrentBusChangeEvent(CurrentBusChangeEvent event) {
-        IBus currentBus = event.getBus();
-
-        final TextView textView = (TextView) getView().findViewById(R.id.textViewBusInformation);
-        if (currentBus != null) {
-            textView.setText(currentBus.getDGW());
-        } else {
-            textView.setText(R.string.no_buses_near);
-        }
+        this.updateBusText();
     }
 
     private void handleWifiStateChangeEvent(WifiStateChangeEvent event) {
-        boolean wifiEnabled = event.isWifiEnabled();
-        // TODO: Update view
+        this.updateBusText();
     }
 }
