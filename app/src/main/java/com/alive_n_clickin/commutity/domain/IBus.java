@@ -12,21 +12,10 @@ public interface IBus {
      */
     String getDGW();
 
-    /**
-     * @return the Vehicle Identification Number of this bus. This ID is used by Västtrafik to
-     * identify the bus.
-     */
-    String getVIN();
-
-    /**
-     * @return the license number of this bus. This is the ID that's on the license plate of the bus.
-     */
-    String getLicenseNumber();
-
-    /**
-     * @return the BSSID for the WiFi connection on board the bus.
-     */
-    String getWifiBSSID();
+    // TODO: Documentation
+    String getDestination();
+    String getJourneyName();
+    String getRouteNumber();
 
     /**
      * @return a list of all flags on this bus. This method should never return null. If the bus
