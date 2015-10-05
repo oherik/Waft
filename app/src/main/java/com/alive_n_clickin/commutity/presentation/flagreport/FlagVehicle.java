@@ -7,10 +7,12 @@ import android.view.MenuItem;
 
 import com.alive_n_clickin.commutity.R;
 /**
- * The main activity for the flag setting tool
+ * The main activity for the flag setting tool. The activity doesn't have any visual elements itself,
+ * besides a frame which contains different fragments. The activity extends FragmentActivity to ensure
+ * that switching fragments is pain free.
+ * @since 0.1
  */
 public class FlagVehicle extends FragmentActivity {
-    private final String LOG_TAG = FragmentActivity.class.getSimpleName();
 
     @Override
     protected void onCreate (Bundle savedInstanceState){
@@ -20,32 +22,33 @@ public class FlagVehicle extends FragmentActivity {
             if (savedInstanceState != null) {
                 return;
             }
-            FlagVehicleFragment flagFragment = new FlagVehicleFragment();
-            getSupportFragmentManager().beginTransaction().add(R.id.content_frame, flagFragment).commit();
+            switchToDefaultFragment();
         }
     }
 
+    /**
+     * Switches the view to a new flag view fragment. It creates a new FlagVehicleFragment and
+     * stores it in the fragment content frame.
+     */
+    private void switchToDefaultFragment(){
+        FlagVehicleFragment flagFragment = new FlagVehicleFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.content_frame, flagFragment).commit() ;
+    }
 
     @Override
     public boolean onCreateOptionsMenu (Menu menu){
-        // Inflate the menu; this adds items to the action bar if it is present.
+        //Default method. Creates a menu, if present
         getMenuInflater().inflate(R.menu.menu_flag_vehicle, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected (MenuItem item){
-
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+     public boolean onOptionsItemSelected (MenuItem item){
+        //Default methods. Handles action bar clicks.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

@@ -1,10 +1,12 @@
 package com.alive_n_clickin.commutity.presentation.flagreport;
 
-
 import com.alive_n_clickin.commutity.util.FlagType;
 
 /**
- * A class containing data for a flag button
+ * A class containing data for a flag button. The button consists visually of an image and a
+ * description, and these are stored as a resource ID and a string. The type of flag is also
+ * stored here.
+ * @since 0.1
  */
 public class FlagButton{
     private int imageID;
@@ -12,14 +14,13 @@ public class FlagButton{
     private FlagType type;
 
     /**
-     * Creates a default button
+     * Creates a new button
      * @param imageID The resource ID of the image (e.g. R.drawable.full)
      * @param description   The flag description
      * @param type  The type of flag
      */
     public FlagButton(int imageID, String description, FlagType type){
         this.imageID = imageID;
-
         this.description = description;
         this.type = type;
     }

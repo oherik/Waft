@@ -11,7 +11,9 @@ import android.os.Bundle;
 import android.provider.Settings;
 
 /**
+ * A class for high level access to the phone's gps data.
  *
+ * @since 0.1
  */
 public class GpsState implements LocationListener{
     private static GpsState instance;

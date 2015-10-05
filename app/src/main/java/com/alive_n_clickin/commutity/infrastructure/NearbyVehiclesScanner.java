@@ -13,6 +13,7 @@ import java.util.Map;
  *         Created 24/09/15
  *
  * Class for finding nearby vehicles based on wifi position.
+ * @since 0.1
  */
 public class NearbyVehiclesScanner {
 
