@@ -14,15 +14,15 @@ import com.alive_n_clickin.commutity.infrastructure.WifiBroadcastReceiver;
  * manifest for whatever reason.
  */
 public class MyApplication extends Application {
+    private WifiBroadcastReceiver wifiBroadcastReceiver;
     private IBusManager busManager;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        WifiBroadcastReceiver wifiBroadcastReceiver = new WifiBroadcastReceiver(this);
+        this.wifiBroadcastReceiver = new WifiBroadcastReceiver(this);
         NearbyBusScanner nearbyBusScanner = new NearbyBusScanner(wifiBroadcastReceiver);
-
         this.busManager = new BusManager(nearbyBusScanner);
     }
 
@@ -31,5 +31,12 @@ public class MyApplication extends Application {
      */
     public IBusManager getBusManager() {
         return this.busManager;
+    }
+
+    /**
+     * @return the WifiBroadcastReceiver that is used throughout the application.
+     */
+    public WifiBroadcastReceiver getWifiBroadcastReceiver() {
+        return this.wifiBroadcastReceiver;
     }
 }
