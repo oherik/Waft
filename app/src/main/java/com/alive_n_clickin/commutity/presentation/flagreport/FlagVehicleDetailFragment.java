@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -81,7 +82,8 @@ public class FlagVehicleDetailFragment extends Fragment {
         IFlag flag;
         try {
             flag = new Flag(flagType, comment);
-            busManager.addFlagToCurrentBus(flag);
+            FlagBusTask flagBusTask = new FlagBusTask();
+            flagBusTask.execute(flag);
             switchToFlagFragment();
         } catch (IllegalArgumentException e) {
             // flag couldn't be created
@@ -163,5 +165,14 @@ public class FlagVehicleDetailFragment extends Fragment {
 
         // Save the current article selection in case we need to recreate the fragment
         outState.putInt(ARG_POSITION, mCurrentPosition);
+    }
+
+    private class FlagBusTask extends AsyncTask<IFlag, Void, Void> {
+
+        @Override
+        protected Void doInBackground(IFlag... params) {
+            busManager.addFlagToCurrentBus(params[0]);
+            return null;
+        }
     }
 }

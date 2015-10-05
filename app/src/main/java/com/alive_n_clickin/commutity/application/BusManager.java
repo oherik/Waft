@@ -4,6 +4,8 @@ import com.alive_n_clickin.commutity.domain.IBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.event.CurrentBusChangeEvent;
 import com.alive_n_clickin.commutity.event.NewBusNearbyEvent;
+import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
+import com.alive_n_clickin.commutity.infrastructure.api.IWaftAdapter;
 import com.alive_n_clickin.commutity.util.event.IEvent;
 import com.alive_n_clickin.commutity.util.event.IObservableHelper;
 import com.alive_n_clickin.commutity.util.event.IObserver;
@@ -23,7 +25,11 @@ public class BusManager implements IBusManager, IObserver {
     // TODO: Documentation
     @Override
     public void addFlagToCurrentBus(IFlag flag) {
-        // notify backend that a new flag has been added to currentBus
+        if (currentBus != null) {
+            // notify backend that a new flag has been added to currentBus
+            IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
+            waftAdapter.flagBus(this.currentBus, flag);
+        }
     }
 
     // TODO: Documentation
