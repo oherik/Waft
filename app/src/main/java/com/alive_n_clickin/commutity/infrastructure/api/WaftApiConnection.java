@@ -5,39 +5,50 @@ import android.util.Log;
 
 import com.alive_n_clickin.commutity.util.LogUtils;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
-/**
- * Created by OscarEvertsson on 05/10/15.
- */
+
 class WaftApiConnection {
     private static final String BASE_URL_WAFT = "http://95.85.21.47/";
+    private final String LOG_TAG = LogUtils.getLogTag(this);
 
+    /**
+     * Send a query to Waft. It will be appended to the base url.
+     * The query must be well formed.
+     * @param path the path to append for the base url
+     * @param query the query to append, leave out ? in the beginning
+     * @return
+     */
     public String sendGetToWaft(String path,String query) {
         Uri.Builder uriBuilder = Uri.parse(BASE_URL_WAFT).buildUpon();
         uriBuilder.appendPath(path);
         uriBuilder.encodedQuery(query);
         Uri uri = uriBuilder.build();
 
-        HttpURLConnection connection = null;
         try {
             URL url = new URL(uri.toString());
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            return ApiConnection.getResponseFromHttpConnection(connection);
-        } catch (IOException e) {
-            String errorMessage = "Error connection to WAFT API";
-            if (connection != null) {
-                errorMessage = ApiConnection.readStream(connection.getErrorStream());
-            }
-            Log.e(LogUtils.getLogTag(this), errorMessage, e);
+            return ApiConnection.getResponseFromHttpConnection(url);
+        } catch (MalformedURLException e) {
+            Log.e(LOG_TAG, "Couldn't create url in: sendGetToWaft with the final uri: " + uri.toString());
         }
         return null;
     }
 
     public int sendPostToWaft(String path,String postQuery) {
-        return ApiConnection.post(BASE_URL_WAFT + path,postQuery);
+        Uri.Builder uriBuilder = Uri.parse(BASE_URL_WAFT).buildUpon();
+        uriBuilder.appendPath(path);
+        Uri uri = uriBuilder.build();
+        URL url = null;
+        try {
+            url = new URL(uri.toString());
+        } catch (MalformedURLException e) {
+            Log.e(LOG_TAG,"Couldn't create url in: sendPostToWaft with the final uri: " + uri.toString());
+        }
+
+        if(url != null){
+            return ApiConnection.post(url,postQuery);
+        }
+        return -1;
     }
 }
