@@ -33,7 +33,7 @@ class WaftAdapter implements IWaftAdapter{
 
     private String getFormattedPostFlagString(IBus bus, IFlag flag){
         //TODO: Check whether or not the parameters are added properly
-        String query = "flagType=" + flag.getType().getID() +
+        String query = "flagType=" + flag.getType().getId() +
                 "&comment=" + flag.getComment() +
                 "&time=" + flag.getCreatedTime().toString() +
                 "&busDGW" + bus.getDGW();
