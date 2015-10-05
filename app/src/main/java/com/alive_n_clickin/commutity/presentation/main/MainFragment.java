@@ -27,17 +27,24 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.main_fragment, container, false);
-        TextView stopTextView = (TextView) rootView.findViewById(R.id.currentStop);
 
         //Set stop name
+       setStopName(rootView);
+
+        return rootView;
+    }
+
+    /**
+     * Sets the stop name, as well as formatting the text
+     * @param currentView The view in which the text view resides
+     */
+    private void setStopName(View currentView){
+        TextView stopTextView = (TextView) currentView.findViewById(R.id.currentStop);
         MainActivity mainActivity = (MainActivity) getActivity();
         if(mainActivity.getCurrentStop()!=null && !("".equals(mainActivity.getCurrentStop().getName())))
         {
             stopTextView.setText(mainActivity.getCurrentStop().getName());
         }
-
-        //Underline the text
         stopTextView.setPaintFlags(stopTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        return rootView;
     }
 }
