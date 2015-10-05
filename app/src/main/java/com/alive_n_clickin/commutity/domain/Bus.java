@@ -7,10 +7,10 @@ import java.util.List;
  * A concrete implementation of the IBus interface.
  */
 public class Bus implements IBus {
-    private String DGW;
-    private String destination;
-    private String journeyName; // Västtrafiks "turnummer"
-    private String routeNumber;
+    @Getter private String DGW;
+    @Getter private String destination;
+    @Getter private String journeyName; // Västtrafiks "turnummer"
+    @Getter private String routeNumber;
 
     private List<IFlag> flags = new ArrayList<>();
 
@@ -40,26 +40,6 @@ public class Bus implements IBus {
         this.journeyName = journeyName;
         this.routeNumber = routeNumber;
         this.flags = new ArrayList<>(flags);
-    }
-
-    @Override
-    public String getDGW() {
-        return DGW;
-    }
-
-    @Override
-    public String getDestination() {
-        return this.destination;
-    }
-
-    @Override
-    public String getJourneyName() {
-        return this.journeyName;
-    }
-
-    @Override
-    public String getRouteNumber() {
-        return this.routeNumber;
     }
 
     @Override
