@@ -6,5 +6,5 @@ package com.alive_n_clickin.commutity.util.event;
  * in case we want to add generic methods in the future that all types of events should have.
  */
 public interface IEvent {
-    
+
 }
