@@ -16,7 +16,7 @@ class WaftApiConnection {
     /**
      * Send a query to Waft. It will be appended to the base url.
      * The query must be well formed.
-     * @param path the path to append for the base url
+     * @param path the path to append for the base url, you should not add the '/' sign in front of your path.
      * @param query the query to append, leave out ? in the beginning
      * @return a json string if successful otherwise null.
      */
@@ -36,9 +36,9 @@ class WaftApiConnection {
     }
 
     /**
-     *
-     * @param path the path to be appended to the base url
-     * @param postQuery
+     * The query must be well formed.
+     * @param path the path to be appended to the base url, you should not add the '/' sign in front of your path.
+     * @param postQuery the query to append, leave out ? in the beginning
      * @return the status code from the response or -1 if unsuccessful
      */
     public int sendPostToWaft(String path,String postQuery) {
