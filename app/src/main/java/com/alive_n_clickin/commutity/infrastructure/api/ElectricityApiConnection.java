@@ -4,6 +4,7 @@ import android.net.Uri;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Map;
 
 /**
  * This class creates a valid http connection for the Electricity API, which is then passed along to {@link ApiConnection}.
@@ -26,11 +27,29 @@ class ElectricityApiConnection {
     protected String sendGetToElectricity(String query) {
         Uri.Builder uriBuilder = Uri.parse(BASE_URL_ELECTRICITY).buildUpon();
         uriBuilder.encodedQuery(query);
+        uriBuilder.appendQueryParameter("Authorization", AUTHORIZATION);
         Uri uri = uriBuilder.build();
 
         try {
             URL url = new URL(uri.toString());
-            return ApiConnection.getResponseFromHttpConnection(url);
+            //Send the authorization to the Api connection
+            Map.Entry<String, String> authorizationProperty = new Map.Entry<String, String>() {
+                @Override
+                public String getKey() {
+                    return "Authorization";
+                }
+
+                @Override
+                public String getValue() {
+                    return AUTHORIZATION;
+                }
+
+                @Override
+                public String setValue(String object) {
+                    return null;
+                }
+            };
+            return ApiConnection.getResponseFromHttpConnection(url, authorizationProperty);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
