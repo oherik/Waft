@@ -22,25 +22,27 @@ import java.util.Scanner;
 class ApiConnection {
     private final static String charset = "UTF-8";
     private final static String contentType = "application/x-www-form-urlencoded";
-    private final static String LOG_TAG = "ASD";
+    private final static String LOG_TAG = "ApiConnection";
     /**
      * Returns the response of a connection. Handles parsing and exceptions
-     * @param connection the HttpURLConnection that the response should be read from
+     * @param url takes the url to make a connection to
      * @return the response if there is one, null otherwise. Check log messages if null is returned
      */
-    static String getResponseFromHttpConnection(HttpURLConnection connection) {
-        try {
-            connection.connect();
-            InputStream inputStream = connection.getInputStream();
-            if (inputStream == null) {
-                return null;
-            }
-            return readStream(inputStream);
+    static String getResponseFromHttpConnection(URL url) {
+        HttpURLConnection connection = establishGetConnection(url);
 
-        } catch (IOException e) {
-            String errors = readStream(connection.getErrorStream());
-        } finally {
-            if (connection != null) {
+        if(connection != null){
+            try {
+                connection.connect();
+                InputStream inputStream = connection.getInputStream();
+                if (inputStream == null) {
+                    return null;
+                }
+                return readStream(inputStream);
+
+            } catch (IOException e) {
+                String errors = readStream(connection.getErrorStream());
+            } finally {
                 connection.disconnect();
             }
         }
@@ -48,17 +50,32 @@ class ApiConnection {
         return null;
     }
 
+    private static HttpURLConnection establishGetConnection(URL url){
+        HttpURLConnection connection = null;
+        try {
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            return connection;
+        } catch (IOException e) {
+            String errorMessage = "Error establishing a connection";
+            if (connection != null) {
+                errorMessage = ApiConnection.readStream(connection.getErrorStream());
+            }
+            Log.e(LOG_TAG, errorMessage, e);
+        }
+        return null;
+    }
 
     /**
      * Posts a http request to the server
-     * @param serverAddress The full address for the location where to send the request
+     * @param url The full address for the location where to send the request
      * @param query The query to post in the body of the request
      * @return The response code from the server, or -1 if the request couldn't be sent
      */
-    static int post(String serverAddress,String query) {
+    static int post(URL url,String query) {
         try {
             //Get the url from the address
-            URL url = new URL(serverAddress);
+
 
             //Convert the parameters to UTF-8
             byte[] bodyPostData     = query.getBytes(StandardCharsets.UTF_8);
@@ -84,13 +101,14 @@ class ApiConnection {
 
             return status;
         } catch (MalformedURLException e) {
-            Log.e(LOG_TAG, "Invalid URL. Current URL input was " + serverAddress +
+            Log.e(LOG_TAG, "Invalid URL. Current URL input was " + url.toString() +
                     ". Error message: " + e);
         } catch (IOException e) {
             Log.e(LOG_TAG, "Server connection error. Error message: " + e);
         }
         return -1; //Could not send request
     }
+
 
 
     /**
