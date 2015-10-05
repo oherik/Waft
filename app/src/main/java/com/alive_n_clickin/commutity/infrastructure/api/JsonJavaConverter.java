@@ -1,8 +1,10 @@
-package com.alive_n_clickin.commutity.infrastructure;
+package com.alive_n_clickin.commutity.infrastructure.api;
 
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 /**
  * @author hjorthjort
@@ -10,11 +12,13 @@ import com.google.gson.Gson;
  * Methods for parsing JSON in to Java Objects of a given class, and vice versa
  *
  * Package private, this class handles low level functionality, and should not be visible to other packages.
+ * @since 0.1
  */
 class JsonJavaConverter<T> {
     
     private final String LOG_TAG = this.getClass().getSimpleName();
     private static final Gson GSON = new Gson();
+    private static final JsonParser PARSER = new JsonParser();
     private final Class<T> classType;
 
     /**
@@ -26,12 +30,19 @@ class JsonJavaConverter<T> {
     }
 
     /**
-     * Take a JSON object an turn it into an object of the type matching the class of the converter
-     * @param json
-     * @return
+     * Take a JSON object an turn it into an object of the type matching the class of the converter.
+     * IMPORTANT! The format of the string should be in json NOT jsonp.
+     * @param json is simply the string in json format.
+     * @param startNode is the node within the json file to start converting data from.
+     * @return the type matching the class of the converter or null if unsuccessful
      */
-    public T toJava(String json) {
-        return GSON.fromJson(json, classType);
+    public T toJava(String json,String startNode) {
+        JsonObject obj = PARSER.parse(json).getAsJsonObject();
+        try{
+            return GSON.fromJson(obj.get(startNode), classType);
+        } catch(com.google.gson.JsonSyntaxException e) {
+            return null;
+        }
     }
 
     /**

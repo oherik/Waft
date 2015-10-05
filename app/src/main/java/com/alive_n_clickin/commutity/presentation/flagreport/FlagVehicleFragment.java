@@ -24,12 +24,11 @@ import lombok.NonNull;
 /**
  * The view with several different flags available for the user to flag vehicles. Launches a detailed
  * view when the user clicks on a flag
+ * @since 0.1
  */
 public class FlagVehicleFragment extends Fragment implements WifiChangeListener {
     final static String ARG_POSITION    = "position";
     int mCurrentPosition                = -1;
-
-    private final String LOG_TAG = FlagVehicleFragment.class.getSimpleName();
 
     private FlagViewAdapter flagAdapter;
     private ArrayList<FlagButton> flagButtons;
@@ -42,17 +41,26 @@ public class FlagVehicleFragment extends Fragment implements WifiChangeListener 
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        flagButtons = new ArrayList();
 
+        addTestButtons();
+        busData = "55";
+
+    }
+
+    /**
+     * Adds the different buttons. At the moment it's all hard coded for testing purposes
+     */
+    private void addTestButtons(){
         //TODO hard coded flag data for testing purposes
+        if(flagButtons==null){
+            flagButtons = new ArrayList<>();
+        }
         flagButtons.add(new FlagButton(R.drawable.flag_full_300px, getString(R.string.flag_overcrowded), FlagType.OVERCROWDED));
         flagButtons.add(new FlagButton(R.drawable.flag_rowdy_300px, getString(R.string.flag_disturbance), FlagType.DISTURBANCES));
         flagButtons.add(new FlagButton(R.drawable.flag_delayed_300px, getString(R.string.flag_delayed), FlagType.DELAYED));
         flagButtons.add(new FlagButton(R.drawable.flag_dirty_alt2_300px, getString(R.string.flag_messy), FlagType.MESSY));
         flagButtons.add(new FlagButton(R.drawable.flag_pram_300px, getString(R.string.flag_pram), FlagType.NO_PRAMS));
         flagButtons.add(new FlagButton(R.drawable.flag_other_black_300px, getString(R.string.flag_other), FlagType.OTHER));
-        busData = "55";
-
     }
 
     @Override
@@ -61,8 +69,8 @@ public class FlagVehicleFragment extends Fragment implements WifiChangeListener 
         WifiBroadcastReceiver.register(this);
         WifiHelper.getInstance().scanForWifis(getContext());
 
-        final View rootView   = inflater.inflate(R.layout.fragment_flag_vehicle, container, false);
-        flagAdapter     = new FlagViewAdapter(getActivity(), flagButtons);
+        final View rootView     = inflater.inflate(R.layout.fragment_flag_vehicle, container, false);
+        flagAdapter             = new FlagViewAdapter(getActivity(), flagButtons);
         final TextView textView = (TextView) rootView.findViewById(R.id.textViewBusInformation);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,10 +117,8 @@ public class FlagVehicleFragment extends Fragment implements WifiChangeListener 
                 transaction.replace(R.id.content_frame, detailFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
-
             }
         });
-
         return rootView;
     }
 
@@ -122,6 +128,10 @@ public class FlagVehicleFragment extends Fragment implements WifiChangeListener 
         WifiBroadcastReceiver.unregister(this);
     }
 
+    /**
+     * Shows the guess on which buss the user is currently on based on wifi scanning
+     * @param rootView the application's root view
+     */
     private void writeOutBestGuess(@NonNull View rootView) {
         String bestGuess = NearbyVehiclesScanner.getInstance().getBestGuess(getContext());
         final TextView textView = (TextView) rootView.findViewById(R.id.textViewBusInformation);
