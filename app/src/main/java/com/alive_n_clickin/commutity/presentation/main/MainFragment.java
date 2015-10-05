@@ -50,6 +50,7 @@ public class MainFragment extends Fragment {
         List<String> adapterData = new ArrayList<>();
         adapter = new ArrayAdapter<>(getActivity().getBaseContext(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, adapterData);
+        busListView.setAdapter(adapter);
 
         setStopName(currentStop);
         populateBusList(currentStop, rootView);
@@ -85,7 +86,8 @@ public class MainFragment extends Fragment {
      * than one
      * @return The buses on the way to the desired stop, null if no buses are found
      */
-    private List<String> getBuses(@NonNull Stop currentStop, int numberOfBuses) throws IllegalArgumentException{
+    private List<String> getBuses(@NonNull Stop currentStop, int numberOfBuses)
+            throws IllegalArgumentException{
         if(numberOfBuses<1){
             throw new IllegalArgumentException("Number of buses must be greater than or equal to " +
                     "one");
@@ -97,18 +99,19 @@ public class MainFragment extends Fragment {
         testBuses.add("Trean");
         testBuses.add("Fyran");
         testBuses.add("Femman");
-        testBuses.add("Sexan");
-        testBuses.add("Sjuan");
-        testBuses.add("Nian");
-        testBuses.add("Tian");
-        testBuses.add("Elvan");
-        testBuses.add("Tolvan");
+        if(currentStop.getName().equals("GÖTEBORG")) {  //TODO test to see if update works
+            testBuses.add("Sexan");
+            testBuses.add("Sjuan");
+            testBuses.add("Nian");
+            testBuses.add("Tian");
+            testBuses.add("Elvan");
+            testBuses.add("Tolvan");
+        }
 
         if(!testBuses.isEmpty()) {
             int maxIndex = Math.min(numberOfBuses, testBuses.size()) - 1;
             return testBuses.subList(0, maxIndex);
         }
-        Log.d(LOG_TAG, testBuses.get(0));
         return testBuses;
 
      }

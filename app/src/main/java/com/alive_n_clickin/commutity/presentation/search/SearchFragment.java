@@ -134,7 +134,6 @@ public class SearchFragment extends Fragment {
     private void searchStops(String query){
         SearchStopTask task = new SearchStopTask();
         task.execute(query);
-        Log.e(LOG_TAG, query);
     }
 
     /**
