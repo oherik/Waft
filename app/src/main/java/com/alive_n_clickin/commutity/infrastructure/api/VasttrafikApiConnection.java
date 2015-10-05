@@ -1,12 +1,7 @@
 package com.alive_n_clickin.commutity.infrastructure.api;
 
 import android.net.Uri;
-import android.util.Log;
 
-import com.alive_n_clickin.commutity.util.LogUtils;
-
-import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -37,19 +32,12 @@ class VasttrafikApiConnection {
 
         Uri uri = uriBuilder.build();
 
-
-        HttpURLConnection connection = null;
+        URL url = null;
         try {
-            URL url = new URL(uri.toString());
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            return ApiConnection.getResponseFromHttpConnection(connection);
-        } catch (IOException e) {
-            String errorMessage = "Error connection to Vasttrafik API";
-            if (connection != null) {
-                errorMessage = ApiConnection.readStream(connection.getErrorStream());
-            }
-            Log.e(LogUtils.getLogTag(this), errorMessage, e);
+            url = new URL(uri.toString());
+            return ApiConnection.getResponseFromHttpConnection(url);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
         }
         return null;
     }
