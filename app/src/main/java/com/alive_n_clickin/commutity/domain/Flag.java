@@ -11,24 +11,51 @@ public class Flag implements IFlag {
      * determines whether or not a comment is required for that flag type.
      */
     public enum Type implements IFlagType {
-        DELAY ("Försenad", false),
-        CROWDED ("Full", false),
-        MESSY ("Stökig", false),
-        BAD_CLIMATE ("Dåligt klimat", false),
-        VANDALIZED ("Vandalisering", false),
-        OTHER ("Övrigt", true);
+        OTHER (1, true),
+        OVERCROWDED (2),
+        DELAYED (3),
+        MESSY (4),
+        BAD_CLIMATE (5),
+        DISTURBANCES (6),
+        NO_PRAMS (7);
 
-        private final String name;
+        private final int id;
         private final boolean requiresComment;
 
-        Type(String name, boolean requiresComment) {
-            this.name = name;
+        Type(int id) {
+            this.id = id;
+            this.requiresComment = false;
+        }
+
+        Type(int id, boolean requiresComment) {
+            this.id = id;
             this.requiresComment = requiresComment;
         }
 
+        public static Type getByID(int id) {
+            switch (id) {
+                case 1:
+                    return OTHER;
+                case 2:
+                    return OVERCROWDED;
+                case 3:
+                    return DELAYED;
+                case 4:
+                    return MESSY;
+                case 5:
+                    return BAD_CLIMATE;
+                case 6:
+                    return DISTURBANCES;
+                case 7:
+                    return NO_PRAMS;
+                default:
+                    return null;
+            }
+        }
+
         @Override
-        public String getName() {
-            return this.name;
+        public int getID() {
+            return this.id;
         }
 
         @Override
@@ -38,7 +65,7 @@ public class Flag implements IFlag {
 
         @Override
         public String toString() {
-            return String.format("FlagType [name=%s]", this.name);
+            return String.format("FlagType [id=%s]", this.id);
         }
     }
 
