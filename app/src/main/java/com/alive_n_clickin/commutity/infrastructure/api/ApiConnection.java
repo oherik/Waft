@@ -2,6 +2,8 @@ package com.alive_n_clickin.commutity.infrastructure.api;
 
 import android.util.Log;
 
+import com.alive_n_clickin.commutity.util.LogUtils;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,7 +25,7 @@ import java.util.Scanner;
 class ApiConnection {
     private final static String charset = "UTF-8";
     private final static String contentType = "application/x-www-form-urlencoded";
-    private final static String LOG_TAG = "ApiConnection";
+    private final static String LOG_TAG = LogUtils.getLogTag(ApiConnection.class);
     /**
      * Returns the response of a connection. Handles parsing and exceptions
      * @param url takes the url to make a connection to
