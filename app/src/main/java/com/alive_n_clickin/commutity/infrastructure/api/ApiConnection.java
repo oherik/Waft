@@ -85,7 +85,23 @@ class ApiConnection {
             byte[] bodyPostData     = query.getBytes(StandardCharsets.UTF_8);
             int bodyPostDataLength  = bodyPostData.length;
 
-            //Set up server request
+            /* Creates a new URL connection, using HTTP. HTTPS could be implemented in the future, 
+            but is at the moment not supported by the server.
+
+            doOutput: true, since we want to send to the server
+
+            setInstanceFollowRedirects: false, since the server shouldn't throw any Error 301's. It
+            could be set to true if we want to follow any possible redirects.
+
+            The setRequest methods specify which kind of message that's being sent to the server. In
+            this case it's a POST request, using the default internet media type
+            x-www-form-urlencoded (which uses key-value pairs, with ampersands to separate the pairs). 
+            The request should be encoded using UTF-8, although both this and the media type can be 
+            changed if needed (i.e. the server changes how it handles the requests). The length of the 
+            request is also set here. 
+
+            setUsesCache(false) forces Java to reload the file.
+            */
             HttpURLConnection serverConnection = (HttpURLConnection) url.openConnection();
             serverConnection.setDoOutput(true);
             serverConnection.setInstanceFollowRedirects(false);
