@@ -13,9 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
-import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /** Consists of a vehicle and when it will arrive to a certain stop
@@ -27,9 +26,9 @@ public class ArrivingVehicle {
     private String time;
     private String date;
     private long journeyid;
-    private String direction;
-    private String name;
-    private String sname;
+    private String direction = "Mot lindholmen";
+    private String name = "";
+    private String routeNumber = "55";
 
 
     /**
@@ -44,7 +43,9 @@ public class ArrivingVehicle {
 
     //TODO Just for testing
     public Bus getBus(){
-        return new Bus("", direction, name, sname, new ArrayList<IFlag>());
+        List<IFlag> list = new ArrayList<>();
+        list.add(new Flag(Flag.Type.OVERCROWDED,"",new Date()));
+        return new Bus("", direction, name, routeNumber, list);
     }
 
     /**
