@@ -3,6 +3,11 @@ package com.alive_n_clickin.commutity.infrastructure.api;
 import android.net.Uri;
 import android.util.Log;
 
+import com.alive_n_clickin.commutity.domain.Bus;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -51,5 +56,27 @@ class VasttrafikAdapter implements IVasttrafikAdapter {
             Log.d("ASD","response from server is null");
             return null;
         }
+    }
+
+    @Override
+    public List<Bus> getVehiclesHeadedToStop(Stop stop) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+
+        Date dateAndTime = new Date();
+        String date = dateFormat.format(dateAndTime);
+        String time = timeFormat.format(dateAndTime);
+
+        String response = vasttrafikApiConnection.sendGetToVasttrafik(
+                "departureBoard",
+                        "&id=" + stop.getId() +
+                        "&date=" + date +
+                        "&time=" + time);
+        if(response != null){
+           Log.d("ASD", response);
+        } else {
+            return null;
+        }
+        return null;
     }
 }
