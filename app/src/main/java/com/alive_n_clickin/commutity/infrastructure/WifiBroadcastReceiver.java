@@ -14,7 +14,6 @@ import com.alive_n_clickin.commutity.util.event.IObservableHelper;
 import com.alive_n_clickin.commutity.util.event.IObserver;
 import com.alive_n_clickin.commutity.util.event.ObservableHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,7 +57,6 @@ public class WifiBroadcastReceiver extends BroadcastReceiver implements IObserva
             if (wifiState == WifiManager.WIFI_STATE_ENABLED
                     || wifiState == WifiManager.WIFI_STATE_DISABLED) {
                 boolean wifiEnabled = wifiHelper.isWifiEnabled();
-                observableHelper.notifyObservers(new WifiBSSIDChangeEvent(new ArrayList<String>()));
                 observableHelper.notifyObservers(new WifiStateChangeEvent(wifiEnabled));
             }
         }
