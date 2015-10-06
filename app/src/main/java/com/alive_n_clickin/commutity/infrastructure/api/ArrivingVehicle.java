@@ -42,22 +42,22 @@ public class ArrivingVehicle {
    // }
 
     //TODO Just for testing
-    public Bus getBus(){
+    public Bus getBus() {
         List<IFlag> list = new ArrayList<>();
-        list.add(new Flag(Flag.Type.OVERCROWDED,"",new Date()));
+        list.add(new Flag(Flag.Type.OVERCROWDED, "", new Date()));
         return new Bus("", direction, name, routeNumber, list);
     }
 
     /**
      * This method provides the differences between the arrival time and current time.
-     * @return
+     * @return a {@link Calendar} object where you can get the time in min, hours or whatever you like.
      */
     public Calendar getTimeToArrival() {
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-DD HH:mm");
         Date arrival = new Date();
         try {
             arrival = dateFormatter.parse(date + " " + time);
-        }catch(ParseException e){
+        } catch(ParseException e) {
             Log.e(LogUtils.getLogTag(this), e.getStackTrace().toString());
         }
         Calendar calendar = Calendar.getInstance();
