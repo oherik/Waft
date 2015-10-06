@@ -5,8 +5,6 @@ import android.util.Log;
 
 import com.alive_n_clickin.commutity.util.LogUtils;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -20,13 +18,15 @@ class VasttrafikApiConnection {
     private static final String BASE_URL_VASTTRAFIK =
             "http://api.vasttrafik.se/bin/rest.exe/v1/";
     private static final String API_KEY = "69b13ace-0bc1-4203-8a56-cc95648f4dca";
+    private final String LOG_TAG = LogUtils.getLogTag(this);
 
     /**
      * Send a query to Vasttrafik. It will be appended to the base url and sent using the credentials of the team
      * The query must be well formed.
      * @param query the query to be appended. Leave out the '?' at the beginning
-     * @return null if the connection didn't work
+     * @param path the path to be appended to the base url.
      * @throws MalformedURLException if the query parameter is invalid.
+     * @retur
      */
     public String sendGetToVasttrafik(String path,String query) {
         Uri.Builder uriBuilder = Uri.parse(BASE_URL_VASTTRAFIK).buildUpon();
@@ -37,19 +37,12 @@ class VasttrafikApiConnection {
 
         Uri uri = uriBuilder.build();
 
-
-        HttpURLConnection connection = null;
+        URL url = null;
         try {
-            URL url = new URL(uri.toString());
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            return ApiConnection.getResponseFromHttpConnection(connection);
-        } catch (IOException e) {
-            String errorMessage = "Error connection to Vasttrafik API";
-            if (connection != null) {
-                errorMessage = ApiConnection.readStream(connection.getErrorStream());
-            }
-            Log.e(LogUtils.getLogTag(this), errorMessage, e);
+            url = new URL(uri.toString());
+            return ApiConnection.getResponseFromHttpConnection(url);
+        } catch (MalformedURLException e) {
+            Log.e(LOG_TAG,"Couldn't build url with:" + uri.toString());
         }
         return null;
     }
