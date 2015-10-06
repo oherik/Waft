@@ -32,5 +32,5 @@ public interface IVasttrafikAdapter {
      * @return a list of vehicles headed to the specified stop, it the search was successful.
      * Returns null if the search was unsuccessful.
      */
-     List<Bus> getVehiclesHeadedToStop(Stop stop);
+     List<ArrivingVehicle> getVehiclesHeadedToStop(Stop stop);
 }
