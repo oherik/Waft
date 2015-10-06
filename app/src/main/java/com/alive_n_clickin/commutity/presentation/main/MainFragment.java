@@ -42,15 +42,14 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.main_fragment, container, false);
         stopTextView = (TextView) rootView.findViewById(R.id.currentStop);
-        busListView = (ListView) rootView.findViewById(R.id.busListView);
+
         MainActivity mainActivity = (MainActivity) getActivity();
         Stop currentStop = mainActivity.getCurrentStop();
-        //TODO add custom adapter
+
+        //TODO:Fetch real ArrivingVehicle list
         List<ArrivingVehicle> adapterData = new ArrayList<>();
 
-        //HARD CODE
-
-
+        busListView = (ListView) rootView.findViewById(R.id.busListView);
         adapter = new ListAdapter(getActivity(),adapterData);
         busListView.setAdapter(adapter);
 
