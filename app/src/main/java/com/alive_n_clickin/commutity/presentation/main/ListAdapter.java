@@ -19,8 +19,6 @@ import java.util.List;
  * Created by OscarEvertsson on 06/10/15.
  */
 public class ListAdapter extends ArrayAdapter<ArrivingVehicle> {
-    private Context currentContext;
-    private List<ArrivingVehicle> busList;
 
     public ListAdapter(Context currentContext,List<ArrivingVehicle> arrivingVehicleList) {
         super(currentContext,0,arrivingVehicleList);
@@ -43,12 +41,13 @@ public class ListAdapter extends ArrayAdapter<ArrivingVehicle> {
 
         TextView timeUntilArrival = (TextView) convertView.findViewById(R.id.timeUntilArrival);
         //TODO fetch the actual arrival time
-        String formatedTime = arrivingVehicle.getTimeToArrival().get(Calendar.HOUR) +
-                " : " +
-                arrivingVehicle.getTimeToArrival().get(Calendar.MINUTE);
+        String formatedTime = arrivingVehicle.getTimeToArrival().get(Calendar.MINUTE) + "m";
         timeUntilArrival.setText(formatedTime);
 
         GridView flagGridView = (GridView) convertView.findViewById(R.id.flagGridView);
+        flagGridView.setAdapter(new LittleFlagAdapter(getContext(),bus.getFlags()));
+
+
         //TODO Add all flags.
 
         return convertView;
