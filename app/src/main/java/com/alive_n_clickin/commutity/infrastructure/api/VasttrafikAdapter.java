@@ -3,12 +3,11 @@ package com.alive_n_clickin.commutity.infrastructure.api;
 import android.net.Uri;
 import android.util.Log;
 
-import com.alive_n_clickin.commutity.util.LogUtils;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -44,11 +43,19 @@ class VasttrafikAdapter implements IVasttrafikAdapter {
                 "&input=" + Uri.encode(searchString)
         );
         if(response != null){
-            Object stopList = new JsonJavaConverter<LocationList>(LocationList.class).toJava(
+            Object responseObject = new JsonJavaConverter<LocationList>(LocationList.class).toJava(
                     response, "LocationList");
-            if(stopList != null){
-                LocationList a = (LocationList)stopList;
-                return a.getStopLocations();
+            if(responseObject != null){
+                //The api returns results that begin with "." that are not relevant to our implementation.
+                //We must filter this out. That is what the for loop does. (It's a filter)
+                LocationList locationList = (LocationList)responseObject;
+                List<Stop> stopList = new LinkedList<>();
+                for (Stop stop : locationList.getStopLocations()) {
+                    if (!stop.getName().startsWith(".")) {
+                        stopList.add(stop);
+                    }
+                }
+                return stopList;
             } else {
                 Log.d("ASD","stopList is null");
                 return null;

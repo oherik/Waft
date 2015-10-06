@@ -2,6 +2,7 @@ package com.alive_n_clickin.commutity.application;
 
 import com.alive_n_clickin.commutity.event.NewBusNearbyEvent;
 import com.alive_n_clickin.commutity.event.WifiBSSIDChangeEvent;
+import com.alive_n_clickin.commutity.event.WifiStateChangeEvent;
 import com.alive_n_clickin.commutity.infrastructure.WifiBroadcastReceiver;
 import com.alive_n_clickin.commutity.util.event.IEvent;
 import com.alive_n_clickin.commutity.util.event.IObservable;
@@ -40,7 +41,12 @@ public class NearbyBusScanner implements IObserver, IObservable {
         buses.put("04:f0:21:10:09:5b", "Ericsson$171235"); // EOG 616
         buses.put("04:f0:21:10:09:b8", "Ericsson$171164"); // EOG 604
 
-        buses.put("d0:c7:89:33:27:3e", "Ericsson$000000"); // TEST
+        //Bssids below are purely for tesing (and for fun!)
+        buses.put("d0:c7:89:33:27:3e", "M-salarna");
+        buses.put("28:c6:8e:71:8a:b8", "Casa del Hjort");
+        buses.put("44:ad:d9:f1:51:6e", "Hubben studierum");
+        buses.put("d0:c7:89:33:27:3e", "EDUROAM");
+        buses.put("88:1d:fc:41:92:90", "EDUROAM");
     }
 
     /**
@@ -57,6 +63,8 @@ public class NearbyBusScanner implements IObserver, IObservable {
     public void onEvent(IEvent event) {
         if (event instanceof WifiBSSIDChangeEvent) {
             handleWifiBSSIDChangeEvent((WifiBSSIDChangeEvent) event);
+        } else if (event instanceof WifiStateChangeEvent) {
+            handleWifiStateChangeEvent((WifiStateChangeEvent) event);
         }
     }
 
@@ -72,6 +80,10 @@ public class NearbyBusScanner implements IObserver, IObservable {
         }
 
         observableHelper.notifyObservers(new NewBusNearbyEvent(DGW));
+    }
+
+    private void handleWifiStateChangeEvent(WifiStateChangeEvent event) {
+        observableHelper.notifyObservers(new NewBusNearbyEvent(null));
     }
 
     @Override
