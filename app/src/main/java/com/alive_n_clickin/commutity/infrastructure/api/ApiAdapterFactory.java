@@ -21,4 +21,8 @@ public class ApiAdapterFactory {
         return new VasttrafikAdapter();
     }
 
+    public static IWaftAdapter createWaftAdapter() {
+        return new WaftAdapter();
+    }
+
 }
