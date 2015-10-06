@@ -2,9 +2,9 @@ package com.alive_n_clickin.commutity.infrastructure;
 
 import android.content.Context;
 import android.net.wifi.ScanResult;
-import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -17,83 +17,64 @@ import java.util.List;
  * @since 0.1
  */
 public class WifiHelper {
+    private WifiManager wifiManager;
 
-    private static WifiHelper instance;
-
-    private WifiHelper() {
-
-    }
-
-    public static synchronized WifiHelper getInstance() {
-        if (instance == null) {
-            instance = new WifiHelper();
-        }
-        return instance;
+    public WifiHelper(Context context) {
+        this.wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
     }
 
     /**
      * Checks whether or not the wifi is enabled.
-     * @param context
      * @return true if wifi is enabled or false when disabled.
      */
-    public boolean isWifiEnabled(Context context) {
-        WifiManager wifiManager = getWifiManager(context);
+    public boolean isWifiEnabled() {
         return wifiManager.isWifiEnabled();
     }
 
     /**
      * Initate a scan for wifis to make them up to date
-     * @param context
      */
-    public void scanForWifis(Context context) {
-        getWifiManager(context).startScan();
+    public void initiateWifiScan() {
+        wifiManager.startScan();
     }
 
     /**
      * Get information on the WiFi the device is connected to.
-     * @param context
      * @return
      */
-    public WifiInfo getCurrentWifiConnection(Context context) {
-        WifiManager wifiManager = getWifiManager(context);
-        return wifiManager.getConnectionInfo();
+    public String getBSSIDOfCurrentNetwork() {
+        return wifiManager.getConnectionInfo().getBSSID();
     }
 
     /**
      * Get objects representing all nearby wifis, with MAC Address (BSSID), Name (SSID) and more. See
      * {@link ScanResult} for all available fields
-     * @param context the context which the requests will be made on
      * @return list with all results, sorted by signal strength
      */
-    public List<ScanResult> getNearbyMacAddresses(Context context) {
-        scanForWifis(context);
-        List<ScanResult> scanResults = getWifiManager(context).getScanResults();
+    public List<String> getNearbyBSSIDs() {
+        List<ScanResult> scanResults = wifiManager.getScanResults();
 
-        //Sort list according to signal level, strongest first.
+        // Sort list according to signal level, strongest first.
         Collections.sort(scanResults, new Comparator<ScanResult>() {
             @Override
             public int compare(ScanResult lhs, ScanResult rhs) {
                 return rhs.level - lhs.level;
             }
         });
-        //Debug: Check that list is correctly sorted
-//        for (ScanResult result :
-//                scanResults) {
-//            Log.d(LogUtils.getLogTag(this), "STRENGTH: "+result.level);
-//        }
-        return scanResults;
-    }
 
-    private WifiManager getWifiManager(Context context) {
-        return (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        // Fetch all BSSID:s from the scan results
+        List<String> BSSIDs = new ArrayList<>();
+        for (ScanResult scanResult : scanResults) {
+            BSSIDs.add(scanResult.BSSID);
+        }
+
+        return BSSIDs;
     }
 
     /**
      * Enables the devices WifiConnection, if it isn't already enabled
-     * @param context
      */
-    public void enableWifi(Context context) {
-        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+    public void enableWifi() {
         wifiManager.setWifiEnabled(true);
     }
 }
