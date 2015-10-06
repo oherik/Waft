@@ -3,15 +3,14 @@ package com.alive_n_clickin.commutity.presentation.main;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.alive_n_clickin.commutity.R;
+import com.alive_n_clickin.commutity.infrastructure.api.ArrivingVehicle;
 import com.alive_n_clickin.commutity.infrastructure.api.Stop;
 
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ public class MainFragment extends Fragment {
     private int maxNumberOfBusesInList = 10;
     private TextView stopTextView;
     private ListView busListView;
-    private ArrayAdapter<String> adapter;
+    private ListAdapter adapter;
 
     private final String LOG_TAG = getClass().getSimpleName();
 
@@ -47,9 +46,12 @@ public class MainFragment extends Fragment {
         MainActivity mainActivity = (MainActivity) getActivity();
         Stop currentStop = mainActivity.getCurrentStop();
         //TODO add custom adapter
-        List<String> adapterData = new ArrayList<>();
-        adapter = new ArrayAdapter<>(getActivity().getBaseContext(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, adapterData);
+        List<ArrivingVehicle> adapterData = new ArrayList<>();
+
+        //HARD CODE
+
+
+        adapter = new ListAdapter(getActivity(),adapterData);
         busListView.setAdapter(adapter);
 
         setStopName(currentStop);
@@ -67,11 +69,11 @@ public class MainFragment extends Fragment {
         if(currentStop==null){
             busListView.setVisibility(view.INVISIBLE);
         } else {
-            List<String> buses = getBuses(currentStop, maxNumberOfBusesInList);
-            if(buses!=null && !buses.isEmpty()) {
+            List<ArrivingVehicle> arrivingVehicles = getBuses(currentStop, maxNumberOfBusesInList);
+            if(arrivingVehicles!=null && !arrivingVehicles.isEmpty()) {
                 busListView.setVisibility(view.VISIBLE);
                 adapter.clear();
-                adapter.addAll(buses);
+                adapter.addAll(arrivingVehicles);
             }
         }
     }
@@ -86,16 +88,17 @@ public class MainFragment extends Fragment {
      * than one
      * @return The buses on the way to the desired stop, null if no buses are found
      */
-    private List<String> getBuses(@NonNull Stop currentStop, int numberOfBuses)
+    private List<ArrivingVehicle> getBuses(@NonNull Stop currentStop, int numberOfBuses)
             throws IllegalArgumentException{
         if(numberOfBuses<1){
             throw new IllegalArgumentException("Number of buses must be greater than or equal to " +
                     "one");
         }
+
         //TODO get data from bus manager
-        List<String> testBuses = new ArrayList<>();
-        testBuses.add("Ettan");
-        testBuses.add("Tvåan");
+        List<ArrivingVehicle> testBuses = new ArrayList<>();
+        testBuses.add(new ArrivingVehicle());
+        /*testBuses.add("Tvåan");
         testBuses.add("Trean");
         testBuses.add("Fyran");
         testBuses.add("Femman");
@@ -111,8 +114,9 @@ public class MainFragment extends Fragment {
         if(!testBuses.isEmpty()) {
             int maxIndex = Math.min(numberOfBuses, testBuses.size()) - 1;
             return testBuses.subList(0, maxIndex);
-        }
+        }*/
         return testBuses;
+
 
      }
 
