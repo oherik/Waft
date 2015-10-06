@@ -16,6 +16,6 @@ public class BusFactory {
         // 2. get information from ElectriCity's API and our backend
         // 3. create and return bus object
 
-        return new Bus(DGW  , "destination", "journeyName", "routeNumber", new ArrayList<IFlag>());
+        return new Bus(DGW, "destination", "journeyName", "routeNumber", new ArrayList<IFlag>());
     }
 }
