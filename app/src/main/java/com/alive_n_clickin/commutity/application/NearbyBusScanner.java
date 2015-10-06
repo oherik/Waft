@@ -44,6 +44,7 @@ public class NearbyBusScanner implements IObserver, IObservable {
         //Bssids below are purely for tesing (and for fun!)
         buses.put("d0:c7:89:33:27:3e", "M-salarna");
         buses.put("28:c6:8e:71:8a:b8", "Casa del Hjort");
+        buses.put("44:ad:d9:f1:51:6e", "Hubben studierum");
         buses.put("d0:c7:89:33:27:3e", "EDUROAM");
         buses.put("88:1d:fc:41:92:90", "EDUROAM");
     }

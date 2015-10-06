@@ -108,6 +108,7 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
                         beginTransaction();
                 transaction.replace(R.id.content_frame, detailFragment);
                 transaction.addToBackStack(null);
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 transaction.commit();
             }
         });

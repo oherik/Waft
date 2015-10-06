@@ -7,7 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -120,18 +120,12 @@ public class FlagVehicleDetailFragment extends Fragment {
      * Switches the view back to the main flag fragment
      */
     private void switchToFlagFragment(){
-        FlagVehicleFragment flagFragment = new FlagVehicleFragment();
-        Bundle args = new Bundle();
-        args.putInt(FlagVehicleDetailFragment.ARG_POSITION, mCurrentPosition);
-        flagFragment.setArguments(args);
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content_frame, flagFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-
         //Hide keyboard
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+
+        FragmentManager fm = getFragmentManager();
+        fm.popBackStack();
     }
 
     @Override
