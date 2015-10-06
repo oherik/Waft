@@ -1,7 +1,8 @@
 package com.alive_n_clickin.commutity.presentation.flagreport;
 
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -40,6 +41,11 @@ public class FlagVehicle extends FragmentActivity {
         //Default method. Creates a menu, if present
         getMenuInflater().inflate(R.menu.menu_flag_vehicle, menu);
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        NavUtils.navigateUpFromSameTask(this);
     }
 
     @Override
