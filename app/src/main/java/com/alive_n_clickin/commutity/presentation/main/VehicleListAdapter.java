@@ -50,12 +50,17 @@ public class VehicleListAdapter extends ArrayAdapter<ApiArrival> {
         TextView timeUntilArrival = (TextView) convertView.findViewById(R.id.timeUntilArrival);
         timeUntilArrival.setText(realDiffInMinutes + "");
 
+        int maxWidth = parent.getMeasuredWidth();
+        setFlags(convertView, maxWidth, vehicle);
+
+        return convertView;
+    }
+
+    private void setFlags(View convertView, int maxWidth, ArrivingVehicle vehicle) {
 
         GridLayout flagListView = (GridLayout) convertView.findViewById(R.id.flagListView);
         flagListView.removeAllViews();
-        // Use the adapter for setting all the flags to the list item.
 
-        int maxWidth = parent.getMeasuredWidth();
         int currentWidth = 0;
         for (IFlag flag : vehicle.getFlags()) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -75,7 +80,5 @@ public class VehicleListAdapter extends ArrayAdapter<ApiArrival> {
                 break;
             }
         }
-
-        return convertView;
     }
 }
