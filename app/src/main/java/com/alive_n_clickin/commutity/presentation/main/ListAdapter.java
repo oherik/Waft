@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 public class ListAdapter extends ArrayAdapter<ArrivingVehicle> {
 
     public ListAdapter(Context currentContext,List<ArrivingVehicle> arrivingVehicleList) {
-        super(currentContext,0,arrivingVehicleList);
+        super(currentContext, 0, arrivingVehicleList); //The second parameter is the resource ID for a layout file containing a layout to use when instantiating views. Making it 0 means we are not sending any resource file to the super class.
     }
 
     @Override
