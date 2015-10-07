@@ -16,23 +16,24 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * Created by OscarEvertsson on 06/10/15.
+ * This class fills the ListView within {@link MainFragment} with list items. It takes help from the {@link LittleFlagAdapter} to set the flags.
  */
 public class ListAdapter extends ArrayAdapter<ArrivingVehicle> {
-    private Context currentContext;
-    private List<ArrivingVehicle> busList;
 
     public ListAdapter(Context currentContext,List<ArrivingVehicle> arrivingVehicleList) {
         super(currentContext,0,arrivingVehicleList);
     }
 
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ArrivingVehicle arrivingVehicle = getItem(position);
-        IBus bus = arrivingVehicle.getBus();
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.vehicle_list, parent, false);
         }
+
+        ArrivingVehicle arrivingVehicle = getItem(position);
+        IBus bus = arrivingVehicle.getBus();
+
 
         TextView busNumber = (TextView) convertView.findViewById(R.id.busNumber);
         busNumber.setText(bus.getRouteNumber());
@@ -41,15 +42,14 @@ public class ListAdapter extends ArrayAdapter<ArrivingVehicle> {
         targetDestination.setText(bus.getDestination());
 
 
+        String formattedTime = arrivingVehicle.getTimeToArrival().get(Calendar.MINUTE) + "m";
         TextView timeUntilArrival = (TextView) convertView.findViewById(R.id.timeUntilArrival);
-        //TODO fetch the actual arrival time
-        String formatedTime = arrivingVehicle.getTimeToArrival().get(Calendar.HOUR) +
-                " : " +
-                arrivingVehicle.getTimeToArrival().get(Calendar.MINUTE);
-        timeUntilArrival.setText(formatedTime);
+        timeUntilArrival.setText(formattedTime);
+
 
         GridView flagGridView = (GridView) convertView.findViewById(R.id.flagGridView);
-        //TODO Add all flags.
+        // Use the adapter for setting all the flags to the list item.
+        flagGridView.setAdapter(new LittleFlagAdapter(getContext(), bus.getFlags()));
 
         return convertView;
     }
