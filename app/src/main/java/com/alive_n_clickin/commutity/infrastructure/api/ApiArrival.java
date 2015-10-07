@@ -23,7 +23,7 @@ import lombok.ToString;
  * object, as well as calculating the time to arrival.
  */
 @ToString
-public class ArrivingVehicle implements Comparable<ArrivingVehicle>{
+public class ApiArrival implements Comparable<ApiArrival>{
     /**
      * Scheduled arrival time
      */
@@ -34,15 +34,19 @@ public class ArrivingVehicle implements Comparable<ArrivingVehicle>{
     private String rtTime;
     private String date;
     private long journeyid;
-    private String direction = "Mot lindholmen";
-    private String name = "";
-    private String routeNumber = "55";
+    private String direction;
+    private String name;
+    /**
+     * The line number (short name)
+     */
+    private String sname;
+
     private DateFormat dateFormatter;
 
     /**
      * Constructor, initializes the date formatter
      */
-    public ArrivingVehicle(){
+    public ApiArrival(){
         dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         dateFormatter.setTimeZone(TimeZone.getTimeZone("Europe/Stockholm"));
     }
@@ -51,7 +55,7 @@ public class ArrivingVehicle implements Comparable<ArrivingVehicle>{
     public Bus getBus() {
         List<IFlag> list = new ArrayList<>();
         list.add(new Flag(Flag.Type.OVERCROWDED, "", new Date()));
-        return new Bus("", direction, name, routeNumber, list);
+        return new Bus("", direction, name, sname, list);
     }
 
     /**
@@ -101,7 +105,7 @@ public class ArrivingVehicle implements Comparable<ArrivingVehicle>{
     }
 
     @Override
-    public int compareTo(ArrivingVehicle other) {
+    public int compareTo(ApiArrival other) {
         return (getRealTimeToArrival() - other.getRealTimeToArrival())>0 ? 1 : -1;
     }
 }

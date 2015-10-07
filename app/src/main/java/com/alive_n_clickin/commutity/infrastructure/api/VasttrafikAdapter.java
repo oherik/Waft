@@ -3,8 +3,6 @@ package com.alive_n_clickin.commutity.infrastructure.api;
 import android.net.Uri;
 import android.util.Log;
 
-import com.alive_n_clickin.commutity.util.LogUtils;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -68,7 +66,7 @@ class VasttrafikAdapter implements IVasttrafikAdapter {
     }
 
     @Override
-    public List<ArrivingVehicle> getVehiclesHeadedToStop(Stop stop) {
+    public List<ApiArrival> getVehiclesHeadedToStop(Stop stop) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
