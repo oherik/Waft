@@ -66,7 +66,7 @@ class VasttrafikAdapter implements IVasttrafikAdapter {
     }
 
     @Override
-    public List<ArrivingVehicle> getVehiclesHeadedToStop(Stop stop) {
+    public List<ApiArrival> getVehiclesHeadedToStop(Stop stop) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat timeFormat = new SimpleDateFormat("HH:mm");
 

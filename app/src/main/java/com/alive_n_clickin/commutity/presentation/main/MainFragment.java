@@ -13,12 +13,13 @@ import android.widget.TextView;
 
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
-import com.alive_n_clickin.commutity.infrastructure.api.ArrivingVehicle;
+import com.alive_n_clickin.commutity.infrastructure.api.ApiArrival;
 import com.alive_n_clickin.commutity.infrastructure.api.IVasttrafikAdapter;
 import com.alive_n_clickin.commutity.infrastructure.api.Stop;
 import com.alive_n_clickin.commutity.util.LogUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import lombok.NonNull;
@@ -34,12 +35,12 @@ public class MainFragment extends Fragment {
     private TextView stopTextView;
     private ListView busListView;
     private ListAdapter adapter;
-    private List<ArrivingVehicle> arrivingVehicles;
+    private List<ApiArrival> apiArrivals;
 
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        arrivingVehicles = new ArrayList<>();
+        apiArrivals = new ArrayList<>();
     }
 
     @Override
@@ -52,7 +53,7 @@ public class MainFragment extends Fragment {
         Stop currentStop = mainActivity.getCurrentStop();
 
         busListView = (ListView) rootView.findViewById(R.id.busListView);
-        adapter = new ListAdapter(getActivity(),arrivingVehicles);
+        adapter = new ListAdapter(getActivity(), apiArrivals);
         busListView.setAdapter(adapter);
 
         setStopName(currentStop);
@@ -81,26 +82,31 @@ public class MainFragment extends Fragment {
      * Collects the vehicles from the adapter, based on which stop is currently selected.
      * After the class has fetched the results it adds the new data to the list adapter.
      */
-    private class AddVehiclesFromAPI extends AsyncTask<Stop, Void, List<ArrivingVehicle>>{
+    private class AddVehiclesFromAPI extends AsyncTask<Stop, Void, List<ApiArrival>>{
 
         @Override
-        protected List<ArrivingVehicle> doInBackground(Stop... params) {
+        protected List<ApiArrival> doInBackground(Stop... params) {
             IVasttrafikAdapter vasttrafikAdapter = ApiAdapterFactory.createVasttrafikAdapter();
             return vasttrafikAdapter.getVehiclesHeadedToStop(params[0]);
         }
 
         @Override
-        protected void onPostExecute(List<ArrivingVehicle> result) {
+        protected void onPostExecute(List<ApiArrival> result) {
             try {
-                arrivingVehicles.clear();
+                apiArrivals.clear();
             }catch(NullPointerException e) {
                 //Arriving vehicles list has been deleted, create a new one
                 Log.e(LogUtils.getLogTag(this), "The list of vehicles has been deleted. This list" +
                         " should always be present. Creating an empty one. \n" +
                         e.getStackTrace().toString());
-                arrivingVehicles = new ArrayList<>();
+                apiArrivals = new ArrayList<>();
             }
             if (result != null) {
+                /*
+                The recieved list is sorted based on the scheduled arrival time. We wish to sort
+                based on the actual arrival time.
+                 */
+                Collections.sort(result);
                 /*
                 While making the API call it's not possible to select how many vehicles the list
                 should contain. This has to be done manually.
