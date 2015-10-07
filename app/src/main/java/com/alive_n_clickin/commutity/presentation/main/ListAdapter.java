@@ -1,6 +1,7 @@
 package com.alive_n_clickin.commutity.presentation.main;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +12,11 @@ import android.widget.TextView;
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.domain.IBus;
 import com.alive_n_clickin.commutity.infrastructure.api.ArrivingVehicle;
+import com.alive_n_clickin.commutity.util.LogUtils;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This class fills the ListView within {@link MainFragment} with list items. It takes help from the {@link LittleFlagAdapter} to set the flags.
@@ -42,9 +45,12 @@ public class ListAdapter extends ArrayAdapter<ArrivingVehicle> {
         targetDestination.setText(bus.getDestination());
 
 
-        String formattedTime = arrivingVehicle.getTimeToArrival().get(Calendar.MINUTE) + "m";
+        long time = arrivingVehicle.getTimeToArrival();
+
+        long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(time);
+
         TextView timeUntilArrival = (TextView) convertView.findViewById(R.id.timeUntilArrival);
-        timeUntilArrival.setText(formattedTime);
+        timeUntilArrival.setText(diffInMinutes+"");
 
 
         GridView flagGridView = (GridView) convertView.findViewById(R.id.flagGridView);
