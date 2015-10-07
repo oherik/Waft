@@ -59,7 +59,7 @@ public class MainFragment extends Fragment {
         List<ArrivingVehicle> adapterData = new ArrayList<>();
 
         busListView = (ListView) rootView.findViewById(R.id.busListView);
-        adapter = new ListAdapter(getActivity(),adapterData);
+        adapter = new ListAdapter(getActivity(),arrivingVehicles);
         busListView.setAdapter(adapter);
 
         setStopName(currentStop);
