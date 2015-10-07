@@ -27,7 +27,7 @@ public interface IVasttrafikAdapter {
      List<Stop> getSearchStops(String searchString);
 
     /**
-     * This function gives you  a list of all vehicles headed to a certain stop at the current time
+     * This function gives you a list of the 20 next vehicles headed to a certain stop at the current time
      * @param stop
      * @return a list of vehicles headed to the specified stop, it the search was successful.
      * Returns null if the search was unsuccessful.

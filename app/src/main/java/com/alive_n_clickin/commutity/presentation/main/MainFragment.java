@@ -15,7 +15,6 @@ import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
 import com.alive_n_clickin.commutity.infrastructure.api.ArrivingVehicle;
 import com.alive_n_clickin.commutity.infrastructure.api.IVasttrafikAdapter;
-import com.alive_n_clickin.commutity.infrastructure.api.ArrivingVehicle;
 import com.alive_n_clickin.commutity.infrastructure.api.Stop;
 import com.alive_n_clickin.commutity.util.LogUtils;
 
@@ -159,14 +158,36 @@ public class MainFragment extends Fragment {
                 arrivingVehicles = new ArrayList<>();
             }
             if (result != null) {
-                arrivingVehicles.addAll(result);
-                adapter.notifyDataSetChanged();
+                //The list arrives unsorted. Fix that.
+                //Collections.sort(result);
+                /*
+                While making the API call it's not possible to select how many vehicles the list
+                should contain. This has to be done manually.
+                 */
+                result = trimmedList(result, maxNumberOfBusesInList);
+                adapter.clear();
+                adapter.addAll(result);
+                //arrivingVehicles.addAll(result);
+                //adapter.notifyDataSetChanged();
             }
         }
-
     }
 
-
+    /**
+     * Set the list to a given maximum size
+     * @param list
+     * @param maxSize
+     * @return The trimmed list, or an empty list if it was empty to begin with
+     */
+    private List trimmedList(@NonNull List list, int maxSize){
+        if(list.isEmpty()) {
+            //List was empty, no need to trim
+            return list;
+        }
+        //The toIndex is exclusive
+        int toIndex = Math.min(maxSize , list.size());
+        return list.subList(0, toIndex);
+    }
 
     /**
      * Sets the stop name, as well as formatting the text
