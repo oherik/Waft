@@ -1,15 +1,14 @@
 package com.alive_n_clickin.commutity.presentation.main;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.domain.IFlag;
+import com.alive_n_clickin.commutity.presentation.FlagImageView;
 
 import java.util.List;
 
@@ -29,9 +28,10 @@ public class LittleFlagAdapter extends ArrayAdapter<IFlag> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.little_flag, parent, false);
         }
 
-        ImageView flagImageView = (ImageView) convertView.findViewById(R.id.littleFlagImageView);
-        Drawable d = getContext().getResources().getDrawable(R.drawable.flag_delayed_300px);
-        flagImageView.setImageDrawable(d);
+        FlagImageView flagImageView = (FlagImageView) convertView.findViewById(R.id.littleFlagImageView);
+        flagImageView.setFlag(flag);
+//        Drawable d = getContext().getResources().getDrawable(R.drawable.flag_delayed_300px);
+//        flagImageView.setImageDrawable(d);
         //TODO: Get the image belonging to this flag and set it (currently same image for each flag)
 
         return convertView;

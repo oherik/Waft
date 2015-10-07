@@ -9,5 +9,6 @@
         <item name="android:windowActionBar">false</item>
         <item name="android:windowTitleSize">0dp</item>
     </style>
-
+    <declare-styleable name="FlagImageView">
+    </declare-styleable>
 </resources>
