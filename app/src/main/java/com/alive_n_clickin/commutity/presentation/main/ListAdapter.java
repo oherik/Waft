@@ -5,11 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.domain.ArrivingVehicle;
+import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.infrastructure.api.ApiArrival;
 
 import java.util.List;
@@ -45,13 +47,18 @@ public class ListAdapter extends ArrayAdapter<ApiArrival> {
         long realDiffInMinutes = TimeUnit.MILLISECONDS.toMinutes(realTime);
 
         TextView timeUntilArrival = (TextView) convertView.findViewById(R.id.timeUntilArrival);
-        timeUntilArrival.setText(realDiffInMinutes+"");
+        timeUntilArrival.setText(realDiffInMinutes + "");
 
 
-        ListView flagListView = (ListView) convertView.findViewById(R.id.flagListView);
-        // Use the adapter for setting all the flags to the list item.
-        flagListView.setAdapter(new LittleFlagAdapter(getContext(), vehicle.getFlags()));
-
+        LinearLayout flagContainer = (LinearLayout) convertView.findViewById(R.id.flagImageContainer);
+        List<IFlag> flags = vehicle.getFlags();
+        for(int i=0; i<flags.size();i++){
+            if (i<5){
+                new ImageView(getContext());
+            } else if (i == 5){
+                flagContainer.addView(new ImageView(getContext()));
+            }
+        }
         return convertView;
     }
 }
