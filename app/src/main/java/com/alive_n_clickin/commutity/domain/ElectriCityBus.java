@@ -11,12 +11,12 @@ public class ElectriCityBus extends Vehicle{
     /**
      * Constructor
      * @param destination
-     * @param lineNumber
+     * @param shortName
      * @param journeyID from Vasttrafik
      * @param DGW from ElectriCity
      */
-    public ElectriCityBus(String destination, int lineNumber, long journeyID, String DGW) {
-        super(destination, lineNumber, journeyID);
+    public ElectriCityBus(String destination, String shortName, long journeyID, String DGW) {
+        super(destination, shortName, journeyID);
         this.DGW = DGW;
     }
 }

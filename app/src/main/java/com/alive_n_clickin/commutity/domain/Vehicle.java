@@ -8,18 +8,18 @@ import lombok.Getter;
  */
 public abstract class Vehicle {
     @Getter private String destination;
-    @Getter private int lineNumber;
+    @Getter private String shortName;
     @Getter private long journeyID;
 
     /**
      * Constructor
      * @param destination
-     * @param lineNumber
+     * @param shortName
      * @param journeyID from Vasttrafik
      */
-    public Vehicle(String destination, int lineNumber, long journeyID){
+    public Vehicle(String destination, String shortName, long journeyID){
         this.destination = destination;
-        this.lineNumber = lineNumber;
+        this.shortName = shortName;
         this.journeyID = journeyID;
     }
 }
