@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class BusFactory {
 
     /**
-     * Takes a DGW and returns a new bus object will all the data for the bus with that DGW.
+     * Takes a DGW and returns a new bus object with all the data for the bus with that DGW.
      *
      * @param DGW the DGW id for the bus you want to have.
      * @return a new bus object.
