@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.alive_n_clickin.commutity.R;
@@ -48,9 +48,9 @@ public class ListAdapter extends ArrayAdapter<ApiArrival> {
         timeUntilArrival.setText(realDiffInMinutes+"");
 
 
-        GridView flagGridView = (GridView) convertView.findViewById(R.id.flagGridView);
+        ListView flagListView = (ListView) convertView.findViewById(R.id.flagListView);
         // Use the adapter for setting all the flags to the list item.
-        flagGridView.setAdapter(new LittleFlagAdapter(getContext(), vehicle.getFlags()));
+        flagListView.setAdapter(new LittleFlagAdapter(getContext(), vehicle.getFlags()));
 
         return convertView;
     }
