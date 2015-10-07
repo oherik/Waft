@@ -23,7 +23,7 @@ import lombok.ToString;
  * object, as well as calculating the time to arrival.
  */
 @ToString
-public class ArrivingVehicle{
+public class ArrivingVehicle implements Comparable<ArrivingVehicle>{
     /**
      * Scheduled arrival time
      */
@@ -98,5 +98,10 @@ public class ArrivingVehicle{
      */
     public Long getScheduledTimeToArrival() {
         return getScheduledArrival().getTime() - System.currentTimeMillis();
+    }
+
+    @Override
+    public int compareTo(ArrivingVehicle other) {
+        return (getRealTimeToArrival() - other.getRealTimeToArrival())>0 ? 1 : -1;
     }
 }

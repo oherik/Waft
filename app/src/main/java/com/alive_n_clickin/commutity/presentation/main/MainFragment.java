@@ -19,6 +19,7 @@ import com.alive_n_clickin.commutity.infrastructure.api.Stop;
 import com.alive_n_clickin.commutity.util.LogUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import lombok.NonNull;
@@ -101,6 +102,11 @@ public class MainFragment extends Fragment {
                 arrivingVehicles = new ArrayList<>();
             }
             if (result != null) {
+                /*
+                The recieved list is sorted based on the scheduled arrival time. We wish to sort
+                based on the actual arrival time.
+                 */
+                Collections.sort(result);
                 /*
                 While making the API call it's not possible to select how many vehicles the list
                 should contain. This has to be done manually.
