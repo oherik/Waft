@@ -17,12 +17,13 @@ import java.util.List;
 
 import lombok.ToString;
 
-/** Consists of a vehicle and when it will arrive to a certain stop
+/**
+ * Consists the data of a vehicle and it's arrival as per the Vasttrafik API. To ease further use
+ * of this class it has built in methods for converting the arrival date and time to a Java Date
+ * object, as well as calculating the time to arrival.
  */
 @ToString
 public class ArrivingVehicle{
-    //private Date arrivalTime;
-    //private Bus bus;
     private String time;
     private String date;
     private long journeyid;
@@ -30,18 +31,7 @@ public class ArrivingVehicle{
     private String name = "";
     private String routeNumber = "55";
 
-
-    /**
-     * Constructor
-   //  * @param bus
-    // * @param arrivalTime
-     */
-  //  public ArrivingVehicle(@NonNull Bus bus, @NonNull Date arrivalTime){
-   //     this.bus = bus;
-    //    this.arrivalTime = arrivalTime;
-   // }
-
-    //TODO Just for testing
+    //TODO Just for testing, change this when we implement another key value for the vehiclesg
     public Bus getBus() {
         List<IFlag> list = new ArrayList<>();
         list.add(new Flag(Flag.Type.OVERCROWDED, "", new Date()));
