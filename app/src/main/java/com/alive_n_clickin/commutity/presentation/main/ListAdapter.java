@@ -1,7 +1,6 @@
 package com.alive_n_clickin.commutity.presentation.main;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,20 +10,18 @@ import android.widget.TextView;
 
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.domain.IBus;
-import com.alive_n_clickin.commutity.infrastructure.api.ArrivingVehicle;
-import com.alive_n_clickin.commutity.util.LogUtils;
+import com.alive_n_clickin.commutity.infrastructure.api.ApiArrival;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
  * This class fills the ListView within {@link MainFragment} with list items. It takes help from the {@link LittleFlagAdapter} to set the flags.
  */
-public class ListAdapter extends ArrayAdapter<ArrivingVehicle> {
+public class ListAdapter extends ArrayAdapter<ApiArrival> {
 
-    public ListAdapter(Context currentContext,List<ArrivingVehicle> arrivingVehicleList) {
-        super(currentContext,0,arrivingVehicleList);
+    public ListAdapter(Context currentContext,List<ApiArrival> apiArrivalList) {
+        super(currentContext,0, apiArrivalList);
     }
 
     @Override
@@ -34,8 +31,8 @@ public class ListAdapter extends ArrayAdapter<ArrivingVehicle> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.vehicle_list, parent, false);
         }
 
-        ArrivingVehicle arrivingVehicle = getItem(position);
-        IBus bus = arrivingVehicle.getBus();
+        ApiArrival apiArrival = getItem(position);
+        IBus bus = apiArrival.getBus();
 
 
         TextView busNumber = (TextView) convertView.findViewById(R.id.busNumber);
@@ -44,7 +41,7 @@ public class ListAdapter extends ArrayAdapter<ArrivingVehicle> {
         TextView targetDestination = (TextView) convertView.findViewById(R.id.targetDestination);
         targetDestination.setText(bus.getDestination());
 
-        long realTime = arrivingVehicle.getRealTimeToArrival();
+        long realTime = apiArrival.getRealTimeToArrival();
         long realDiffInMinutes = TimeUnit.MILLISECONDS.toMinutes(realTime);
 
         TextView timeUntilArrival = (TextView) convertView.findViewById(R.id.timeUntilArrival);
