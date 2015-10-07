@@ -34,7 +34,7 @@ public class MainFragment extends Fragment {
     private int maxNumberOfBusesInList = 10;
     private TextView stopTextView;
     private ListView busListView;
-    private ListAdapter adapter;
+    private VehicleListAdapter adapter;
     private List<ApiArrival> apiArrivals;
 
     @Override
@@ -53,7 +53,7 @@ public class MainFragment extends Fragment {
         Stop currentStop = mainActivity.getCurrentStop();
 
         busListView = (ListView) rootView.findViewById(R.id.busListView);
-        adapter = new ListAdapter(getActivity(), apiArrivals);
+        adapter = new VehicleListAdapter(getActivity(), apiArrivals);
         busListView.setAdapter(adapter);
 
         setStopName(currentStop);
