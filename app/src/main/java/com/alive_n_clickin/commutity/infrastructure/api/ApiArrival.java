@@ -54,6 +54,7 @@ public class ApiArrival implements Comparable<ApiArrival>{
     //TODO Just for testing, change this when we implement another way to get the flags
     public ArrivingVehicle getVehicle() {
         List<IFlag> list = new ArrayList<>();
+        list.add(new Flag(Flag.Type.MESSY, "", new Date()));
         list.add(new Flag(Flag.Type.OVERCROWDED, "", new Date()));
         return new ArrivingVehicle(direction,sname,journeyid, getRealTimeToArrival(),list);
     }
