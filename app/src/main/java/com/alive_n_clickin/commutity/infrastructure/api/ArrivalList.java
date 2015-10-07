@@ -13,7 +13,7 @@ public class ArrivalList {
     private String noNamespaceSchemaLocation;
     private String serverTime;
     private String serverDate;
-    @Getter private List<ArrivingVehicle> Departure;
+    @Getter private List<ApiArrival> Departure;
 
     @Override
     public String toString() {

@@ -9,8 +9,8 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.alive_n_clickin.commutity.R;
-import com.alive_n_clickin.commutity.domain.IBus;
-import com.alive_n_clickin.commutity.infrastructure.api.ArrivingVehicle;
+import com.alive_n_clickin.commutity.domain.ArrivingVehicle;
+import com.alive_n_clickin.commutity.infrastructure.api.ApiArrival;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -18,10 +18,10 @@ import java.util.concurrent.TimeUnit;
 /**
  * This class fills the ListView within {@link MainFragment} with list items. It takes help from the {@link LittleFlagAdapter} to set the flags.
  */
-public class ListAdapter extends ArrayAdapter<ArrivingVehicle> {
+public class ListAdapter extends ArrayAdapter<ApiArrival> {
 
-    public ListAdapter(Context currentContext,List<ArrivingVehicle> arrivingVehicleList) {
-        super(currentContext, 0, arrivingVehicleList); //The second parameter is the resource ID for a layout file containing a layout to use when instantiating views. Making it 0 means we are not sending any resource file to the super class.
+    public ListAdapter(Context currentContext,List<ApiArrival> apiArrivalList) {
+        super(currentContext,0, apiArrivalList); //The second parameter is the resource ID for a layout file containing a layout to use when instantiating views. Making it 0 means we are not sending any resource file to the super class.
     }
 
     @Override
@@ -31,28 +31,26 @@ public class ListAdapter extends ArrayAdapter<ArrivingVehicle> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.vehicle_list, parent, false);
         }
 
-        ArrivingVehicle arrivingVehicle = getItem(position);
-        IBus bus = arrivingVehicle.getBus();
+        ApiArrival apiArrival = getItem(position);
+        ArrivingVehicle vehicle = apiArrival.getVehicle();
 
 
         TextView busNumber = (TextView) convertView.findViewById(R.id.busNumber);
-        busNumber.setText(bus.getRouteNumber());
+        busNumber.setText(vehicle.getShortName());
 
         TextView targetDestination = (TextView) convertView.findViewById(R.id.targetDestination);
-        targetDestination.setText(bus.getDestination());
+        targetDestination.setText(vehicle.getDestination());
 
-
-        long time = arrivingVehicle.getTimeToArrival();
-
-        long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(time);
+        long realTime = vehicle.getTimeToArrival();
+        long realDiffInMinutes = TimeUnit.MILLISECONDS.toMinutes(realTime);
 
         TextView timeUntilArrival = (TextView) convertView.findViewById(R.id.timeUntilArrival);
-        timeUntilArrival.setText(diffInMinutes+"");
+        timeUntilArrival.setText(realDiffInMinutes+"");
 
 
         GridView flagGridView = (GridView) convertView.findViewById(R.id.flagGridView);
         // Use the adapter for setting all the flags to the list item.
-        flagGridView.setAdapter(new LittleFlagAdapter(getContext(), bus.getFlags()));
+        flagGridView.setAdapter(new LittleFlagAdapter(getContext(), vehicle.getFlags()));
 
         return convertView;
     }
