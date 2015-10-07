@@ -23,9 +23,9 @@ import java.util.concurrent.TimeUnit;
 /**
  * This class fills the ListView within {@link MainFragment} with list items.
  */
-public class ListAdapter extends ArrayAdapter<ApiArrival> {
+public class VehicleListAdapter extends ArrayAdapter<ApiArrival> {
 
-    public ListAdapter(Context currentContext,List<ApiArrival> apiArrivalList) {
+    public VehicleListAdapter(Context currentContext, List<ApiArrival> apiArrivalList) {
         super(currentContext,0, apiArrivalList); //The second parameter is the resource ID for a layout file containing a layout to use when instantiating views. Making it 0 means we are not sending any resource file to the super class.
     }
 
