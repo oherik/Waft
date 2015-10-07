@@ -20,7 +20,7 @@ import lombok.ToString;
 /** Consists of a vehicle and when it will arrive to a certain stop
  */
 @ToString
-public class ArrivingVehicle {
+public class ArrivingVehicle{
     //private Date arrivalTime;
     //private Bus bus;
     private String time;
@@ -49,17 +49,27 @@ public class ArrivingVehicle {
     }
 
     /**
-     * This method provides the differences between the arrival time and current time.
-     * @return a {@link Calendar} object where you can get the time in min, hours or whatever you like.
+     * Creates a new Java Date for when the vehicle will arrive, based on the information given from
+     * the API call
+     * @return  The date and time the vehicle will arrive
      */
-    public Calendar getTimeToArrival() {
+    public Date getArrival(){
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-DD HH:mm");
         Date arrival = new Date();
         try {
             arrival = dateFormatter.parse(date + " " + time);
-        } catch(ParseException e) {
+        } catch (ParseException e) {
             Log.e(LogUtils.getLogTag(this), e.getStackTrace().toString());
         }
+        return arrival;
+    }
+
+    /**
+     * This method provides the differences between the arrival time and current time.
+     * @return a {@link Calendar} object where you can get the time in min, hours or whatever you like.
+     */
+    public Calendar getTimeToArrival() {
+        Date arrival = getArrival();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date(arrival.getTime() - new Date().getTime()));
         return calendar;
