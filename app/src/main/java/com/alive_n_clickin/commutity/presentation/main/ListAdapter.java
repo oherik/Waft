@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * This class fills the ListView within {@link MainFragment} with list items. It takes help from the {@link LittleFlagAdapter} to set the flags.
+ * This class fills the ListView within {@link MainFragment} with list items.
  */
 public class ListAdapter extends ArrayAdapter<ApiArrival> {
 
