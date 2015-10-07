@@ -60,11 +60,9 @@ public class ArrivingVehicle{
 
     /**
      * This method provides the differences between the arrival time and current time.
-     * @return a the difference in time units (milliseconds)
+     * @return the difference in time units (milliseconds)
      */
     public Long getTimeToArrival() {
-        Date arrival = getArrival();
-
-        return arrival.getTime() - System.currentTimeMillis();
+        return getArrival().getTime() - System.currentTimeMillis();
     }
 }
