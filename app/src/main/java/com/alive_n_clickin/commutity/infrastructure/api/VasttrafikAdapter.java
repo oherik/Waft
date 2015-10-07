@@ -5,7 +5,6 @@ import android.util.Log;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -82,8 +81,7 @@ class VasttrafikAdapter implements IVasttrafikAdapter {
                         "&date=" + date +
                         "&time=" + time);
         if(response != null){
-            List<ArrivingVehicle> test = new ArrayList<>();
-             return new JsonJavaConverter<ArrivalList>(ArrivalList.class).toJava(
+             return new JsonJavaConverter<>(ArrivalList.class).toJava(
                     response, "DepartureBoard").getDeparture();
         }
         return null;
