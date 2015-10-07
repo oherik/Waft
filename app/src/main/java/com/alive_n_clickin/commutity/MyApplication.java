@@ -12,6 +12,9 @@ import com.alive_n_clickin.commutity.infrastructure.WifiBroadcastReceiver;
  * everything that should be accessible application wide, and for creating instances of all
  * broadcast receivers and services that always should be active and can't be declared in the
  * manifest for whatever reason.
+ *
+ * Since this class extends the Android Application class, exactly one instance of this class
+ * always exists within the application.
  */
 public class MyApplication extends Application {
     private WifiBroadcastReceiver wifiBroadcastReceiver;
