@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 import lombok.ToString;
 
@@ -44,7 +46,9 @@ public class ArrivingVehicle{
      * @return  The date and time the vehicle will arrive
      */
     public Date getArrival(){
-        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-DD HH:mm");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        dateFormatter.setTimeZone(TimeZone.getTimeZone("Europe/Stockholm"));
+        Log.e(LogUtils.getLogTag(this), "dddddddddddddd " + date + "    " + time);
         Date arrival = new Date();
         try {
             arrival = dateFormatter.parse(date + " " + time);
@@ -56,12 +60,11 @@ public class ArrivingVehicle{
 
     /**
      * This method provides the differences between the arrival time and current time.
-     * @return a {@link Calendar} object where you can get the time in min, hours or whatever you like.
+     * @return a the difference in time units (milliseconds)
      */
-    public Calendar getTimeToArrival() {
+    public Long getTimeToArrival() {
         Date arrival = getArrival();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date(arrival.getTime() - new Date().getTime()));
-        return calendar;
+
+        return arrival.getTime() - System.currentTimeMillis();
     }
 }
