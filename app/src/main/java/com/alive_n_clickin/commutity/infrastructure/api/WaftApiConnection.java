@@ -11,7 +11,7 @@ import java.net.URL;
 
 class WaftApiConnection {
     private static final String BASE_URL_WAFT = "http://95.85.21.47/";
-    private final String LOG_TAG = LogUtils.getLogTag(this);
+    private static final String LOG_TAG = LogUtils.getLogTag(WaftApiConnection.class);
 
     /**
      * Send a query to Waft. It will be appended to the base url.

@@ -18,7 +18,7 @@ class VasttrafikApiConnection {
     private static final String BASE_URL_VASTTRAFIK =
             "http://api.vasttrafik.se/bin/rest.exe/v1/";
     private static final String API_KEY = "<YOUR API KEY>";
-    private final String LOG_TAG = LogUtils.getLogTag(this);
+    private static final String LOG_TAG = LogUtils.getLogTag(VasttrafikApiConnection.class);
 
     /**
      * Send a query to Vasttrafik. It will be appended to the base url and sent using the credentials of the team
