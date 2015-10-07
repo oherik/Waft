@@ -44,13 +44,13 @@ public class ListAdapter extends ArrayAdapter<ArrivingVehicle> {
         TextView targetDestination = (TextView) convertView.findViewById(R.id.targetDestination);
         targetDestination.setText(bus.getDestination());
 
-
-        long time = arrivingVehicle.getTimeToArrival();
-
-        long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(time);
+        long scheduledTime = arrivingVehicle.getScheduledTimeToArrival();
+        long realTime = arrivingVehicle.getRealTimeToArrival();
+        long scheduledDiffInMinutes = TimeUnit.MILLISECONDS.toMinutes(scheduledTime);
+        long realDiffInMinutes = TimeUnit.MILLISECONDS.toMinutes(realTime);
 
         TextView timeUntilArrival = (TextView) convertView.findViewById(R.id.timeUntilArrival);
-        timeUntilArrival.setText(diffInMinutes+"");
+        timeUntilArrival.setText(realDiffInMinutes+"");
 
 
         GridView flagGridView = (GridView) convertView.findViewById(R.id.flagGridView);
