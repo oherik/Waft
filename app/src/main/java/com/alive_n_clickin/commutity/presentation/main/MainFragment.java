@@ -1,6 +1,7 @@
 package com.alive_n_clickin.commutity.presentation.main;
 
 import android.graphics.Paint;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -12,6 +13,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.alive_n_clickin.commutity.R;
+import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
+import com.alive_n_clickin.commutity.infrastructure.api.ArrivingVehicle;
+import com.alive_n_clickin.commutity.infrastructure.api.IVasttrafikAdapter;
 import com.alive_n_clickin.commutity.infrastructure.api.Stop;
 
 import java.util.ArrayList;
@@ -30,6 +34,7 @@ public class MainFragment extends Fragment {
     private TextView stopTextView;
     private ListView busListView;
     private ArrayAdapter<String> adapter;
+    private List<ArrivingVehicle> arrivingVehicles;
 
     private final String LOG_TAG = getClass().getSimpleName();
 
@@ -47,9 +52,10 @@ public class MainFragment extends Fragment {
         MainActivity mainActivity = (MainActivity) getActivity();
         Stop currentStop = mainActivity.getCurrentStop();
         //TODO add custom adapter
-        List<String> adapterData = new ArrayList<>();
+        //List<String> adapterData = new ArrayList<>();
+        arrivingVehicles = new ArrayList<ArrivingVehicle>();
         adapter = new ArrayAdapter<>(getActivity().getBaseContext(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, adapterData);
+                android.R.layout.simple_list_item_1, android.R.id.text1, );
         busListView.setAdapter(adapter);
 
         setStopName(currentStop);
@@ -67,12 +73,16 @@ public class MainFragment extends Fragment {
         if(currentStop==null){
             busListView.setVisibility(view.INVISIBLE);
         } else {
-            List<String> buses = getBuses(currentStop, maxNumberOfBusesInList);
+            //List<String> buses = getBuses(currentStop, maxNumberOfBusesInList);
+            GetBusesFromAPI getBuses = new GetBusesFromAPI();
+            getBuses.execute(currentStop);
+            /*
             if(buses!=null && !buses.isEmpty()) {
                 busListView.setVisibility(view.VISIBLE);
                 adapter.clear();
                 adapter.addAll(buses);
             }
+            */
         }
     }
 
@@ -92,6 +102,11 @@ public class MainFragment extends Fragment {
             throw new IllegalArgumentException("Number of buses must be greater than or equal to " +
                     "one");
         }
+
+        GetBusesFromAPI test = new GetBusesFromAPI();
+        test.execute(currentStop);
+
+
         //TODO get data from bus manager
         List<String> testBuses = new ArrayList<>();
         testBuses.add("Ettan");
@@ -115,6 +130,25 @@ public class MainFragment extends Fragment {
         return testBuses;
 
      }
+
+    private class GetBusesFromAPI extends AsyncTask<Stop, Void, List<ArrivingVehicle>>{
+
+        @Override
+        protected List<ArrivingVehicle> doInBackground(Stop... params) {
+            IVasttrafikAdapter vasttrafikAdapter = ApiAdapterFactory.createVasttrafikAdapter();
+            return vasttrafikAdapter.getVehiclesHeadedToStop(params[0]);
+        }
+        @Override
+        protected void onPostExecute(List<ArrivingVehicle> result) {
+            if(result!=null) {
+                arrivingVehicles.clear();
+                arrivingVehicles.addAll(result);
+                adapter.notifyDataSetChanged();
+            }
+        }
+    }
+
+
 
     /**
      * Sets the stop name, as well as formatting the text
