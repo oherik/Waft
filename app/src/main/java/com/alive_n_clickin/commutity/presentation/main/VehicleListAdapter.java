@@ -56,27 +56,35 @@ public class VehicleListAdapter extends ArrayAdapter<ApiArrival> {
         return convertView;
     }
 
+    /*
+    Helper method: take the view that should be created, and add flags to the gui element holding the flags.
+     */
     private void setFlags(View convertView, int maxWidth, ArrivingVehicle vehicle) {
 
         GridLayout flagListView = (GridLayout) convertView.findViewById(R.id.flagListView);
+        // Clear the flaglist, otherwise Androids reuse mechanism may preserve some flags, and we
+        // will get duplicates
         flagListView.removeAllViews();
 
-        int currentWidth = 0;
+        int totalWidth = 0;
+        //For every flag in our vehicle, add the flag image and keep track of the size
+        //When te size reaches max, replace it with an ellipsis symbol
         for (IFlag flag : vehicle.getFlags()) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            final View flagsView = inflater.inflate(R.layout.little_flag, null);
-            FlagImageView flagImage = (FlagImageView) flagsView.findViewById(R.id.littleFlagImageView);
+            final View flagContainer = inflater.inflate(R.layout.little_flag, null); //Container for the image
+            FlagImageView flagImage = (FlagImageView) flagContainer.findViewById(R.id.littleFlagImageView); //The actual image
             flagImage.setFlag(flag);
-            flagsView.measure(0, 0);
-            int flagWidth = flagsView.getMeasuredWidth();
-            currentWidth += flagsView.getMeasuredWidth();
-            if (currentWidth <= maxWidth - flagWidth) {
-                flagListView.addView(flagsView);
+            flagContainer.measure(0, 0);
+            int flagWidth = flagContainer.getMeasuredWidth(); //The width of our current flag
+            totalWidth += flagContainer.getMeasuredWidth();
+            if (totalWidth <= maxWidth - flagWidth) { //We make sure there is room for at least one more flag before we add another one
+                flagListView.addView(flagContainer);
             } else {
-                flagListView.removeView(flagsView);
+                // If this is the last flag we can fit, we make it an ellipsis symbol and then stop adding flags
+                flagListView.removeView(flagContainer);
                 Drawable ellipsis = flagImage.getResources().getDrawable(R.drawable.ellipsis);
                 flagImage.setImageDrawable(ellipsis);
-                flagListView.addView(flagsView);
+                flagListView.addView(flagContainer);
                 break;
             }
         }
