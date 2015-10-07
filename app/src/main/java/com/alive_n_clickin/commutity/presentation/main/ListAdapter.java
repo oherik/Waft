@@ -44,9 +44,7 @@ public class ListAdapter extends ArrayAdapter<ArrivingVehicle> {
         TextView targetDestination = (TextView) convertView.findViewById(R.id.targetDestination);
         targetDestination.setText(bus.getDestination());
 
-        long scheduledTime = arrivingVehicle.getScheduledTimeToArrival();
         long realTime = arrivingVehicle.getRealTimeToArrival();
-        long scheduledDiffInMinutes = TimeUnit.MILLISECONDS.toMinutes(scheduledTime);
         long realDiffInMinutes = TimeUnit.MILLISECONDS.toMinutes(realTime);
 
         TextView timeUntilArrival = (TextView) convertView.findViewById(R.id.timeUntilArrival);
