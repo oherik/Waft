@@ -48,7 +48,6 @@ public class ArrivingVehicle{
     public Date getArrival(){
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         dateFormatter.setTimeZone(TimeZone.getTimeZone("Europe/Stockholm"));
-        Log.e(LogUtils.getLogTag(this), "dddddddddddddd " + date + "    " + time);
         Date arrival = new Date();
         try {
             arrival = dateFormatter.parse(date + " " + time);
