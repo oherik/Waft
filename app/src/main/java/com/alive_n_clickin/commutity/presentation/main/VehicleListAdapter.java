@@ -48,7 +48,7 @@ public class VehicleListAdapter extends ArrayAdapter<ApiArrival> {
         long realDiffInMinutes = TimeUnit.MILLISECONDS.toMinutes(realTime);
 
         TextView timeUntilArrival = (TextView) convertView.findViewById(R.id.timeUntilArrival);
-        timeUntilArrival.setText(realDiffInMinutes + "");
+        timeUntilArrival.setText(realDiffInMinutes + " min");
 
         int maxWidth = parent.getMeasuredWidth();
         setFlags(convertView, maxWidth, vehicle);
