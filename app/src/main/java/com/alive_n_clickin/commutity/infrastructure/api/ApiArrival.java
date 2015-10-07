@@ -2,7 +2,7 @@ package com.alive_n_clickin.commutity.infrastructure.api;
 
 import android.util.Log;
 
-import com.alive_n_clickin.commutity.domain.Bus;
+import com.alive_n_clickin.commutity.domain.ArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.Flag;
 import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.util.LogUtils;
@@ -51,11 +51,11 @@ public class ApiArrival implements Comparable<ApiArrival>{
         dateFormatter.setTimeZone(TimeZone.getTimeZone("Europe/Stockholm"));
     }
 
-    //TODO Just for testing, change this when we implement another key value for the vehiclesg
-    public Bus getBus() {
+    //TODO Just for testing, change this when we implement another way to get the flags
+    public ArrivingVehicle getVehicle() {
         List<IFlag> list = new ArrayList<>();
         list.add(new Flag(Flag.Type.OVERCROWDED, "", new Date()));
-        return new Bus("", direction, name, sname, list);
+        return new ArrivingVehicle(direction,sname,journeyid, getRealTimeToArrival(),list);
     }
 
     /**

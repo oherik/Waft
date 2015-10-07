@@ -9,7 +9,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.alive_n_clickin.commutity.R;
-import com.alive_n_clickin.commutity.domain.IBus;
+import com.alive_n_clickin.commutity.domain.ArrivingVehicle;
 import com.alive_n_clickin.commutity.infrastructure.api.ApiArrival;
 
 import java.util.List;
@@ -32,16 +32,16 @@ public class ListAdapter extends ArrayAdapter<ApiArrival> {
         }
 
         ApiArrival apiArrival = getItem(position);
-        IBus bus = apiArrival.getBus();
+        ArrivingVehicle vehicle = apiArrival.getVehicle();
 
 
         TextView busNumber = (TextView) convertView.findViewById(R.id.busNumber);
-        busNumber.setText(bus.getRouteNumber());
+        busNumber.setText(vehicle.getShortName());
 
         TextView targetDestination = (TextView) convertView.findViewById(R.id.targetDestination);
-        targetDestination.setText(bus.getDestination());
+        targetDestination.setText(vehicle.getDestination());
 
-        long realTime = apiArrival.getRealTimeToArrival();
+        long realTime = vehicle.getTimeToArrival();
         long realDiffInMinutes = TimeUnit.MILLISECONDS.toMinutes(realTime);
 
         TextView timeUntilArrival = (TextView) convertView.findViewById(R.id.timeUntilArrival);
@@ -50,7 +50,7 @@ public class ListAdapter extends ArrayAdapter<ApiArrival> {
 
         GridView flagGridView = (GridView) convertView.findViewById(R.id.flagGridView);
         // Use the adapter for setting all the flags to the list item.
-        flagGridView.setAdapter(new LittleFlagAdapter(getContext(), bus.getFlags()));
+        flagGridView.setAdapter(new LittleFlagAdapter(getContext(), vehicle.getFlags()));
 
         return convertView;
     }
