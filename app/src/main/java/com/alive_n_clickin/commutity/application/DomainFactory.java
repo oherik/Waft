@@ -5,6 +5,7 @@ import com.alive_n_clickin.commutity.domain.ArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.Flag;
 import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.infrastructure.api.response.Arrival;
+import com.alive_n_clickin.commutity.infrastructure.api.response.Stop;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,7 +20,7 @@ import lombok.NonNull;
 public class DomainFactory{
     /**
      * Creates a new arriving vehicle object based on an API response
-     * @param arrival The api response
+     * @param arrival The API response
      * @return  A new arriving vehicle based on the response
      * @throws NullPointerException if the parameter is null
      */
@@ -38,5 +39,14 @@ public class DomainFactory{
         flags.add(new Flag(Flag.Type.MESSY, "", new Date()));
         return new ArrivingVehicle(arrival.getDirection(), arrival.getSname(),
                 arrival.getJourneyid(), arrival.getRealTimeToArrival(), flags);
+    }
+
+    /**
+     * Creates a new domain stop object based on an API response
+     * @param stop The API response
+     * @throws NullPointerException if the parameter is null
+     */
+    public static void getStop(@NonNull Stop stop){
+        //TODO add this method when the domain stop class has been created
     }
 }
