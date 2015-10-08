@@ -3,6 +3,7 @@ package com.alive_n_clickin.commutity.domain;
 import java.util.List;
 
 import lombok.Getter;
+import lombok.NonNull;
 
 /**
  * A class containing the same variables as a vehicle, in addition to the stop it's arriving to
@@ -19,9 +20,10 @@ public class ArrivingVehicle extends Vehicle {
      * @param journeyID from Vasttrafik
      * @param timeToArrival in milliseconds
      * @param flags can be null if no flags exist for this vehicle
+     * @throws NullPointerException if any parameter is null
      */
-    public ArrivingVehicle(String destination, String lineNumber, long journeyID, long timeToArrival,
-                           List<IFlag> flags) {
+    public ArrivingVehicle(@NonNull String destination, @NonNull String lineNumber, long journeyID, long timeToArrival,
+                           @NonNull List<IFlag> flags) {
         super(destination, lineNumber, journeyID);
         this.timeToArrival = timeToArrival;
         this.flags = flags;
