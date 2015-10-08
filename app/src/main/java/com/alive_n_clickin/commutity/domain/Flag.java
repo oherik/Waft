@@ -5,16 +5,19 @@ import java.util.Date;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.ToString;
 
 /**
  * A concrete implementation of the IFlag interface. Objects of this class are immutable.
  */
 @EqualsAndHashCode
+@ToString
 public class Flag implements IFlag {
     /**
      * An enum for different flag types. Each flag type is associated with a string and a boolean that
      * determines whether or not a comment is required for that flag type.
      */
+    @ToString
     public enum Type implements IFlagType {
         OTHER (1, true),
         OVERCROWDED (2),
@@ -62,18 +65,13 @@ public class Flag implements IFlag {
         public boolean isCommentRequired() {
             return this.requiresComment;
         }
-
-        @Override
-        public String toString() {
-            return String.format("FlagType [id=%s]", this.id);
-        }
     }
 
     private static final int COMMENT_REQUIRED_MINIMUM_LENGTH = 5;
 
-    private final IFlagType type;
-    private final String comment;
-    private final Date createdTime;
+    @Getter private final IFlagType type;
+    @Getter private final String comment;
+    @Getter private final Date createdTime;
 
     /**
      * Instantiates a new flag with the supplied type, comment and time of creation.
@@ -125,27 +123,5 @@ public class Flag implements IFlag {
      */
     public Flag(@NonNull IFlagType type) {
         this(type, "", new Date());
-    }
-
-    @Override
-    public IFlagType getType() {
-        return type;
-    }
-
-    @Override
-    public String getComment() {
-        return comment;
-    }
-
-    @Override
-    public Date getCreatedTime() {
-        return new Date(createdTime.getTime());
-    }
-
-    @Override
-    public String toString() {
-        return String.format(
-                "Flag [type=%s, comment=%s, createdTime=[%3$tY-%3$tm-%3$td %3$tH:%3$tM:%3$tS]",
-                this.type, this.comment, this.createdTime);
     }
 }
