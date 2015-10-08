@@ -1,12 +1,16 @@
 package com.alive_n_clickin.commutity.domain;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.ToString;
 
 /**
  * An abstract class all other vehicles should extend. Holds a destination, a line number and
  * a journey number
  */
+@EqualsAndHashCode
+@ToString
 public abstract class Vehicle implements IVehicle {
     @Getter private String destination;
     @Getter private String shortRouteName;
