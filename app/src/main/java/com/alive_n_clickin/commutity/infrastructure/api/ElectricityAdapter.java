@@ -17,6 +17,11 @@ import java.util.List;
  */
 class ElectricityAdapter implements IElectricityAdapter {
 
+    /**
+     * The current journey, with id and destination, for the bus with the given DGW
+     * @param dgw id of the bus we are looking for
+     * @return Journey object with journey id and destination
+     */
     @Override
     public Journey getJourneyInfo(String dgw) {
         String apiResponse = getJourneyInfoFromApi(dgw);
