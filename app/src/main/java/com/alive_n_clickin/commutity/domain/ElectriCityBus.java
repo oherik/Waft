@@ -11,15 +11,18 @@ public class ElectriCityBus extends Vehicle{
 
     /**
      * Constructor
-     * @param destination
-     * @param shortName
-     * @param journeyID from Vasttrafik
+     * @param destination Where the vehicle is headed, e.g. "Sahlgrenska"
+     * @param shortRouteName    The short version of the route name, usually simply a line number
+     *                          (e.g. "55"), but can also be longer, e.g. "Grön Express"
+     * @param journeyID from Vasttrafik. This is the unique identification number for a certain
+     *                  route. It gets changed any time the vehicle arrives to the end stop and
+     *                  continues in the opposite direction.
      * @param DGW from ElectriCity
      * @throws NullPointerException if any parameter is null
      */
-    public ElectriCityBus(@NonNull String destination, @NonNull String shortName, long journeyID,
+    public ElectriCityBus(@NonNull String destination, @NonNull String shortRouteName, long journeyID,
                           @NonNull String DGW){
-        super(destination, shortName, journeyID);
+        super(destination, shortRouteName, journeyID);
         this.DGW = DGW;
     }
 }
