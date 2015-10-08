@@ -89,12 +89,7 @@ public class Manager implements IManager, IObserver {
         observableHelper.removeObserver(observer);
     }
 
-    /**
-     * Returns the vehicles headed to a specified stop
-     * @param stop The stop to base a search query on
-     * @return  A list of the 20 first vehicles arriving to the stop
-     * @throws NullPointerException if the parameter is null
-     */
+    @Override
     public List<ApiArrival> getVehicles(@NonNull Stop stop){
         IVasttrafikAdapter vasttrafikAdapter = ApiAdapterFactory.createVasttrafikAdapter();
         return vasttrafikAdapter.getVehiclesHeadedToStop(stop);
