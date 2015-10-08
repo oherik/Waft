@@ -32,9 +32,9 @@ class JsonJavaConverter<T> {
         this.classType = classType;
     }
 
-    public static <T> List<T> toJavaList(String s, Class<T[]> clazz) {
-        T[] arr = new Gson().fromJson(s, clazz);
-        return Arrays.asList(arr); //or return Arrays.asList(new Gson().fromJson(s, clazz)); for a one-liner
+    public static <T> List<T> toJavaList(String s, Class<T[]> classArray) {
+        T[] arr = new Gson().fromJson(s, classArray);
+        return arr == null ? null : Arrays.asList(arr); //if the result couldn't be parsed, we can't create list from it.
     }
 
     /**
