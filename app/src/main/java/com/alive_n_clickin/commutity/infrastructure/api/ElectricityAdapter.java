@@ -18,7 +18,7 @@ import java.util.List;
 class ElectricityAdapter implements IElectricityAdapter {
 
     @Override
-    public JourneyInfo getJourneyInfo(String dgw) {
+    public Journey getJourneyInfo(String dgw) {
         String apiResponse = getJourneyInfoFromApi(dgw);
         apiResponse = apiResponse;
         //Retrieve response as Java object
