@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.alive_n_clickin.commutity.util.LogUtils;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -29,17 +31,18 @@ class ElectricityAdapter implements IElectricityAdapter {
         List<JourneyInfo> infoList = JsonJavaConverter.toJavaList(apiResponse, JourneyInfo[].class);
 
         //Sort the list according to timestamps, we ognly want the most current ones
-//        Collections.sort(infoList, new Comparator<JourneyInfo>(){
-//
-//            @Override
-//            public int compare(JourneyInfo lhs, JourneyInfo rhs) {
-//                if (rhs.getTimestamp() > lhs.getTimestamp()) {
-//                    return 1;
-//                } else {
-//                    return -1;
-//                }
-//            }
-//        });
+        Collections.sort(infoList, new Comparator<JourneyInfo>() {
+
+            @Override
+            public int compare(JourneyInfo lhs, JourneyInfo rhs) {
+                //We want a reverse sort: latest first
+                if (rhs.getTimestamp() > lhs.getTimestamp()) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
+        });
 
         return null;
     }
