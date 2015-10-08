@@ -90,7 +90,7 @@ public class MainFragment extends Fragment {
 
         @Override
         protected List<ApiArrival> doInBackground(Stop... params) {
-
+            manager.
             IVasttrafikAdapter vasttrafikAdapter = ApiAdapterFactory.createVasttrafikAdapter();
             return vasttrafikAdapter.getVehiclesHeadedToStop(params[0]);
         }

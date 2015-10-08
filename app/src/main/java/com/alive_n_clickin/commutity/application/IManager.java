@@ -2,7 +2,13 @@ package com.alive_n_clickin.commutity.application;
 
 import com.alive_n_clickin.commutity.domain.IBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
+import com.alive_n_clickin.commutity.infrastructure.api.ApiArrival;
+import com.alive_n_clickin.commutity.infrastructure.api.Stop;
 import com.alive_n_clickin.commutity.util.event.IObservable;
+
+import java.util.List;
+
+import lombok.NonNull;
 
 /**
  * An interface for classes that manages communication between the view and the underlying systems.
@@ -29,4 +35,12 @@ public interface IManager extends IObservable {
      * @return the bus the user is currently on.
      */
     IBus getCurrentBus();
+
+    /**
+     * Returns the vehicles headed to a specified stop
+     * @param stop The stop to base a search query on
+     * @return  A list of the 20 first vehicles arriving to the stop
+     * @throws NullPointerException if the parameter is null
+     */
+    List<ApiArrival> getVehicles(@NonNull Stop stop);
 }
