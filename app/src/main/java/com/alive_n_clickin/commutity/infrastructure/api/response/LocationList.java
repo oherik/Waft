@@ -1,5 +1,6 @@
-package com.alive_n_clickin.commutity.infrastructure.api;
+package com.alive_n_clickin.commutity.infrastructure.api.response;
 
+import com.alive_n_clickin.commutity.infrastructure.api.JsonJavaConverter;
 import com.alive_n_clickin.commutity.infrastructure.api.response.Stop;
 
 import java.util.List;
