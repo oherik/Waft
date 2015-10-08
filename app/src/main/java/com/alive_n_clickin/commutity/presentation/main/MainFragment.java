@@ -11,8 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
-import com.alive_n_clickin.commutity.application.Manager;
+import com.alive_n_clickin.commutity.application.IManager;
 import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
 import com.alive_n_clickin.commutity.infrastructure.api.ApiArrival;
 import com.alive_n_clickin.commutity.infrastructure.api.IVasttrafikAdapter;
@@ -37,12 +38,13 @@ public class MainFragment extends Fragment {
     private ListView busListView;
     private VehicleListAdapter adapter;
     private List<ApiArrival> apiArrivals;
-    private Manager manager;
+    private IManager manager;
 
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         apiArrivals = new ArrayList<>();
+        manager = ((MyApplication) getActivity().getApplicationContext()).getManager();
     }
 
     @Override

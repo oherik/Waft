@@ -42,7 +42,7 @@ public class FlagVehicleDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        busManager = ((MyApplication) getActivity().getApplicationContext()).getBusManager();
+        busManager = ((MyApplication) getActivity().getApplicationContext()).getManager();
 
         if (savedInstanceState != null) {
             mCurrentPosition = savedInstanceState.getInt(ARG_POSITION);

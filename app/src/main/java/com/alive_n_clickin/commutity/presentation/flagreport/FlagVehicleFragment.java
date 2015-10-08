@@ -56,7 +56,7 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
 
         // Register observers
         MyApplication application = (MyApplication) this.getActivity().getApplicationContext();
-        this.busManager = application.getBusManager();
+        this.busManager = application.getManager();
         this.busManager.addObserver(this);
         this.wifiBroadcastReceiver = application.getWifiBroadcastReceiver();
         this.wifiBroadcastReceiver.addObserver(this);
