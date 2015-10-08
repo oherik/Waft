@@ -15,10 +15,14 @@
         android:icon="@mipmap/penguin"
         android:label="@string/app_name"
         android:name="com.alive_n_clickin.commutity.MyApplication">
+        <!-- Change the below activity to use waftTheme for style
+         (This involves changing waft's theme to App.Compat.Light and make sure the other views still work properly).
+         -->
         <activity
             android:name=".presentation.main.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/WaftMainTheme">
+
+            android:theme="@style/Theme.AppCompat.Light">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
