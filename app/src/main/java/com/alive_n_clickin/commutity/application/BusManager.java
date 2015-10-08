@@ -1,7 +1,8 @@
 package com.alive_n_clickin.commutity.application;
 
-import android.os.AsyncTask;
+import com.alive_n_clickin.commutity.util.event.IObserver;
 
+import android.os.AsyncTask;
 import com.alive_n_clickin.commutity.domain.Bus;
 import com.alive_n_clickin.commutity.domain.IBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
@@ -14,20 +15,30 @@ import com.alive_n_clickin.commutity.util.event.IObservableHelper;
 import com.alive_n_clickin.commutity.util.event.IObserver;
 import com.alive_n_clickin.commutity.util.event.ObservableHelper;
 
-import java.util.ArrayList;
-
-// TODO: Documentation
+/**
+ * An implementation of the IBusManager interface. This implementation listens to a NearbyBusScanner
+ * for events regarding nearby buses to keep track of which bus the user is currently on.
+ */
 public class BusManager implements IBusManager, IObserver {
     private IObservableHelper observableHelper = new ObservableHelper();
 
     private IBus currentBus = null;
 
-    // TODO: Documentation
+    /**
+     * Initiates a new BusManager that listens to the supplied NearbyBusScanner.
+     *
+     * @param nearbyBusScanner the NearbyBusScanner that this BusManager should listen to for
+     *                         events regarding nearby buses.
+     */
     public BusManager(NearbyBusScanner nearbyBusScanner) {
         nearbyBusScanner.addObserver(this);
     }
 
-    // TODO: Documentation
+    /**
+     * {@inheritDoc}<br><br>
+     *
+     * Sends a post request to our backend to flag the current bus with the supplied flag.
+     */
     @Override
     public void addFlagToCurrentBus(IFlag flag) {
         if (currentBus != null) {
@@ -42,13 +53,11 @@ public class BusManager implements IBusManager, IObserver {
         return currentBus != null;
     }
 
-    // TODO: Documentation
     @Override
     public IBus getCurrentBus() {
         return this.currentBus;
     }
 
-    // TODO: Documentation
     @Override
     public void onEvent(IEvent event) {
         if (event instanceof NewBusNearbyEvent) {
@@ -65,13 +74,11 @@ public class BusManager implements IBusManager, IObserver {
         }
     }
 
-    // TODO: Documentation
     @Override
     public void addObserver(IObserver observer) {
         observableHelper.addObserver(observer);
     }
 
-    // TODO: Documentation
     @Override
     public void removeObserver(IObserver observer) {
         observableHelper.removeObserver(observer);
