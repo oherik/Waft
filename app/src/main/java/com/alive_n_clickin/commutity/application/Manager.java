@@ -75,7 +75,7 @@ public class Manager implements IManager, IObserver {
     private void handleNewBusNearbyEvent(NewBusNearbyEvent event) {
         String DGW = event.getDGW();
         if (DGW != null) {
-            currentBus = BusFactory.getBus(DGW);
+            currentBus = VehicleFactory.getBus(DGW);
         } else {
             currentBus = null;
         }
@@ -98,7 +98,7 @@ public class Manager implements IManager, IObserver {
         List<Arrival> arrivals = vasttrafikAdapter.getVehiclesHeadedToStop(stop);
         List<IArrivingVehicle> arrivingVehicles = new ArrayList<>();
         for(Arrival a : arrivals){
-            arrivingVehicles.add(DomainFactory.getArrivingVehicle(a));
+            arrivingVehicles.add(VehicleFactory.getArrivingVehicle(a));
         }
         return arrivingVehicles;
     }
@@ -108,7 +108,7 @@ public class Manager implements IManager, IObserver {
         List<Stop> stopResponse = vasttrafikAdapter.getSearchStops(searchQuery);
         List<IStop> stops = new ArrayList<>();
         for(Stop s : stopResponse){
-            stops.add(DomainFactory.getStop(s));
+            stops.add(StopFactory.getStop(s));
         }
         return stops;
     }
