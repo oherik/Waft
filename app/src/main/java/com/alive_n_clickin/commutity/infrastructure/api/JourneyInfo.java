@@ -1,6 +1,9 @@
 package com.alive_n_clickin.commutity.infrastructure.api;
 
 import java.io.Serializable;
+import java.util.List;
+
+import lombok.Getter;
 
 /**
  * @author hjorthjort
