@@ -10,21 +10,24 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * @author hjorthjort
- *         Created 24/09/15
- *
- * Singleton tool for getting wifi information, such as nearby wifis and the current connection, if any.
- * @since 0.1
+ * A helper class for talking to the Android WifiManager.
  */
 public class WifiHelper {
     private WifiManager wifiManager;
 
+    /**
+     * Initiates a new WifiHelper with the given context. The context is needed when talking to
+     * Androids WifiManager.
+     *
+     * @param context the context to initiate the WifiHelper from.
+     */
     public WifiHelper(Context context) {
         this.wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
     }
 
     /**
      * Checks whether or not the wifi is enabled.
+     *
      * @return true if wifi is enabled or false when disabled.
      */
     public boolean isWifiEnabled() {
@@ -32,24 +35,22 @@ public class WifiHelper {
     }
 
     /**
-     * Initate a scan for wifis to make them up to date
+     * Initiates a new wifi scan. When the scan is finished, a "android.net.wifi.SCAN_RESULTS"
+     * broadcast will be sent by the Android system.
      */
     public void initiateWifiScan() {
         wifiManager.startScan();
     }
 
     /**
-     * Get information on the WiFi the device is connected to.
-     * @return
+     * @return the BSSID of the network the device is currently connected to.
      */
     public String getBSSIDOfCurrentNetwork() {
         return wifiManager.getConnectionInfo().getBSSID();
     }
 
     /**
-     * Get objects representing all nearby wifis, with MAC Address (BSSID), Name (SSID) and more. See
-     * {@link ScanResult} for all available fields
-     * @return list with all results, sorted by signal strength
+     * @return a list with BSSID:s of all nearby networks, sorted by signal strength
      */
     public List<String> getNearbyBSSIDs() {
         List<ScanResult> scanResults = wifiManager.getScanResults();
@@ -72,7 +73,7 @@ public class WifiHelper {
     }
 
     /**
-     * Enables the devices WifiConnection, if it isn't already enabled
+     * Enables the devices wifi connection, if it isn't already enabled.
      */
     public void enableWifi() {
         wifiManager.setWifiEnabled(true);
