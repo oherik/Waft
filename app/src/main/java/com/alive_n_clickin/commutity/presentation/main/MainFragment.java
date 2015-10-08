@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.alive_n_clickin.commutity.R;
+import com.alive_n_clickin.commutity.application.Manager;
 import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
 import com.alive_n_clickin.commutity.infrastructure.api.ApiArrival;
 import com.alive_n_clickin.commutity.infrastructure.api.IVasttrafikAdapter;
@@ -36,6 +37,7 @@ public class MainFragment extends Fragment {
     private ListView busListView;
     private VehicleListAdapter adapter;
     private List<ApiArrival> apiArrivals;
+    private Manager manager;
 
     @Override
     public void onCreate(Bundle bundle) {
@@ -86,6 +88,7 @@ public class MainFragment extends Fragment {
 
         @Override
         protected List<ApiArrival> doInBackground(Stop... params) {
+
             IVasttrafikAdapter vasttrafikAdapter = ApiAdapterFactory.createVasttrafikAdapter();
             return vasttrafikAdapter.getVehiclesHeadedToStop(params[0]);
         }

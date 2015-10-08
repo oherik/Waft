@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
-import com.alive_n_clickin.commutity.application.IBusManager;
+import com.alive_n_clickin.commutity.application.IManager;
 import com.alive_n_clickin.commutity.domain.Flag;
 import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.domain.IFlagType;
@@ -37,7 +37,7 @@ public class FlagVehicleDetailFragment extends Fragment {
     final static String ARG_POSITION    = "position";
     int mCurrentPosition                = -1;
     private IFlagType flagType;
-    private IBusManager busManager;
+    private IManager busManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
