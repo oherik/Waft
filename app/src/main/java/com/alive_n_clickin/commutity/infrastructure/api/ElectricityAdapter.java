@@ -1,5 +1,9 @@
 package com.alive_n_clickin.commutity.infrastructure.api;
 
+import android.util.Log;
+
+import com.alive_n_clickin.commutity.util.LogUtils;
+
 /**
  * This class is not meant to be instantiated. The reason is to remove as much coupling as possible.
  * Use the ApiAdapterFactory to gain access to this class. {@link ApiAdapterFactory}
@@ -11,4 +15,18 @@ package com.alive_n_clickin.commutity.infrastructure.api;
  */
 class ElectricityAdapter implements IElectricityAdapter {
 
+    @Override
+    public JourneyInfo getJourneyInfo(String dgw) {
+        ElectricityApiConnection apiConn = new ElectricityApiConnection();
+        //End time: right now
+        long t2 = System.currentTimeMillis();
+        //Start time, 30 seconds ago, so that we have some margin
+        long t1 = t2 - 30 * 1000;
+        String query = "dgw=" + dgw + "&sensorSpec=Ericsson$Journey_Info" +
+                "&t1=" + t1 + "&t2=" + t2;
+        String response = apiConn.sendGetToElectricity(query);
+        Log.d(LogUtils.getLogTag(this), response);
+
+        return null;
+    }
 }

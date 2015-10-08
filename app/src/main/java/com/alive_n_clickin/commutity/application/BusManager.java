@@ -1,5 +1,7 @@
 package com.alive_n_clickin.commutity.application;
 
+import android.os.AsyncTask;
+
 import com.alive_n_clickin.commutity.domain.Bus;
 import com.alive_n_clickin.commutity.domain.IBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
@@ -55,14 +57,12 @@ public class BusManager implements IBusManager, IObserver {
     }
 
     private void handleNewBusNearbyEvent(NewBusNearbyEvent event) {
-        String DGW = event.getDGW();
-        if (DGW != null) {
-            currentBus = BusFactory.getBus(DGW);
-        } else {
+        String dgw = event.getDGW();
+        if (dgw == null) {
             currentBus = null;
+        } else {
+            new GetCurrentBus().execute(dgw);
         }
-
-        observableHelper.notifyObservers(new CurrentBusChangeEvent(currentBus));
     }
 
     // TODO: Documentation
@@ -75,5 +75,20 @@ public class BusManager implements IBusManager, IObserver {
     @Override
     public void removeObserver(IObserver observer) {
         observableHelper.removeObserver(observer);
+    }
+
+    private class GetCurrentBus extends AsyncTask<String, Void, IBus> {
+
+        @Override
+        protected IBus doInBackground(String... params) {
+            String dgw = params[0];
+            return BusFactory.getBus(dgw);
+        }
+
+        @Override
+        protected void onPostExecute(IBus bus) {
+            currentBus = bus;
+            observableHelper.notifyObservers(new CurrentBusChangeEvent(currentBus));
+        }
     }
 }
