@@ -5,6 +5,8 @@ import android.util.Log;
 
 import com.alive_n_clickin.commutity.domain.IStop;
 import com.alive_n_clickin.commutity.infrastructure.api.response.Arrival;
+import com.alive_n_clickin.commutity.infrastructure.api.response.ArrivalList;
+import com.alive_n_clickin.commutity.infrastructure.api.response.LocationList;
 import com.alive_n_clickin.commutity.infrastructure.api.response.Stop;
 
 import java.text.DateFormat;
