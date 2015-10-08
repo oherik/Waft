@@ -144,8 +144,8 @@ public class SearchFragment extends Fragment {
         protected List<Stop> doInBackground(String... params) {
             try {
                 return manager.searchForStops(params[0]);
-            }catch(NullPointerException e){
-                Log.e(LOG_TAG, e.getStackTrace()+"");
+            } catch (NullPointerException e) {
+                Log.e(LOG_TAG, e.getStackTrace() + "");
             }
             //No results found, return null
             return null;
@@ -161,7 +161,7 @@ public class SearchFragment extends Fragment {
      * @param stops The results of the search
      */
     private void displayResults(List<Stop> stops){
-        if(stops!=null) {
+        if (stops != null) {
             resultAdapter.clear();
             resultAdapter.addAll(stops);
         }
