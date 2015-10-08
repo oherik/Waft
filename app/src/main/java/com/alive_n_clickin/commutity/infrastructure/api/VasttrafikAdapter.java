@@ -3,6 +3,9 @@ package com.alive_n_clickin.commutity.infrastructure.api;
 import android.net.Uri;
 import android.util.Log;
 
+import com.alive_n_clickin.commutity.infrastructure.api.response.ApiArrival;
+import com.alive_n_clickin.commutity.infrastructure.api.response.Stop;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;

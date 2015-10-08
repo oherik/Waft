@@ -2,8 +2,8 @@ package com.alive_n_clickin.commutity.application;
 
 import com.alive_n_clickin.commutity.domain.IBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
-import com.alive_n_clickin.commutity.infrastructure.api.ApiArrival;
-import com.alive_n_clickin.commutity.infrastructure.api.Stop;
+import com.alive_n_clickin.commutity.infrastructure.api.response.ApiArrival;
+import com.alive_n_clickin.commutity.infrastructure.api.response.Stop;
 import com.alive_n_clickin.commutity.util.event.IObservable;
 
 import java.util.List;

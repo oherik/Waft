@@ -1,5 +1,8 @@
 package com.alive_n_clickin.commutity.infrastructure.api;
 
+import com.alive_n_clickin.commutity.infrastructure.api.response.ApiArrival;
+import com.alive_n_clickin.commutity.infrastructure.api.response.Stop;
+
 import java.util.List;
 
 /**

@@ -14,8 +14,8 @@ import android.widget.TextView;
 import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.application.IManager;
-import com.alive_n_clickin.commutity.infrastructure.api.ApiArrival;
-import com.alive_n_clickin.commutity.infrastructure.api.Stop;
+import com.alive_n_clickin.commutity.infrastructure.api.response.ApiArrival;
+import com.alive_n_clickin.commutity.infrastructure.api.response.Stop;
 import com.alive_n_clickin.commutity.util.LogUtils;
 
 import java.util.ArrayList;

@@ -1,5 +1,7 @@
 package com.alive_n_clickin.commutity.infrastructure.api;
 
+import com.alive_n_clickin.commutity.infrastructure.api.response.ApiArrival;
+
 import java.util.List;
 
 import lombok.Getter;

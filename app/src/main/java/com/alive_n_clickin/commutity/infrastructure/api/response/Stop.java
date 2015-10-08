@@ -1,4 +1,6 @@
-package com.alive_n_clickin.commutity.infrastructure.api;
+package com.alive_n_clickin.commutity.infrastructure.api.response;
+
+import com.alive_n_clickin.commutity.infrastructure.api.JsonJavaConverter;
 
 import java.io.Serializable;
 
