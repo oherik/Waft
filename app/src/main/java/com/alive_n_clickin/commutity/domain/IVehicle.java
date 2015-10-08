@@ -1,8 +1,8 @@
 package com.alive_n_clickin.commutity.domain;
 
 /**
- * An interface for Vehicle classes. A vehicle should have a destination, a short name for it's
- * route and the id of it's current journey.
+ * An interface for vehicles. A vehicle should be able to provide a destination, a short name for
+ * it's route and the id of it's current journey.
  */
 public interface IVehicle {
     /**
