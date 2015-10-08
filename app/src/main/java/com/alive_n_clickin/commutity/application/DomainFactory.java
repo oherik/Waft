@@ -3,7 +3,9 @@ package com.alive_n_clickin.commutity.application;
 
 import com.alive_n_clickin.commutity.domain.ArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.Flag;
+import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.IFlag;
+import com.alive_n_clickin.commutity.domain.IStop;
 import com.alive_n_clickin.commutity.infrastructure.api.response.Arrival;
 import com.alive_n_clickin.commutity.infrastructure.api.response.Stop;
 
@@ -24,7 +26,7 @@ public class DomainFactory{
      * @return  A new arriving vehicle based on the response
      * @throws NullPointerException if the parameter is null
      */
-    public static ArrivingVehicle getArrivingVehicle(@NonNull Arrival arrival) {
+    public static IArrivingVehicle getArrivingVehicle(@NonNull Arrival arrival) {
         //TODO add method to retrieve flags
         List<IFlag> flags = new ArrayList<>();
         flags.add(new Flag(Flag.Type.NO_PRAMS, "", new Date()));
@@ -44,9 +46,10 @@ public class DomainFactory{
     /**
      * Creates a new domain stop object based on an API response
      * @param stop The API response
+     * @return A new domain stop object based on the response
      * @throws NullPointerException if the parameter is null
      */
-    public static void getStop(@NonNull Stop stop){
-        //TODO add this method when the domain stop class has been created
+    public static IStop getStop(@NonNull Stop stop){
+        return new com.alive_n_clickin.commutity.domain.Stop(stop.getName(), stop.getId());
     }
 }
