@@ -8,8 +8,6 @@ import com.alive_n_clickin.commutity.util.event.IObservable;
 
 import java.util.List;
 
-import lombok.NonNull;
-
 /**
  * An interface for classes that manages communication between the view and the underlying systems.
  * Implementations of this interface should always keep track of what bus the user is currently on.
@@ -42,7 +40,7 @@ public interface IManager extends IObservable {
      * @return  A list of the 20 first vehicles arriving to the stop
      * @throws NullPointerException if the parameter is null
      */
-    List<IArrivingVehicle> getVehicles(@NonNull IStop stop);
+    List<IArrivingVehicle> getVehicles(IStop stop);
 
     /**
      * Searches for stops based on a query string
@@ -50,5 +48,5 @@ public interface IManager extends IObservable {
      * @return  A list of stops matching the search query
      * @throws NullPointerException if the parameter is null
      */
-    List<IStop> searchForStops(@NonNull String searchQuery);
+    List<IStop> searchForStops(String searchQuery);
 }
