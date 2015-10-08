@@ -17,6 +17,12 @@ class ElectricityAdapter implements IElectricityAdapter {
 
     @Override
     public JourneyInfo getJourneyInfo(String dgw) {
+        String apiResponse = getJourneyInfoFromApi(dgw);
+
+        return null;
+    }
+
+    private String getJourneyInfoFromApi(String dgw) {
         ElectricityApiConnection apiConn = new ElectricityApiConnection();
         //End time: right now
         long t2 = System.currentTimeMillis();
@@ -26,7 +32,6 @@ class ElectricityAdapter implements IElectricityAdapter {
                 "&t1=" + t1 + "&t2=" + t2;
         String response = apiConn.sendGetToElectricity(query);
         Log.d(LogUtils.getLogTag(this), response);
-
-        return null;
+        return response;
     }
 }
