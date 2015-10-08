@@ -5,7 +5,7 @@ import com.alive_n_clickin.commutity.domain.IBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
 import com.alive_n_clickin.commutity.infrastructure.api.IElectricityAdapter;
-import com.alive_n_clickin.commutity.infrastructure.api.JourneyInfo;
+import com.alive_n_clickin.commutity.infrastructure.api.Journey;
 
 import java.util.ArrayList;
 
@@ -28,7 +28,7 @@ public class BusFactory {
         // 2. create and return bus object
 
         IElectricityAdapter ecAdapter = ApiAdapterFactory.createElectricityAdapter();
-        JourneyInfo ji = ecAdapter.getJourneyInfo("Ericsson$100021");
+        Journey ji = ecAdapter.getJourneyInfo("Ericsson$100021");
         return new Bus(DGW, "destination", "journeyName", "routeNumber", new ArrayList<IFlag>());
     }
 }
