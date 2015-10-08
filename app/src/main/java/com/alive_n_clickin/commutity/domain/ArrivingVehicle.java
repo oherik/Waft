@@ -1,5 +1,6 @@
 package com.alive_n_clickin.commutity.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
@@ -24,6 +25,6 @@ public class ArrivingVehicle extends Vehicle {
                            List<IFlag> flags) {
         super(destination, lineNumber, journeyID);
         this.timeToArrival = timeToArrival;
-        this.flags = flags;
+        this.flags = new ArrayList<>(flags);
     }
 }
