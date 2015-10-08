@@ -15,8 +15,9 @@ import java.util.List;
 import lombok.NonNull;
 
 /**
- * This is a factory for creating ready-to-use bus objects. The idea is that you ask this factory
- * for the bus belonging to an id, and that the factory simply responds with a bus object. The factory
+ * This is a factory for creating ready-to-use vehicles. The idea is that you ask this factory
+ * to build a vehicle from existing data (for example an ID or a response object received from
+ * an external API), and that the factory simply responds with a bus object. The factory
  * is responsible for fetching all the data required for that bus from whatever sources it needs.
  */
 public class VehicleFactory {
