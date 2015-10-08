@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.application.IManager;
-import com.alive_n_clickin.commutity.infrastructure.api.response.ApiArrival;
+import com.alive_n_clickin.commutity.infrastructure.api.response.Arrival;
 import com.alive_n_clickin.commutity.infrastructure.api.response.Stop;
 import com.alive_n_clickin.commutity.util.LogUtils;
 
@@ -35,13 +35,13 @@ public class MainFragment extends Fragment {
     private TextView stopTextView;
     private ListView busListView;
     private VehicleListAdapter adapter;
-    private List<ApiArrival> apiArrivals;
+    private List<Arrival> arrivals;
     private IManager manager;
 
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        apiArrivals = new ArrayList<>();
+        arrivals = new ArrayList<>();
         manager = ((MyApplication) getActivity().getApplicationContext()).getManager();
     }
 
@@ -55,7 +55,7 @@ public class MainFragment extends Fragment {
         Stop currentStop = mainActivity.getCurrentStop();
 
         busListView = (ListView) rootView.findViewById(R.id.busListView);
-        adapter = new VehicleListAdapter(getActivity(), apiArrivals);
+        adapter = new VehicleListAdapter(getActivity(), arrivals);
         busListView.setAdapter(adapter);
 
         setStopName(currentStop);
@@ -84,23 +84,23 @@ public class MainFragment extends Fragment {
      * Collects the vehicles from the adapter, based on which stop is currently selected.
      * After the class has fetched the results it adds the new data to the list adapter.
      */
-    private class AddVehiclesFromAPI extends AsyncTask<Stop, Void, List<ApiArrival>>{
+    private class AddVehiclesFromAPI extends AsyncTask<Stop, Void, List<Arrival>>{
 
         @Override
-        protected List<ApiArrival> doInBackground(Stop... params) {
+        protected List<Arrival> doInBackground(Stop... params) {
             return manager.getVehicles(params[0]);
         }
 
         @Override
-        protected void onPostExecute(List<ApiArrival> result) {
+        protected void onPostExecute(List<Arrival> result) {
             try {
-                apiArrivals.clear();
+                arrivals.clear();
             }catch(NullPointerException e) {
                 //Arriving vehicles list has been deleted, create a new one
                 Log.e(LogUtils.getLogTag(this), "The list of vehicles has been deleted. This list" +
                         " should always be present. Creating an empty one. \n" +
                         e.getStackTrace().toString());
-                apiArrivals = new ArrayList<>();
+                arrivals = new ArrayList<>();
             }
             if (result != null) {
                 /*

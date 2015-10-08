@@ -1,6 +1,6 @@
 package com.alive_n_clickin.commutity.infrastructure.api;
 
-import com.alive_n_clickin.commutity.infrastructure.api.response.ApiArrival;
+import com.alive_n_clickin.commutity.infrastructure.api.response.Arrival;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class ArrivalList {
     private String noNamespaceSchemaLocation;
     private String serverTime;
     private String serverDate;
-    @Getter private List<ApiArrival> Departure;
+    @Getter private List<Arrival> Departure;
 
     @Override
     public String toString() {
