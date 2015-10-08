@@ -14,7 +14,8 @@ import android.widget.TextView;
 import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.application.IManager;
-import com.alive_n_clickin.commutity.infrastructure.api.response.Arrival;
+import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
+import com.alive_n_clickin.commutity.domain.IStop;
 import com.alive_n_clickin.commutity.infrastructure.api.response.Stop;
 import com.alive_n_clickin.commutity.util.LogUtils;
 
@@ -35,13 +36,13 @@ public class MainFragment extends Fragment {
     private TextView stopTextView;
     private ListView busListView;
     private VehicleListAdapter adapter;
-    private List<Arrival> arrivals;
+    private List<IArrivingVehicle> arrivingVehicles;
     private IManager manager;
 
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        arrivals = new ArrayList<>();
+        arrivingVehicles = new ArrayList<>();
         manager = ((MyApplication) getActivity().getApplicationContext()).getManager();
     }
 
@@ -52,10 +53,10 @@ public class MainFragment extends Fragment {
         stopTextView = (TextView) rootView.findViewById(R.id.currentStop);
 
         MainActivity mainActivity = (MainActivity) getActivity();
-        Stop currentStop = mainActivity.getCurrentStop();
+        IStop currentStop = mainActivity.getCurrentStop();
 
         busListView = (ListView) rootView.findViewById(R.id.busListView);
-        adapter = new VehicleListAdapter(getActivity(), arrivals);
+        adapter = new VehicleListAdapter(getActivity(), arrivingVehicles);
         busListView.setAdapter(adapter);
 
         setStopName(currentStop);
@@ -70,7 +71,7 @@ public class MainFragment extends Fragment {
      * @param currentStop The stop the displayed buses are headed to
      * @param view The view that's currently focused
      */
-    private void populateBusList(Stop currentStop, @NonNull View view){
+    private void populateBusList(IStop currentStop, @NonNull View view){
         if(currentStop==null){
             busListView.setVisibility(view.INVISIBLE);
         } else {
@@ -84,23 +85,23 @@ public class MainFragment extends Fragment {
      * Collects the vehicles from the adapter, based on which stop is currently selected.
      * After the class has fetched the results it adds the new data to the list adapter.
      */
-    private class AddVehiclesFromAPI extends AsyncTask<Stop, Void, List<Arrival>>{
+    private class AddVehiclesFromAPI extends AsyncTask<IStop, Void, List<IArrivingVehicle>>{
 
         @Override
-        protected List<Arrival> doInBackground(Stop... params) {
+        protected List<IArrivingVehicle> doInBackground(IStop... params) {
             return manager.getVehicles(params[0]);
         }
 
         @Override
-        protected void onPostExecute(List<Arrival> result) {
+        protected void onPostExecute(List<IArrivingVehicle> result) {
             try {
-                arrivals.clear();
+                arrivingVehicles.clear();
             }catch(NullPointerException e) {
                 //Arriving vehicles list has been deleted, create a new one
                 Log.e(LogUtils.getLogTag(this), "The list of vehicles has been deleted. This list" +
                         " should always be present. Creating an empty one. \n" +
                         e.getStackTrace().toString());
-                arrivals = new ArrayList<>();
+                arrivingVehicles = new ArrayList<>();
             }
             if (result != null) {
                 /*
@@ -139,7 +140,7 @@ public class MainFragment extends Fragment {
      * Sets the stop name, as well as formatting the text
      * @param currentStop The stop to be displayed
      */
-    private void setStopName(Stop currentStop){
+    private void setStopName(IStop currentStop){
         if(currentStop!=null && !("".equals(currentStop.getName()))) {
             stopTextView.setText(currentStop.getName());
         }

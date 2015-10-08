@@ -1,9 +1,9 @@
 package com.alive_n_clickin.commutity.application;
 
+import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.IBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
-import com.alive_n_clickin.commutity.infrastructure.api.response.Arrival;
-import com.alive_n_clickin.commutity.infrastructure.api.response.Stop;
+import com.alive_n_clickin.commutity.domain.IStop;
 import com.alive_n_clickin.commutity.util.event.IObservable;
 
 import java.util.List;
@@ -42,7 +42,7 @@ public interface IManager extends IObservable {
      * @return  A list of the 20 first vehicles arriving to the stop
      * @throws NullPointerException if the parameter is null
      */
-    List<Arrival> getVehicles(@NonNull Stop stop);
+    List<IArrivingVehicle> getVehicles(@NonNull IStop stop);
 
     /**
      * Searches for stops based on a query string
@@ -50,5 +50,5 @@ public interface IManager extends IObservable {
      * @return  A list of stops matching the search query
      * @throws NullPointerException if the parameter is null
      */
-    List<Stop> searchForStops(@NonNull String searchQuery);
+    List<IStop> searchForStops(@NonNull String searchQuery);
 }

@@ -7,7 +7,7 @@ import java.util.List;
  * An interface for vehicles arriving to a stop. An arriving vehicle should be able to provide time
  * until arrival, and the flags that the vehicle is flagged with.
  */
-public interface IArrivingVehicle extends IVehicle {
+public interface IArrivingVehicle extends IVehicle, Comparable<IArrivingVehicle> {
     /**
      * @return a date containing the day and time of the real, not scheduled, arrival
      */

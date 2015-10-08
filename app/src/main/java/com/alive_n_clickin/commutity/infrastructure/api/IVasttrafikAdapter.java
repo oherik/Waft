@@ -1,5 +1,6 @@
 package com.alive_n_clickin.commutity.infrastructure.api;
 
+import com.alive_n_clickin.commutity.domain.IStop;
 import com.alive_n_clickin.commutity.infrastructure.api.response.Arrival;
 import com.alive_n_clickin.commutity.infrastructure.api.response.Stop;
 
@@ -33,5 +34,5 @@ public interface IVasttrafikAdapter {
      * @return a list of vehicles headed to the specified stop, it the search was successful.
      * Returns null if the search was unsuccessful.
      */
-     List<Arrival> getVehiclesHeadedToStop(Stop stop);
+     List<Arrival> getVehiclesHeadedToStop(IStop stop);
 }

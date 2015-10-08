@@ -15,7 +15,7 @@ import lombok.ToString;
  */
 @EqualsAndHashCode(callSuper = true)
 @ToString
-public class ArrivingVehicle extends AbstractVehicle implements IArrivingVehicle {
+public class ArrivingVehicle extends AbstractVehicle implements IArrivingVehicle{
     @Getter private Date arrival;
     @Getter private List<IFlag> flags;
 
@@ -42,5 +42,10 @@ public class ArrivingVehicle extends AbstractVehicle implements IArrivingVehicle
     @Override
     public long getTimeToArrival() {
         return arrival.getTime() - System.currentTimeMillis();
+    }
+
+    @Override
+    public int compareTo(IArrivingVehicle other) {
+        return (getTimeToArrival() - other.getTimeToArrival())>0 ? 1 : -1;
     }
 }

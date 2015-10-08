@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.alive_n_clickin.commutity.R;
-import com.alive_n_clickin.commutity.infrastructure.api.response.Stop;
+import com.alive_n_clickin.commutity.domain.IStop;
 
 import java.util.List;
 
@@ -16,14 +16,14 @@ import java.util.List;
  * Converts the stop to a string to display in a view, i.e. the search result list
  * @since 0.1
  */
-public class SearchResultAdapter extends ArrayAdapter<Stop> {
-    public SearchResultAdapter(Context context, List<Stop> result) {
+public class SearchResultAdapter extends ArrayAdapter<IStop> {
+    public SearchResultAdapter(Context context, List<IStop> result) {
         super(context, 0, result);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Stop stop = getItem(position);
+        IStop stop = getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.stop_search_result, parent, false);
         }
