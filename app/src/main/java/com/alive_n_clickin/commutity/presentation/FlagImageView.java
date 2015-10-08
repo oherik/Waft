@@ -13,12 +13,15 @@ import com.alive_n_clickin.commutity.domain.IFlagType;
 import java.util.HashMap;
 
 /**
- * @author hjorthjort
- *         Created 07/10/15
+ * This is class is an ImageView specialized on flags from our system. It maps every flag type to an
+ * image, and has a setFlag method that lets you specify what image it should show based on flag type.
  */
 public class FlagImageView extends ImageView {
 
-    private IFlag flag = null;
+    /*
+    By keeping the mapping from flag type to image file in this class and this class only, we avoid duplication
+    and unnecessary strong coupling between the flag type and actual image
+    */
     private HashMap<IFlagType, Integer> images;
 
     public FlagImageView(Context context, AttributeSet attrs) {
@@ -32,8 +35,12 @@ public class FlagImageView extends ImageView {
         images.put(Flag.Type.OTHER, R.drawable.flag_other_black_300px);
     }
 
+    /**
+     * Sets the image of the FlagImageView. The image will be the one that represents the flag type
+     * of the flag parameter
+     * @param flag the flag whose type will be used to set the image
+     */
     public void setFlag(IFlag flag) {
-        this.flag = flag;
         int flagImageResourceNumber = images.get(flag.getType());
         Drawable d = getResources().getDrawable(flagImageResourceNumber);
         setImageDrawable(d);
