@@ -11,8 +11,8 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 public class Stop implements IStop {
-    @Getter String name;
-    @Getter long id;
+    @Getter private final String name;
+    @Getter private final long id;
 
     /**
      * Constructor.

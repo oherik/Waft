@@ -11,7 +11,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @ToString
 public class ElectriCityBus extends AbstractVehicle implements IElectriCityBus {
-    @Getter private String DGW;
+    @Getter private final String DGW;
 
     /**
      * Constructor
