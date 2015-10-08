@@ -5,6 +5,10 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * @author hjorthjort
@@ -27,6 +31,14 @@ class JsonJavaConverter<T> {
      */
     public JsonJavaConverter(Class<T> classType) {
         this.classType = classType;
+    }
+
+    public List<T> toJavaList(String json) {
+        //Type token is necessary to get the type of a list with generic type
+        TypeToken typeToken = new TypeToken<List<T>>(){};
+        //This parameter tells GSON to create a list with objects of the given type
+        Type type = typeToken.getType();
+        return GSON.fromJson(json, new TypeToken<List<T>>(){}.getType());
     }
 
     /**

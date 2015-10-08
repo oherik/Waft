@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.alive_n_clickin.commutity.util.LogUtils;
 
+import java.util.List;
+
 /**
  * This class is not meant to be instantiated. The reason is to remove as much coupling as possible.
  * Use the ApiAdapterFactory to gain access to this class. {@link ApiAdapterFactory}
@@ -19,6 +21,8 @@ class ElectricityAdapter implements IElectricityAdapter {
     public JourneyInfo getJourneyInfo(String dgw) {
         String apiResponse = getJourneyInfoFromApi(dgw);
 
+        JsonJavaConverter<JourneyInfo> converter = new JsonJavaConverter<>(JourneyInfo.class);
+        List<JourneyInfo> infoList = converter.toJavaList(apiResponse);
         return null;
     }
 

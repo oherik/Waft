@@ -7,5 +7,8 @@ import java.io.Serializable;
  *         Created 08/10/15
  */
 public class JourneyInfo implements Serializable {
-
+    String resourceSpec;
+    long timestamp;
+    String value;
+    String gatewayId;
 }
