@@ -17,7 +17,7 @@ import android.widget.SearchView;
 import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.application.IManager;
-import com.alive_n_clickin.commutity.infrastructure.api.response.Stop;
+import com.alive_n_clickin.commutity.domain.IStop;
 import com.alive_n_clickin.commutity.presentation.main.MainActivity;
 import com.alive_n_clickin.commutity.presentation.main.MainFragment;
 
@@ -59,7 +59,7 @@ public class SearchFragment extends Fragment {
 
         //Add adapter to the result view
         searchResults = (ListView) rootView.findViewById(R.id.searchResults);
-        List<Stop> emptyStops = new ArrayList();
+        List<IStop> emptyStops = new ArrayList();
         resultAdapter = new SearchResultAdapter(getActivity(),emptyStops);
         searchResults.setAdapter(resultAdapter);
 
@@ -68,7 +68,7 @@ public class SearchFragment extends Fragment {
             // The user clicked on an entry
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Stop stop = resultAdapter.getItem(i);
+                IStop stop = resultAdapter.getItem(i);
 
                 //Send back the stop to the main view
                 setMainStop(stop);
@@ -104,7 +104,7 @@ public class SearchFragment extends Fragment {
      * Sets the current stop in the activity
      * @param stop The selected stop
      */
-    private void setMainStop(Stop stop){
+    private void setMainStop(IStop stop){
         MainActivity mainActivity = (MainActivity) getActivity();
         mainActivity.setCurrentStop(stop);
 
@@ -139,9 +139,9 @@ public class SearchFragment extends Fragment {
     /**
      * An async class calling the api helper for receiving result based on a search query
      */
-    public class SearchStopTask extends AsyncTask<String, Void, List<Stop>> {
+    public class SearchStopTask extends AsyncTask<String, Void, List<IStop>> {
         @Override
-        protected List<Stop> doInBackground(String... params) {
+        protected List<IStop> doInBackground(String... params) {
             try {
                 return manager.searchForStops(params[0]);
             } catch (NullPointerException e) {
@@ -151,7 +151,7 @@ public class SearchFragment extends Fragment {
             return null;
         }
         @Override
-        protected void onPostExecute(List<Stop> result){
+        protected void onPostExecute(List<IStop> result){
             displayResults(result);
         }
     }
@@ -160,7 +160,7 @@ public class SearchFragment extends Fragment {
      * Clears the result view and display the new results
      * @param stops The results of the search
      */
-    private void displayResults(List<Stop> stops){
+    private void displayResults(List<IStop> stops){
         if (stops != null) {
             resultAdapter.clear();
             resultAdapter.addAll(stops);

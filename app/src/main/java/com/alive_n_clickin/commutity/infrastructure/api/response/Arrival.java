@@ -19,7 +19,7 @@ import lombok.ToString;
  * object, as well as calculating the time to arrival.
  */
 @ToString
-public class Arrival implements Comparable<Arrival>{
+public class Arrival{
     /**
      * Scheduled arrival time
      */
@@ -78,14 +78,6 @@ public class Arrival implements Comparable<Arrival>{
     }
 
     /**
-     * This method provides the differences between the real arrival time and current time.
-     * @return the difference in time units (milliseconds)
-     */
-    public Long getRealTimeToArrival() {
-        return getRealArrival().getTime() - System.currentTimeMillis();
-    }
-
-    /**
      * This method provides the differences between the scheduled arrival time and current time.
      * @return the difference in time units (milliseconds)
      */
@@ -93,8 +85,4 @@ public class Arrival implements Comparable<Arrival>{
         return getScheduledArrival().getTime() - System.currentTimeMillis();
     }
 
-    @Override
-    public int compareTo(Arrival other) {
-        return (getRealTimeToArrival() - other.getRealTimeToArrival())>0 ? 1 : -1;
-    }
 }

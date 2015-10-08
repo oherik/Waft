@@ -1,19 +1,22 @@
 package com.alive_n_clickin.commutity.application;
 
+import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.IBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
+import com.alive_n_clickin.commutity.domain.IStop;
 import com.alive_n_clickin.commutity.event.CurrentBusChangeEvent;
 import com.alive_n_clickin.commutity.event.NewBusNearbyEvent;
 import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
-import com.alive_n_clickin.commutity.infrastructure.api.response.Arrival;
 import com.alive_n_clickin.commutity.infrastructure.api.IVasttrafikAdapter;
 import com.alive_n_clickin.commutity.infrastructure.api.IWaftAdapter;
+import com.alive_n_clickin.commutity.infrastructure.api.response.Arrival;
 import com.alive_n_clickin.commutity.infrastructure.api.response.Stop;
 import com.alive_n_clickin.commutity.util.event.IEvent;
 import com.alive_n_clickin.commutity.util.event.IObservableHelper;
 import com.alive_n_clickin.commutity.util.event.IObserver;
 import com.alive_n_clickin.commutity.util.event.ObservableHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.NonNull;
@@ -91,12 +94,22 @@ public class Manager implements IManager, IObserver {
     }
 
     @Override
-    public List<Arrival> getVehicles(@NonNull Stop stop){
-        return vasttrafikAdapter.getVehiclesHeadedToStop(stop);
+    public List<IArrivingVehicle> getVehicles(@NonNull IStop stop){
+        List<Arrival> arrivals = vasttrafikAdapter.getVehiclesHeadedToStop(stop);
+        List<IArrivingVehicle> arrivingVehicles = new ArrayList<>();
+        for(Arrival a : arrivals){
+            arrivingVehicles.add(DomainFactory.getArrivingVehicle(a));
+        }
+        return arrivingVehicles;
     }
 
     @Override
-    public List<Stop> searchForStops(@NonNull String searchQuery) {
-        return vasttrafikAdapter.getSearchStops(searchQuery);
+    public List<IStop> searchForStops(@NonNull String searchQuery) {
+        List<Stop> stopResponse = vasttrafikAdapter.getSearchStops(searchQuery);
+        List<IStop> stops = new ArrayList<>();
+        for(Stop s : stopResponse){
+            stops.add(DomainFactory.getStop(s));
+        }
+        return stops;
     }
 }
