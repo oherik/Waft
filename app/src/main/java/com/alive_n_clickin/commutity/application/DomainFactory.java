@@ -40,7 +40,7 @@ public class DomainFactory{
         flags.add(new Flag(Flag.Type.MESSY, "", new Date()));
         flags.add(new Flag(Flag.Type.MESSY, "", new Date()));
         return new ArrivingVehicle(arrival.getDirection(), arrival.getSname(),
-                arrival.getJourneyid(), arrival.getRealTimeToArrival(), flags);
+                arrival.getJourneyid(), arrival.getRealArrival(), flags);
     }
 
     /**

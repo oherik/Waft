@@ -1,6 +1,7 @@
 package com.alive_n_clickin.commutity.domain;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import lombok.EqualsAndHashCode;
@@ -15,7 +16,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @ToString
 public class ArrivingVehicle extends AbstractVehicle implements IArrivingVehicle {
-    @Getter private long timeToArrival;
+    @Getter private Date arrival;
     @Getter private List<IFlag> flags;
 
     /**
@@ -26,15 +27,20 @@ public class ArrivingVehicle extends AbstractVehicle implements IArrivingVehicle
      * @param journeyID from Vasttrafik. This is the unique identification number for a certain
      *                  route. It gets changed any time the vehicle arrives to the end stop and
      *                  continues in the opposite direction.
-     * @param timeToArrival in milliseconds. This should be the real time to arrival, not the
-     *                      scheduled
-     * @param flags can be null if no flags exist for this vehicle
+     * @param arrival a date containing the day and time of the real, not scheduled, arrival
+     * @param flags a list of the vehicles flag. If the vehicle has no flags, this should be an
+     *              empty list (i.e. not null)
      * @throws NullPointerException if any parameter is null
      */
     public ArrivingVehicle(@NonNull String destination, @NonNull String shortRouteName,
-                           long journeyID, long timeToArrival, @NonNull List<IFlag> flags){
+                           long journeyID, @NonNull Date arrival, @NonNull List<IFlag> flags){
         super(destination, shortRouteName, journeyID);
-        this.timeToArrival = timeToArrival;
+        this.arrival = arrival;
         this.flags = new ArrayList<>(flags);
+    }
+
+    @Override
+    public long getTimeToArrival() {
+        return arrival.getTime() - System.currentTimeMillis();
     }
 }
