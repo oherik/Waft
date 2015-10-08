@@ -2,8 +2,11 @@ package com.alive_n_clickin.commutity.presentation.main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 
 import com.alive_n_clickin.commutity.R;
@@ -19,7 +22,7 @@ import lombok.Setter;
  * fragments.
  * @since 0.1
  */
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends AppCompatActivity {
     @Getter @Setter private Stop currentStop;
 
     @Override
@@ -27,9 +30,25 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(bundle);
         setContentView(R.layout.main_activity);
 
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null){
+            actionBar.setDisplayShowCustomEnabled(true);
+            actionBar.setCustomView(R.xml.search);
+        }
+
+
         //Set the main fragment as the first fragment presented to the user
         MainFragment mainFragment = new MainFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.main_content_frame, mainFragment).commit();
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main_search, menu);
+
+        return true;
     }
 
     @Override
