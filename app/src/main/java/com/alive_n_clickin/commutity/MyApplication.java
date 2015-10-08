@@ -18,7 +18,7 @@ import com.alive_n_clickin.commutity.infrastructure.WifiBroadcastReceiver;
  */
 public class MyApplication extends Application {
     private WifiBroadcastReceiver wifiBroadcastReceiver;
-    private IManager busManager;
+    private IManager manager;
 
     /**
      * {@inheritDoc}<br><br>
@@ -33,14 +33,14 @@ public class MyApplication extends Application {
 
         this.wifiBroadcastReceiver = new WifiBroadcastReceiver(this);
         NearbyBusScanner nearbyBusScanner = new NearbyBusScanner(wifiBroadcastReceiver);
-        this.busManager = new Manager(nearbyBusScanner);
+        this.manager = new Manager(nearbyBusScanner);
     }
 
     /**
      * @return the Manager instance that is used throughout the application.
      */
-    public IManager getBusManager() {
-        return this.busManager;
+    public IManager getManager() {
+        return this.manager;
     }
 
     /**
