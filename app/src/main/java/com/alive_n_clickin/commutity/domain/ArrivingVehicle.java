@@ -24,7 +24,7 @@ public class ArrivingVehicle extends Vehicle {
      * @throws NullPointerException if any parameter is null
      */
     public ArrivingVehicle(@NonNull String destination, @NonNull String lineNumber, long journeyID, long timeToArrival,
-                           @NonNull List<IFlag> flags) {
+                           @NonNull List<IFlag> flags){
         super(destination, lineNumber, journeyID);
         this.timeToArrival = timeToArrival;
         this.flags = new ArrayList<>(flags);
