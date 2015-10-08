@@ -10,6 +10,7 @@ import android.widget.GridLayout;
 import android.widget.TextView;
 
 import com.alive_n_clickin.commutity.R;
+import com.alive_n_clickin.commutity.application.DomainFactory;
 import com.alive_n_clickin.commutity.domain.ArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.infrastructure.api.ApiArrival;
@@ -23,6 +24,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class VehicleListAdapter extends ArrayAdapter<ApiArrival> {
 
+
     public VehicleListAdapter(Context currentContext, List<ApiArrival> apiArrivalList) {
         super(currentContext,0, apiArrivalList); //The second parameter is the resource ID for a layout file containing a layout to use when instantiating views. Making it 0 means we are not sending any resource file to the super class.
     }
@@ -35,7 +37,7 @@ public class VehicleListAdapter extends ArrayAdapter<ApiArrival> {
         }
 
         ApiArrival apiArrival = getItem(position);
-        ArrivingVehicle vehicle = apiArrival.getVehicle();
+        ArrivingVehicle vehicle = DomainFactory.getArrivingVehicle(apiArrival);
 
 
         TextView busNumber = (TextView) convertView.findViewById(R.id.busNumber);
