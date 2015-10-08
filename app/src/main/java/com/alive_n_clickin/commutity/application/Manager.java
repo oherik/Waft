@@ -15,18 +15,18 @@ import com.alive_n_clickin.commutity.util.event.ObservableHelper;
  * An implementation of the IBusManager interface. This implementation listens to a NearbyBusScanner
  * for events regarding nearby buses to keep track of which bus the user is currently on.
  */
-public class BusManager implements IBusManager, IObserver {
+public class Manager implements IBusManager, IObserver {
     private IObservableHelper observableHelper = new ObservableHelper();
 
     private IBus currentBus = null;
 
     /**
-     * Initiates a new BusManager that listens to the supplied NearbyBusScanner.
+     * Initiates a new Manager that listens to the supplied NearbyBusScanner.
      *
-     * @param nearbyBusScanner the NearbyBusScanner that this BusManager should listen to for
+     * @param nearbyBusScanner the NearbyBusScanner that this Manager should listen to for
      *                         events regarding nearby buses.
      */
-    public BusManager(NearbyBusScanner nearbyBusScanner) {
+    public Manager(NearbyBusScanner nearbyBusScanner) {
         nearbyBusScanner.addObserver(this);
     }
 

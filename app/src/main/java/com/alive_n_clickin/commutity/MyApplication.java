@@ -2,7 +2,7 @@ package com.alive_n_clickin.commutity;
 
 import android.app.Application;
 
-import com.alive_n_clickin.commutity.application.BusManager;
+import com.alive_n_clickin.commutity.application.Manager;
 import com.alive_n_clickin.commutity.application.IBusManager;
 import com.alive_n_clickin.commutity.application.NearbyBusScanner;
 import com.alive_n_clickin.commutity.infrastructure.WifiBroadcastReceiver;
@@ -23,8 +23,8 @@ public class MyApplication extends Application {
     /**
      * {@inheritDoc}<br><br>
      *
-     * This method creates a new WifiBroadcastReceiver, a NearbyBusScanner and a BusManager
-     * and wires them all together. The WifiBroadcastReceiver and the BusManager can be accessed
+     * This method creates a new WifiBroadcastReceiver, a NearbyBusScanner and a Manager
+     * and wires them all together. The WifiBroadcastReceiver and the Manager can be accessed
      * via the provided get methods.
      */
     @Override
@@ -33,11 +33,11 @@ public class MyApplication extends Application {
 
         this.wifiBroadcastReceiver = new WifiBroadcastReceiver(this);
         NearbyBusScanner nearbyBusScanner = new NearbyBusScanner(wifiBroadcastReceiver);
-        this.busManager = new BusManager(nearbyBusScanner);
+        this.busManager = new Manager(nearbyBusScanner);
     }
 
     /**
-     * @return the BusManager instance that is used throughout the application.
+     * @return the Manager instance that is used throughout the application.
      */
     public IBusManager getBusManager() {
         return this.busManager;
