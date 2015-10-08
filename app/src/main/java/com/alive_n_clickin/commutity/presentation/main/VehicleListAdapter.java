@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.application.DomainFactory;
-import com.alive_n_clickin.commutity.domain.ArrivingVehicle;
+import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.infrastructure.api.response.Arrival;
 import com.alive_n_clickin.commutity.presentation.FlagImageView;
@@ -37,7 +37,7 @@ public class VehicleListAdapter extends ArrayAdapter<Arrival> {
         }
 
         Arrival arrival = getItem(position);
-        ArrivingVehicle vehicle = DomainFactory.getArrivingVehicle(arrival);
+        IArrivingVehicle vehicle = DomainFactory.getArrivingVehicle(arrival);
 
 
         TextView busNumber = (TextView) convertView.findViewById(R.id.busNumber);
@@ -61,7 +61,7 @@ public class VehicleListAdapter extends ArrayAdapter<Arrival> {
     /*
     Helper method: take the view that should be created, and add flags to the gui element holding the flags.
      */
-    private void setFlags(View convertView, int maxWidth, ArrivingVehicle vehicle) {
+    private void setFlags(View convertView, int maxWidth, IArrivingVehicle vehicle) {
 
         GridLayout flagListView = (GridLayout) convertView.findViewById(R.id.flagListView);
         // Clear the flaglist, otherwise Androids reuse mechanism may preserve some flags, and we

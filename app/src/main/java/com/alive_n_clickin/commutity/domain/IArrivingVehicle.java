@@ -1,5 +1,6 @@
 package com.alive_n_clickin.commutity.domain;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -8,13 +9,18 @@ import java.util.List;
  */
 public interface IArrivingVehicle extends IVehicle {
     /**
-     * @return time until arrival in milliseconds. This should be the real time until the vehicle
-     * arrives, and not the time until the scheduled time of arrival.
+     * @return a date containing the day and time of the real, not scheduled, arrival
      */
-    long getTimeToArrival();
+    Date getArrival();
 
     /**
      * @return a list of flags that this vehicle is flagged with.
      */
     List<IFlag> getFlags();
+
+    /**
+     * Get the current time to arrival
+     * @return the current time to arrival, in milliseconds
+     */
+    long getTimeToArrival();
 }
