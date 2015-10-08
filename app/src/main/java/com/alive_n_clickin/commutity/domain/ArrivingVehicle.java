@@ -10,7 +10,7 @@ import lombok.NonNull;
  * A class containing the same variables as a vehicle, in addition to a variable showing when it
  * will arrive to a specified stop. It also contains the flags for that vehicle.
  */
-public class ArrivingVehicle extends Vehicle {
+public class ArrivingVehicle extends Vehicle implements IArrivingVehicle {
     @Getter private long timeToArrival;
     @Getter private List<IFlag> flags;
 
