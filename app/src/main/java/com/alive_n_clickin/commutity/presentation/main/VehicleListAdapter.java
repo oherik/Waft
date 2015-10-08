@@ -41,7 +41,7 @@ public class VehicleListAdapter extends ArrayAdapter<Arrival> {
 
 
         TextView busNumber = (TextView) convertView.findViewById(R.id.busNumber);
-        busNumber.setText(vehicle.getShortName());
+        busNumber.setText(vehicle.getShortRouteName());
 
         TextView targetDestination = (TextView) convertView.findViewById(R.id.targetDestination);
         targetDestination.setText(vehicle.getDestination());
