@@ -16,9 +16,8 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @ToString
 public class ArrivingVehicle extends AbstractVehicle implements IArrivingVehicle{
-    @Getter private Date arrival;
-    @Getter private List<IFlag> flags;
-
+    @Getter final private Date arrival;
+    @Getter final private List<IFlag> flags;
     /**
      * Constructor.
      * @param destination Where the vehicle is headed, e.g. "Sahlgrenska"

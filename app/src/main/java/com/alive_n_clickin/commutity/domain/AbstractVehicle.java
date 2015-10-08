@@ -12,9 +12,9 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 public abstract class AbstractVehicle implements IVehicle {
-    @Getter private String destination;
-    @Getter private String shortRouteName;
-    @Getter private long journeyID;
+    @Getter private final String destination;
+    @Getter private final String shortRouteName;
+    @Getter private final long journeyID;
 
     /**
      * Constructor

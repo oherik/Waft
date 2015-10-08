@@ -11,12 +11,11 @@ import lombok.Getter;
  */
 @EqualsAndHashCode
 public class Bus implements IBus {
-    @Getter private String DGW;
-    @Getter private String destination;
-    @Getter private String journeyName; // Västtrafiks "turnummer"
-    @Getter private String routeNumber;
-
-    private List<IFlag> flags = new ArrayList<>();
+    @Getter private final String DGW;
+    @Getter private final String destination;
+    @Getter private final String journeyName; // Västtrafiks "turnummer"
+    @Getter private final String routeNumber;
+    @Getter private final List<IFlag> flags;
 
     /**
      * Instantiates a new bus with the supplied DGW, VIN, licenseNumber, wifiBSSID and flags.
@@ -44,11 +43,6 @@ public class Bus implements IBus {
         this.journeyName = journeyName;
         this.routeNumber = routeNumber;
         this.flags = new ArrayList<>(flags);
-    }
-
-    @Override
-    public List<IFlag> getFlags() {
-        return new ArrayList<>(this.flags);
     }
 
     @Override
