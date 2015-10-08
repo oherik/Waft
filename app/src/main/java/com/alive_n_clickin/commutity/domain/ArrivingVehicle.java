@@ -15,8 +15,8 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @ToString
 public class ArrivingVehicle extends AbstractVehicle implements IArrivingVehicle {
-    @Getter private long timeToArrival;
-    @Getter private List<IFlag> flags;
+    @Getter private final long timeToArrival;
+    @Getter private final List<IFlag> flags;
 
     /**
      * Constructor.
