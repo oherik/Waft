@@ -1,7 +1,7 @@
 package com.alive_n_clickin.commutity.application;
 
 import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
-import com.alive_n_clickin.commutity.domain.IBus;
+import com.alive_n_clickin.commutity.domain.IElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.domain.IStop;
 import com.alive_n_clickin.commutity.util.event.IObservable;
@@ -32,7 +32,7 @@ public interface IManager extends IObservable {
     /**
      * @return the bus the user is currently on.
      */
-    IBus getCurrentBus();
+    IElectriCityBus getCurrentBus();
 
     /**
      * Returns the vehicles headed to a specified stop

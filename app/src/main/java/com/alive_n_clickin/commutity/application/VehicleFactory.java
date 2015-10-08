@@ -1,10 +1,10 @@
 package com.alive_n_clickin.commutity.application;
 
 import com.alive_n_clickin.commutity.domain.ArrivingVehicle;
-import com.alive_n_clickin.commutity.domain.Bus;
+import com.alive_n_clickin.commutity.domain.ElectriCityBus;
 import com.alive_n_clickin.commutity.domain.Flag;
 import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
-import com.alive_n_clickin.commutity.domain.IBus;
+import com.alive_n_clickin.commutity.domain.IElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.infrastructure.api.response.Arrival;
 
@@ -28,12 +28,12 @@ public class VehicleFactory {
      * @param DGW the DGW id for the bus you want to have.
      * @return a new bus object.
      */
-    public static IBus getBus(String DGW) {
+    public static IElectriCityBus getBus(String DGW) {
         // TODO: Build bus from real data
         // 1. get information from ElectriCity's API and our backend
         // 2. create and return bus object with retreived data
 
-        return new Bus(DGW, "destination", "journeyName", "routeNumber", new ArrayList<IFlag>());
+        return new ElectriCityBus("destination", "journeyName", 1111111111, "DGW");
     }
 
     /**
