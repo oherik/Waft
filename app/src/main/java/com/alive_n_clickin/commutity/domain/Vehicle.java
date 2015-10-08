@@ -7,7 +7,7 @@ import lombok.NonNull;
  * An abstract class all other vehicles should extend. Holds a destination, a line number and
  * a journey number
  */
-public abstract class Vehicle {
+public abstract class Vehicle implements IVehicle {
     @Getter private String destination;
     @Getter private String shortRouteName;
     @Getter private long journeyID;
