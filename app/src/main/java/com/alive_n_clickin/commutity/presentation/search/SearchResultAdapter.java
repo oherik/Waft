@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.alive_n_clickin.commutity.R;
-import com.alive_n_clickin.commutity.infrastructure.api.Stop;
+import com.alive_n_clickin.commutity.infrastructure.api.response.Stop;
 
 import java.util.List;
 

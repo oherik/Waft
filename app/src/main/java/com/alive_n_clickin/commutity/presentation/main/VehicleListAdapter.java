@@ -13,7 +13,7 @@ import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.application.DomainFactory;
 import com.alive_n_clickin.commutity.domain.ArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.IFlag;
-import com.alive_n_clickin.commutity.infrastructure.api.ApiArrival;
+import com.alive_n_clickin.commutity.infrastructure.api.response.ApiArrival;
 import com.alive_n_clickin.commutity.presentation.FlagImageView;
 
 import java.util.List;

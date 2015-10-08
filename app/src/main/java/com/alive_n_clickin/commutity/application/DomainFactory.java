@@ -4,7 +4,7 @@ package com.alive_n_clickin.commutity.application;
 import com.alive_n_clickin.commutity.domain.ArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.Flag;
 import com.alive_n_clickin.commutity.domain.IFlag;
-import com.alive_n_clickin.commutity.infrastructure.api.ApiArrival;
+import com.alive_n_clickin.commutity.infrastructure.api.response.ApiArrival;
 
 import java.util.ArrayList;
 import java.util.Date;
