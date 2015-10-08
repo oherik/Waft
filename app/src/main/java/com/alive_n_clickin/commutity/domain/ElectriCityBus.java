@@ -6,7 +6,7 @@ import lombok.NonNull;
 /**
  * A class modelling the ElectriCity bus. It contains an unique DGW ID.
  */
-public class ElectriCityBus extends AbstractVehicle {
+public class ElectriCityBus extends AbstractVehicle implements IElectriCityBus {
     @Getter private String DGW;
 
     /**
