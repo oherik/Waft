@@ -9,7 +9,7 @@ import lombok.NonNull;
  */
 public abstract class Vehicle {
     @Getter private String destination;
-    @Getter private String shortName;
+    @Getter private String shortRouteName;
     @Getter private long journeyID;
 
     /**
@@ -24,7 +24,7 @@ public abstract class Vehicle {
      */
     public Vehicle(@NonNull String destination, @NonNull String shortRouteName, long journeyID){
         this.destination = destination;
-        this.shortName = shortRouteName;
+        this.shortRouteName = shortRouteName;
         this.journeyID = journeyID;
     }
 }
