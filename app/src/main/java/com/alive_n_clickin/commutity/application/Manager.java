@@ -24,7 +24,7 @@ import lombok.NonNull;
  */
 public class Manager implements IManager, IObserver {
     private IObservableHelper observableHelper = new ObservableHelper();
-
+    private IVasttrafikAdapter vasttrafikAdapter;
     private IBus currentBus = null;
 
     /**
@@ -35,6 +35,7 @@ public class Manager implements IManager, IObserver {
      */
     public Manager(NearbyBusScanner nearbyBusScanner) {
         nearbyBusScanner.addObserver(this);
+        vasttrafikAdapter = ApiAdapterFactory.createVasttrafikAdapter();
     }
 
     /**
@@ -91,13 +92,11 @@ public class Manager implements IManager, IObserver {
 
     @Override
     public List<ApiArrival> getVehicles(@NonNull Stop stop){
-        IVasttrafikAdapter vasttrafikAdapter = ApiAdapterFactory.createVasttrafikAdapter();
         return vasttrafikAdapter.getVehiclesHeadedToStop(stop);
     }
 
     @Override
     public List<Stop> searchForStops(@NonNull String searchQuery) {
-        IVasttrafikAdapter vasttrafikAdapter = ApiAdapterFactory.createVasttrafikAdapter();
         return vasttrafikAdapter.getSearchStops(searchQuery);
     }
 }
