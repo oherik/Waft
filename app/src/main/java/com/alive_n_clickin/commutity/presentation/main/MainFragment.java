@@ -14,9 +14,7 @@ import android.widget.TextView;
 import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.application.IManager;
-import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
 import com.alive_n_clickin.commutity.infrastructure.api.ApiArrival;
-import com.alive_n_clickin.commutity.infrastructure.api.IVasttrafikAdapter;
 import com.alive_n_clickin.commutity.infrastructure.api.Stop;
 import com.alive_n_clickin.commutity.util.LogUtils;
 
@@ -90,9 +88,7 @@ public class MainFragment extends Fragment {
 
         @Override
         protected List<ApiArrival> doInBackground(Stop... params) {
-            manager.
-            IVasttrafikAdapter vasttrafikAdapter = ApiAdapterFactory.createVasttrafikAdapter();
-            return vasttrafikAdapter.getVehiclesHeadedToStop(params[0]);
+            return manager.getVehicles(params[0]);
         }
 
         @Override
