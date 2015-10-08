@@ -94,4 +94,10 @@ public class Manager implements IManager, IObserver {
         IVasttrafikAdapter vasttrafikAdapter = ApiAdapterFactory.createVasttrafikAdapter();
         return vasttrafikAdapter.getVehiclesHeadedToStop(stop);
     }
+
+    @Override
+    public List<Stop> searchForStops(@NonNull String searchQuery) {
+        IVasttrafikAdapter vasttrafikAdapter = ApiAdapterFactory.createVasttrafikAdapter();
+        return vasttrafikAdapter.getSearchStops(searchQuery);
+    }
 }

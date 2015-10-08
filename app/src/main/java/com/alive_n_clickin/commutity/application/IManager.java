@@ -43,4 +43,12 @@ public interface IManager extends IObservable {
      * @throws NullPointerException if the parameter is null
      */
     List<ApiArrival> getVehicles(@NonNull Stop stop);
+
+    /**
+     * Searches for stops based on a query string
+     * @param searchQuery The string the search will be conducted on
+     * @return  A list of stops matching the search query
+     * @throws NullPointerException if the parameter is null
+     */
+    List<Stop> searchForStops(@NonNull String searchQuery);
 }

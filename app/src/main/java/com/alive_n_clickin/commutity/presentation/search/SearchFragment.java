@@ -14,9 +14,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 
+import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
-import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
-import com.alive_n_clickin.commutity.infrastructure.api.IVasttrafikAdapter;
+import com.alive_n_clickin.commutity.application.IManager;
 import com.alive_n_clickin.commutity.infrastructure.api.Stop;
 import com.alive_n_clickin.commutity.presentation.main.MainActivity;
 import com.alive_n_clickin.commutity.presentation.main.MainFragment;
@@ -32,7 +32,7 @@ import java.util.List;
 public class SearchFragment extends Fragment {
     SearchView search;
     ListView searchResults;
-    IVasttrafikAdapter vAdapter;
+    IManager manager;
     SearchResultAdapter resultAdapter;
 
     private final String LOG_TAG = getClass().getSimpleName();
@@ -44,7 +44,7 @@ public class SearchFragment extends Fragment {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        vAdapter = ApiAdapterFactory.createVasttrafikAdapter();
+        manager = ((MyApplication) getActivity().getApplicationContext()).getManager();
     }
 
     @Override
@@ -143,7 +143,7 @@ public class SearchFragment extends Fragment {
         @Override
         protected List<Stop> doInBackground(String... params) {
             try {
-                return vAdapter.getSearchStops(params[0]);
+                return manager.searchForStops(params[0]);
             }catch(NullPointerException e){
                 Log.e(LOG_TAG, e.getStackTrace()+"");
             }
