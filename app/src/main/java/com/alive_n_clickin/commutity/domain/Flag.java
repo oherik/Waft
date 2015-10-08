@@ -4,6 +4,7 @@ import java.util.Date;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NonNull;
 
 /**
  * A concrete implementation of the IFlag interface. Objects of this class are immutable.
@@ -88,15 +89,13 @@ public class Flag implements IFlag {
      *                characters long.
      * @param createdTime The time that the flag was created. If null, createdTime will be set to
      *                    the current time.
-     * @throws IllegalArgumentException if type is null, or if the supplied flag type requires a
+     * @throws IllegalArgumentException if the supplied flag type requires a
      * comment and comment is not at least 5 characters long.
+     * @throws NullPointerException if any parameter is null
      */
-    public Flag(IFlagType type, String comment, Date createdTime) {
-        if (type == null) {
-            throw new IllegalArgumentException();
-        }
+    public Flag(@NonNull IFlagType type, @NonNull String comment, @NonNull Date createdTime) {
 
-        if (type.isCommentRequired() && (comment == null || comment.length() < COMMENT_REQUIRED_MINIMUM_LENGTH)) {
+        if (type.isCommentRequired() && (comment.length() < COMMENT_REQUIRED_MINIMUM_LENGTH)) {
             throw new IllegalArgumentException(
                     String.format("A comment of at least %s characters is required for flag type %s",
                             COMMENT_REQUIRED_MINIMUM_LENGTH, type));
@@ -115,9 +114,9 @@ public class Flag implements IFlag {
      * @param comment A comment for the flag. If null, comment will be set to an empty string. If
      *                the supplied flag type requires a comment, the comment must be at least 5
      *                characters longs
-     * @throws IllegalArgumentException if type is null.
+     * @throws NullPointerException if any parameter is nullg
      */
-    public Flag(IFlagType type, String comment) {
+    public Flag(@NonNull IFlagType type, @NonNull String comment) {
         this(type, comment, new Date());
     }
 
@@ -126,9 +125,10 @@ public class Flag implements IFlag {
      * creation of the flag to the current time.
      *
      * @param type The flag type for the flag. See FlagType for more information.
-     * @throws IllegalArgumentException if type is null, or the supplied flag type requires a comment.
+     * @throws IllegalArgumentException if  the supplied flag type requires a comment.
+     * @throws NullPointerException if the parameter is null
      */
-    public Flag(IFlagType type) {
+    public Flag(@NonNull IFlagType type) {
         this(type, "", new Date());
     }
 
