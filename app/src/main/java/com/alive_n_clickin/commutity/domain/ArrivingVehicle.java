@@ -3,13 +3,17 @@ package com.alive_n_clickin.commutity.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.ToString;
 
 /**
  * A class containing the same variables as a vehicle, in addition to a variable showing when it
  * will arrive to a specified stop. It also contains the flags for that vehicle.
  */
+@EqualsAndHashCode(callSuper = true)
+@ToString
 public class ArrivingVehicle extends Vehicle implements IArrivingVehicle {
     @Getter private long timeToArrival;
     @Getter private List<IFlag> flags;
