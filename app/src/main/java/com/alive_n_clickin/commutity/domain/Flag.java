@@ -67,11 +67,6 @@ public class Flag implements IFlag {
         public String toString() {
             return String.format("FlagType [id=%s]", this.id);
         }
-
-        @Override
-        public int getId() {
-            return this.id;
-        }
     }
 
     private static final int COMMENT_REQUIRED_MINIMUM_LENGTH = 5;
