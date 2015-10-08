@@ -3,7 +3,7 @@ package com.alive_n_clickin.commutity;
 import android.app.Application;
 
 import com.alive_n_clickin.commutity.application.Manager;
-import com.alive_n_clickin.commutity.application.IBusManager;
+import com.alive_n_clickin.commutity.application.IManager;
 import com.alive_n_clickin.commutity.application.NearbyBusScanner;
 import com.alive_n_clickin.commutity.infrastructure.WifiBroadcastReceiver;
 
@@ -18,7 +18,7 @@ import com.alive_n_clickin.commutity.infrastructure.WifiBroadcastReceiver;
  */
 public class MyApplication extends Application {
     private WifiBroadcastReceiver wifiBroadcastReceiver;
-    private IBusManager busManager;
+    private IManager busManager;
 
     /**
      * {@inheritDoc}<br><br>
@@ -39,7 +39,7 @@ public class MyApplication extends Application {
     /**
      * @return the Manager instance that is used throughout the application.
      */
-    public IBusManager getBusManager() {
+    public IManager getBusManager() {
         return this.busManager;
     }
 

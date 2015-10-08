@@ -5,17 +5,24 @@ import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.event.CurrentBusChangeEvent;
 import com.alive_n_clickin.commutity.event.NewBusNearbyEvent;
 import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
+import com.alive_n_clickin.commutity.infrastructure.api.ApiArrival;
+import com.alive_n_clickin.commutity.infrastructure.api.IVasttrafikAdapter;
 import com.alive_n_clickin.commutity.infrastructure.api.IWaftAdapter;
+import com.alive_n_clickin.commutity.infrastructure.api.Stop;
 import com.alive_n_clickin.commutity.util.event.IEvent;
 import com.alive_n_clickin.commutity.util.event.IObservableHelper;
 import com.alive_n_clickin.commutity.util.event.IObserver;
 import com.alive_n_clickin.commutity.util.event.ObservableHelper;
 
+import java.util.List;
+
+import lombok.NonNull;
+
 /**
- * An implementation of the IBusManager interface. This implementation listens to a NearbyBusScanner
+ * An implementation of the IManager interface. This implementation listens to a NearbyBusScanner
  * for events regarding nearby buses to keep track of which bus the user is currently on.
  */
-public class Manager implements IBusManager, IObserver {
+public class Manager implements IManager, IObserver {
     private IObservableHelper observableHelper = new ObservableHelper();
 
     private IBus currentBus = null;
@@ -80,5 +87,16 @@ public class Manager implements IBusManager, IObserver {
     @Override
     public void removeObserver(IObserver observer) {
         observableHelper.removeObserver(observer);
+    }
+
+    /**
+     * Returns the vehicles headed to a specified stop
+     * @param stop The stop to base a search query on
+     * @return  A list of the 20 first vehicles arriving to the stop
+     * @throws NullPointerException if the parameter is null
+     */
+    public List<ApiArrival> getVehicles(@NonNull Stop stop){
+        IVasttrafikAdapter vasttrafikAdapter = ApiAdapterFactory.createVasttrafikAdapter();
+        return vasttrafikAdapter.getVehiclesHeadedToStop(stop);
     }
 }

@@ -11,7 +11,7 @@ import com.alive_n_clickin.commutity.util.event.IObservable;
  * Classes that implement this interface should be observable, and emit CurrentBusChangeEvents when
  * the bus the user is currently on changes.
  */
-public interface IBusManager extends IObservable {
+public interface IManager extends IObservable {
     /**
      * Flags the bus the user is currently on. Will not do anything if the user isn't currently on
      * a bus.
