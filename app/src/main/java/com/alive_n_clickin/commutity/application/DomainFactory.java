@@ -4,7 +4,7 @@ package com.alive_n_clickin.commutity.application;
 import com.alive_n_clickin.commutity.domain.ArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.Flag;
 import com.alive_n_clickin.commutity.domain.IFlag;
-import com.alive_n_clickin.commutity.infrastructure.api.response.ApiArrival;
+import com.alive_n_clickin.commutity.infrastructure.api.response.Arrival;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,7 +23,7 @@ public class DomainFactory{
      * @return  A new arriving vehicle based on the response
      * @throws NullPointerException if the parameter is null
      */
-    public static ArrivingVehicle getArrivingVehicle(@NonNull ApiArrival arrival) {
+    public static ArrivingVehicle getArrivingVehicle(@NonNull Arrival arrival) {
         //TODO add method to retrieve flags
         List<IFlag> flags = new ArrayList<>();
         flags.add(new Flag(Flag.Type.NO_PRAMS, "", new Date()));

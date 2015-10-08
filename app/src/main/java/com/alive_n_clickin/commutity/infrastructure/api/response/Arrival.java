@@ -19,7 +19,7 @@ import lombok.ToString;
  * object, as well as calculating the time to arrival.
  */
 @ToString
-public class ApiArrival implements Comparable<ApiArrival>{
+public class Arrival implements Comparable<Arrival>{
     /**
      * Scheduled arrival time
      */
@@ -42,7 +42,7 @@ public class ApiArrival implements Comparable<ApiArrival>{
     /**
      * Constructor, initializes the date formatter
      */
-    public ApiArrival(){
+    public Arrival(){
         dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         dateFormatter.setTimeZone(TimeZone.getTimeZone("Europe/Stockholm"));
     }
@@ -94,7 +94,7 @@ public class ApiArrival implements Comparable<ApiArrival>{
     }
 
     @Override
-    public int compareTo(ApiArrival other) {
+    public int compareTo(Arrival other) {
         return (getRealTimeToArrival() - other.getRealTimeToArrival())>0 ? 1 : -1;
     }
 }

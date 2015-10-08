@@ -5,7 +5,7 @@ import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.event.CurrentBusChangeEvent;
 import com.alive_n_clickin.commutity.event.NewBusNearbyEvent;
 import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
-import com.alive_n_clickin.commutity.infrastructure.api.response.ApiArrival;
+import com.alive_n_clickin.commutity.infrastructure.api.response.Arrival;
 import com.alive_n_clickin.commutity.infrastructure.api.IVasttrafikAdapter;
 import com.alive_n_clickin.commutity.infrastructure.api.IWaftAdapter;
 import com.alive_n_clickin.commutity.infrastructure.api.response.Stop;
@@ -91,7 +91,7 @@ public class Manager implements IManager, IObserver {
     }
 
     @Override
-    public List<ApiArrival> getVehicles(@NonNull Stop stop){
+    public List<Arrival> getVehicles(@NonNull Stop stop){
         return vasttrafikAdapter.getVehiclesHeadedToStop(stop);
     }
 
