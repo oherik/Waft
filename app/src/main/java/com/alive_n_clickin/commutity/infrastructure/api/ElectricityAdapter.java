@@ -25,9 +25,7 @@ class ElectricityAdapter implements IElectricityAdapter {
     @Override
     public Journey getJourneyInfo(String dgw) {
         String apiResponse = getJourneyInfoFromApi(dgw);
-        apiResponse = apiResponse;
         //Retrieve response as Java object
-        JsonJavaConverter<JourneyInfo> converter = new JsonJavaConverter<>(JourneyInfo.class);
         List<JourneyInfo> infoList = JsonJavaConverter.toJavaList(apiResponse, JourneyInfo[].class);
 
         //Sort the list according to timestamps, we ognly want the most current ones
