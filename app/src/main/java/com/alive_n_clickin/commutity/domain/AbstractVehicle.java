@@ -11,7 +11,7 @@ import lombok.ToString;
  */
 @EqualsAndHashCode
 @ToString
-public abstract class Vehicle implements IVehicle {
+public abstract class AbstractVehicle implements IVehicle {
     @Getter private String destination;
     @Getter private String shortRouteName;
     @Getter private long journeyID;
@@ -26,7 +26,7 @@ public abstract class Vehicle implements IVehicle {
      *                  continues in the opposite direction.
      * @throws NullPointerException if any parameter is null
      */
-    public Vehicle(@NonNull String destination, @NonNull String shortRouteName, long journeyID){
+    public AbstractVehicle(@NonNull String destination, @NonNull String shortRouteName, long journeyID){
         this.destination = destination;
         this.shortRouteName = shortRouteName;
         this.journeyID = journeyID;

@@ -14,7 +14,7 @@ import lombok.ToString;
  */
 @EqualsAndHashCode(callSuper = true)
 @ToString
-public class ArrivingVehicle extends Vehicle implements IArrivingVehicle {
+public class ArrivingVehicle extends AbstractVehicle implements IArrivingVehicle {
     @Getter private long timeToArrival;
     @Getter private List<IFlag> flags;
 
