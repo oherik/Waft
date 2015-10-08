@@ -7,8 +7,10 @@ import com.alive_n_clickin.commutity.infrastructure.api.response.Stop;
 import lombok.NonNull;
 
 /**
- * This is a factory which responsibility is to create new domain level objects based on the ones
- * supplied by the API requests.
+ * This is a factory for creating stops. The idea is that you ask this factory
+ * to build a stop from existing data (for example an ID or a response object received from
+ * an external API), and that the factory simply responds with a stop object. The factory
+ * is responsible for fetching all the data required for that stop from whatever sources it needs.
  */
 public class StopFactory {
 
