@@ -1,5 +1,7 @@
 package com.alive_n_clickin.commutity.domain;
 
+import com.alive_n_clickin.commutity.domain.ElectriCityBus;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ public class BusTest {
         // assert that a bus with null DGW can't be created
         exception = false;
         try {
-            new Bus(null, "", "", "", new ArrayList<IFlag>());
+            new ElectriCityBus("", "", 0, null);
         } catch (IllegalArgumentException e) {
             exception = true;
         }
@@ -28,7 +30,7 @@ public class BusTest {
         // assert that a bus with null VIN can't be created
         exception = false;
         try {
-            new Bus("", null, "", "", new ArrayList<IFlag>());
+            new ElectriCityBus((null, "", 0,"");
         } catch (IllegalArgumentException e) {
             exception = true;
         }
@@ -37,7 +39,7 @@ public class BusTest {
         // assert that a bus with null licenseNumber can't be created
         exception = false;
         try {
-            new Bus("", "", null, "", new ArrayList<IFlag>());
+            new ElectriCityBus("", null, 0, "");
         } catch (IllegalArgumentException e) {
             exception = true;
         }
@@ -46,20 +48,20 @@ public class BusTest {
         // assert that a bus with null wifiBSSID can't be created
         exception = false;
         try {
-            new Bus("", "", "", null, new ArrayList<IFlag>());
+            new ElectriCityBus("", "", null, "");
         } catch (IllegalArgumentException e) {
             exception = true;
         }
         assertTrue(exception);
 
         // assert that a bus with null flags can't be created
-        exception = false;
-        try {
-            new Bus("", "", "", "", null);
-        } catch (IllegalArgumentException e) {
-            exception = true;
-        }
-        assertTrue(exception);
+//      exception = false;
+//        try {
+//          new Bus("", "", "", "", null);
+//      } catch (IllegalArgumentException e) {
+//          exception = true;
+//      }
+//      assertTrue(exception);
     }
 
 //    @Test
@@ -106,75 +108,75 @@ public class BusTest {
 //        assertEquals(bus.getWifiBSSID(), "bssid");
 //    }
 
-    @Test
-    public void testGetFlags() throws Exception {
-        Bus bus;
-
-        IFlag mockFlag = mock(IFlag.class);
-        ArrayList<IFlag> initialFlags = new ArrayList<>();
-        initialFlags.add(mockFlag);
-
-        // assert that the result of getFlags() is an empty list when a bus is created without any flags
-        bus = new Bus("dgw", "vin", "abc123", "bssid", new ArrayList<IFlag>());
-        assertEquals(bus.getFlags(), new ArrayList<IFlag>());
-
-        // assert that the list returned by getFlags() is equal to the one sent to the constructor
-        initialFlags = new ArrayList<>();
-        initialFlags.add(mockFlag);
-        bus = new Bus("dgw", "vin", "abc123", "bssid", initialFlags);
-        assertEquals(bus.getFlags(), initialFlags);
-
-        // assert that adding flags to the list sent to the constructor after instantiation doesn't
-        // affect the result of getFlags()
-        initialFlags.add(mockFlag);
-        assertEquals(bus.getFlags().size(), 1);
-
-        // assert that adding flags to the list returned by getFlags() doesn't affect the result
-        // returned by subsequent calls to getFlags()
-        List<IFlag> returnedFlags = bus.getFlags();
-        returnedFlags.add(mockFlag);
-        assertEquals(bus.getFlags().size(), 1);
-    }
+//    @Test
+//    public void testGetFlags() throws Exception {
+//        Bus bus;
+//
+//        IFlag mockFlag = mock(IFlag.class);
+//        ArrayList<IFlag> initialFlags = new ArrayList<>();
+//        initialFlags.add(mockFlag);
+//
+//        // assert that the result of getFlags() is an empty list when a bus is created without any flags
+//        bus = new Bus("dgw", "vin", "abc123", "bssid", new ArrayList<IFlag>());
+//        assertEquals(bus.getFlags(), new ArrayList<IFlag>());
+//
+//        // assert that the list returned by getFlags() is equal to the one sent to the constructor
+//        initialFlags = new ArrayList<>();
+//        initialFlags.add(mockFlag);
+//        bus = new Bus("dgw", "vin", "abc123", "bssid", initialFlags);
+//        assertEquals(bus.getFlags(), initialFlags);
+//
+//        // assert that adding flags to the list sent to the constructor after instantiation doesn't
+//        // affect the result of getFlags()
+//        initialFlags.add(mockFlag);
+//        assertEquals(bus.getFlags().size(), 1);
+//
+//        // assert that adding flags to the list returned by getFlags() doesn't affect the result
+//        // returned by subsequent calls to getFlags()
+//        List<IFlag> returnedFlags = bus.getFlags();
+//        returnedFlags.add(mockFlag);
+//        assertEquals(bus.getFlags().size(), 1);
+//    }
 
     @Test
     public void testEquals() throws Exception {
-        Bus bus1;
-        Bus bus2;
-        List<IFlag> flags1 = new ArrayList<>();
-        List<IFlag> flags2 = new ArrayList<>();
-        flags2.add(mock(IFlag.class));
+        IElectriCityBus bus1;
+        IElectriCityBus bus2;
+       // List<IFlag> flags1 = new ArrayList<>();
+       // List<IFlag> flags2 = new ArrayList<>();
+       // flags2.add(mock(IFlag.class));
 
         // assert that two buses with the same attributes are equal
-        bus1 = new Bus("dgw", "vin", "abc123", "bssid", flags1);
-        bus2 = new Bus("dgw", "vin", "abc123", "bssid", flags1);
+        bus1 = new ElectriCityBus("vin", "abc123", 123, "dgw");
+        bus2 = new ElectriCityBus ("vin", "abc123", 123, "dgw");
         assertTrue(bus1.equals(bus2));
         assertTrue(bus2.equals(bus1));
 
         // assert that two buses with different DGW values aren't equal
-        bus1 = new Bus("a", "", "", "", flags1);
-        bus2 = new Bus("", "", "", "", flags1);
+        bus1 = new ElectriCityBus("vin", "abc123", 123, "a");
+        bus2 = new ElectriCityBus ("vin", "abc123", 123, "b");
         assertFalse(bus1.equals(bus2));
         assertFalse(bus2.equals(bus1));
 
         // assert that two buses with different VIN values aren't equal
-        bus1 = new Bus("", "a", "", "", flags1);
-        bus2 = new Bus("", "", "", "", flags1);
+        bus1 = new ElectriCityBus("a", "abc123", 123, "dgw");
+        bus2 = new ElectriCityBus ("b", "abc123", 123, "dgw");
         assertFalse(bus1.equals(bus2));
         assertFalse(bus2.equals(bus1));
 
         // assert that two buses with different license numbers aren't equal
-        bus1 = new Bus("", "", "a", "", flags1);
-        bus2 = new Bus("", "", "", "", flags1);
+        bbus1 = new ElectriCityBus("vin", "a", 123, "dgw");
+        bus2 = new ElectriCityBus ("vin", "b", 123, "dgw");
         assertFalse(bus1.equals(bus2));
         assertFalse(bus2.equals(bus1));
 
         // assert that two buses with different BSSID values aren't equal
-        bus1 = new Bus("", "", "", "a", flags1);
-        bus2 = new Bus("", "", "", "", flags1);
+        bus1 = new ElectriCityBus("vin", "abc123", 123, "dgw");
+        bus2 = new ElectriCityBus ("vin", "abc123", 456, "dgw");
         assertFalse(bus1.equals(bus2));
         assertFalse(bus2.equals(bus1));
 
-        bus1 = new Bus("", "", "", "", flags1);
+        bus1 = new Bus("", "", 0, "");
         // assert that a bus equals itself
         assertTrue(bus1.equals(bus1));
         // assert that a bus is not equal to null

@@ -1,7 +1,7 @@
 package com.alive_n_clickin.commutity.application;
 
 import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
-import com.alive_n_clickin.commutity.domain.IBus;
+import com.alive_n_clickin.commutity.domain.IElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.domain.IStop;
 import com.alive_n_clickin.commutity.event.CurrentBusChangeEvent;
@@ -28,7 +28,7 @@ import lombok.NonNull;
 public class Manager implements IManager, IObserver {
     private IObservableHelper observableHelper = new ObservableHelper();
     private IVasttrafikAdapter vasttrafikAdapter;
-    private IBus currentBus = null;
+    private IElectriCityBus currentBus = null;
 
     /**
      * Initiates a new Manager that listens to the supplied NearbyBusScanner.
@@ -61,7 +61,7 @@ public class Manager implements IManager, IObserver {
     }
 
     @Override
-    public IBus getCurrentBus() {
+    public IElectriCityBus getCurrentBus() {
         return this.currentBus;
     }
 

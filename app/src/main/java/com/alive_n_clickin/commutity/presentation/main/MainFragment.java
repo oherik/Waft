@@ -16,7 +16,6 @@ import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.application.IManager;
 import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.IStop;
-import com.alive_n_clickin.commutity.infrastructure.api.response.Stop;
 import com.alive_n_clickin.commutity.util.LogUtils;
 
 import java.util.ArrayList;
