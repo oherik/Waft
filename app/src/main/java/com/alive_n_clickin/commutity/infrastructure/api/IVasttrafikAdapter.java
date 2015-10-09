@@ -1,5 +1,9 @@
 package com.alive_n_clickin.commutity.infrastructure.api;
 
+import com.alive_n_clickin.commutity.domain.IStop;
+import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrival;
+import com.alive_n_clickin.commutity.infrastructure.api.response.JsonStop;
+
 import java.util.List;
 
 /**
@@ -14,7 +18,7 @@ public interface IVasttrafikAdapter {
       * @param latitude
       * @return a list of stops if the search was successful or null if failed.
       */
-     List<Stop> getNearbyStations(double longitude,double latitude);
+     List<JsonStop> getNearbyStations(double longitude,double latitude);
 
      /**
       * This functions gives you a list of stops related to the search string you provide.
@@ -22,7 +26,7 @@ public interface IVasttrafikAdapter {
       * @returns a list of stops if the search was successful.
       * Otherwise returns null since there was no result.
       */
-     List<Stop> getSearchStops(String searchString);
+     List<JsonStop> getSearchStops(String searchString);
 
     /**
      * This function gives you a list of the 20 next vehicles headed to a certain stop at the current time
@@ -30,5 +34,5 @@ public interface IVasttrafikAdapter {
      * @return a list of vehicles headed to the specified stop, it the search was successful.
      * Returns null if the search was unsuccessful.
      */
-     List<ApiArrival> getVehiclesHeadedToStop(Stop stop);
+     List<JsonArrival> getVehiclesHeadedToStop(IStop stop);
 }
