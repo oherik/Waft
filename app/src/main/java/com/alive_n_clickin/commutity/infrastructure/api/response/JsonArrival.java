@@ -19,7 +19,7 @@ import lombok.ToString;
  * object, as well as calculating the time to arrival.
  */
 @ToString
-public class Arrival{
+public class JsonArrival {
     /**
      * Scheduled arrival time
      */
@@ -42,7 +42,7 @@ public class Arrival{
     /**
      * Constructor, initializes the date formatter
      */
-    public Arrival(){
+    public JsonArrival(){
         dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         dateFormatter.setTimeZone(TimeZone.getTimeZone("Europe/Stockholm"));
     }
