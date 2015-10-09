@@ -78,14 +78,13 @@ class ElectricityAdapter implements IElectricityAdapter {
         ElectricityApiConnection apiConn = new ElectricityApiConnection();
         //End time: right now
 
-        //TODO: Comment in the non-hardcoded times. the hardcoded is for development/debugging
 //        long t2 = System.currentTimeMillis();
         long t2 = 1444321823000L;
 
         //Start time, 30 seconds ago, so that we have some margin
 
-//        long t1 = t2 - 30 * 1000;
-        long t1 = 1444318161000L;
+        long t1 = t2 - 30 * 1000;
+//        long t1 = 1444318161000L;
         String query = "dgw=" + dgw + "&sensorSpec=Ericsson$Journey_Info" +
                 "&t1=" + t1 + "&t2=" + t2;
         String response = apiConn.sendGetToElectricity(query);
