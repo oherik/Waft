@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
@@ -16,8 +15,9 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @ToString
 public class ArrivingVehicle extends AbstractVehicle implements IArrivingVehicle{
-    @Getter final private Date arrivalTime;
-    @Getter final private List<IFlag> flags;
+    private final Date arrivalTime;
+    private final List<IFlag> flags;
+
     /**
      * Constructor.
      * @param destination Where the vehicle is headed, e.g. "Sahlgrenska".
@@ -34,8 +34,18 @@ public class ArrivingVehicle extends AbstractVehicle implements IArrivingVehicle
     public ArrivingVehicle(@NonNull String destination, @NonNull String shortRouteName,
                            long journeyID, @NonNull Date arrivalTime, @NonNull List<IFlag> flags){
         super(destination, shortRouteName, journeyID);
-        this.arrivalTime = arrivalTime;
+        this.arrivalTime = new Date(arrivalTime.getTime());
         this.flags = new ArrayList<>(flags);
+    }
+
+    @Override
+    public Date getArrivalTime() {
+        return new Date(this.arrivalTime.getTime());
+    }
+
+    @Override
+    public List<IFlag> getFlags() {
+        return new ArrayList<>(this.flags);
     }
 
     @Override
