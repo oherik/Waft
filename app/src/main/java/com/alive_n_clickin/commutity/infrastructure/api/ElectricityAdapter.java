@@ -25,7 +25,7 @@ class ElectricityAdapter implements IElectricityAdapter {
     /**
      * The current journey, with id and destination, for the bus with the given DGW
      * @param dgw id of the bus we are looking for
-     * @return Journey object with journey id and destination
+     * @return Journey object with journey id and destination if there was a valid response, null otherwise
      */
     @Override
     public Journey getJourneyInfo(String dgw) {
@@ -38,7 +38,7 @@ class ElectricityAdapter implements IElectricityAdapter {
             return null;
         }
 
-        //Sort the list according to timestamps, we ognly want the most current ones
+        //Sort the list according to timestamps, we only want the most current ones
         Collections.sort(infoList, new Comparator<JourneyInfo>() {
 
             @Override
