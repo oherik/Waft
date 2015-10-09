@@ -6,6 +6,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author hjorthjort
  *         Created 22/09/15
@@ -27,6 +30,19 @@ class JsonJavaConverter<T> {
      */
     public JsonJavaConverter(Class<T> classType) {
         this.classType = classType;
+    }
+
+    /**
+     * Turn a JSON list on the form [{...}, {...}, ...] into a Java object where the type of the objects
+     * in the JSON array match the Java class.
+     * @param json the JSON string
+     * @param classArray class of an array with the same type as the list of java objects we want
+     * @param <T> the type of the java object to be returned
+     * @return a list of type T with objects representing the objects in the JSON array
+     */
+    public static <T> List<T> toJavaList(String json, Class<T[]> classArray) {
+        T[] arr = new Gson().fromJson(json, classArray);
+        return arr == null ? null : Arrays.asList(arr); //if the result couldn't be parsed, we can't create list from it.
     }
 
     /**
