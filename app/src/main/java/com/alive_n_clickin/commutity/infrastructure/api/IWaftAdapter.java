@@ -2,6 +2,7 @@ package com.alive_n_clickin.commutity.infrastructure.api;
 
 import com.alive_n_clickin.commutity.domain.IBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
+import com.alive_n_clickin.commutity.domain.JsonFlag;
 
 import java.util.List;
 
@@ -9,10 +10,10 @@ import java.util.List;
 public interface IWaftAdapter {
 
     /**
-     * @param bus The bus object to get current flags on
+     * @param journeyId the id to get flags for.
      * @return a list of IFlags. If there are no flags the list is empty.
      */
-    List<IFlag> getFlagsForBus(IBus bus);
+    List<JsonFlag> getFlagsForVehicle(int journeyId);
 
     /**
      * Flags the specified bus with the given flag.
