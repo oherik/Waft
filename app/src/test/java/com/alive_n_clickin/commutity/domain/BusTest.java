@@ -1,16 +1,9 @@
 package com.alive_n_clickin.commutity.domain;
 
-import com.alive_n_clickin.commutity.domain.ElectriCityBus;
-
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
 
 public class BusTest {
 
@@ -22,7 +15,7 @@ public class BusTest {
         exception = false;
         try {
             new ElectriCityBus("", "", 0, null);
-        } catch (IllegalArgumentException e) {
+        } catch (NullPointerException e) {
             exception = true;
         }
         assertTrue(exception);
@@ -30,8 +23,8 @@ public class BusTest {
         // assert that a bus with null VIN can't be created
         exception = false;
         try {
-            new ElectriCityBus((null, "", 0,"");
-        } catch (IllegalArgumentException e) {
+            new ElectriCityBus(null, "", 0,"");
+        } catch (NullPointerException e) {
             exception = true;
         }
         assertTrue(exception);
@@ -40,16 +33,7 @@ public class BusTest {
         exception = false;
         try {
             new ElectriCityBus("", null, 0, "");
-        } catch (IllegalArgumentException e) {
-            exception = true;
-        }
-        assertTrue(exception);
-
-        // assert that a bus with null wifiBSSID can't be created
-        exception = false;
-        try {
-            new ElectriCityBus("", "", null, "");
-        } catch (IllegalArgumentException e) {
+        } catch (NullPointerException e) {
             exception = true;
         }
         assertTrue(exception);
@@ -165,7 +149,7 @@ public class BusTest {
         assertFalse(bus2.equals(bus1));
 
         // assert that two buses with different license numbers aren't equal
-        bbus1 = new ElectriCityBus("vin", "a", 123, "dgw");
+        bus1 = new ElectriCityBus("vin", "a", 123, "dgw");
         bus2 = new ElectriCityBus ("vin", "b", 123, "dgw");
         assertFalse(bus1.equals(bus2));
         assertFalse(bus2.equals(bus1));
@@ -176,7 +160,7 @@ public class BusTest {
         assertFalse(bus1.equals(bus2));
         assertFalse(bus2.equals(bus1));
 
-        bus1 = new Bus("", "", 0, "");
+        bus1 = new ElectriCityBus("", "", 0, "");
         // assert that a bus equals itself
         assertTrue(bus1.equals(bus1));
         // assert that a bus is not equal to null
