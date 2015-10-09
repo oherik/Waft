@@ -28,7 +28,13 @@ public class BusFactory {
         // 2. create and return bus object
 
         IElectricityAdapter ecAdapter = ApiAdapterFactory.createElectricityAdapter();
-        Journey ji = ecAdapter.getJourneyInfo("Ericsson$100021");
-        return new Bus(DGW, "destination", "journeyName", "routeNumber", new ArrayList<IFlag>());
+        Journey journey = ecAdapter.getJourneyInfo("Ericsson$100021");
+        String destination = "";
+        String journeyId = "";
+        if (journey != null) {
+            destination = journey.getDestination();
+            journeyId = journey.getJourneyId();
+        }
+        return new Bus(DGW, destination, journeyId, "routeNumber", new ArrayList<IFlag>());
     }
 }
