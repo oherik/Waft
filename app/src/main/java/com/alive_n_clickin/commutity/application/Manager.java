@@ -1,35 +1,45 @@
 package com.alive_n_clickin.commutity.application;
 
 import android.os.AsyncTask;
-
-import com.alive_n_clickin.commutity.domain.IBus;
+import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
+import com.alive_n_clickin.commutity.domain.IElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
+import com.alive_n_clickin.commutity.domain.IStop;
 import com.alive_n_clickin.commutity.event.CurrentBusChangeEvent;
 import com.alive_n_clickin.commutity.event.NewBusNearbyEvent;
 import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
+import com.alive_n_clickin.commutity.infrastructure.api.IVasttrafikAdapter;
 import com.alive_n_clickin.commutity.infrastructure.api.IWaftAdapter;
+import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrival;
+import com.alive_n_clickin.commutity.infrastructure.api.response.JsonStop;
 import com.alive_n_clickin.commutity.util.event.IEvent;
 import com.alive_n_clickin.commutity.util.event.IObservableHelper;
 import com.alive_n_clickin.commutity.util.event.IObserver;
 import com.alive_n_clickin.commutity.util.event.ObservableHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import lombok.NonNull;
+
 /**
- * An implementation of the IBusManager interface. This implementation listens to a NearbyBusScanner
+ * An implementation of the IManager interface. This implementation listens to a NearbyBusScanner
  * for events regarding nearby buses to keep track of which bus the user is currently on.
  */
-public class BusManager implements IBusManager, IObserver {
+public class Manager implements IManager, IObserver {
     private IObservableHelper observableHelper = new ObservableHelper();
-
-    private IBus currentBus = null;
+    private IVasttrafikAdapter vasttrafikAdapter;
+    private IElectriCityBus currentBus = null;
 
     /**
-     * Initiates a new BusManager that listens to the supplied NearbyBusScanner.
+     * Initiates a new Manager that listens to the supplied NearbyBusScanner.
      *
-     * @param nearbyBusScanner the NearbyBusScanner that this BusManager should listen to for
+     * @param nearbyBusScanner the NearbyBusScanner that this Manager should listen to for
      *                         events regarding nearby buses.
      */
-    public BusManager(NearbyBusScanner nearbyBusScanner) {
+    public Manager(NearbyBusScanner nearbyBusScanner) {
         nearbyBusScanner.addObserver(this);
+        vasttrafikAdapter = ApiAdapterFactory.createVasttrafikAdapter();
     }
 
     /**
@@ -52,7 +62,7 @@ public class BusManager implements IBusManager, IObserver {
     }
 
     @Override
-    public IBus getCurrentBus() {
+    public IElectriCityBus getCurrentBus() {
         return this.currentBus;
     }
 
@@ -85,18 +95,38 @@ public class BusManager implements IBusManager, IObserver {
 
     //Updates the current bus by getting a new one from BusFactory. Calls to BusFactory can no be made
     //on the main thread, so we use the async task.
-    private class GetCurrentBusTask extends AsyncTask<String, Void, IBus> {
+    private class GetCurrentBusTask extends AsyncTask<String, Void, IElectriCityBus> {
 
         @Override
-        protected IBus doInBackground(String... params) {
+        protected IElectriCityBus doInBackground(String... params) {
             String dgw = params[0];
             return BusFactory.getBus(dgw);
         }
 
         @Override
-        protected void onPostExecute(IBus bus) {
+        protected void onPostExecute(IElectriCityBus bus) {
             currentBus = bus;
             observableHelper.notifyObservers(new CurrentBusChangeEvent(currentBus));
         }
+    }
+
+        @Override
+        public List<IArrivingVehicle> getVehicles(@NonNull IStop stop){
+            List<JsonArrival> jsonArrivals = vasttrafikAdapter.getVehiclesHeadedToStop(stop);
+            List<IArrivingVehicle> arrivingVehicles = new ArrayList<>();
+            for(JsonArrival a : jsonArrivals){
+                arrivingVehicles.add(VehicleFactory.getArrivingVehicle(a));
+            }
+            return arrivingVehicles;
+        }
+
+        @Override
+        public List<IStop> searchForStops(@NonNull String searchQuery) {
+            List<JsonStop> jsonStopResponse = vasttrafikAdapter.getSearchStops(searchQuery);
+            List<IStop> stops = new ArrayList<>();
+            for(JsonStop s : jsonStopResponse){
+                stops.add(StopFactory.getStop(s));
+            }
+            return stops;
     }
 }
