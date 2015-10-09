@@ -6,6 +6,9 @@ import com.alive_n_clickin.commutity.domain.Flag;
 import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.IElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
+import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
+import com.alive_n_clickin.commutity.infrastructure.api.IElectricityAdapter;
+import com.alive_n_clickin.commutity.infrastructure.api.Journey;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrival;
 
 import java.util.ArrayList;
@@ -23,17 +26,23 @@ import lombok.NonNull;
 public class VehicleFactory {
 
     /**
-     * Takes a DGW and returns a new bus object with all the data for the bus with that DGW.
+     * Takes a dgw and returns a new bus object with all the data for the bus with that DGW.
      *
-     * @param DGW the DGW id for the bus you want to have.
+     * This method may not be called from the UI thread.
+     *
+     * @param dgw the dgw id for the bus you want to have.
      * @return a new bus object.
      */
-    public static IElectriCityBus getBus(String DGW) {
-        // TODO: Build bus from real data
-        // 1. get information from ElectriCity's API and our backend
-        // 2. create and return bus object with retreived data
-
-        return new ElectriCityBus("destination", "journeyName", "1111111111", "DGW");
+    public static IElectriCityBus getBus(String dgw) {
+        IElectricityAdapter ecAdapter = ApiAdapterFactory.createElectricityAdapter();
+        Journey journey = ecAdapter.getJourneyInfo(dgw);
+        String destination = "";
+        String journeyId = "";
+        if (journey != null) {
+            destination = journey.getDestination();
+            journeyId = journey.getJourneyId();
+        }
+        return new ElectriCityBus(destination, "505", journeyId, dgw);
     }
 
     /**
