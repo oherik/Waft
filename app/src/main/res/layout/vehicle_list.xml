@@ -9,7 +9,6 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:onClick="on"
         android:clickable="true"
         android:focusableInTouchMode="true"
         android:focusable="true"
