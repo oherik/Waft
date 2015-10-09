@@ -33,6 +33,11 @@ class ElectricityAdapter implements IElectricityAdapter {
         //Retrieve response as Java object
         List<JourneyInfo> infoList = JsonJavaConverter.toJavaList(apiResponse, JourneyInfo[].class);
 
+        //We did not get any journey data
+        if (infoList == null) {
+            return null;
+        }
+
         //Sort the list according to timestamps, we ognly want the most current ones
         Collections.sort(infoList, new Comparator<JourneyInfo>() {
 
