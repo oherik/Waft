@@ -93,14 +93,14 @@ public class Manager implements IManager, IObserver {
         observableHelper.removeObserver(observer);
     }
 
-    //Updates the current bus by getting a new one from BusFactory. Calls to BusFactory can no be made
+    //Updates the current bus by getting a new one from VehicleFactory. Calls to VehicleFactory can no be made
     //on the main thread, so we use the async task.
     private class GetCurrentBusTask extends AsyncTask<String, Void, IElectriCityBus> {
 
         @Override
         protected IElectriCityBus doInBackground(String... params) {
             String dgw = params[0];
-            return BusFactory.getBus(dgw);
+            return VehicleFactory.getBus(dgw);
         }
 
         @Override
