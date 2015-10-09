@@ -12,7 +12,7 @@ public interface IWaftAdapter {
      * @param bus The bus object to get current flags on
      * @return a list of IFlags. If there are no flags the list is empty.
      */
-    List<IFlag> getFlagsForBus(IElectriCityBus bus);
+    List<IFlag> getFlagsForVehicle(int bus);
 
     /**
      * Flags the specified bus with the given flag.
