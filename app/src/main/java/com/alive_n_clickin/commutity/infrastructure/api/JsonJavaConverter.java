@@ -61,8 +61,6 @@ class JsonJavaConverter<T> {
         }
     }
 
-
-
     /**
      * Turn a Java object into a JSON object.
      * @param object
