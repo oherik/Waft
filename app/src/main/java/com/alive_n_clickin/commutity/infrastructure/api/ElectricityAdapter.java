@@ -47,7 +47,7 @@ class ElectricityAdapter implements IElectricityAdapter {
                 if (rhs.getTimestamp() > lhs.getTimestamp()) {
                     return 1;
                 } else {
-                    return -1;
+                    return rhs.getTimestamp() == lhs.getTimestamp() ? 0 : -1;
                 }
             }
         });
