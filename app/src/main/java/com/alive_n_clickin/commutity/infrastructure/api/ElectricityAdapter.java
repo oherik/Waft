@@ -76,17 +76,15 @@ class ElectricityAdapter implements IElectricityAdapter {
 
     private String getJourneyInfoFromApi(String dgw) {
         ElectricityApiConnection apiConn = new ElectricityApiConnection();
-        //End time: right now
 
-//        long t2 = System.currentTimeMillis();
-        long t2 = 1444321823000L;
+        // End time: right now
+        long endTime = System.currentTimeMillis();
 
-        //Start time, 30 seconds ago, so that we have some margin
+        // Start time, 30 seconds ago, so that we have some margin
+        long startTime = endTime - 30 * 1000;
 
-        long t1 = t2 - 30 * 1000;
-//        long t1 = 1444318161000L;
         String query = "dgw=" + dgw + "&sensorSpec=Ericsson$Journey_Info" +
-                "&t1=" + t1 + "&t2=" + t2;
+                "&t1=" + startTime + "&t2=" + endTime;
         String response = apiConn.sendGetToElectricity(query);
         Log.d(LogUtils.getLogTag(this), response);
         return response;
