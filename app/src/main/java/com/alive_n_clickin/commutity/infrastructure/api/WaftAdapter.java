@@ -1,6 +1,5 @@
 package com.alive_n_clickin.commutity.infrastructure.api;
 
-import com.alive_n_clickin.commutity.application.FlagFactory;
 import com.alive_n_clickin.commutity.domain.IBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.domain.JsonFlag;
@@ -17,11 +16,10 @@ class WaftAdapter implements IWaftAdapter{
     private final WaftApiConnection waftApiConnection = new WaftApiConnection();
 
     @Override
-    public List<IFlag> getFlagsForVehicle(int journeyId) {
+    public List<JsonFlag> getFlagsForVehicle(int journeyId) {
         String response = waftApiConnection.sendGetToWaft("flags", "" +journeyId);
         if(response != null){
-            List<JsonFlag> flagList = JsonJavaConverter.toJavaList(response,JsonFlag[].class);
-            return FlagFactory.getFlags(flagList);
+            return JsonJavaConverter.toJavaList(response, JsonFlag[].class);
         }
         return null;
     }
