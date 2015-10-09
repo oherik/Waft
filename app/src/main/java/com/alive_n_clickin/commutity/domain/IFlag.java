@@ -3,8 +3,7 @@ package com.alive_n_clickin.commutity.domain;
 import java.util.Date;
 
 /**
- * An interface for flags. A flag should be able to provide it's type, it's comment and when it was
- * created.
+ * An interface for modelling flags.
  */
 public interface IFlag {
     /**

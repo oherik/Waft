@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
-import com.alive_n_clickin.commutity.application.IManager;
+import com.alive_n_clickin.commutity.application.IBusManager;
 import com.alive_n_clickin.commutity.domain.Flag;
 import com.alive_n_clickin.commutity.event.CurrentBusChangeEvent;
 import com.alive_n_clickin.commutity.event.WifiStateChangeEvent;
@@ -32,7 +32,7 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
     final static String ARG_POSITION    = "position";
     int mCurrentPosition                = -1;
 
-    private IManager busManager;
+    private IBusManager busManager;
     private WifiBroadcastReceiver wifiBroadcastReceiver;
 
     private FlagViewAdapter flagAdapter;
@@ -56,7 +56,7 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
 
         // Register observers
         MyApplication application = (MyApplication) this.getActivity().getApplicationContext();
-        this.busManager = application.getManager();
+        this.busManager = application.getBusManager();
         this.busManager.addObserver(this);
         this.wifiBroadcastReceiver = application.getWifiBroadcastReceiver();
         this.wifiBroadcastReceiver.addObserver(this);

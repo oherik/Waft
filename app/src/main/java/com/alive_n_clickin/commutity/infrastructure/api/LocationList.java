@@ -1,6 +1,4 @@
-package com.alive_n_clickin.commutity.infrastructure.api.response;
-
-import com.alive_n_clickin.commutity.infrastructure.api.JsonJavaConverter;
+package com.alive_n_clickin.commutity.infrastructure.api;
 
 import java.util.List;
 
@@ -8,14 +6,14 @@ import java.util.List;
  * This class models the response from the Vasttrafik API and is used within {@link JsonJavaConverter} to convert into a java object.
  * @since 0.1
  */
-public class JsonStopList {
+public class LocationList {
     private String noNamespaceSchemaLocation;
     private String serverTime;
     private String serverDate;
-    private List<JsonStop> jsonStopLocation;
+    private List<Stop> StopLocation;
 
-    public List<JsonStop> getStopLocations(){
-        return this.jsonStopLocation;
+    public List<Stop> getStopLocations(){
+        return this.StopLocation;
     }
 
     @Override
@@ -24,7 +22,7 @@ public class JsonStopList {
                 "noNamespaceSchemaLocation='" + noNamespaceSchemaLocation + '\'' +
                 ", serverTime='" + serverTime + '\'' +
                 ", serverDate='" + serverDate + '\'' +
-                ", StopLocation=" + jsonStopLocation +
+                ", StopLocation=" + StopLocation +
                 '}';
     }
 }
