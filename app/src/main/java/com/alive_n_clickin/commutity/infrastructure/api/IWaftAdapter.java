@@ -9,10 +9,10 @@ import java.util.List;
 public interface IWaftAdapter {
 
     /**
-     * @param bus The bus object to get current flags on
+     * @param journeyId the id to get flags for.
      * @return a list of IFlags. If there are no flags the list is empty.
      */
-    List<IFlag> getFlagsForVehicle(int bus);
+    List<IFlag> getFlagsForVehicle(int journeyId);
 
     /**
      * Flags the specified bus with the given flag.
