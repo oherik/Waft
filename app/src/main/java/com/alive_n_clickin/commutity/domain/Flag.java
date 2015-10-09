@@ -77,11 +77,9 @@ public class Flag implements IFlag {
      * Instantiates a new flag with the supplied type, comment and time of creation.
      *
      * @param type The flag type for the flag. See FlagType for more information.
-     * @param comment A comment for the flag. If null, comment will be set to an empty string. If
-     *                the supplied flag type requires a comment, the comment must be at least 5
-     *                characters long.
-     * @param createdTime The time that the flag was created. If null, createdTime will be set to
-     *                    the current time.
+     * @param comment A comment for the flag.  If the supplied flag type requires a comment, the
+     *                comment must be at least 5 characters long.
+     * @param createdTime The time that the flag was created. If null,
      * @throws IllegalArgumentException if the supplied flag type requires a
      * comment and comment is not at least 5 characters long.
      * @throws NullPointerException if any parameter is null
@@ -95,8 +93,8 @@ public class Flag implements IFlag {
         }
 
         this.type = type;
-        this.comment = (comment == null) ? "" : comment;
-        this.createdTime = (createdTime == null) ? new Date() : new Date(createdTime.getTime());
+        this.comment = comment;
+        this.createdTime = new Date(createdTime.getTime());
     }
 
     /**
@@ -126,9 +124,12 @@ public class Flag implements IFlag {
     }
 
     /**
+     * Creates a copy of the created time. It uses a copy constructor, since that is the preferred
+     * method according to Joshua Bloch (Effective Java, 2001)
+     *
      * @return When the flag was created
      */
     public Date getCreatedTime(){
-        return (Date) createdTime.clone();
+        return new Date(createdTime.getTime());
     }
 }
