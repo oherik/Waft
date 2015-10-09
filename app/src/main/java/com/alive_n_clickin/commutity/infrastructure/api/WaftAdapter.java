@@ -38,7 +38,7 @@ class WaftAdapter implements IWaftAdapter{
                 "&comment=" + flag.getComment() +
                 "&time=" + flag.getCreatedTime().toString() +
                 "&dgw=" + bus.getDGW() +
-                "&journeyID=" + bus.getShortRouteName();
+                "&journeyID=" + bus.getJourneyID();
         return query;
     }
 }
