@@ -19,6 +19,9 @@ import java.util.List;
  */
 class ElectricityAdapter implements IElectricityAdapter {
 
+    public static final String RESOURCE_SPEC_DESTINATION = "Destination_Value";
+    public static final String RESOURCE_SPEC_JOURNEY_ID = "Journey_Name_Value";
+
     /**
      * The current journey, with id and destination, for the bus with the given DGW
      * @param dgw id of the bus we are looking for
@@ -44,7 +47,26 @@ class ElectricityAdapter implements IElectricityAdapter {
             }
         });
 
-        return null;
+        //We want the latest values for destination and journeyid. Pick these out and put them in
+        //a Journey-object. We get the first object with destination, then break. Same with journey id
+        String destination = null;
+        String journeyId = null;
+        for (JourneyInfo info : infoList) {
+            if (info.getResourceSpec().equals(RESOURCE_SPEC_DESTINATION)) {
+                destination = info.getValue();
+                break;
+            }
+        }
+        for (JourneyInfo info : infoList) {
+            if (info.getResourceSpec().equals(RESOURCE_SPEC_JOURNEY_ID)) {
+                journeyId = info.getValue();
+                break;
+            }
+        }
+
+        Journey ret = new Journey(destination, journeyId);
+
+        return ret;
     }
 
     private String getJourneyInfoFromApi(String dgw) {
