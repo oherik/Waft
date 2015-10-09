@@ -17,13 +17,13 @@ class WaftApiConnection {
      * Send a query to Waft. It will be appended to the base url.
      * The query must be well formed.
      * @param path the path to append for the base url, you should not add the '/' sign in front of your path.
-     * @param query the query to append, leave out ? in the beginning
+     * @param secondPath the query to append, leave out ? in the beginning
      * @return a json string if successful otherwise null.
      */
-    public String sendGetToWaft(String path,String query) {
+    public String sendGetToWaft(String path,String secondPath) {
         Uri.Builder uriBuilder = Uri.parse(BASE_URL_WAFT).buildUpon();
         uriBuilder.appendPath(path);
-        uriBuilder.encodedQuery(query);
+        uriBuilder.appendPath(secondPath);
         Uri uri = uriBuilder.build();
 
         try {
