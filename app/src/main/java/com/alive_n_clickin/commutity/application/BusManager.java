@@ -68,6 +68,7 @@ public class BusManager implements IBusManager, IObserver {
         if (dgw == null) {
             currentBus = null;
         } else {
+            //Perform AsyncTask that updates current bus
             new GetCurrentBus().execute(dgw);
         }
     }
@@ -82,6 +83,8 @@ public class BusManager implements IBusManager, IObserver {
         observableHelper.removeObserver(observer);
     }
 
+    //Updates the current bus by getting a new one from BusFactory. Calls to BusFactory can no be made
+    //on the main thread, so we use the async task.
     private class GetCurrentBus extends AsyncTask<String, Void, IBus> {
 
         @Override
