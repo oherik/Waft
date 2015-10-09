@@ -17,6 +17,12 @@ import java.util.List;
  */
 public class FlagFactory {
 
+    /**
+     * Takes a list of json response objects and returns a new list of domain objects.
+     *
+     * @param jsonFlags the list of json response objects to convert.
+     * @return a new list with domain objects.
+     */
     public static List<IFlag> getFlags(List<JsonFlag> jsonFlags){
         List<IFlag> flagList = new ArrayList<>();
         for(JsonFlag j: jsonFlags) {
