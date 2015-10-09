@@ -6,7 +6,7 @@ import com.alive_n_clickin.commutity.domain.Flag;
 import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.IElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
-import com.alive_n_clickin.commutity.infrastructure.api.response.Arrival;
+import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrival;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,11 +39,11 @@ public class VehicleFactory {
     /**
      * Creates a new arriving vehicle object based on an API response.
      *
-     * @param arrival The API response
+     * @param jsonArrival The API response
      * @return  A new arriving vehicle based on the response
      * @throws NullPointerException if the parameter is null
      */
-    public static IArrivingVehicle getArrivingVehicle(@NonNull Arrival arrival) {
+    public static IArrivingVehicle getArrivingVehicle(@NonNull JsonArrival jsonArrival) {
         // TODO: Fetch flags from our backend
 
         List<IFlag> flags = new ArrayList<>();
@@ -58,7 +58,7 @@ public class VehicleFactory {
         flags.add(new Flag(Flag.Type.MESSY, "", new Date()));
         flags.add(new Flag(Flag.Type.MESSY, "", new Date()));
 
-        return new ArrivingVehicle(arrival.getDirection(), arrival.getSname(),
-                arrival.getJourneyid(), arrival.getRealArrival(), flags);
+        return new ArrivingVehicle(jsonArrival.getDirection(), jsonArrival.getSname(),
+                jsonArrival.getJourneyid(), jsonArrival.getRealArrival(), flags);
     }
 }

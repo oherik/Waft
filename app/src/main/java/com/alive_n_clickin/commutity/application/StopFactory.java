@@ -2,7 +2,7 @@ package com.alive_n_clickin.commutity.application;
 
 
 import com.alive_n_clickin.commutity.domain.IStop;
-import com.alive_n_clickin.commutity.infrastructure.api.response.Stop;
+import com.alive_n_clickin.commutity.infrastructure.api.response.JsonStop;
 
 import lombok.NonNull;
 
@@ -17,11 +17,11 @@ public class StopFactory {
     /**
      * Creates a new domain stop object based on an API response.
      *
-     * @param stop The API response
+     * @param jsonStop The API response
      * @return A new domain stop object based on the response
      * @throws NullPointerException if the parameter is null
      */
-    public static IStop getStop(@NonNull Stop stop){
-        return new com.alive_n_clickin.commutity.domain.Stop(stop.getName(), stop.getId());
+    public static IStop getStop(@NonNull JsonStop jsonStop){
+        return new com.alive_n_clickin.commutity.domain.Stop(jsonStop.getName(), jsonStop.getId());
     }
 }
