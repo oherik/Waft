@@ -71,7 +71,7 @@ public class Flag implements IFlag {
 
     @Getter private final IFlagType type;
     @Getter private final String comment;
-    @Getter private final Date createdTime;
+    private final Date createdTime;
 
     /**
      * Instantiates a new flag with the supplied type, comment and time of creation.
@@ -123,5 +123,12 @@ public class Flag implements IFlag {
      */
     public Flag(@NonNull IFlagType type) {
         this(type, "", new Date());
+    }
+
+    /**
+     * @return When the flag was created
+     */
+    public Date getCreatedTime(){
+        return (Date) createdTime.clone();
     }
 }
