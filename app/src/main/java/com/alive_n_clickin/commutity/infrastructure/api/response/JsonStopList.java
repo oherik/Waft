@@ -12,10 +12,10 @@ public class JsonStopList {
     private String noNamespaceSchemaLocation;
     private String serverTime;
     private String serverDate;
-    private List<JsonStop> jsonStopLocation;
+    private List<JsonStop> StopLocation;
 
     public List<JsonStop> getStopLocations(){
-        return this.jsonStopLocation;
+        return this.StopLocation;
     }
 
     @Override
@@ -24,7 +24,7 @@ public class JsonStopList {
                 "noNamespaceSchemaLocation='" + noNamespaceSchemaLocation + '\'' +
                 ", serverTime='" + serverTime + '\'' +
                 ", serverDate='" + serverDate + '\'' +
-                ", StopLocation=" + jsonStopLocation +
+                ", StopLocation=" + StopLocation +
                 '}';
     }
 }
