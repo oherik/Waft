@@ -1,6 +1,6 @@
 package com.alive_n_clickin.commutity.application;
 
-import com.alive_n_clickin.commutity.event.NewWifiNetworksInRangeEvent;
+import com.alive_n_clickin.commutity.event.NewWifiScanAvailableEvent;
 import com.alive_n_clickin.commutity.event.NewBusNearbyEvent;
 import com.alive_n_clickin.commutity.event.WifiStateChangeEvent;
 import com.alive_n_clickin.commutity.infrastructure.WifiBroadcastReceiver;
@@ -55,7 +55,7 @@ public class NearbyBusScanner implements IObserver, IObservable {
     /**
      * {@inheritDoc}<br><br>
      *
-     * This implementation of onEvent gets the BSSID:s from the NewWifiNetworksInRangeEvent and checks if
+     * This implementation of onEvent gets the BSSID:s from the NewWifiScanAvailableEvent and checks if
      * the BSSID of any known bus is in the list. If the list contains a known bus, a NewBusNearbyEvent
      * is sent to all observers with the DGW of the bus. If the list doesn't contain a known bus,
      * a NewBusNearbyEvent is sent to all observers with the DGW parameter set to null.
@@ -64,14 +64,14 @@ public class NearbyBusScanner implements IObserver, IObservable {
      */
     @Override
     public void onEvent(IEvent event) {
-        if (event instanceof NewWifiNetworksInRangeEvent) {
-            handleWifiBSSIDChangeEvent((NewWifiNetworksInRangeEvent) event);
+        if (event instanceof NewWifiScanAvailableEvent) {
+            handleWifiBSSIDChangeEvent((NewWifiScanAvailableEvent) event);
         } else if (event instanceof WifiStateChangeEvent) {
             handleWifiStateChangeEvent((WifiStateChangeEvent) event);
         }
     }
 
-    private void handleWifiBSSIDChangeEvent(NewWifiNetworksInRangeEvent event) {
+    private void handleWifiBSSIDChangeEvent(NewWifiScanAvailableEvent event) {
         String DGW = null;
 
         List<String> BSSIDs = event.getBSSIDs();
