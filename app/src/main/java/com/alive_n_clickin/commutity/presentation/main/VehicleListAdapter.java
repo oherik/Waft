@@ -10,8 +10,9 @@ import android.widget.GridLayout;
 import android.widget.TextView;
 
 import com.alive_n_clickin.commutity.R;
-import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
+import com.alive_n_clickin.commutity.domain.ArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.IFlag;
+import com.alive_n_clickin.commutity.infrastructure.api.ApiArrival;
 import com.alive_n_clickin.commutity.presentation.FlagImageView;
 
 import java.util.List;
@@ -20,11 +21,10 @@ import java.util.concurrent.TimeUnit;
 /**
  * This class fills the ListView within {@link MainFragment} with list items.
  */
-public class VehicleListAdapter extends ArrayAdapter<IArrivingVehicle> {
+public class VehicleListAdapter extends ArrayAdapter<ApiArrival> {
 
-
-    public VehicleListAdapter(Context currentContext, List<IArrivingVehicle> arrivingVehicleList) {
-        super(currentContext,0, arrivingVehicleList); //The second parameter is the resource ID for a layout file containing a layout to use when instantiating views. Making it 0 means we are not sending any resource file to the super class.
+    public VehicleListAdapter(Context currentContext, List<ApiArrival> apiArrivalList) {
+        super(currentContext,0, apiArrivalList); //The second parameter is the resource ID for a layout file containing a layout to use when instantiating views. Making it 0 means we are not sending any resource file to the super class.
     }
 
     @Override
@@ -34,10 +34,12 @@ public class VehicleListAdapter extends ArrayAdapter<IArrivingVehicle> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.vehicle_list, parent, false);
         }
 
-        IArrivingVehicle vehicle = getItem(position);
+        ApiArrival apiArrival = getItem(position);
+        ArrivingVehicle vehicle = apiArrival.getVehicle();
+
 
         TextView busNumber = (TextView) convertView.findViewById(R.id.busNumber);
-        busNumber.setText(vehicle.getShortRouteName());
+        busNumber.setText(vehicle.getShortName());
 
         TextView targetDestination = (TextView) convertView.findViewById(R.id.targetDestination);
         targetDestination.setText(vehicle.getDestination());
@@ -57,7 +59,7 @@ public class VehicleListAdapter extends ArrayAdapter<IArrivingVehicle> {
     /*
     Helper method: take the view that should be created, and add flags to the gui element holding the flags.
      */
-    private void setFlags(View convertView, int maxWidth, IArrivingVehicle vehicle) {
+    private void setFlags(View convertView, int maxWidth, ArrivingVehicle vehicle) {
 
         GridLayout flagListView = (GridLayout) convertView.findViewById(R.id.flagListView);
         // Clear the flaglist, otherwise Androids reuse mechanism may preserve some flags, and we

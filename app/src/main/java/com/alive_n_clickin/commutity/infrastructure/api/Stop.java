@@ -1,6 +1,4 @@
-package com.alive_n_clickin.commutity.infrastructure.api.response;
-
-import com.alive_n_clickin.commutity.infrastructure.api.JsonJavaConverter;
+package com.alive_n_clickin.commutity.infrastructure.api;
 
 import java.io.Serializable;
 
@@ -14,7 +12,7 @@ import lombok.ToString;
  * The class is used within {@link JsonJavaConverter} to convert the json into a java object.
  * @since 0.1
  */
-@ToString public class JsonStop implements Serializable {
+@ToString public class Stop implements Serializable {
 
     /**
      * Used for making sure that a de-serialized file is compatible with this class.
