@@ -36,7 +36,8 @@ class WaftAdapter implements IWaftAdapter{
         String query = "flagType=" + flag.getType().getId() +
                 "&comment=" + flag.getComment() +
                 "&time=" + flag.getCreatedTime().toString() +
-                "&busDGW" + bus.getDGW();
+                "&dgw=" + bus.getDGW() +
+                "&journeyID=" + bus.getJourneyName();
         return query;
     }
 }
