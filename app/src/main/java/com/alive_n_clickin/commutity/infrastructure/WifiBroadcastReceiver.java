@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.WifiManager;
 
-import com.alive_n_clickin.commutity.event.NewWifiNetworksInRangeEvent;
+import com.alive_n_clickin.commutity.event.NewWifiScanAvailableEvent;
 import com.alive_n_clickin.commutity.event.WifiStateChangeEvent;
 import com.alive_n_clickin.commutity.util.event.IObservable;
 import com.alive_n_clickin.commutity.util.event.IObservableHelper;
@@ -41,7 +41,7 @@ public class WifiBroadcastReceiver extends BroadcastReceiver implements IObserva
      * {@inheritDoc}<br><br>
      *
      * This implementation of onReceive scans for all nearby BSSID:s and notifies it's observers
-     * with a new NewWifiNetworksInRangeEvent with all the BSSID:s.
+     * with a new NewWifiScanAvailableEvent with all the BSSID:s.
      */
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -50,7 +50,7 @@ public class WifiBroadcastReceiver extends BroadcastReceiver implements IObserva
         WifiHelper wifiHelper = new WifiHelper(context);
         if (action.equals("android.net.wifi.SCAN_RESULTS")) {
             List<String> nearbyBSSIDs = wifiHelper.getNearbyBSSIDs();
-            observableHelper.notifyObservers(new NewWifiNetworksInRangeEvent(nearbyBSSIDs));
+            observableHelper.notifyObservers(new NewWifiScanAvailableEvent(nearbyBSSIDs));
         } else if (intent.getAction().equals("android.net.wifi.WIFI_STATE_CHANGED")) {
             int wifiState = intent.getIntExtra("wifi_state", -1);
 
