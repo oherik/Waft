@@ -1,5 +1,6 @@
 package com.alive_n_clickin.commutity.application;
 
+import com.alive_n_clickin.commutity.event.CantSearchForVehiclesEvent;
 import com.alive_n_clickin.commutity.event.NewWifiScanAvailableEvent;
 import com.alive_n_clickin.commutity.event.NewBusNearbyEvent;
 import com.alive_n_clickin.commutity.event.WifiStateChangeEvent;
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This class listens to WifiBSSIDChangeEvents and checks if any nearby BSSID belongs to a known bus.
+ * This class listens to NewWifiScanAvailableEvents and checks if any nearby BSSID belongs to a known bus.
  * If it finds a match, it sends a NewBusNearbyEvent with the DGW of the found bus. If no match is
  * found, it sends a NewBusNearbyEvent with the DGW parameter set to null.
  */
@@ -86,7 +87,9 @@ public class NearbyBusScanner implements IObserver, IObservable {
     }
 
     private void handleWifiStateChangeEvent(WifiStateChangeEvent event) {
-        observableHelper.notifyObservers(new NewBusNearbyEvent(null));
+        if (!event.isWifiEnabled()) {
+            observableHelper.notifyObservers(new CantSearchForVehiclesEvent());
+        }
     }
 
     @Override
