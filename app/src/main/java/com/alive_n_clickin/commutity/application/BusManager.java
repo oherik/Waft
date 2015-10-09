@@ -85,7 +85,7 @@ public class BusManager implements IBusManager, IObserver {
 
     //Updates the current bus by getting a new one from BusFactory. Calls to BusFactory can no be made
     //on the main thread, so we use the async task.
-    private class GetCurrentBusTaskgi extends AsyncTask<String, Void, IBus> {
+    private class GetCurrentBusTask extends AsyncTask<String, Void, IBus> {
 
         @Override
         protected IBus doInBackground(String... params) {
