@@ -3,6 +3,12 @@ package com.alive_n_clickin.commutity.infrastructure.api;
 import android.net.Uri;
 import android.util.Log;
 
+import com.alive_n_clickin.commutity.domain.IStop;
+import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrival;
+import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrivalList;
+import com.alive_n_clickin.commutity.infrastructure.api.response.JsonStopList;
+import com.alive_n_clickin.commutity.infrastructure.api.response.JsonStop;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,12 +28,12 @@ class VasttrafikAdapter implements IVasttrafikAdapter {
 
 
     @Override
-    public List<Stop> getNearbyStations(double longitude, double latitude) {
+    public List<JsonStop> getNearbyStations(double longitude, double latitude) {
         String response = vasttrafikApiConnection.sendGetToVasttrafik(
                 "location.nearbystops",
                 "&originCoordLat=" + latitude + "&originCoordLong=" + longitude);
         if(response != null){
-            return new JsonJavaConverter<LocationList>(LocationList.class).toJava(
+            return new JsonJavaConverter<JsonStopList>(JsonStopList.class).toJava(
                     response,"LocationList").getStopLocations();
         } else {
             return null;
@@ -36,25 +42,25 @@ class VasttrafikAdapter implements IVasttrafikAdapter {
     }
 
     @Override
-    public List<Stop> getSearchStops(String searchString) {
+    public List<JsonStop> getSearchStops(String searchString) {
         String response = vasttrafikApiConnection.sendGetToVasttrafik(
                 "location.name",
                 "&input=" + Uri.encode(searchString)
         );
         if(response != null){
-            Object responseObject = new JsonJavaConverter<LocationList>(LocationList.class).toJava(
+            Object responseObject = new JsonJavaConverter<JsonStopList>(JsonStopList.class).toJava(
                     response, "LocationList");
             if(responseObject != null){
                 //The api returns results that begin with "." that are not relevant to our implementation.
                 //We must filter this out. That is what the for loop does. (It's a filter)
-                LocationList locationList = (LocationList)responseObject;
-                List<Stop> stopList = new LinkedList<>();
-                for (Stop stop : locationList.getStopLocations()) {
-                    if (!stop.getName().startsWith(".")) {
-                        stopList.add(stop);
+                JsonStopList locationList = (JsonStopList)responseObject;
+                List<JsonStop> jsonStopList = new LinkedList<>();
+                for (JsonStop jsonStop : locationList.getStopLocations()) {
+                    if (!jsonStop.getName().startsWith(".")) {
+                        jsonStopList.add(jsonStop);
                     }
                 }
-                return stopList;
+                return jsonStopList;
             } else {
                 Log.d("ASD","stopList is null");
                 return null;
@@ -66,7 +72,7 @@ class VasttrafikAdapter implements IVasttrafikAdapter {
     }
 
     @Override
-    public List<ApiArrival> getVehiclesHeadedToStop(Stop stop) {
+    public List<JsonArrival> getVehiclesHeadedToStop(IStop stop) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
@@ -81,7 +87,7 @@ class VasttrafikAdapter implements IVasttrafikAdapter {
                         "&date=" + date +
                         "&time=" + time);
         if(response != null){
-             return new JsonJavaConverter<>(ArrivalList.class).toJava(
+             return new JsonJavaConverter<>(JsonArrivalList.class).toJava(
                     response, "DepartureBoard").getDeparture();
         }
         return null;

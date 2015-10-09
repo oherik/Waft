@@ -1,16 +1,20 @@
 package com.alive_n_clickin.commutity.domain;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.ToString;
 
 /**
  * An abstract class all other vehicles should extend. Holds a destination, a line number and
  * a journey number
  */
-public abstract class Vehicle {
-    @Getter private String destination;
-    @Getter private String shortName;
-    @Getter private long journeyID;
+@EqualsAndHashCode
+@ToString
+public abstract class AbstractVehicle implements IVehicle {
+    @Getter private final String destination;
+    @Getter private final String shortRouteName;
+    @Getter private final long journeyID;
 
     /**
      * Constructor
@@ -22,9 +26,9 @@ public abstract class Vehicle {
      *                  continues in the opposite direction.
      * @throws NullPointerException if any parameter is null
      */
-    public Vehicle(@NonNull String destination, @NonNull String shortRouteName, long journeyID){
+    public AbstractVehicle(@NonNull String destination, @NonNull String shortRouteName, long journeyID){
         this.destination = destination;
-        this.shortName = shortRouteName;
+        this.shortRouteName = shortRouteName;
         this.journeyID = journeyID;
     }
 }
