@@ -1,17 +1,13 @@
 package com.alive_n_clickin.commutity.domain;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.ToString;
 
 /**
  * A class modelling the ElectriCity bus. It contains an unique DGW ID.
  */
-@EqualsAndHashCode(callSuper = true)
-@ToString
-public class ElectriCityBus extends AbstractVehicle implements IElectriCityBus {
-    @Getter private final String DGW;
+public class ElectriCityBus extends Vehicle{
+    @Getter private String DGW;
 
     /**
      * Constructor

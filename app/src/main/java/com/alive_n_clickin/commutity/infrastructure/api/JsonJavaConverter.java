@@ -14,7 +14,7 @@ import com.google.gson.JsonParser;
  * Package private, this class handles low level functionality, and should not be visible to other packages.
  * @since 0.1
  */
-public class JsonJavaConverter<T> {
+class JsonJavaConverter<T> {
     
     private final String LOG_TAG = this.getClass().getSimpleName();
     private static final Gson GSON = new Gson();
