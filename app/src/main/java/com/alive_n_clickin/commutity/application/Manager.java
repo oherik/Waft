@@ -110,23 +110,23 @@ public class Manager implements IManager, IObserver {
         }
     }
 
-        @Override
-        public List<IArrivingVehicle> getVehicles(@NonNull IStop stop){
-            List<JsonArrival> jsonArrivals = vasttrafikAdapter.getVehiclesHeadedToStop(stop);
-            List<IArrivingVehicle> arrivingVehicles = new ArrayList<>();
-            for(JsonArrival a : jsonArrivals){
-                arrivingVehicles.add(VehicleFactory.getArrivingVehicle(a));
-            }
-            return arrivingVehicles;
+    @Override
+    public List<IArrivingVehicle> getVehicles(@NonNull IStop stop){
+        List<JsonArrival> jsonArrivals = vasttrafikAdapter.getVehiclesHeadedToStop(stop);
+        List<IArrivingVehicle> arrivingVehicles = new ArrayList<>();
+        for(JsonArrival a : jsonArrivals){
+            arrivingVehicles.add(VehicleFactory.getArrivingVehicle(a));
         }
+        return arrivingVehicles;
+    }
 
-        @Override
-        public List<IStop> searchForStops(@NonNull String searchQuery) {
-            List<JsonStop> jsonStopResponse = vasttrafikAdapter.getSearchStops(searchQuery);
-            List<IStop> stops = new ArrayList<>();
-            for(JsonStop s : jsonStopResponse){
-                stops.add(StopFactory.getStop(s));
-            }
-            return stops;
+    @Override
+    public List<IStop> searchForStops(@NonNull String searchQuery) {
+        List<JsonStop> jsonStopResponse = vasttrafikAdapter.getSearchStops(searchQuery);
+        List<IStop> stops = new ArrayList<>();
+        for(JsonStop s : jsonStopResponse){
+            stops.add(StopFactory.getStop(s));
+        }
+        return stops;
     }
 }
