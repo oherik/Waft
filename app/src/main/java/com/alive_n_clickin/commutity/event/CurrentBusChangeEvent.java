@@ -1,6 +1,6 @@
 package com.alive_n_clickin.commutity.event;
 
-import com.alive_n_clickin.commutity.domain.IElectriCityBus;
+import com.alive_n_clickin.commutity.domain.IBus;
 import com.alive_n_clickin.commutity.util.event.IEvent;
 
 /**
@@ -8,21 +8,21 @@ import com.alive_n_clickin.commutity.util.event.IEvent;
  * bus the user is currently on.
  */
 public class CurrentBusChangeEvent implements IEvent {
-    private IElectriCityBus bus;
+    private IBus bus;
 
     /**
      * Initiates a new CurrentBusChangeEvent.
      *
      * @param bus the bus that the user is currently on. Can be null.
      */
-    public CurrentBusChangeEvent(IElectriCityBus bus) {
+    public CurrentBusChangeEvent(IBus bus) {
         this.bus = bus;
     }
 
     /**
      * @return the bus the user is currently on. Null if the user isn't on a bus.
      */
-    public IElectriCityBus getBus() {
+    public IBus getBus() {
         return this.bus;
     }
 }

@@ -1,16 +1,20 @@
-package com.alive_n_clickin.commutity.infrastructure.api.response;
+package com.alive_n_clickin.commutity.infrastructure.api;
 
 import android.util.Log;
 
+import com.alive_n_clickin.commutity.domain.ArrivingVehicle;
+import com.alive_n_clickin.commutity.domain.Flag;
+import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.util.LogUtils;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
-import lombok.Getter;
 import lombok.ToString;
 
 /**
@@ -19,32 +23,48 @@ import lombok.ToString;
  * object, as well as calculating the time to arrival.
  */
 @ToString
-public class JsonArrival {
+public class ApiArrival implements Comparable<ApiArrival>{
     /**
      * Scheduled arrival time
      */
-    @Getter private String time;
+    private String time;
     /**
      * The real arrival time, including delays
      */
-    @Getter private String rtTime;
-    @Getter private String date;
-    @Getter private long journeyid;
-    @Getter private String direction;
-    @Getter private String name;
+    private String rtTime;
+    private String date;
+    private long journeyid;
+    private String direction;
+    private String name;
     /**
      * The line number (short name)
      */
-    @Getter private String sname;
+    private String sname;
 
-    @Getter private DateFormat dateFormatter;
+    private DateFormat dateFormatter;
 
     /**
      * Constructor, initializes the date formatter
      */
-    public JsonArrival(){
+    public ApiArrival(){
         dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         dateFormatter.setTimeZone(TimeZone.getTimeZone("Europe/Stockholm"));
+    }
+
+    //TODO Just for testing, change this when we implement another way to get the flags
+    public ArrivingVehicle getVehicle() {
+        List<IFlag> list = new ArrayList<>();
+        list.add(new Flag(Flag.Type.NO_PRAMS, "", new Date()));
+        list.add(new Flag(Flag.Type.MESSY, "", new Date()));
+        list.add(new Flag(Flag.Type.MESSY, "", new Date()));
+        list.add(new Flag(Flag.Type.MESSY, "", new Date()));
+        list.add(new Flag(Flag.Type.MESSY, "", new Date()));
+        list.add(new Flag(Flag.Type.OVERCROWDED, "", new Date()));
+        list.add(new Flag(Flag.Type.NO_PRAMS, "", new Date()));
+        list.add(new Flag(Flag.Type.MESSY, "", new Date()));
+        list.add(new Flag(Flag.Type.MESSY, "", new Date()));
+        list.add(new Flag(Flag.Type.MESSY, "", new Date()));
+        return new ArrivingVehicle(direction,sname,journeyid, getRealTimeToArrival(),list);
     }
 
     /**
@@ -78,6 +98,14 @@ public class JsonArrival {
     }
 
     /**
+     * This method provides the differences between the real arrival time and current time.
+     * @return the difference in time units (milliseconds)
+     */
+    public Long getRealTimeToArrival() {
+        return getRealArrival().getTime() - System.currentTimeMillis();
+    }
+
+    /**
      * This method provides the differences between the scheduled arrival time and current time.
      * @return the difference in time units (milliseconds)
      */
@@ -85,4 +113,8 @@ public class JsonArrival {
         return getScheduledArrival().getTime() - System.currentTimeMillis();
     }
 
+    @Override
+    public int compareTo(ApiArrival other) {
+        return (getRealTimeToArrival() - other.getRealTimeToArrival())>0 ? 1 : -1;
+    }
 }

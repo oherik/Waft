@@ -1,5 +1,8 @@
 package com.alive_n_clickin.commutity.domain;
 
+import com.alive_n_clickin.commutity.domain.Flag;
+import com.alive_n_clickin.commutity.domain.IFlagType;
+
 import org.junit.Test;
 
 import java.util.Date;
@@ -24,7 +27,7 @@ public class FlagTest {
         exception = false;
         try {
             new Flag(null, "", new Date());
-        } catch (NullPointerException e) {
+        } catch (IllegalArgumentException e) {
             exception = true;
         }
         assertTrue(exception);
@@ -32,7 +35,7 @@ public class FlagTest {
         exception = false;
         try {
             new Flag(null, "");
-        } catch (NullPointerException e) {
+        } catch (IllegalArgumentException e) {
             exception = true;
         }
         assertTrue(exception);
@@ -40,7 +43,7 @@ public class FlagTest {
         exception = false;
         try {
             new Flag(null);
-        } catch (NullPointerException e) {
+        } catch (IllegalArgumentException e) {
             exception = true;
         }
         assertTrue(exception);
@@ -48,7 +51,7 @@ public class FlagTest {
         exception = false;
         try {
             new Flag(mockFlagTypeWithCommentRequired, null, new Date());
-        } catch (NullPointerException e) {
+        } catch (IllegalArgumentException e) {
             exception = true;
         }
         assertTrue(exception);
@@ -80,7 +83,7 @@ public class FlagTest {
         exception = false;
         try {
             new Flag(mockFlagTypeWithCommentRequired, null);
-        } catch (NullPointerException e) {
+        } catch (IllegalArgumentException e) {
             exception = true;
         }
         assertTrue(exception);
@@ -138,14 +141,14 @@ public class FlagTest {
         flag = new Flag(mockFlagType, "foo", new Date());
         assertEquals(flag.getComment(), "foo");
 
-//        flag = new Flag(mockFlagType, null, new Date());
-//        assertEquals(flag.getComment(), "");
+        flag = new Flag(mockFlagType, null, new Date());
+        assertEquals(flag.getComment(), "");
 
         flag = new Flag(mockFlagType, "bar");
         assertEquals(flag.getComment(), "bar");
 
-//        flag = new Flag(mockFlagType, null);
-//        assertEquals(flag.getComment(), "");
+        flag = new Flag(mockFlagType, null);
+        assertEquals(flag.getComment(), "");
 
         flag = new Flag(mockFlagType);
         assertEquals(flag.getComment(), "");
@@ -159,8 +162,8 @@ public class FlagTest {
         flag = new Flag(mockFlagType, "", date);
         assertEquals(flag.getCreatedTime(), date);
 
-        //flag = new Flag(mockFlagType, "", null);
-        //assertTrue(flag.getCreatedTime().getTime() >= date.getTime());
+        flag = new Flag(mockFlagType, "", null);
+        assertTrue(flag.getCreatedTime().getTime() >= date.getTime());
 
         flag = new Flag(mockFlagType, "");
         assertTrue(flag.getCreatedTime().getTime() >= date.getTime());

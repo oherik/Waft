@@ -5,19 +5,16 @@ import java.util.Date;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.ToString;
 
 /**
  * A concrete implementation of the IFlag interface. Objects of this class are immutable.
  */
 @EqualsAndHashCode
-@ToString
 public class Flag implements IFlag {
     /**
      * An enum for different flag types. Each flag type is associated with a string and a boolean that
      * determines whether or not a comment is required for that flag type.
      */
-    @ToString
     public enum Type implements IFlagType {
         OTHER (1, true),
         OVERCROWDED (2),
@@ -65,21 +62,33 @@ public class Flag implements IFlag {
         public boolean isCommentRequired() {
             return this.requiresComment;
         }
+
+        @Override
+        public String toString() {
+            return String.format("FlagType [id=%s]", this.id);
+        }
+
+        @Override
+        public int getId() {
+            return this.id;
+        }
     }
 
     private static final int COMMENT_REQUIRED_MINIMUM_LENGTH = 5;
 
-    @Getter private final IFlagType type;
-    @Getter private final String comment;
+    private final IFlagType type;
+    private final String comment;
     private final Date createdTime;
 
     /**
      * Instantiates a new flag with the supplied type, comment and time of creation.
      *
      * @param type The flag type for the flag. See FlagType for more information.
-     * @param comment A comment for the flag.  If the supplied flag type requires a comment, the
-     *                comment must be at least 5 characters long.
-     * @param createdTime The time that the flag was created. If null,
+     * @param comment A comment for the flag. If null, comment will be set to an empty string. If
+     *                the supplied flag type requires a comment, the comment must be at least 5
+     *                characters long.
+     * @param createdTime The time that the flag was created. If null, createdTime will be set to
+     *                    the current time.
      * @throws IllegalArgumentException if the supplied flag type requires a
      * comment and comment is not at least 5 characters long.
      * @throws NullPointerException if any parameter is null
@@ -93,8 +102,8 @@ public class Flag implements IFlag {
         }
 
         this.type = type;
-        this.comment = comment;
-        this.createdTime = new Date(createdTime.getTime());
+        this.comment = (comment == null) ? "" : comment;
+        this.createdTime = (createdTime == null) ? new Date() : new Date(createdTime.getTime());
     }
 
     /**
@@ -123,13 +132,25 @@ public class Flag implements IFlag {
         this(type, "", new Date());
     }
 
-    /**
-     * Creates a copy of the created time. It uses a copy constructor, since that is the preferred
-     * method according to Joshua Bloch (Effective Java, 2001)
-     *
-     * @return When the flag was created
-     */
-    public Date getCreatedTime(){
+    @Override
+    public IFlagType getType() {
+        return type;
+    }
+
+    @Override
+    public String getComment() {
+        return comment;
+    }
+
+    @Override
+    public Date getCreatedTime() {
         return new Date(createdTime.getTime());
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Flag [type=%s, comment=%s, createdTime=[%3$tY-%3$tm-%3$td %3$tH:%3$tM:%3$tS]",
+                this.type, this.comment, this.createdTime);
     }
 }
