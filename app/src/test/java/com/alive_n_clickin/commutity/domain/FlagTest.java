@@ -80,7 +80,7 @@ public class FlagTest {
         exception = false;
         try {
             new Flag(mockFlagTypeWithCommentRequired, null);
-        } catch (IllegalArgumentException e) {
+        } catch (NullPointerException e) {
             exception = true;
         }
         assertTrue(exception);
