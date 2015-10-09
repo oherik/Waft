@@ -12,8 +12,9 @@ import android.widget.TextView;
 
 import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
-import com.alive_n_clickin.commutity.application.IManager;
+import com.alive_n_clickin.commutity.application.IBusManager;
 import com.alive_n_clickin.commutity.domain.Flag;
+import com.alive_n_clickin.commutity.domain.IBus;
 import com.alive_n_clickin.commutity.event.CurrentBusChangeEvent;
 import com.alive_n_clickin.commutity.event.WifiStateChangeEvent;
 import com.alive_n_clickin.commutity.infrastructure.WifiBroadcastReceiver;
@@ -32,7 +33,7 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
     final static String ARG_POSITION    = "position";
     int mCurrentPosition                = -1;
 
-    private IManager busManager;
+    private IBusManager busManager;
     private WifiBroadcastReceiver wifiBroadcastReceiver;
 
     private FlagViewAdapter flagAdapter;
@@ -56,7 +57,7 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
 
         // Register observers
         MyApplication application = (MyApplication) this.getActivity().getApplicationContext();
-        this.busManager = application.getManager();
+        this.busManager = application.getBusManager();
         this.busManager.addObserver(this);
         this.wifiBroadcastReceiver = application.getWifiBroadcastReceiver();
         this.wifiBroadcastReceiver.addObserver(this);
@@ -128,12 +129,23 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
 
         WifiHelper wifiHelper = new WifiHelper(this.getActivity());
         if (this.busManager.isOnBus()) {
-            textView.setText(this.busManager.getCurrentBus().getDGW());
+            IBus bus = this.busManager.getCurrentBus();
+            String newText = getCurrentBusAsString(bus);
+
+            textView.setText(newText);
         } else if (!wifiHelper.isWifiEnabled()) {
             textView.setText(R.string.you_must_activate_wifi);
         } else {
             textView.setText(R.string.no_buses_near);
         }
+    }
+
+    private String getCurrentBusAsString(IBus bus) {
+        StringBuilder newText = new StringBuilder();
+        newText.append(bus.getRouteNumber());
+        newText.append(" ");
+        newText.append(bus.getDestination());
+        return newText.toString();
     }
 
     private void updateBusText() {

@@ -1,7 +1,7 @@
 package com.alive_n_clickin.commutity.infrastructure.api;
 
 import com.alive_n_clickin.commutity.application.FlagFactory;
-import com.alive_n_clickin.commutity.domain.IElectriCityBus;
+import com.alive_n_clickin.commutity.domain.IBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.domain.JsonFlag;
 
@@ -27,19 +27,20 @@ class WaftAdapter implements IWaftAdapter{
     }
 
     @Override
-    public void flagBus(IElectriCityBus bus, IFlag flag) {
+    public void flagBus(IBus bus, IFlag flag) {
         waftApiConnection.sendPostToWaft(
                 "flags",
                 getFormattedPostFlagString(bus, flag)
                 );
     }
 
-    private String getFormattedPostFlagString(IElectriCityBus bus, IFlag flag){
+    private String getFormattedPostFlagString(IBus bus, IFlag flag){
         //TODO: Check whether or not the parameters are added properly
         String query = "flagType=" + flag.getType().getId() +
                 "&comment=" + flag.getComment() +
                 "&time=" + flag.getCreatedTime().toString() +
-                "&busDGW" + bus.getDGW();
+                "&dgw=" + bus.getDGW() +
+                "&journeyID=" + bus.getJourneyName();
         return query;
     }
 }

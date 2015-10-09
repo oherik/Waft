@@ -139,8 +139,10 @@ class ApiConnection {
      * @return
      */
     static String readStream(InputStream inputStream) {
+
         Scanner sc = new Scanner(inputStream);
         //By setting delimiter \A (which marks the beginning of the file) the Scanner read the whole file.
-        return sc.useDelimiter("\\A").next();
+        sc.useDelimiter("\\A");
+        return sc.hasNext() ? sc.next() : "";
     }
 }
