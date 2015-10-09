@@ -33,6 +33,6 @@ public class BusFactory {
             destination = journey.getDestination();
             journeyId = journey.getJourneyId();
         }
-        return new Bus(dgw, destination, journeyId, "routeNumber", new ArrayList<IFlag>());
+        return new Bus(dgw, destination, journeyId, "55", new ArrayList<IFlag>());
     }
 }
