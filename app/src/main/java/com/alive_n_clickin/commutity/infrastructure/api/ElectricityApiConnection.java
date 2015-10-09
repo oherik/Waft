@@ -27,7 +27,6 @@ class ElectricityApiConnection {
     protected String sendGetToElectricity(String query) {
         Uri.Builder uriBuilder = Uri.parse(BASE_URL_ELECTRICITY).buildUpon();
         uriBuilder.encodedQuery(query);
-        uriBuilder.appendQueryParameter("Authorization", AUTHORIZATION);
         Uri uri = uriBuilder.build();
 
         try {
