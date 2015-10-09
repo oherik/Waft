@@ -1,13 +1,10 @@
 package com.alive_n_clickin.commutity.application;
 
-import com.alive_n_clickin.commutity.domain.Bus;
-import com.alive_n_clickin.commutity.domain.IBus;
-import com.alive_n_clickin.commutity.domain.IFlag;
+import com.alive_n_clickin.commutity.domain.ElectriCityBus;
+import com.alive_n_clickin.commutity.domain.IElectriCityBus;
 import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
 import com.alive_n_clickin.commutity.infrastructure.api.IElectricityAdapter;
 import com.alive_n_clickin.commutity.infrastructure.api.Journey;
-
-import java.util.ArrayList;
 
 /**
  * This is a factory for creating ready-to-use bus objects. The idea is that you ask this factory
@@ -24,7 +21,7 @@ public class BusFactory {
      * @param dgw the dgw id for the bus you want to have.
      * @return a new bus object.
      */
-    public static IBus getBus(String dgw) {
+    public static IElectriCityBus getBus(String dgw) {
         IElectricityAdapter ecAdapter = ApiAdapterFactory.createElectricityAdapter();
         Journey journey = ecAdapter.getJourneyInfo(dgw);
         String destination = "";
@@ -33,6 +30,6 @@ public class BusFactory {
             destination = journey.getDestination();
             journeyId = journey.getJourneyId();
         }
-        return new Bus(dgw, destination, journeyId, "55", new ArrayList<IFlag>());
+        return new ElectriCityBus(destination, "55", journeyId, dgw);
     }
 }

@@ -1,4 +1,6 @@
-package com.alive_n_clickin.commutity.infrastructure.api;
+package com.alive_n_clickin.commutity.infrastructure.api.response;
+
+import com.alive_n_clickin.commutity.infrastructure.api.JsonJavaConverter;
 
 import java.util.List;
 
@@ -9,11 +11,11 @@ import lombok.Getter;
  * to a station. It's used in the {@link JsonJavaConverter} to convert the information into a java
  * object.
  */
-public class ArrivalList {
+public class JsonArrivalList {
     private String noNamespaceSchemaLocation;
     private String serverTime;
     private String serverDate;
-    @Getter private List<ApiArrival> Departure;
+    @Getter private List<JsonArrival> Departure;
 
     @Override
     public String toString() {

@@ -1,6 +1,6 @@
 package com.alive_n_clickin.commutity.infrastructure.api;
 
-import com.alive_n_clickin.commutity.domain.IBus;
+import com.alive_n_clickin.commutity.domain.IElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
 
 import java.util.List;
@@ -15,7 +15,7 @@ class WaftAdapter implements IWaftAdapter{
     private final WaftApiConnection waftApiConnection = new WaftApiConnection();
 
     @Override
-    public List<IFlag> getFlagsForBus(IBus bus) {
+    public List<IFlag> getFlagsForBus(IElectriCityBus bus) {
         String response = waftApiConnection.sendGetToWaft("flags","busDGW=" + bus.getDGW());
         if(response != null){
             //TODO: Convert from json to java and return that instead + error handling
@@ -24,20 +24,20 @@ class WaftAdapter implements IWaftAdapter{
     }
 
     @Override
-    public void flagBus(IBus bus, IFlag flag) {
+    public void flagBus(IElectriCityBus bus, IFlag flag) {
         waftApiConnection.sendPostToWaft(
                 "flags",
                 getFormattedPostFlagString(bus, flag)
                 );
     }
 
-    private String getFormattedPostFlagString(IBus bus, IFlag flag){
+    private String getFormattedPostFlagString(IElectriCityBus bus, IFlag flag){
         //TODO: Check whether or not the parameters are added properly
         String query = "flagType=" + flag.getType().getId() +
                 "&comment=" + flag.getComment() +
                 "&time=" + flag.getCreatedTime().toString() +
                 "&dgw=" + bus.getDGW() +
-                "&journeyID=" + bus.getJourneyName();
+                "&journeyID=" + bus.getShortRouteName();
         return query;
     }
 }
