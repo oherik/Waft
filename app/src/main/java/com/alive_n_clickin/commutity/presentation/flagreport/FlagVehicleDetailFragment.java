@@ -19,11 +19,14 @@ import android.widget.Toast;
 
 import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
-import com.alive_n_clickin.commutity.application.IBusManager;
+import com.alive_n_clickin.commutity.application.IManager;
 import com.alive_n_clickin.commutity.domain.Flag;
 import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.domain.IFlagType;
 import com.alive_n_clickin.commutity.infrastructure.WifiHelper;
+
+import lombok.AccessLevel;
+import lombok.Getter;
 
 
 /**
@@ -34,15 +37,15 @@ import com.alive_n_clickin.commutity.infrastructure.WifiHelper;
  */
 
 public class FlagVehicleDetailFragment extends Fragment {
-    final static String ARG_POSITION    = "position";
-    int mCurrentPosition                = -1;
+    @Getter(AccessLevel.PROTECTED) private final static String ARG_POSITION = "position";
+    private int mCurrentPosition = -1;
     private IFlagType flagType;
-    private IBusManager busManager;
+    private IManager busManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        busManager = ((MyApplication) getActivity().getApplicationContext()).getBusManager();
+        busManager = ((MyApplication) getActivity().getApplicationContext()).getManager();
 
         if (savedInstanceState != null) {
             mCurrentPosition = savedInstanceState.getInt(ARG_POSITION);
