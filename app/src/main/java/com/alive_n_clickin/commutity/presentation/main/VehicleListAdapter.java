@@ -31,6 +31,7 @@ public class VehicleListAdapter extends ArrayAdapter<IArrivingVehicle> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
+            //false specifies to not attach to root ViewGroup.
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.vehicle_list, parent, false);
         }
 
