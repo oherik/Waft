@@ -1,9 +1,5 @@
 package com.alive_n_clickin.commutity.infrastructure.api;
 
-import android.util.Log;
-
-import com.alive_n_clickin.commutity.util.LogUtils;
-
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -86,7 +82,6 @@ class ElectricityAdapter implements IElectricityAdapter {
         String query = "dgw=" + dgw + "&sensorSpec=Ericsson$Journey_Info" +
                 "&t1=" + startTime + "&t2=" + endTime;
         String response = apiConn.sendGetToElectricity(query);
-        Log.d(LogUtils.getLogTag(this), response);
         return response;
     }
 }

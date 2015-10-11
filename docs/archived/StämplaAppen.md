@@ -14,7 +14,7 @@ These tools are already out there. There are lots of underground systems like th
 
 And even if people use the app, they can't be sure whether there will be an inspection or not, only when the risk is heightened. A negative answer in the app does not correspond to there being no inspections. The app only makes buying a ticket **more** attractive, not less.
 
-If you are paying now, would you stop if you had the app? Most likely not.
+If you are paying now, would you jsonStop if you had the app? Most likely not.
 
 ### How can it be used to the transit companies' advantage?
 
@@ -42,9 +42,9 @@ Or anything else that is an encouragement, really. Every time you check in on th
 
 ### Reporting
 
-Simply press a button: inspection on the bus you are on, or inspection on a tram stop. 
+Simply press a button: inspection on the bus you are on, or inspection on a tram jsonStop.
 
-1. If you report on a stop, your GPS is used to determine the area of the inspection.
+1. If you report on a jsonStop, your GPS is used to determine the area of the inspection.
 1. If you report on a bus or tram, either
     1. If it's an electric bus, we determine which one by using the wifi and GPS signals. (Showing of the new bus technology, wooo!)
     2. If it's a regular one, tell us which line and which direction.
