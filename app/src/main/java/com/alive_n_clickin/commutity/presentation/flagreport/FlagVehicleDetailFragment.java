@@ -25,6 +25,9 @@ import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.domain.IFlagType;
 import com.alive_n_clickin.commutity.infrastructure.WifiHelper;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+
 
 /**
  * A class for showing the detailed view when flagging a vehicle. The view contains a flag, its name,
@@ -34,8 +37,8 @@ import com.alive_n_clickin.commutity.infrastructure.WifiHelper;
  */
 
 public class FlagVehicleDetailFragment extends Fragment {
-    final static String ARG_POSITION    = "position";
-    int mCurrentPosition                = -1;
+    @Getter(AccessLevel.PROTECTED) private final static String ARG_POSITION = "position";
+    private int mCurrentPosition = -1;
     private IFlagType flagType;
     private IManager busManager;
 
