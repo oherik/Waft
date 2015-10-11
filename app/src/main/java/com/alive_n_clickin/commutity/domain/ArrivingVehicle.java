@@ -14,7 +14,7 @@ import lombok.ToString;
  */
 @EqualsAndHashCode(callSuper = true)
 @ToString
-public class ArrivingVehicle extends AbstractVehicle implements IArrivingVehicle{
+public class ArrivingVehicle extends AbstractVehicle implements IArrivingVehicle {
     private final Date arrivalTime;
     private final List<IFlag> flags;
 
@@ -32,7 +32,7 @@ public class ArrivingVehicle extends AbstractVehicle implements IArrivingVehicle
      * @throws NullPointerException if any parameter is null.
      */
     public ArrivingVehicle(@NonNull String destination, @NonNull String shortRouteName,
-                           String journeyID, @NonNull Date arrivalTime, @NonNull List<IFlag> flags){
+                           String journeyID, @NonNull Date arrivalTime, @NonNull List<IFlag> flags) {
         super(destination, shortRouteName, journeyID);
         this.arrivalTime = new Date(arrivalTime.getTime());
         this.flags = new ArrayList<>(flags);

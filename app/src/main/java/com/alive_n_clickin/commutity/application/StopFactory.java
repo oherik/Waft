@@ -21,7 +21,7 @@ public class StopFactory {
      * @return A new domain stop object based on the response
      * @throws NullPointerException if the parameter is null
      */
-    public static IStop getStop(@NonNull JsonStop jsonStop){
+    public static IStop getStop(@NonNull JsonStop jsonStop) {
         return new com.alive_n_clickin.commutity.domain.Stop(jsonStop.getName(), jsonStop.getId());
     }
 }

@@ -70,8 +70,8 @@ public class MainFragment extends Fragment {
      * @param currentStop The stop the displayed buses are headed to
      * @param view The view that's currently focused
      */
-    private void populateBusList(IStop currentStop, @NonNull View view){
-        if(currentStop==null){
+    private void populateBusList(IStop currentStop, @NonNull View view) {
+        if (currentStop==null) {
             busListView.setVisibility(view.INVISIBLE);
         } else {
             busListView.setVisibility(view.VISIBLE);
@@ -84,7 +84,7 @@ public class MainFragment extends Fragment {
      * Collects the vehicles from the adapter, based on which stop is currently selected.
      * After the class has fetched the results it adds the new data to the list adapter.
      */
-    private class AddVehiclesFromAPI extends AsyncTask<IStop, Void, List<IArrivingVehicle>>{
+    private class AddVehiclesFromAPI extends AsyncTask<IStop, Void, List<IArrivingVehicle>> {
 
         @Override
         protected List<IArrivingVehicle> doInBackground(IStop... params) {
@@ -95,7 +95,7 @@ public class MainFragment extends Fragment {
         protected void onPostExecute(List<IArrivingVehicle> result) {
             try {
                 arrivingVehicles.clear();
-            }catch(NullPointerException e) {
+            } catch(NullPointerException e) {
                 //Arriving vehicles list has been deleted, create a new one
                 Log.e(LogUtils.getLogTag(this), "The list of vehicles has been deleted. This list" +
                         " should always be present. Creating an empty one. \n" +
@@ -125,13 +125,13 @@ public class MainFragment extends Fragment {
      * @param maxSize
      * @return The trimmed list, or an empty list if it was empty to begin with
      */
-    private List trimmedList(@NonNull List list, int maxSize){
-        if(list.isEmpty()) {
+    private List trimmedList(@NonNull List list, int maxSize) {
+        if (list.isEmpty()) {
             //List was empty, no need to trim
             return list;
         }
         //The toIndex is exclusive
-        int toIndex = Math.min(maxSize , list.size());
+        int toIndex = Math.min(maxSize, list.size());
         return list.subList(0, toIndex);
     }
 
@@ -139,8 +139,8 @@ public class MainFragment extends Fragment {
      * Sets the stop name, as well as formatting the text
      * @param currentStop The stop to be displayed
      */
-    private void setStopName(IStop currentStop){
-        if(currentStop!=null && !("".equals(currentStop.getName()))) {
+    private void setStopName(IStop currentStop) {
+        if (currentStop!=null && !("".equals(currentStop.getName()))) {
             stopTextView.setText(currentStop.getName());
         }
         stopTextView.setPaintFlags(stopTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
