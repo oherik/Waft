@@ -17,9 +17,9 @@ public class ArrivingVehicleTest {
 
     @Test
     public void testCompareTo() throws Exception {
-        ArrivingVehicle arrivingVehicle1 = new ArrivingVehicle("destination", "shortRouteName", 123,
+        ArrivingVehicle arrivingVehicle1 = new ArrivingVehicle("destination", "shortRouteName", "123",
                 new Date(2000, 1, 1), new ArrayList<IFlag>());
-        ArrivingVehicle arrivingVehicle2 = new ArrivingVehicle("destination", "shortRouteName", 123,
+        ArrivingVehicle arrivingVehicle2 = new ArrivingVehicle("destination", "shortRouteName", "123",
                 new Date(2000, 1, 2), new ArrayList<IFlag>());
 
         assertEquals(arrivingVehicle1.compareTo(arrivingVehicle2), -1);
@@ -33,7 +33,7 @@ public class ArrivingVehicleTest {
         // An arriving vehicle should be immutable and shouldn't leak it's implementation
         // of arrivalTime.
         Date date = new Date(2000, 1, 1);
-        ArrivingVehicle arrivingVehicle = new ArrivingVehicle("destination", "shortRouteName", 123,
+        ArrivingVehicle arrivingVehicle = new ArrivingVehicle("destination", "shortRouteName", "123",
                 date, new ArrayList<IFlag>());
 
         Date returnedDate = arrivingVehicle.getArrivalTime();
@@ -48,7 +48,7 @@ public class ArrivingVehicleTest {
     public void testGetFlags() throws Exception {
         // An arriving vehicle should be immutable and shouldn't leak it's implementation of flags.
         List<IFlag> flags = new ArrayList<>();
-        ArrivingVehicle arrivingVehicle = new ArrivingVehicle("destination", "shortRouteName", 123,
+        ArrivingVehicle arrivingVehicle = new ArrivingVehicle("destination", "shortRouteName", "123",
                 new Date(), flags);
 
         List<IFlag> returnedFlags = arrivingVehicle.getFlags();
