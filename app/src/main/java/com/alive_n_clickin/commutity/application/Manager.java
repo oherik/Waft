@@ -114,8 +114,10 @@ public class Manager implements IManager, IObserver {
     public List<IArrivingVehicle> getVehicles(@NonNull IStop stop) {
         List<JsonArrival> jsonArrivals = vasttrafikAdapter.getVehiclesHeadedToStop(stop);
         List<IArrivingVehicle> arrivingVehicles = new ArrayList<>();
-        for(JsonArrival a : jsonArrivals) {
-            arrivingVehicles.add(VehicleFactory.getArrivingVehicle(a));
+        if (jsonArrivals != null) {
+            for(JsonArrival a : jsonArrivals) {
+                arrivingVehicles.add(VehicleFactory.getArrivingVehicle(a));
+            }
         }
         return arrivingVehicles;
     }
