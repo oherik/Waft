@@ -25,6 +25,7 @@ public class SearchResultAdapter extends ArrayAdapter<IStop> {
     public View getView(int position, View convertView, ViewGroup parent) {
         IStop stop = getItem(position);
         if (convertView == null) {
+            //false specifies to not attach to root ViewGroup.
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.stop_search_result, parent, false);
         }
         TextView nameView = (TextView) convertView.findViewById(R.id.stopResultNameView);
