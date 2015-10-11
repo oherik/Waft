@@ -14,7 +14,7 @@ public class ElectriCityBusTest {
         // assert that a bus with null DGW can't be created
         exception = false;
         try {
-            new ElectriCityBus("", "", "0", null);
+            new ElectriCityBus("", "", null);
         } catch (NullPointerException e) {
             exception = true;
         }
@@ -23,7 +23,7 @@ public class ElectriCityBusTest {
         // assert that a bus with null VIN can't be created
         exception = false;
         try {
-            new ElectriCityBus(null, "", "0","");
+            new ElectriCityBus(null, "","");
         } catch (NullPointerException e) {
             exception = true;
         }
@@ -32,7 +32,7 @@ public class ElectriCityBusTest {
         // assert that a bus with null licenseNumber can't be created
         exception = false;
         try {
-            new ElectriCityBus("", null, "0", "");
+            new ElectriCityBus("", null, "");
         } catch (NullPointerException e) {
             exception = true;
         }
@@ -45,36 +45,36 @@ public class ElectriCityBusTest {
         IElectriCityBus bus2;
 
         // assert that two buses with the same attributes are equal
-        bus1 = new ElectriCityBus("vin", "abc123", "123", "dgw");
-        bus2 = new ElectriCityBus ("vin", "abc123", "123", "dgw");
+        bus1 = new ElectriCityBus("vin", "abc123", "dgw");
+        bus2 = new ElectriCityBus ("vin", "abc123", "dgw");
         assertTrue(bus1.equals(bus2));
         assertTrue(bus2.equals(bus1));
 
         // assert that two buses with different DGW values aren't equal
-        bus1 = new ElectriCityBus("vin", "abc123", "123", "a");
-        bus2 = new ElectriCityBus ("vin", "abc123", "123", "b");
+        bus1 = new ElectriCityBus("vin", "abc123", "a");
+        bus2 = new ElectriCityBus ("vin", "abc123", "b");
         assertFalse(bus1.equals(bus2));
         assertFalse(bus2.equals(bus1));
 
         // assert that two buses with different VIN values aren't equal
-        bus1 = new ElectriCityBus("a", "abc123", "123", "dgw");
-        bus2 = new ElectriCityBus ("b", "abc123", "123", "dgw");
+        bus1 = new ElectriCityBus("a", "abc123", "dgw");
+        bus2 = new ElectriCityBus ("b", "abc123", "dgw");
         assertFalse(bus1.equals(bus2));
         assertFalse(bus2.equals(bus1));
 
         // assert that two buses with different license numbers aren't equal
-        bus1 = new ElectriCityBus("vin", "a", "123", "dgw");
-        bus2 = new ElectriCityBus ("vin", "b", "123", "dgw");
+        bus1 = new ElectriCityBus("vin", "a", "dgw");
+        bus2 = new ElectriCityBus ("vin", "b", "dgw");
         assertFalse(bus1.equals(bus2));
         assertFalse(bus2.equals(bus1));
 
         // assert that two buses with different BSSID values aren't equal
-        bus1 = new ElectriCityBus("vin", "abc123", "123", "dgw");
-        bus2 = new ElectriCityBus ("vin", "abc123", "456", "dgw");
+        bus1 = new ElectriCityBus("vin", "abc123", "dgw");
+        bus2 = new ElectriCityBus ("vin", "abc123", "dgw");
         assertFalse(bus1.equals(bus2));
         assertFalse(bus2.equals(bus1));
 
-        bus1 = new ElectriCityBus("", "", "0", "");
+        bus1 = new ElectriCityBus("", "", "");
         // assert that a bus equals itself
         assertTrue(bus1.equals(bus1));
         // assert that a bus is not equal to null

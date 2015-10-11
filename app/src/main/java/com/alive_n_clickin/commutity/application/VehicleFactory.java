@@ -42,7 +42,7 @@ public class VehicleFactory {
             destination = journey.getDestination();
             journeyId = journey.getJourneyId();
         }
-        return new ElectriCityBus(destination, "55", journeyId, dgw);
+        return new ElectriCityBus(destination, journeyId, dgw);
     }
 
     /**
