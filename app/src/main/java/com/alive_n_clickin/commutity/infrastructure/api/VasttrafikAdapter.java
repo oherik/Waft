@@ -32,7 +32,7 @@ class VasttrafikAdapter implements IVasttrafikAdapter {
         String response = vasttrafikApiConnection.sendGetToVasttrafik(
                 "location.nearbystops",
                 "&originCoordLat=" + latitude + "&originCoordLong=" + longitude);
-        if(response != null){
+        if (response != null) {
             return new JsonJavaConverter<JsonStopList>(JsonStopList.class).toJava(
                     response,"LocationList").getStopLocations();
         } else {
@@ -47,10 +47,10 @@ class VasttrafikAdapter implements IVasttrafikAdapter {
                 "location.name",
                 "&input=" + Uri.encode(searchString)
         );
-        if(response != null){
+        if (response != null) {
             Object responseObject = new JsonJavaConverter<JsonStopList>(JsonStopList.class).toJava(
                     response, "LocationList");
-            if(responseObject != null){
+            if (responseObject != null) {
                 //The api returns results that begin with "." that are not relevant to our implementation.
                 //We must filter this out. That is what the for loop does. (It's a filter)
                 JsonStopList locationList = (JsonStopList)responseObject;
@@ -65,7 +65,7 @@ class VasttrafikAdapter implements IVasttrafikAdapter {
                 Log.d("ASD","stopList is null");
                 return null;
             }
-        } else{
+        } else {
             Log.d("ASD","response from server is null");
             return null;
         }
@@ -86,7 +86,7 @@ class VasttrafikAdapter implements IVasttrafikAdapter {
                         "&id=" + stop.getId() +
                         "&date=" + date +
                         "&time=" + time);
-        if(response != null){
+        if (response != null) {
              return new JsonJavaConverter<>(JsonArrivalList.class).toJava(
                     response, "DepartureBoard").getDeparture();
         }

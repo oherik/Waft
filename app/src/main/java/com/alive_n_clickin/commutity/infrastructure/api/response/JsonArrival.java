@@ -42,7 +42,7 @@ public class JsonArrival {
     /**
      * Constructor, initializes the date formatter
      */
-    public JsonArrival(){
+    public JsonArrival() {
         dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         dateFormatter.setTimeZone(TimeZone.getTimeZone("Europe/Stockholm"));
     }
@@ -52,7 +52,7 @@ public class JsonArrival {
      * given from the API call
      * @return  The date and time the vehicle is scheduled to arrive
      */
-    public Date getScheduledArrival(){
+    public Date getScheduledArrival() {
         Date arrival = new Date();
         try {
             arrival = dateFormatter.parse(date + " " + time);
@@ -67,7 +67,7 @@ public class JsonArrival {
      * based on the information given from the API call
      * @return  The date and time the vehicle will arrive
      */
-    public Date getRealArrival(){
+    public Date getRealArrival() {
         Date arrival = new Date();
         try {
             arrival = dateFormatter.parse(date + " " + rtTime);

@@ -12,13 +12,13 @@ import java.util.List;
  *
  * This class represents high level methods for connection to the Waft API.
  */
-class WaftAdapter implements IWaftAdapter{
+class WaftAdapter implements IWaftAdapter {
     private final WaftApiConnection waftApiConnection = new WaftApiConnection();
 
     @Override
     public List<JsonFlag> getFlagsForVehicle(int journeyId) {
         String response = waftApiConnection.sendGetToWaft("flags", "" +journeyId);
-        if(response != null){
+        if (response != null) {
             return JsonJavaConverter.toJavaList(response, JsonFlag[].class);
         }
         return null;
@@ -32,7 +32,7 @@ class WaftAdapter implements IWaftAdapter{
                 );
     }
 
-    private String getFormattedPostFlagString(IElectriCityBus bus, IFlag flag){
+    private String getFormattedPostFlagString(IElectriCityBus bus, IFlag flag) {
         //TODO: Check whether or not the parameters are added properly
         String query = "flagType=" + flag.getType().getId() +
                 "&comment=" + flag.getComment() +

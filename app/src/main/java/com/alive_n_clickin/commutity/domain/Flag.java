@@ -129,7 +129,7 @@ public class Flag implements IFlag {
      *
      * @return When the flag was created
      */
-    public Date getCreatedTime(){
+    public Date getCreatedTime() {
         return new Date(createdTime.getTime());
     }
 }

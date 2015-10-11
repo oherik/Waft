@@ -104,7 +104,7 @@ public class SearchFragment extends Fragment {
      * Sets the current stop in the activity
      * @param stop The selected stop
      */
-    private void setMainStop(IStop stop){
+    private void setMainStop(IStop stop) {
         MainActivity mainActivity = (MainActivity) getActivity();
         mainActivity.setCurrentStop(stop);
 
@@ -114,7 +114,7 @@ public class SearchFragment extends Fragment {
      * Switch view to the main fragment by replacing which fragment that will be in the main
      * activity's container
      */
-    private void switchToMainFragment(){
+    private void switchToMainFragment() {
         MainFragment mainFragment = new MainFragment();
 
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -131,7 +131,7 @@ public class SearchFragment extends Fragment {
      * Starts the async task for getting results based on the query
      * @param query The stop search query
      */
-    private void searchStops(String query){
+    private void searchStops(String query) {
         SearchStopTask task = new SearchStopTask();
         task.execute(query);
     }
@@ -151,7 +151,7 @@ public class SearchFragment extends Fragment {
             return null;
         }
         @Override
-        protected void onPostExecute(List<IStop> result){
+        protected void onPostExecute(List<IStop> result) {
             displayResults(result);
         }
     }
@@ -160,7 +160,7 @@ public class SearchFragment extends Fragment {
      * Clears the result view and display the new results
      * @param stops The results of the search
      */
-    private void displayResults(List<IStop> stops){
+    private void displayResults(List<IStop> stops) {
         if (stops != null) {
             resultAdapter.clear();
             resultAdapter.addAll(stops);

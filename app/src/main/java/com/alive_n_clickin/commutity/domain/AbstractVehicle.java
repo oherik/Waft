@@ -26,7 +26,7 @@ public abstract class AbstractVehicle implements IVehicle {
      *                  continues in the opposite direction.
      * @throws NullPointerException if any parameter is null
      */
-    public AbstractVehicle(@NonNull String destination, @NonNull String shortRouteName, String journeyID){
+    public AbstractVehicle(@NonNull String destination, @NonNull String shortRouteName, String journeyID) {
         this.destination = destination;
         this.shortRouteName = shortRouteName;
         this.journeyID = journeyID;
