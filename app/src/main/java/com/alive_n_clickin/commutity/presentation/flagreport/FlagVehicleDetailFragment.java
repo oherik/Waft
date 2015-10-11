@@ -164,12 +164,23 @@ public class FlagVehicleDetailFragment extends Fragment {
         outState.putInt(ARG_POSITION, mCurrentPosition);
     }
 
-    private class FlagBusTask extends AsyncTask<IFlag, Void, Void> {
+    private class FlagBusTask extends AsyncTask<IFlag, Void, Boolean> {
+        private String SENT_FLAG_OK = "Successfully sent flag!";
+        private String SENT_FLAG_FAILED = "Couldn't send flag, make sure you're connected to a bus.";
+
 
         @Override
-        protected Void doInBackground(IFlag... params) {
-            busManager.addFlagToCurrentBus(params[0]);
-            return null;
+        protected Boolean doInBackground(IFlag... params) {
+            return busManager.addFlagToCurrentBus(params[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (result) {
+                Toast.makeText(getContext(), SENT_FLAG_OK, Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getContext(), SENT_FLAG_FAILED, Toast.LENGTH_LONG).show();
+            }
         }
     }
 }
