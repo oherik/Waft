@@ -30,8 +30,8 @@ import java.util.ArrayList;
  * @since 0.1
  */
 public class FlagVehicleFragment extends Fragment implements IObserver {
-    final static String ARG_POSITION    = "position";
-    int mCurrentPosition                = -1;
+    private final static String ARG_POSITION = "position";
+    private int mCurrentPosition = -1;
 
     private IManager busManager;
     private WifiBroadcastReceiver wifiBroadcastReceiver;
@@ -95,7 +95,7 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
                 //Prepare arguments
                 FlagVehicleDetailFragment detailFragment = new FlagVehicleDetailFragment();
                 Bundle args = new Bundle();
-                args.putInt(FlagVehicleDetailFragment.ARG_POSITION, mCurrentPosition);
+                args.putInt(FlagVehicleDetailFragment.getARG_POSITION(), mCurrentPosition);
 
                 //Add flag data
                 args.putInt("flag_image_ID", button.getImageID());
