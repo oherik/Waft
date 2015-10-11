@@ -138,14 +138,8 @@ public class FlagTest {
         flag = new Flag(mockFlagType, "foo", new Date());
         assertEquals(flag.getComment(), "foo");
 
-//        flag = new Flag(mockFlagType, null, new Date());
-//        assertEquals(flag.getComment(), "");
-
         flag = new Flag(mockFlagType, "bar");
         assertEquals(flag.getComment(), "bar");
-
-//        flag = new Flag(mockFlagType, null);
-//        assertEquals(flag.getComment(), "");
 
         flag = new Flag(mockFlagType);
         assertEquals(flag.getComment(), "");
@@ -158,9 +152,6 @@ public class FlagTest {
 
         flag = new Flag(mockFlagType, "", date);
         assertEquals(flag.getCreatedTime(), date);
-
-        //flag = new Flag(mockFlagType, "", null);
-        //assertTrue(flag.getCreatedTime().getTime() >= date.getTime());
 
         flag = new Flag(mockFlagType, "");
         assertTrue(flag.getCreatedTime().getTime() >= date.getTime());
