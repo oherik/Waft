@@ -164,12 +164,20 @@ public class FlagVehicleDetailFragment extends Fragment {
         outState.putInt(ARG_POSITION, mCurrentPosition);
     }
 
-    private class FlagBusTask extends AsyncTask<IFlag, Void, Void> {
+    private class FlagBusTask extends AsyncTask<IFlag, Void, Boolean> {
 
         @Override
-        protected Void doInBackground(IFlag... params) {
-            busManager.addFlagToCurrentBus(params[0]);
-            return null;
+        protected Boolean doInBackground(IFlag... params) {
+            return busManager.addFlagToCurrentBus(params[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (result) {
+                Toast.makeText(getContext(), R.string.flag_sent, Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getContext(), R.string.flag_not_sent, Toast.LENGTH_LONG).show();
+            }
         }
     }
 }

@@ -52,7 +52,7 @@ class WaftApiConnection {
             Log.e(LOG_TAG,"Couldn't create url in: sendPostToWaft with the final uri: " + uri.toString());
         }
 
-        if(url != null){
+        if (url != null) {
             return ApiConnection.post(url,postQuery);
         }
         return -1;
