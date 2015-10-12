@@ -9,21 +9,22 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#F0FFFF"
+        android:background="@color/primary"
         android:onClick="switchToSearchFragment"
         android:id="@+id/relativeLayout">
         <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-            android:minWidth="300dp"
-            android:layout_marginLeft="10dp"
+        android:minWidth="300dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/white"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/currentStop"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-            android:textSize="20dp"
-            android:padding = "6dp"
-            android:text="@string/stop_search_label" />
+        android:textSize="20dp"
+        android:padding = "6dp"
+        android:text="@string/stop_search_label" />
     </RelativeLayout>
 
     <ListView
