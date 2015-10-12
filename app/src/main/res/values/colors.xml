@@ -4,11 +4,8 @@
         name="primary">
         #3F51B1</color>
     <color
-        name="primary_light">
-        #C5CAE9</color>
-    <color
         name="primary_dark">
-        #303F9F</color>
+        #1A237E</color>
     <color
         name="accent">
         #FF4081</color>
