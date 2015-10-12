@@ -10,9 +10,9 @@
         name="primary_dark">
         #1565C0</color>
     <color
-        name="secondary">
+        name="accent">
         #FF3D00</color>
     <color
-        name="secondary_light">
+        name="accent_light">
         #FF6E40</color>
 </resources>

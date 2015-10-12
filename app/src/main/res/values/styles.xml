@@ -8,6 +8,10 @@
     <style name="WaftMainTheme" parent="@android:style/Theme.Material.Light">
         <item name="android:windowActionBar">false</item>
         <item name="android:windowTitleSize">0dp</item>
+        <!-- Colors -->
+        <item name="android:colorPrimary">@color/primary</item>
+        <item name="android:colorPrimaryDark">@color/primary_dark</item>
+        <item name="android:colorAccent">@color/accent</item>
     </style>
     <declare-styleable name="FlagImageView">
     </declare-styleable>
