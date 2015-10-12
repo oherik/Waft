@@ -2,22 +2,22 @@
 <resources>
     <color
         name="primary">
-        #2196F3</color>
+        #3F51B1</color>
     <color
         name="primary_light">
-        #BBDEFB</color>
+        #C5CAE9</color>
     <color
         name="primary_dark">
-        #1565C0</color>
+        #303F9F</color>
     <color
         name="accent">
-        #1DE9B6</color>
+        #FF4081</color>
     <color
         name="control_highlight">
-        g#FF3D00</color>
+        #F50057</color>
     <color
         name="accent_light">
-        #A7FFEB</color>
+        #FF80AB</color>
     <color
         name="white">
         #FFFFFF</color>
