@@ -85,7 +85,7 @@ public class FlagVehicleDetailFragment extends Fragment {
         IFlag flag;
         try {
             flag = new Flag(flagType, comment);
-            FlagBusTask flagBusTask = new FlagBusTask();
+            FlagBusTask flagBusTask = new FlagBusTask(getContext().getApplicationContext());
             flagBusTask.execute(flag);
             switchToFlagFragment();
         } catch (IllegalArgumentException e) {
@@ -166,6 +166,12 @@ public class FlagVehicleDetailFragment extends Fragment {
 
     private class FlagBusTask extends AsyncTask<IFlag, Void, Boolean> {
 
+        private final Context applicationContext;
+
+        public FlagBusTask(Context applicationContext) {
+            this.applicationContext = applicationContext;
+        }
+
         @Override
         protected Boolean doInBackground(IFlag... params) {
             return busManager.addFlagToCurrentBus(params[0]);
@@ -174,9 +180,9 @@ public class FlagVehicleDetailFragment extends Fragment {
         @Override
         protected void onPostExecute(Boolean result) {
             if (result) {
-                Toast.makeText(getContext(), R.string.flag_sent, Toast.LENGTH_LONG).show();
+                Toast.makeText(applicationContext, R.string.flag_sent, Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(getContext(), R.string.flag_not_sent, Toast.LENGTH_LONG).show();
+                Toast.makeText(applicationContext, R.string.flag_not_sent, Toast.LENGTH_LONG).show();
             }
         }
     }
