@@ -15,4 +15,10 @@
     <color
         name="accent_light">
         #FF6E40</color>
+    <color
+        name="white">
+        #FFFFFF</color>
+    <color
+        name="black">
+        #000000</color>
 </resources>
