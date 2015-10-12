@@ -22,7 +22,7 @@ public interface IManager extends IObservable {
      *
      * @param flag the flag to flag the current bus with.
      */
-    void addFlagToCurrentBus(IFlag flag);
+    boolean addFlagToCurrentBus(IFlag flag);
 
     /**
      * @return true if the user is currently on a bus, otherwise false.

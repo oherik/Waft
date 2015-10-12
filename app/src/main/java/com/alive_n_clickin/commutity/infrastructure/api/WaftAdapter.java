@@ -17,7 +17,7 @@ class WaftAdapter implements IWaftAdapter {
 
     @Override
     public List<JsonFlag> getFlagsForVehicle(int journeyId) {
-        String response = waftApiConnection.sendGetToWaft("flags", "" +journeyId);
+        String response = waftApiConnection.sendGetToWaft("flags", "" + journeyId);
         if (response != null) {
             return JsonJavaConverter.toJavaList(response, JsonFlag[].class);
         }
@@ -25,11 +25,20 @@ class WaftAdapter implements IWaftAdapter {
     }
 
     @Override
-    public void flagBus(IElectriCityBus bus, IFlag flag) {
-        waftApiConnection.sendPostToWaft(
+    public boolean flagBus(IElectriCityBus bus, IFlag flag) {
+        int statusCode = waftApiConnection.sendPostToWaft(
                 "flags",
                 getFormattedPostFlagString(bus, flag)
-                );
+        );
+        switch (statusCode) {
+            case -1:
+                return false;
+            case 400:
+                return false;
+            case 200:
+                return true;
+        }
+        return false;
     }
 
     private String getFormattedPostFlagString(IElectriCityBus bus, IFlag flag) {
