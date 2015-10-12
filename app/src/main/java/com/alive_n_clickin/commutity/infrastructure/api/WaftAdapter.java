@@ -16,8 +16,8 @@ class WaftAdapter implements IWaftAdapter {
     private final WaftApiConnection waftApiConnection = new WaftApiConnection();
 
     @Override
-    public List<JsonFlag> getFlagsForVehicle(int journeyId) {
-        String response = waftApiConnection.sendGetToWaft("flags", "" + journeyId);
+    public List<JsonFlag> getFlagsForVehicle(String journeyId) {
+        String response = waftApiConnection.sendGetToWaft("flags", journeyId);
         if (response != null) {
             return JsonJavaConverter.toJavaList(response, JsonFlag[].class);
         }
