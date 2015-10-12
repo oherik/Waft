@@ -1,5 +1,6 @@
 package com.alive_n_clickin.commutity.presentation.main;
 
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -16,6 +18,7 @@ import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.application.IManager;
 import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.IStop;
+import com.alive_n_clickin.commutity.presentation.flagreport.FlagVehicle;
 import com.alive_n_clickin.commutity.util.LogUtils;
 
 import java.util.ArrayList;
@@ -58,10 +61,24 @@ public class MainFragment extends Fragment {
         adapter = new VehicleListAdapter(getActivity(), arrivingVehicles);
         busListView.setAdapter(adapter);
 
-        setStopName(currentStop);
+        ImageView showPostFlagViewButton = (ImageView) rootView.findViewById(R.id.showPostFlagViewButton);
+        showPostFlagViewButton.setOnClickListener(new ShowPostFlagViewButtonListener());
+
+                setStopName(currentStop);
         populateBusList(currentStop, rootView);
 
         return rootView;
+    }
+
+    /**
+     * This class purposes is to handle onClick events from the showPostFlagViewButton
+     */
+    private class ShowPostFlagViewButtonListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getContext(), FlagVehicle.class);
+            startActivity(intent);
+        }
     }
 
     /**
