@@ -13,7 +13,7 @@ public interface IWaftAdapter {
      * @param journeyId the id to get flags for.
      * @return a list of IFlags. If there are no flags the list is empty.
      */
-    List<JsonFlag> getFlagsForVehicle(int journeyId);
+    List<JsonFlag> getFlagsForVehicle(String journeyId);
 
     /**
      * Flags the specified bus with the given flag.
