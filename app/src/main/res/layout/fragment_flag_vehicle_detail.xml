@@ -51,8 +51,6 @@
         android:text="@string/flag_send"
         android:id="@+id/flagDetailSendButton"
         android:textSize="40dp"
-        android:background="@android:color/holo_blue_light"
-        android:textColor="@android:color/white"
         android:padding="10dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
