@@ -48,12 +48,13 @@ public class Manager implements IManager, IObserver {
      * Sends a post request to our backend to flag the current bus with the supplied flag.
      */
     @Override
-    public void addFlagToCurrentBus(IFlag flag) {
+    public boolean addFlagToCurrentBus(IFlag flag) {
         if (currentBus != null) {
             // notify backend that a new flag has been added to currentBus
             IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
-            waftAdapter.flagBus(this.currentBus, flag);
+            return waftAdapter.flagBus(this.currentBus, flag);
         }
+        return false;
     }
 
     @Override
