@@ -7,6 +7,7 @@
         <item name="android:colorAccent">@color/accent</item>
         <item name="android:textColorPrimary">@color/black</item>
         <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:buttonStyle">@style/ButtonTheme</item>
     </style>
 
     <style name="WaftMainTheme" parent="@android:style/Theme.Material.Light.DarkActionBar">
@@ -19,6 +20,12 @@
         <item name="android:textColorPrimary">@color/black</item>
         <item name="android:textColorSecondary">@color/black</item>
     </style>
+
+    <style name="ButtonTheme" parent="android:Widget.Material.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/primary</item>
+    </style>
+
     <declare-styleable name="FlagImageView">
     </declare-styleable>
 </resources>
