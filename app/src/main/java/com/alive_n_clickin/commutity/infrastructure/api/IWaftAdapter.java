@@ -19,6 +19,7 @@ public interface IWaftAdapter {
      * Flags the specified bus with the given flag.
      * @param bus The bus object to get flagged.
      * @param flag The flag object to flag the bus with
+     * @return true if sending the flag successfully or false if not.
      */
-    void flagBus(IElectriCityBus bus, IFlag flag);
+    boolean flagBus(IElectriCityBus bus, IFlag flag);
 }
