@@ -6,17 +6,17 @@
 * We have been very scructured. Scrum has worked nicely
 * We were open minded asked for help instead of being stubborn and trying to figure everything out ourselves
 
-## Things that wen't bad last week, and how we did this week at this things
+## Things that went bad last week, and how we coped with these things this week
 
 We were bad at asking for help last week. A lot of hours went to tackling problems alone, when we could have just asked for help and gotten done quicker. This haven't happend as much this week, but Erik felt like he could have asked for help earlier with a problem he had with JSON parsing.
 
 Last week we had some scope creep, where we did things that we hadn't agreed on during the planning. This haven't happened as much this week. Just some minor things that didn't take more than something like 10 minutes.
 
-## Standups
+## Stand-ups
 
-The purpose of the stand up meetings is to make it easier for the team members to work together. To keep everyone updated with what is being done, and to make it easy to ask for help and to coordinate with other team members. Essentially, the stand up meetings are meant to be a tool for making our work easier.
+The purpose of the stand-up meetings is to make it easier for the team members to work together. To keep everyone updated with what is being done, and to make it easy to ask for help and to coordinate with other team members. Essentially, the stand-up meetings are meant to be a tool for making our work easier.
 
-This week, we didn't really feel that the stand up meetings fulfilled their cause. It required a lot of effort from us to find times where we could all meet at the same time, since we all have different curriculums. In the end we found times that were okay, but when we met the meetings felt very hurried. We had to squeeze these meetings in in lecture breaks etc., so we didn't really have enough time to properly talk things through with each other. More often than not some team members were late to these meetings, which made the timespan available for these meetings even shorter, which in turn made the meetings feel even more hurried. All in all - we felt that the stand up meetings did more harm than good.
+This week, we didn't really feel that the stand-up meetings fulfilled their cause. It required a lot of effort from us to find times where we could all meet at the same time, since we all have different curriculums. In the end we found times that were okay, but when we met the meetings felt very hurried. We had to squeeze these meetings in during lecture breaks etc., so we didn't really have enough time to properly talk things through with each other. More often than not some team members were late to these meetings, which made the timespan available for these meetings even shorter, which in turn made the meetings feel even more hurried. All in all - we felt that the stand-up meetings did more harm than good.
 
 With this in mind, we decided to change things up a little bit for the following week. We had problems finding times where we could all meet physically, and we also had problems coming to the meetings in time. Our solution this week will be to do stand ups digitally. Everyone in the team is responsible for writing a couple of lines in Slack every day, describing what they have done, what they will do and if they have any problems that they need help solving. We will test this the following week and see how it goes.
 
@@ -49,10 +49,10 @@ To change things up, we decided to try a new method of estimating:
 4. Discuss why you picked your estimation, and begin splitting the user story into smaller more technical tasks
 5. When the user story has been split into task that are as small as possible, make another estimation with planning poker
 6. If the result differs too much, repeat steps 4-5
-7. When the team agrees enough, the Scrum Master picks an estimation for the user story
+7. When the team agrees sufficiently, the Scrum Master picks an estimation for the user story
 8. Pick another user story and repeat steps 1-7.
 
-**Write about this in the post mortem report** -- How some of us felt that the planning process didn't go that well, and that we decided to change it to fit us better. That we adapts Scrum to us, and not the other way around.
+**Write about this in the post mortem report** -- How some of us felt that the planning process didn't go that well, and that we decided to change it to fit us better. That we adapt Scrum to us, and not the other way around.
 
 ## Refactoring
 
