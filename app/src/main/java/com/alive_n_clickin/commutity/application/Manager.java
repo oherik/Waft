@@ -103,7 +103,7 @@ public class Manager implements IManager, IObserver {
         @Override
         protected IElectriCityBus doInBackground(String... params) {
             String dgw = params[0];
-            return VehicleFactory.getBus(dgw);
+            return VehicleFactory.getElectriCityBus(dgw);
         }
 
         @Override

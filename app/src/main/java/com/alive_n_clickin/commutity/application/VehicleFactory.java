@@ -40,7 +40,7 @@ public class VehicleFactory {
      * @param dgw the dgw id for the bus you want to have.
      * @return a new bus object.
      */
-    public static IElectriCityBus getBus(String dgw) {
+    public static IElectriCityBus getElectriCityBus(String dgw) {
         IElectricityAdapter ecAdapter = ApiAdapterFactory.createElectricityAdapter();
         JsonJourney jsonJourney = ecAdapter.getJourneyInfo(dgw);
         String destination = "";
