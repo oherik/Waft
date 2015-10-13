@@ -73,8 +73,7 @@ public class Manager implements IManager, IObserver {
     public void onEvent(IEvent event) {
         if (event instanceof NewBusNearbyEvent) {
             handleNewBusNearbyEvent((NewBusNearbyEvent) event);
-        }
-        if (event instanceof CantSearchForVehiclesEvent) {
+        } else if (event instanceof CantSearchForVehiclesEvent) {
             currentBus = null;
             observableHelper.notifyObservers(event);
         }
