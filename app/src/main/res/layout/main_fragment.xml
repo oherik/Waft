@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,41 +10,42 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#F0FFFF"
+        android:background="@color/primary"
         android:onClick="switchToSearchFragment"
         android:id="@+id/relativeLayout">
         <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-            android:minWidth="300dp"
-            android:layout_marginLeft="10dp"
+        android:minWidth="300dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/white"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/currentStop"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-            android:textSize="20dp"
-            android:padding = "6dp"
-            android:text="@string/stop_search_label" />
+        android:textSize="20dp"
+        android:padding = "6dp"
+        android:text="@string/stop_search_label" />
     </RelativeLayout>
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/busListView"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/relativeLayout"
-        android:layout_above="@+id/newFlagButton" />
-    <ImageButton
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/newFlagButton"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        app:fabSize="normal"
+        android:theme="@style/WaftMainTheme"
+        android:src="@drawable/ic_add_white_36dp"
+        android:id="@+id/showPostFlagViewButton"
+        android:layout_marginRight="10dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:onClick="plusButtonOnClick"
-        android:src="@android:drawable/ic_input_add"
-        android:adjustViewBounds="false"
-        android:background="@android:color/transparent"
-        android:scaleType="fitXY"
-        android:layout_gravity="right|bottom" />
+        android:layout_marginBottom="10dp" />
 
 </RelativeLayout>
