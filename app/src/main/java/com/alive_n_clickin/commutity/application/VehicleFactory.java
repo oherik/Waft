@@ -9,7 +9,7 @@ import com.alive_n_clickin.commutity.domain.JsonFlag;
 import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
 import com.alive_n_clickin.commutity.infrastructure.api.IElectricityAdapter;
 import com.alive_n_clickin.commutity.infrastructure.api.IWaftAdapter;
-import com.alive_n_clickin.commutity.infrastructure.api.Journey;
+import com.alive_n_clickin.commutity.infrastructure.api.response.JsonJourney;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrival;
 
 import java.util.Date;
@@ -42,12 +42,12 @@ public class VehicleFactory {
      */
     public static IElectriCityBus getBus(String dgw) {
         IElectricityAdapter ecAdapter = ApiAdapterFactory.createElectricityAdapter();
-        Journey journey = ecAdapter.getJourneyInfo(dgw);
+        JsonJourney jsonJourney = ecAdapter.getJourneyInfo(dgw);
         String destination = "";
         String journeyId = "";
-        if (journey != null) {
-            destination = journey.getDestination();
-            journeyId = ELECTRICITY_JOURNEY_ID_PREFIX + padWithZeroes(journey.getJourneyId(), 5);
+        if (jsonJourney != null) {
+            destination = jsonJourney.getDestination();
+            journeyId = ELECTRICITY_JOURNEY_ID_PREFIX + padWithZeroes(jsonJourney.getJourneyId(), 5);
         }
         return new ElectriCityBus(destination, journeyId, dgw);
     }
