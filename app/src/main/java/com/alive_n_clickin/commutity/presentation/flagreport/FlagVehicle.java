@@ -72,7 +72,7 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
 
     @Override
     public boolean onPrepareOptionsMenu (Menu menu) {
-        updateBusText();
+        updateActionbarText();
         if (isWifiEnabled) {
             startWifiScan();
         }
@@ -96,10 +96,10 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
     }
 
     /**
-     * Updates the "Bus text" depending on the following:
+     * Updates the actionbar text depending on the following:
      * You're on a bus, the wifi is disabled or you're currently not close to any bus.
      */
-    private void updateBusText() {
+    private void updateActionbarText() {
         if (!isWifiEnabled) {
             actionBar.setTitle(R.string.enable_wifi_alert_title);
             displayWifiEnabledIcon(false);
@@ -172,7 +172,7 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
     }
 
     private void handleCurrentBusChangeEvent(CurrentBusChangeEvent event) {
-        this.updateBusText();
+        this.updateActionbarText();
     }
 
     private void handleWifiStateChangeEvent(WifiStateChangeEvent event) {
@@ -181,6 +181,6 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
         } else {
             isWifiEnabled = false;
         }
-        updateBusText();
+        updateActionbarText();
     }
 }
