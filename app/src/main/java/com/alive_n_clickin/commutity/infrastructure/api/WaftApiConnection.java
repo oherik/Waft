@@ -9,6 +9,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
+ * This class creates a valid http connection for our backend, which is then passed along to {@link ApiConnection}.
+ *
+ * The class is not meant to be instantiated directly. It's only used within {@link WaftAdapter} to remove coupling.
+ *
  * @since 0.2
  */
 class WaftApiConnection {
