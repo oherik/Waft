@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:showDividers="none">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusableInTouchMode="true"
+        android:focusable="true"
+        android:contextClickable="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/busNumber"
+            android:layout_alignParentStart="true"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:layout_alignParentTop="true"
+            android:gravity="center_vertical|left"
+            android:text="55"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_gravity="left"
+            android:linksClickable="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:id="@+id/targetDestination"
+            android:gravity="center_vertical|center_horizontal"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/busNumber"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Small Text"
+            android:id="@+id/timeUntilArrival"
+            android:layout_alignParentEnd="true"
+            android:gravity="center_horizontal|right"
+            android:layout_alignParentTop="true" />
+
+    </RelativeLayout>
+
+    <GridLayout
+        android:id="@+id/flagListView"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+
+</LinearLayout>

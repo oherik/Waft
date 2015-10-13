@@ -1,8 +1,14 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="WaftFlagTheme" parent="@android:style/Theme.Material.Light">
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="WaftMainTheme" parent="@android:style/Theme.Material.Light">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowTitleSize">0dp</item>
+    </style>
+    <declare-styleable name="FlagImageView">
+    </declare-styleable>
 </resources>
