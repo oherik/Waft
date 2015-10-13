@@ -2,9 +2,12 @@ package com.alive_n_clickin.commutity.presentation.flagreport;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.alive_n_clickin.commutity.R;
+
 /**
  * The main activity for the flag setting tool. The activity doesn't have any visual elements itself,
  * besides a frame which contains different fragments. The activity extends FragmentActivity to ensure
@@ -23,6 +26,15 @@ public class FlagVehicle extends FragmentActivity {
             }
             switchToDefaultFragment();
         }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_flag_vehicle, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     /**
