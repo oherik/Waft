@@ -9,6 +9,7 @@ package com.alive_n_clickin.commutity.infrastructure.api;
  * The current adapters are:
  * {@link IVasttrafikAdapter}
  * {@link IElectricityAdapter}
+ *
  * @since 0.1
  */
 public class ApiAdapterFactory {
@@ -19,6 +20,10 @@ public class ApiAdapterFactory {
 
     public static IVasttrafikAdapter createVasttrafikAdapter() {
         return new VasttrafikAdapter();
+    }
+
+    public static IWaftAdapter createWaftAdapter() {
+        return new WaftAdapter();
     }
 
 }
