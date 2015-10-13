@@ -84,6 +84,8 @@ public class Manager implements IManager, IObserver {
         String dgw = event.getDGW();
         if (dgw == null) {
             currentBus = null;
+            CurrentBusChangeEvent newBusEvent = new CurrentBusChangeEvent(currentBus);
+            observableHelper.notifyObservers(newBusEvent);
         } else {
             //Perform AsyncTask that updates current bus
             new GetCurrentBusTask().execute(dgw);
