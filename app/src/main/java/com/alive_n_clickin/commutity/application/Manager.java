@@ -1,20 +1,22 @@
 package com.alive_n_clickin.commutity.application;
 
 import android.os.AsyncTask;
+
 import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.IElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.domain.IStop;
-import com.alive_n_clickin.commutity.util.event.CurrentBusChangeEvent;
-import com.alive_n_clickin.commutity.util.event.NewBusNearbyEvent;
 import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
 import com.alive_n_clickin.commutity.infrastructure.api.IVasttrafikAdapter;
 import com.alive_n_clickin.commutity.infrastructure.api.IWaftAdapter;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrival;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonStop;
+import com.alive_n_clickin.commutity.util.event.CantSearchForVehiclesEvent;
+import com.alive_n_clickin.commutity.util.event.CurrentBusChangeEvent;
 import com.alive_n_clickin.commutity.util.event.IEvent;
 import com.alive_n_clickin.commutity.util.event.IObservableHelper;
 import com.alive_n_clickin.commutity.util.event.IObserver;
+import com.alive_n_clickin.commutity.util.event.NewBusNearbyEvent;
 import com.alive_n_clickin.commutity.util.event.ObservableHelper;
 
 import java.util.ArrayList;
@@ -71,6 +73,10 @@ public class Manager implements IManager, IObserver {
     public void onEvent(IEvent event) {
         if (event instanceof NewBusNearbyEvent) {
             handleNewBusNearbyEvent((NewBusNearbyEvent) event);
+        }
+        if (event instanceof CantSearchForVehiclesEvent) {
+            currentBus = null;
+            observableHelper.notifyObservers(event);
         }
     }
 
