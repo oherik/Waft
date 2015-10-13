@@ -5,6 +5,8 @@ import com.alive_n_clickin.commutity.util.event.IEvent;
 /**
  * An event for when the state of the wifi changes from disabled to enabled, or vice versa.
  * The event contains information about the current state of the wifi.
+ *
+ * @since 0.2
  */
 public class WifiStateChangeEvent implements IEvent {
     private boolean wifiEnabled;

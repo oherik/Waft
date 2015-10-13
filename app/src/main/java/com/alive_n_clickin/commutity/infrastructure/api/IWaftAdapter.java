@@ -6,7 +6,9 @@ import com.alive_n_clickin.commutity.domain.JsonFlag;
 
 import java.util.List;
 
-
+/**
+ * @since 0.2
+ */
 public interface IWaftAdapter {
 
     /**

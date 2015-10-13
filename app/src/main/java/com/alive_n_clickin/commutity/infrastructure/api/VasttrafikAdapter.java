@@ -20,7 +20,8 @@ import java.util.List;
  * Use the ApiAdapterFactory to gain access to this class. {@link ApiAdapterFactory}
  *
  * This class represents high level methods that crate suitable request string, which are
- * then passed along to {@link VasttrafikApiConnection}
+ * then passed along to {@link VasttrafikApiConnection}.
+ *
  * @since 0.1
  */
 class VasttrafikAdapter implements IVasttrafikAdapter {

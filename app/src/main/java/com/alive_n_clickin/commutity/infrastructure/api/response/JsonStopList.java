@@ -8,6 +8,7 @@ import lombok.ToString;
 
 /**
  * This class models the response from the Vasttrafik API and is used within {@link JsonJavaConverter} to convert into a java object.
+ *
  * @since 0.1
  */
 @ToString

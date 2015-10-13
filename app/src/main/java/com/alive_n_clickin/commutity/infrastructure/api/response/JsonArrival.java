@@ -17,6 +17,8 @@ import lombok.ToString;
  * Consists the data of a vehicle and it's arrival as per the Vasttrafik API. To ease further use
  * of this class it has built in methods for converting the arrival date and time to a Java Date
  * object, as well as calculating the time to arrival.
+ *
+ * @since 0.2
  */
 @ToString
 public class JsonArrival {

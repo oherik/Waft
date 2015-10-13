@@ -9,6 +9,8 @@ import lombok.ToString;
 
 /**
  * A concrete implementation of the IFlag interface. Objects of this class are immutable.
+ *
+ * @since 0.2
  */
 @EqualsAndHashCode
 @ToString
