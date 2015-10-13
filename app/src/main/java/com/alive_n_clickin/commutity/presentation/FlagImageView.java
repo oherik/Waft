@@ -33,6 +33,7 @@ public class FlagImageView extends ImageView {
         images.put(Flag.Type.OVERCROWDED, R.drawable.flag_full_300px);
         images.put(Flag.Type.NO_PRAMS, R.drawable.flag_pram_300px);
         images.put(Flag.Type.OTHER, R.drawable.flag_other_300px);
+        images.put(Flag.Type.BAD_CLIMATE, R.drawable.flag_warm_300px);
     }
 
     /**

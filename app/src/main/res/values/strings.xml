@@ -17,6 +17,7 @@
     <string name="flag_overcrowded">Full</string>
     <string name="flag_messy">Smutsig</string>
     <string name="flag_delayed">Försenad</string>
+    <string name="flag_warm">Varmt</string>
     <string name="flag_other">Övrigt</string>
 
     <!-- Search related strings -->
