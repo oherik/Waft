@@ -26,9 +26,6 @@ import com.alive_n_clickin.commutity.util.event.IObserver;
  * @since 0.1
  */
 public class FlagVehicle extends FragmentActivity implements IObserver {
-    private final static String ARG_POSITION = "position";
-    private int mCurrentPosition = -1;
-
     private ActionBar actionBar;
     private WifiHelper wifiHelper;
     private IManager busManager;
