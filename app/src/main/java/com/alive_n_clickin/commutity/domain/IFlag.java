@@ -5,6 +5,8 @@ import java.util.Date;
 /**
  * An interface for flags. A flag should be able to provide it's type, it's comment and when it was
  * created.
+ *
+ * @since 0.2
  */
 public interface IFlag {
     /**

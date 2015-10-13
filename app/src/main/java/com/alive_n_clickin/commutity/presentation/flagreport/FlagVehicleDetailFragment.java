@@ -34,6 +34,7 @@ import lombok.Getter;
  * A class for showing the detailed view when flagging a vehicle. The view contains a flag, its name,
  * a comment field and a button for sending the flag. This fragment class handles then visual elements
  * of this.
+ *
  * @since 0.1
  */
 

@@ -26,7 +26,8 @@ import java.util.ArrayList;
 
 /**
  * The view with several different flags available for the user to flag vehicles. Launches a detailed
- * view when the user clicks on a flag
+ * view when the user clicks on a flag.
+ *
  * @since 0.1
  */
 public class FlagVehicleFragment extends Fragment implements IObserver {

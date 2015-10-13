@@ -12,6 +12,7 @@ import lombok.ToString;
  * so it can be sent in intents, bundles, etc.
  *
  * The class is used within {@link JsonJavaConverter} to convert the json into a java object.
+ *
  * @since 0.1
  */
 @ToString public class JsonStop implements Serializable {
