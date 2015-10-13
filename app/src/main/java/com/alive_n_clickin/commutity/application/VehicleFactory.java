@@ -30,7 +30,7 @@ public class VehicleFactory {
     private final static String CLASS_NUMBER = "9015";
     private final static String THM_NUMBER = "014";
     private final static String ELECTRICITY_LINE_NUMBER = "5055";
-    private final static String ELECTRICITY_JOURENEY_ID_PREFIX = CLASS_NUMBER + THM_NUMBER + ELECTRICITY_LINE_NUMBER;
+    private final static String ELECTRICITY_JOURNEY_ID_PREFIX = CLASS_NUMBER + THM_NUMBER + ELECTRICITY_LINE_NUMBER;
 
     /**
      * Takes a dgw and returns a new bus object with all the data for the bus with that DGW.
@@ -47,7 +47,7 @@ public class VehicleFactory {
         String journeyId = "";
         if (journey != null) {
             destination = journey.getDestination();
-            journeyId = ELECTRICITY_JOURENEY_ID_PREFIX + padWithZeroes(journey.getJourneyId(), 5);
+            journeyId = ELECTRICITY_JOURNEY_ID_PREFIX + padWithZeroes(journey.getJourneyId(), 5);
         }
         return new ElectriCityBus(destination, journeyId, dgw);
     }
