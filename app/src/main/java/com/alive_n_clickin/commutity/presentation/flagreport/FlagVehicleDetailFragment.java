@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -80,7 +81,7 @@ public class FlagVehicleDetailFragment extends Fragment {
                 switchToFlagFragment();
             }
         });
-        
+
         return view;
     }
 
@@ -136,9 +137,10 @@ public class FlagVehicleDetailFragment extends Fragment {
      * Switches the view back to the main flag fragment
      */
     private void switchToFlagFragment(){
-        //Hide keyboard
+        //Hide keyboard from the current window
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+        EditText commentField  =  (EditText) getActivity().findViewById(R.id.flagDetailCommentField);
+        imm.hideSoftInputFromWindow(commentField.getWindowToken(), 0);
 
         FragmentManager fm = getFragmentManager();
         fm.popBackStack();
