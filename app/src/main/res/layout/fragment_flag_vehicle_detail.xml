@@ -59,28 +59,37 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/flagDetailFooter">
-
-        <Button
-            android:drawableRight="@drawable/ic_send_white_18dp"
-            android:drawablePadding="10dp"
+        <FrameLayout
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@color/primary"
-            android:layout_weight="20"
-            android:text="@string/flag_send"
-            android:id="@+id/flagDetailSendButton"
-            style="@style/SendButtonTheme"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true" />
+            android:id="@+id/detailFlagSendWrapper">
+            <Button
+                android:drawableEnd="@drawable/ic_send_white_18dp"
+                android:drawablePadding="10dp"
+                android:layout_width="wrap_content"
+                android:text="@string/flag_send"
+                android:id="@+id/flagDetailSendButton"
+                style="@style/SendButtonTheme"
+           />
+        </FrameLayout>
 
-        <Button
-            android:text="@string/flag_cancel"
-            android:textColor="@color/accent"
-            android:id="@+id/flagDetailCancelButton"
-            style="@style/SendButtonTheme"
-            android:layout_alignParentBottom="false"
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_alignWithParentIfMissing="false"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            android:id="@+id/detailFlagCancelWrapper">
+            <Button
+                android:text="@string/flag_cancel"
+                android:textColor="@color/accent"
+                android:id="@+id/flagDetailCancelButton"
+                style="@style/SendButtonTheme"
+                />
+        </FrameLayout>
+
     </RelativeLayout>
 
 </RelativeLayout>
