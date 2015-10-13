@@ -15,10 +15,10 @@ import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.application.IManager;
 import com.alive_n_clickin.commutity.domain.Flag;
 import com.alive_n_clickin.commutity.domain.IVehicle;
-import com.alive_n_clickin.commutity.util.event.CurrentBusChangeEvent;
-import com.alive_n_clickin.commutity.util.event.WifiStateChangeEvent;
 import com.alive_n_clickin.commutity.infrastructure.WifiBroadcastReceiver;
 import com.alive_n_clickin.commutity.infrastructure.WifiHelper;
+import com.alive_n_clickin.commutity.util.event.CantSearchForVehiclesEvent;
+import com.alive_n_clickin.commutity.util.event.CurrentBusChangeEvent;
 import com.alive_n_clickin.commutity.util.event.IEvent;
 import com.alive_n_clickin.commutity.util.event.IObserver;
 
@@ -172,8 +172,8 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
     public void onEvent(IEvent event) {
         if (event instanceof CurrentBusChangeEvent) {
             handleCurrentBusChangeEvent((CurrentBusChangeEvent) event);
-        } else if (event instanceof WifiStateChangeEvent) {
-            handleWifiStateChangeEvent((WifiStateChangeEvent) event);
+        } else if (event instanceof CantSearchForVehiclesEvent) {
+            handleWifiStateChangeEvent((CantSearchForVehiclesEvent) event);
         }
     }
 
@@ -181,7 +181,7 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
         this.updateBusText();
     }
 
-    private void handleWifiStateChangeEvent(WifiStateChangeEvent event) {
+    private void handleWifiStateChangeEvent(CantSearchForVehiclesEvent event) {
         this.updateBusText();
     }
 }
