@@ -1,14 +1,15 @@
 package com.alive_n_clickin.commutity.presentation.flagreport;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.TextView;
 
 import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
@@ -33,6 +34,11 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
     private final static String ARG_POSITION = "position";
     private int mCurrentPosition = -1;
 
+    private ActionBar actionBar;
+    private WifiHelper wifiHelper;
+    private MenuItem wifiDisabledIcon;
+    private MenuItem refreshIcon;
+
     private IManager busManager;
     private WifiBroadcastReceiver wifiBroadcastReceiver;
 
@@ -42,8 +48,35 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setHasOptionsMenu(true);
+        actionBar = getActivity().getActionBar();
+        wifiHelper = new WifiHelper(getActivity().getApplication().getApplicationContext());
+        this.wifiDisabledIcon = (MenuItem) getActivity().findViewById(R.id.wifi_disabled_icon);
+        this.refreshIcon = (MenuItem) getActivity().findViewById(R.id.refresh_icon);
+        updateWifiState();
         addTestButtons();
+    }
+
+    public
+
+    private void updateWifiState() {
+        if (wifiHelper.isWifiEnabled()) {
+            wifiHelper.initiateWifiScan();
+            setRefreshIconEnabled(true);
+        } else {
+            setRefreshIconEnabled(false);
+            actionBar.setTitle(R.string.you_must_activate_wifi);
+        }
+    }
+
+    private void setRefreshIconEnabled(boolean value) {
+        if (value) {
+            wifiDisabledIcon.setVisible(false);
+            refreshIcon.setVisible(true);
+        } else {
+            wifiDisabledIcon.setVisible(true);
+            refreshIcon.setVisible(false);
+        }
     }
 
     @Override
@@ -64,25 +97,10 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
 
         final View rootView = inflater.inflate(R.layout.fragment_flag_vehicle, container, false);
         flagAdapter = new FlagViewAdapter(getActivity(), flagButtons);
-        final TextView textView = (TextView) rootView.findViewById(R.id.textViewBusInformation);
 
-        // Set up on click listener for bus text
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                WifiHelper wifiHelper = new WifiHelper(getActivity());
-                boolean wifiIsEnabled = wifiHelper.isWifiEnabled();
-                if (wifiIsEnabled) {
-                    textView.setText(R.string.loading_looking_for_vehicle);
-                    wifiHelper.initiateWifiScan();
-                } else {
-                    textView.setText(R.string.activating_wifi);
-                    wifiHelper.enableWifi();
-                }
-            }
-        });
+        this.actionBar.setTitle(R.string.loading_looking_for_vehicle);
 
-        this.updateBusText(rootView);
+
 
         GridView flagGrid = (GridView) rootView.findViewById(R.id.flagGridView);
         flagGrid.setAdapter(flagAdapter);
@@ -124,19 +142,18 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
         this.wifiBroadcastReceiver.removeObserver(this);
     }
 
-    private void updateBusText(View view) {
-        final TextView textView = (TextView) view.findViewById(R.id.textViewBusInformation);
-
-        WifiHelper wifiHelper = new WifiHelper(this.getActivity());
+    private void updateBusText() {
         if (this.busManager.isOnBus()) {
             IVehicle bus = this.busManager.getCurrentBus();
             String newText = getCurrentBusAsString(bus);
-
-            textView.setText(newText);
+            actionBar.setTitle(newText);
+            setRefreshIconEnabled(true);
         } else if (!wifiHelper.isWifiEnabled()) {
-            textView.setText(R.string.you_must_activate_wifi);
+            actionBar.setTitle(R.string.you_must_activate_wifi);
+            setRefreshIconEnabled(false);
         } else {
-            textView.setText(R.string.no_buses_near);
+            actionBar.setTitle(R.string.no_buses_near);
+            setRefreshIconEnabled(true);
         }
     }
 
@@ -148,9 +165,6 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
         return newText.toString();
     }
 
-    private void updateBusText() {
-        this.updateBusText(getView());
-    }
 
     /**
      * Adds the different buttons. At the moment it's all hard coded for testing purposes
