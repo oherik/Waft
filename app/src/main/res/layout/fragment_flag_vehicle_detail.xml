@@ -58,38 +58,28 @@
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/flagDetailFooter">
-        <FrameLayout
+        android:id="@+id/flagDetailFooter"
+        >
+        <Button
+           android:text="@string/flag_send"
+           android:textColor="@color/accent"
+           android:layout_alignParentEnd="true"
+           android:layout_centerVertical="true"
+           android:id="@+id/flagDetailSendButton"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           style="?android:attr/borderlessButtonStyle"
+            />
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/primary"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:id="@+id/detailFlagSendWrapper">
-            <Button
-                android:drawableEnd="@drawable/ic_send_white_18dp"
-                android:drawablePadding="10dp"
-                android:layout_width="wrap_content"
-                android:text="@string/flag_send"
-                android:id="@+id/flagDetailSendButton"
-                style="@style/SendButtonTheme"
-           />
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:id="@+id/detailFlagCancelWrapper">
-            <Button
-                android:text="@string/flag_cancel"
-                android:textColor="@color/accent"
-                android:id="@+id/flagDetailCancelButton"
-                style="@style/SendButtonTheme"
-                />
-        </FrameLayout>
-
+            android:text="@string/flag_cancel"
+            android:id="@+id/flagDetailCancelButton"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/flagDetailSendButton"
+            android:textColor="@color/accent"
+            style="?android:attr/borderlessButtonStyle"
+            />
     </RelativeLayout>
 
 </RelativeLayout>
