@@ -1,9 +1,9 @@
 package com.alive_n_clickin.commutity.application;
 
-import com.alive_n_clickin.commutity.event.CantSearchForVehiclesEvent;
-import com.alive_n_clickin.commutity.event.NewWifiScanAvailableEvent;
-import com.alive_n_clickin.commutity.event.NewBusNearbyEvent;
-import com.alive_n_clickin.commutity.event.WifiStateChangeEvent;
+import com.alive_n_clickin.commutity.util.event.CantSearchForVehiclesEvent;
+import com.alive_n_clickin.commutity.util.event.NewWifiScanAvailableEvent;
+import com.alive_n_clickin.commutity.util.event.NewBusNearbyEvent;
+import com.alive_n_clickin.commutity.util.event.WifiStateChangeEvent;
 import com.alive_n_clickin.commutity.infrastructure.WifiBroadcastReceiver;
 import com.alive_n_clickin.commutity.util.event.IEvent;
 import com.alive_n_clickin.commutity.util.event.IObservable;
