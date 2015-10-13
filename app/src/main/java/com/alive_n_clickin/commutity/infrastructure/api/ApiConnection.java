@@ -20,6 +20,7 @@ import java.util.Scanner;
  *
  * For connecting to different API:s. Allows abstraction by letting us send only the query parameters to the api we want, not bothering about authentication and the likes.
  * ApiConnection is package private: no need for layers higher up to use it directly!
+ *
  * @since 0.1
  */
 class ApiConnection {

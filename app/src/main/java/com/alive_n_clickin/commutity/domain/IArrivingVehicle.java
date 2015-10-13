@@ -9,6 +9,8 @@ import java.util.List;
  *
  * An arriving vehicle should be comparable on time until arrival, where vehicles with less time
  * until arrival should come first.
+ *
+ * @since 0.2
  */
 public interface IArrivingVehicle extends IVehicle, Comparable<IArrivingVehicle> {
     /**

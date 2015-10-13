@@ -11,6 +11,8 @@ import lombok.NonNull;
  * to build a stop from existing data (for example an ID or a response object received from
  * an external API), and that the factory simply responds with a stop object. The factory
  * is responsible for fetching all the data required for that stop from whatever sources it needs.
+ *
+ * @since 0.2
  */
 public class StopFactory {
 

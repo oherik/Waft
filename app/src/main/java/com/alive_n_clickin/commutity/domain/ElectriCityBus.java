@@ -9,6 +9,8 @@ import lombok.ToString;
  * A class modelling the ElectriCity bus. It contains an unique DGW ID. All ElectriCity buses
  * run on the 55 route, so the shortRouteName of an ElectriCityBus is always set automatically
  * to 55.
+ *
+ * @since 0.2
  */
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)

@@ -5,6 +5,7 @@ import lombok.Getter;
 /**
  * @author hjorthjort
  *         Created 08/10/15
+ * @since 0.2
  */
 public class Journey {
     @Getter private String destination;

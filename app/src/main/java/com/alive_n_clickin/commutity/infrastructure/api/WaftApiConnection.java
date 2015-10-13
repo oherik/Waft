@@ -8,7 +8,9 @@ import com.alive_n_clickin.commutity.util.LogUtils;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-
+/**
+ * @since 0.2
+ */
 class WaftApiConnection {
     private static final String BASE_URL_WAFT = "http://95.85.21.47/";
     private static final String LOG_TAG = LogUtils.getLogTag(WaftApiConnection.class);

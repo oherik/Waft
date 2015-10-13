@@ -4,6 +4,8 @@ import lombok.Getter;
 
 /**
  * A class to model the response from the Waft API.
+ *
+ * @since 0.2
  */
 public class JsonFlag {
     @Getter private int flagType;

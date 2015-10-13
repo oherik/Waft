@@ -18,6 +18,8 @@ import java.util.Map;
  * This class listens to WifiBSSIDChangeEvents and checks if any nearby BSSID belongs to a known bus.
  * If it finds a match, it sends a NewBusNearbyEvent with the DGW of the found bus. If no match is
  * found, it sends a NewBusNearbyEvent with the DGW parameter set to null.
+ *
+ * @since 0.2
  */
 public class NearbyBusScanner implements IObserver, IObservable {
     private IObservableHelper observableHelper = new ObservableHelper();

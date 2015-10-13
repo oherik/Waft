@@ -15,6 +15,7 @@ import java.util.List;
  * Methods for parsing JSON in to Java Objects of a given class, and vice versa
  *
  * Package private, this class handles low level functionality, and should not be visible to other packages.
+ *
  * @since 0.1
  */
 public class JsonJavaConverter<T> {

@@ -11,6 +11,8 @@ import java.util.List;
  * Use the ApiAdapterFactory to gain access to this class.
  *
  * This class represents high level methods for connection to the Waft API.
+ *
+ * @since 0.2
  */
 class WaftAdapter implements IWaftAdapter {
     private final WaftApiConnection waftApiConnection = new WaftApiConnection();

@@ -15,6 +15,8 @@ import java.util.HashMap;
 /**
  * This is class is an ImageView specialized on flags from our system. It maps every flag type to an
  * image, and has a setFlag method that lets you specify what image it should show based on flag type.
+ *
+ * @since 0.2
  */
 public class FlagImageView extends ImageView {
 

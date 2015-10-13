@@ -17,6 +17,7 @@ import lombok.Setter;
 /**
  * This class handles the first view presented to the user. It has a content frame to hold different
  * fragments.
+ *
  * @since 0.1
  */
 public class MainActivity extends FragmentActivity {
