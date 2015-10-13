@@ -7,6 +7,8 @@ import com.alive_n_clickin.commutity.domain.JsonFlag;
 import java.util.List;
 
 /**
+ * This interface represent the possible request to our backend combined with their responses.
+ *
  * @since 0.2
  */
 public interface IWaftAdapter {
