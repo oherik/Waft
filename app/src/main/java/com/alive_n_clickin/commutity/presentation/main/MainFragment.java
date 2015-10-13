@@ -64,7 +64,7 @@ public class MainFragment extends Fragment {
         ImageView showPostFlagViewButton = (ImageView) rootView.findViewById(R.id.showPostFlagViewButton);
         showPostFlagViewButton.setOnClickListener(new ShowPostFlagViewButtonListener());
 
-                setStopName(currentStop);
+        setStopName(currentStop);
         populateBusList(currentStop, rootView);
 
         return rootView;
