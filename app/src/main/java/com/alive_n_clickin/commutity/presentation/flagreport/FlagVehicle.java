@@ -132,7 +132,16 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
             displayWifiEnabledIcon(true);
         } else {
             actionBar.setTitle(R.string.enable_wifi_alert_title);
+
         }
+    }
+
+    /**
+     * This method handles the event when the wifi was on from start but then got turned off.
+     */
+    private void wifiDisabled() {
+        displayWifiEnabledIcon(false);
+        actionBar.setTitle(R.string.enable_wifi_alert_title);
     }
 
     /**
@@ -174,6 +183,10 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
     }
 
     private void handleWifiStateChangeEvent(WifiStateChangeEvent event) {
-        this.updateBusText();
+        if (wifiHelper.isWifiEnabled()) {
+            this.updateBusText();
+        } else {
+            wifiDisabled();
+        }
     }
 }
