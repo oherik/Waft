@@ -2,7 +2,6 @@ package com.alive_n_clickin.commutity.presentation.flagreport;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.alive_n_clickin.commutity.R;
@@ -33,13 +32,6 @@ public class FlagVehicle extends FragmentActivity {
     private void switchToDefaultFragment(){
         FlagVehicleFragment flagFragment = new FlagVehicleFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.content_frame, flagFragment).commit() ;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu (Menu menu){
-        //Default method. Creates a menu, if present
-        getMenuInflater().inflate(R.menu.menu_flag_vehicle, menu);
-        return true;
     }
 
     @Override
