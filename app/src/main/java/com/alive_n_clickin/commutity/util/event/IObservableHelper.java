@@ -4,6 +4,8 @@ package com.alive_n_clickin.commutity.util.event;
  * An interface for classes that helps observables with their tasks. The thought is that an
  * observable should be able to delegate work to an ObservableHelper instead of managing all the
  * work of keeping track of observers itself.
+ *
+ * @since 0.2
  */
 public interface IObservableHelper {
     /**

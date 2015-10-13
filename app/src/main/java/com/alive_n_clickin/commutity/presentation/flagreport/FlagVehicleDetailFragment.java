@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +34,7 @@ import lombok.Getter;
  * A class for showing the detailed view when flagging a vehicle. The view contains a flag, its name,
  * a comment field and a button for sending the flag. This fragment class handles then visual elements
  * of this.
+ *
  * @since 0.1
  */
 
@@ -55,6 +57,7 @@ public class FlagVehicleDetailFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_flag_vehicle_detail,
                 container, false);
         Button sendButton = (Button) view.findViewById(R.id.flagDetailSendButton);
+        Button cancelButton = (Button) view.findViewById(R.id.flagDetailCancelButton);
 
         // Check if wifi is enabled, if not display a message, if it is, try sending the flag
         sendButton.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +71,18 @@ public class FlagVehicleDetailFragment extends Fragment {
                 }
             }
         });
+
+        /*
+        Set a listener on the cancel button, if pressed it should simulate a back button press
+        (i.e. returning the user to the previous view)
+        */
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchToFlagFragment();
+            }
+        });
+
         return view;
     }
 
@@ -122,9 +137,10 @@ public class FlagVehicleDetailFragment extends Fragment {
      * Switches the view back to the main flag fragment
      */
     private void switchToFlagFragment(){
-        //Hide keyboard
+        //Hide keyboard from the current window
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+        EditText commentField  =  (EditText) getActivity().findViewById(R.id.flagDetailCommentField);
+        imm.hideSoftInputFromWindow(commentField.getWindowToken(), 0);
 
         FragmentManager fm = getFragmentManager();
         fm.popBackStack();

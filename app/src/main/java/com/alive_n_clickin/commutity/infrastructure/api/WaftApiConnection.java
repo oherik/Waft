@@ -8,7 +8,13 @@ import com.alive_n_clickin.commutity.util.LogUtils;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-
+/**
+ * This class creates a valid http connection for our backend, which is then passed along to {@link ApiConnection}.
+ *
+ * The class is not meant to be instantiated directly. It's only used within {@link WaftAdapter} to remove coupling.
+ *
+ * @since 0.2
+ */
 class WaftApiConnection {
     private static final String BASE_URL_WAFT = "http://95.85.21.47/";
     private static final String LOG_TAG = LogUtils.getLogTag(WaftApiConnection.class);

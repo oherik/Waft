@@ -20,6 +20,8 @@ import java.util.List;
  * This class receives intents from the system regarding the WiFi connection on the device. It then
  * has the task of retrieving relevant information about the connection and forward it to other
  * modules that has an interest in the data.
+ *
+ * @since 0.2
  */
 public class WifiBroadcastReceiver extends BroadcastReceiver implements IObservable {
     private IObservableHelper observableHelper = new ObservableHelper();

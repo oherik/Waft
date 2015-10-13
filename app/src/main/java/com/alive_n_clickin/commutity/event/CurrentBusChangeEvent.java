@@ -6,6 +6,8 @@ import com.alive_n_clickin.commutity.util.event.IEvent;
 /**
  * An event for when the bus the user is on changes. The event contains information about which
  * bus the user is currently on.
+ *
+ * @since 0.2
  */
 public class CurrentBusChangeEvent implements IEvent {
     private IElectriCityBus bus;

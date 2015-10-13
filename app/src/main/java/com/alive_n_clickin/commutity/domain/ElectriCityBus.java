@@ -9,9 +9,11 @@ import lombok.ToString;
  * A class modelling the ElectriCity bus. It contains an unique DGW ID. All ElectriCity buses
  * run on the 55 route, so the shortRouteName of an ElectriCityBus is always set automatically
  * to 55.
+ *
+ * @since 0.2
  */
 @EqualsAndHashCode(callSuper = true)
-@ToString
+@ToString(callSuper = true)
 public class ElectriCityBus extends AbstractVehicle implements IElectriCityBus {
     private static final String SHORT_ROUTE_NAME = "55"; // ElectriCity buses only run on the 55 route
 
@@ -27,7 +29,7 @@ public class ElectriCityBus extends AbstractVehicle implements IElectriCityBus {
      * @param DGW from ElectriCity
      * @throws NullPointerException if any parameter is null
      */
-    public ElectriCityBus(@NonNull String destination, String journeyID,
+    public ElectriCityBus(@NonNull String destination, @NonNull String journeyID,
                           @NonNull String DGW) {
         super(destination, SHORT_ROUTE_NAME, journeyID);
         this.DGW = DGW;
