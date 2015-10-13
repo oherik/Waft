@@ -29,7 +29,7 @@ public class ElectriCityBus extends AbstractVehicle implements IElectriCityBus {
      * @param DGW from ElectriCity
      * @throws NullPointerException if any parameter is null
      */
-    public ElectriCityBus(@NonNull String destination, String journeyID,
+    public ElectriCityBus(@NonNull String destination, @NonNull String journeyID,
                           @NonNull String DGW) {
         super(destination, SHORT_ROUTE_NAME, journeyID);
         this.DGW = DGW;
