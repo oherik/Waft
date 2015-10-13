@@ -1,5 +1,7 @@
 package com.alive_n_clickin.commutity.application;
 
+import android.util.Log;
+
 import com.alive_n_clickin.commutity.domain.ArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.ElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
@@ -25,6 +27,11 @@ import lombok.NonNull;
  */
 public class VehicleFactory {
 
+    private final static String CLASS_NUMBER = "9015";
+    private final static String THM_NUMBER = "014";
+    private final static String ELECTRICITY_LINE_NUMBER = "5055";
+    private final static String ELECTRICITY_JOURENEY_ID_PREFIX = CLASS_NUMBER + THM_NUMBER + ELECTRICITY_LINE_NUMBER;
+
     /**
      * Takes a dgw and returns a new bus object with all the data for the bus with that DGW.
      *
@@ -40,9 +47,27 @@ public class VehicleFactory {
         String journeyId = "";
         if (journey != null) {
             destination = journey.getDestination();
-            journeyId = journey.getJourneyId();
+            journeyId = ELECTRICITY_JOURENEY_ID_PREFIX + padWithZeroes(journey.getJourneyId(), 5);
         }
         return new ElectriCityBus(destination, journeyId, dgw);
+    }
+
+    /**
+     * Pads a string with zeroes.
+     *
+     * @param string the string to pad.
+     * @param wantedLength the wanted length of the returned string
+     * @return a new string consisting of the sent in string padded with zeroes so that it's size
+     * equals wantedLength.
+     */
+    private static String padWithZeroes(String string, int wantedLength) {
+        String zeroes = "";
+        for (int i = 0; i < wantedLength; i++) {
+            zeroes += "0";
+        }
+
+        String paddedString = zeroes + string;
+        return paddedString.substring(paddedString.length() - wantedLength, paddedString.length());
     }
 
     /**
@@ -62,6 +87,8 @@ public class VehicleFactory {
         List<JsonFlag> jsonFlags = waftAdapter.getFlagsForVehicle(journeyId);
         List<IFlag> flags = FlagFactory.getFlags(jsonFlags);
 
-        return new ArrivingVehicle(direction, shortName, journeyId, realArrival, flags);
+        IArrivingVehicle arrivingVehicle = new ArrivingVehicle(direction, shortName, journeyId, realArrival, flags);
+        Log.d("TEST", arrivingVehicle.toString());
+        return arrivingVehicle;
     }
 }
