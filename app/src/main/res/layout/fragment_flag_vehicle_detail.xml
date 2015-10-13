@@ -39,21 +39,10 @@
         android:padding="10dp"
         android:background="@android:color/white"
         android:hint="@string/flag_comment"
-        android:layout_above="@+id/flagDetailSendButton"
+        android:layout_above="@+id/flagDetailFooter"
         android:layout_alignParentStart="true"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp" />
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="20"
-        android:text="@string/flag_send"
-        android:id="@+id/flagDetailSendButton"
-        android:textSize="40dp"
-        android:padding="10dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -63,5 +52,28 @@
         android:layout_alignParentStart="true"
         android:layout_above="@+id/flagDetailCommentField"
         android:layout_alignEnd="@+id/flagDetailCommentField" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/flagDetailFooter">
+
+        <Button
+            android:drawableRight="@drawable/ic_send_white_18dp"
+            android:drawablePadding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_weight="20"
+            android:text="@string/flag_send"
+            android:id="@+id/flagDetailSendButton"
+            android:textSize="14dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:minWidth="88dp" />
+    </RelativeLayout>
 
 </RelativeLayout>
