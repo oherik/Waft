@@ -32,6 +32,7 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
     private WifiBroadcastReceiver wifiBroadcastReceiver;
     private MenuItem wifiDisabledIcon;
     private MenuItem refreshIcon;
+    private boolean isWifiEnabled;
 
 
     @Override
@@ -48,6 +49,7 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
 
         this.actionBar = this.getActionBar();
         this.wifiHelper = new WifiHelper(this);
+        isWifiEnabled = wifiHelper.isWifiEnabled();
 
         if (findViewById(R.id.content_frame) != null) {
             if (savedInstanceState != null) {
@@ -71,7 +73,9 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
     @Override
     public boolean onPrepareOptionsMenu (Menu menu) {
         updateBusText();
-        updateWifiState();
+        if (isWifiEnabled) {
+            startWifiScan();
+        }
         return true;
     }
 
@@ -84,7 +88,7 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
                 wifiHelper.enableWifi();
                 return true;
             case R.id.refresh_icon:
-                updateWifiState();
+                startWifiScan();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -96,16 +100,16 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
      * You're on a bus, the wifi is disabled or you're currently not close to any bus.
      */
     private void updateBusText() {
-        if (busManager.isOnBus()) {
+        if (!isWifiEnabled) {
+            actionBar.setTitle(R.string.enable_wifi_alert_title);
+            displayWifiEnabledIcon(false);
+        } else if (!busManager.isOnBus()) {
+            actionBar.setTitle(R.string.no_buses_near);
+            displayWifiEnabledIcon(true);
+        } else {
             IVehicle bus = this.busManager.getCurrentBus();
             String newText = getCurrentBusAsString(bus);
             actionBar.setTitle(newText);
-            displayWifiEnabledIcon(true);
-        } else if (!wifiHelper.isWifiEnabled()) {
-            actionBar.setTitle(R.string.enable_wifi_alert_title);
-            displayWifiEnabledIcon(false);
-        } else {
-            actionBar.setTitle(R.string.no_buses_near);
             displayWifiEnabledIcon(true);
         }
     }
@@ -123,23 +127,15 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
         return newText.toString();
     }
 
-    private void updateWifiState() {
-        if (wifiHelper.isWifiEnabled()) {
-            wifiHelper.initiateWifiScan();
-            displayWifiEnabledIcon(true);
-        } else {
-            actionBar.setTitle(R.string.enable_wifi_alert_title);
-
-        }
-    }
 
     /**
-     * This method handles the event when the wifi was on from start but then got turned off.
+     * Initializes a wifi scan and sets the title for the actionbar accordingly.
      */
-    private void wifiDisabled() {
-        displayWifiEnabledIcon(false);
-        actionBar.setTitle(R.string.enable_wifi_alert_title);
+    private void startWifiScan() {
+        actionBar.setTitle(R.string.loading_looking_for_vehicle);
+        wifiHelper.initiateWifiScan();
     }
+
 
     /**
      * Helper method to easily display either the "refresh" icon or the "wifi disabled" icon.
@@ -181,9 +177,10 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
 
     private void handleWifiStateChangeEvent(WifiStateChangeEvent event) {
         if (wifiHelper.isWifiEnabled()) {
-            this.updateBusText();
+            isWifiEnabled = true;
         } else {
-            wifiDisabled();
+            isWifiEnabled = false;
         }
+        updateBusText();
     }
 }
