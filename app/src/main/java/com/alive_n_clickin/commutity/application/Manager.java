@@ -74,9 +74,13 @@ public class Manager implements IManager, IObserver {
         if (event instanceof NewBusNearbyEvent) {
             handleNewBusNearbyEvent((NewBusNearbyEvent) event);
         } else if (event instanceof CantSearchForVehiclesEvent) {
-            currentBus = null;
-            observableHelper.notifyObservers(event);
+            handleCantSearchForVehiclesEvent((CantSearchForVehiclesEvent) event);
         }
+    }
+
+    private void handleCantSearchForVehiclesEvent(CantSearchForVehiclesEvent event) {
+        currentBus = null;
+        observableHelper.notifyObservers(event);
     }
 
     private void handleNewBusNearbyEvent(NewBusNearbyEvent event) {
