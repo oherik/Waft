@@ -55,6 +55,7 @@ public class FlagVehicleDetailFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_flag_vehicle_detail,
                 container, false);
         Button sendButton = (Button) view.findViewById(R.id.flagDetailSendButton);
+        Button cancelButton = (Button) view.findViewById(R.id.flagDetailCancelButton);
 
         // Check if wifi is enabled, if not display a message, if it is, try sending the flag
         sendButton.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +69,18 @@ public class FlagVehicleDetailFragment extends Fragment {
                 }
             }
         });
+
+        /*
+        Set a listener on the cancel button, if pressed it should simulate a back button press
+        (i.e. returning the user to the previous view)
+        */
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchToFlagFragment();
+            }
+        });
+        
         return view;
     }
 
