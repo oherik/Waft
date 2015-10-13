@@ -49,7 +49,7 @@ public class NearbyBusScanner implements IObserver, IObservable {
         buses.put("24:de:c6:3b:21:c4", "Ericsson$171330"); // Launchpad
         buses.put("d0:c7:89:33:27:3e", "Ericsson$171327"); // EDUROAM (which one?)
         buses.put("88:1d:fc:41:92:90", "Ericsson$171235"); // EDUROAM (which one?)
-        buses.put("00:16:b6:39:6f:f2", "Ericsson$171330"); // Maddy's Place
+        buses.put("00:16:b6:39:6f:f2", "Ericsson$100020"); // Maddy's Place
     }
 
     /**
