@@ -28,8 +28,9 @@
         <activity
             android:name=".presentation.flagreport.FlagVehicle"
             android:parentActivityName=".presentation.main.MainActivity"
-            android:theme="@style/WaftFlagTheme">
-
+            android:theme="@style/WaftFlagTheme"
+            android:label=""
+            >
         </activity>
     </application>
 
