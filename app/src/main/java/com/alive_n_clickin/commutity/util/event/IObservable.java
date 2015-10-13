@@ -2,6 +2,8 @@ package com.alive_n_clickin.commutity.util.event;
 
 /**
  * An interface for observables.
+ *
+ * @since 0.2
  */
 public interface IObservable {
     /**

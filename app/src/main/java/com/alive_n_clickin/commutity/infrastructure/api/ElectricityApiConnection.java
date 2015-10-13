@@ -10,6 +10,8 @@ import java.util.Map;
  * This class creates a valid http connection for the Electricity API, which is then passed along to {@link ApiConnection}.
  *
  * ElectricityApiConnection is package private, no need for higher layers to use it directly.
+ *
+ * @since 0.2
  */
 class ElectricityApiConnection {
 

@@ -6,6 +6,7 @@ import com.alive_n_clickin.commutity.domain.IFlagType;
  * A class containing data for a flag button. The button consists visually of an image and a
  * description, and these are stored as a resource ID and a string. The type of flag is also
  * stored here.
+ *
  * @since 0.1
  */
 public class FlagButton{

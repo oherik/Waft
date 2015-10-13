@@ -1,7 +1,6 @@
 package com.alive_n_clickin.commutity.infrastructure.api;
 
 import android.net.Uri;
-import android.util.Log;
 
 import com.alive_n_clickin.commutity.domain.IStop;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrival;
@@ -20,7 +19,8 @@ import java.util.List;
  * Use the ApiAdapterFactory to gain access to this class. {@link ApiAdapterFactory}
  *
  * This class represents high level methods that crate suitable request string, which are
- * then passed along to {@link VasttrafikApiConnection}
+ * then passed along to {@link VasttrafikApiConnection}.
+ *
  * @since 0.1
  */
 class VasttrafikAdapter implements IVasttrafikAdapter {
@@ -47,8 +47,9 @@ class VasttrafikAdapter implements IVasttrafikAdapter {
                 "location.name",
                 "&input=" + Uri.encode(searchString)
         );
+
         if (response != null) {
-            Object responseObject = new JsonJavaConverter<JsonStopList>(JsonStopList.class).toJava(
+            Object responseObject = new JsonJavaConverter<>(JsonStopList.class).toJava(
                     response, "LocationList");
             if (responseObject != null) {
                 //The api returns results that begin with "." that are not relevant to our implementation.
@@ -62,11 +63,9 @@ class VasttrafikAdapter implements IVasttrafikAdapter {
                 }
                 return jsonStopList;
             } else {
-                Log.d("ASD","stopList is null");
                 return null;
             }
         } else {
-            Log.d("ASD","response from server is null");
             return null;
         }
     }

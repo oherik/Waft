@@ -11,6 +11,8 @@ import lombok.ToString;
 /**
  * A class containing the same variables as a vehicle, in addition to a variable showing when it
  * will arrive to a specified stop. It also contains the flags for that vehicle.
+ *
+ * @since 0.2
  */
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)

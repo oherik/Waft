@@ -1,7 +1,5 @@
 package com.alive_n_clickin.commutity.application;
 
-import android.util.Log;
-
 import com.alive_n_clickin.commutity.domain.ArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.ElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
@@ -11,7 +9,7 @@ import com.alive_n_clickin.commutity.domain.JsonFlag;
 import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
 import com.alive_n_clickin.commutity.infrastructure.api.IElectricityAdapter;
 import com.alive_n_clickin.commutity.infrastructure.api.IWaftAdapter;
-import com.alive_n_clickin.commutity.infrastructure.api.Journey;
+import com.alive_n_clickin.commutity.infrastructure.api.response.JsonJourney;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrival;
 
 import java.util.Date;
@@ -24,6 +22,8 @@ import lombok.NonNull;
  * to build a vehicle from existing data (for example an ID or a response object received from
  * an external API), and that the factory simply responds with a vehicle. The factory
  * is responsible for fetching all the data required for that vehicle from whatever sources it needs.
+ *
+ * @since 0.2
  */
 public class VehicleFactory {
 
@@ -40,14 +40,14 @@ public class VehicleFactory {
      * @param dgw the dgw id for the bus you want to have.
      * @return a new bus object.
      */
-    public static IElectriCityBus getBus(String dgw) {
+    public static IElectriCityBus getElectriCityBus(String dgw) {
         IElectricityAdapter ecAdapter = ApiAdapterFactory.createElectricityAdapter();
-        Journey journey = ecAdapter.getJourneyInfo(dgw);
+        JsonJourney jsonJourney = ecAdapter.getJourneyInfo(dgw);
         String destination = "";
         String journeyId = "";
-        if (journey != null) {
-            destination = journey.getDestination();
-            journeyId = ELECTRICITY_JOURNEY_ID_PREFIX + padWithZeroes(journey.getJourneyId(), 5);
+        if (jsonJourney != null) {
+            destination = jsonJourney.getDestination();
+            journeyId = ELECTRICITY_JOURNEY_ID_PREFIX + padWithZeroes(jsonJourney.getJourneyId(), 5);
         }
         return new ElectriCityBus(destination, journeyId, dgw);
     }
@@ -87,8 +87,6 @@ public class VehicleFactory {
         List<JsonFlag> jsonFlags = waftAdapter.getFlagsForVehicle(journeyId);
         List<IFlag> flags = FlagFactory.getFlags(jsonFlags);
 
-        IArrivingVehicle arrivingVehicle = new ArrivingVehicle(direction, shortName, journeyId, realArrival, flags);
-        Log.d("TEST", arrivingVehicle.toString());
-        return arrivingVehicle;
+        return new ArrivingVehicle(direction, shortName, journeyId, realArrival, flags);
     }
 }
