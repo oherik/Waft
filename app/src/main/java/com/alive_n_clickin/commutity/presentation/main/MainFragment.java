@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +42,7 @@ public class MainFragment extends Fragment {
     private VehicleListAdapter adapter;
     private List<IArrivingVehicle> arrivingVehicles;
     private IManager manager;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
 
     @Override
@@ -55,12 +58,19 @@ public class MainFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.main_fragment, container, false);
         stopTextView = (TextView) rootView.findViewById(R.id.currentStop);
 
-        MainActivity mainActivity = (MainActivity) getActivity();
+        final MainActivity mainActivity = (MainActivity) getActivity();
         IStop currentStop = mainActivity.getCurrentStop();
 
         busListView = (ListView) rootView.findViewById(R.id.busListView);
         adapter = new VehicleListAdapter(getActivity(), arrivingVehicles);
         busListView.setAdapter(adapter);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.activity_main_swipe_refresh_layout);
+        mSwipeRefreshLayout.setOnRefreshListener( new SwipeRefreshLayout.OnRefreshListener(){
+           @Override
+            public void onRefresh(){
+               refreshBusList(mainActivity, rootView);
+           }
+        });
 
         ImageView showPostFlagViewButton = (ImageView) rootView.findViewById(R.id.showPostFlagViewButton);
         showPostFlagViewButton.setOnClickListener(new ShowPostFlagViewButtonListener());
@@ -71,6 +81,22 @@ public class MainFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * Makes a new search on the current stop when the list is pulled down.
+     */
+    private void refreshBusList(MainActivity activity, View view){
+        final IStop currentStop = activity.getCurrentStop();
+        final View rootView = view;
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                populateBusList(currentStop, rootView);
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        },2000);
+
+
+    }
     /**
      * This class purposes is to handle onClick events from the showPostFlagViewButton
      */
