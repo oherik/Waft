@@ -42,6 +42,7 @@ public class NearbyBusScanner implements IObserver, IObservable {
         buses.put("04:f0:21:10:09:b8", "Ericsson$171164"); // EOG 604
 
         //Bssids below are purely for testing (and for fun!)
+        buses.put("30:91:8f:6e:a9:f9", "Ericsson$171164"); //Casa del Oscmage
         buses.put("24:a0:74:75:8a:4c", "Ericsson$171164"); //Casa del Lollo
         buses.put("d0:c7:89:33:27:3e", "Ericsson$100021"); //M-salarna
         buses.put("28:c6:8e:71:8a:b8", "Ericsson$171164"); //Casa del Hjort
