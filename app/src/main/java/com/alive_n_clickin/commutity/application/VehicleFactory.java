@@ -87,7 +87,6 @@ public class VehicleFactory {
         List<JsonFlag> jsonFlags = waftAdapter.getFlagsForVehicle(journeyId);
         List<IFlag> flags = FlagFactory.getFlags(jsonFlags);
 
-        IArrivingVehicle arrivingVehicle = new ArrivingVehicle(direction, shortName, journeyId, realArrival, flags);
-        return arrivingVehicle;
+        return new ArrivingVehicle(direction, shortName, journeyId, realArrival, flags);
     }
 }
