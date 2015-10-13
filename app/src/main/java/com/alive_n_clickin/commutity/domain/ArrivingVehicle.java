@@ -13,7 +13,7 @@ import lombok.ToString;
  * will arrive to a specified stop. It also contains the flags for that vehicle.
  */
 @EqualsAndHashCode(callSuper = true)
-@ToString
+@ToString(callSuper = true)
 public class ArrivingVehicle extends AbstractVehicle implements IArrivingVehicle {
     private final Date arrivalTime;
     private final List<IFlag> flags;
