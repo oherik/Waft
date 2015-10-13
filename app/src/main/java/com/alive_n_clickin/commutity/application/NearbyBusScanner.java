@@ -20,6 +20,11 @@ import java.util.Map;
  * If it finds a match, it sends a NewBusNearbyEvent with the DGW of the found bus. If no match is
  * found, it sends a NewBusNearbyEvent with the DGW parameter set to null.
  */
+
+/* Note: The current implementation of this class relies solely on wifi, but the interface must not reveal that fact.
+If, in the future, another method of detecting nearby vehicles is implemented, the interface should remain the same.
+Anyone using this class can trust *that* it can detect nearby vehicles, not *how*
+ */
 public class NearbyBusScanner implements IObserver, IObservable {
     private IObservableHelper observableHelper = new ObservableHelper();
 
