@@ -41,6 +41,7 @@ public class MainFragment extends Fragment {
     private List<IArrivingVehicle> arrivingVehicles;
     private IManager manager;
 
+
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
