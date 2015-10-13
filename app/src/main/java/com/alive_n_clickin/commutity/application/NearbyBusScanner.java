@@ -18,6 +18,8 @@ import java.util.Map;
  * This class listens to WifiBSSIDChangeEvents and checks if any nearby BSSID belongs to a known bus.
  * If it finds a match, it sends a NewBusNearbyEvent with the DGW of the found bus. If no match is
  * found, it sends a NewBusNearbyEvent with the DGW parameter set to null.
+ *
+ * @since 0.2
  */
 public class NearbyBusScanner implements IObserver, IObservable {
     private IObservableHelper observableHelper = new ObservableHelper();
@@ -42,6 +44,7 @@ public class NearbyBusScanner implements IObserver, IObservable {
         buses.put("04:f0:21:10:09:b8", "Ericsson$171164"); // EOG 604
 
         //Bssids below are purely for testing (and for fun!)
+        buses.put("00:16:b6:39:6f:f2", "Ericsson$100020"); // Maddy's Place
         buses.put("30:91:8f:6e:a9:f9", "Ericsson$171164"); //Casa del Oscmage
         buses.put("24:a0:74:75:8a:4c", "Ericsson$171164"); //Casa del Lollo
         buses.put("d0:c7:89:33:27:3e", "Ericsson$100021"); //M-salarna
@@ -50,6 +53,7 @@ public class NearbyBusScanner implements IObserver, IObservable {
         buses.put("24:de:c6:3b:21:c4", "Ericsson$171330"); //Launchpad
         buses.put("d0:c7:89:33:27:3e", "Ericsson$171327"); //EDUROAM (which one?)
         buses.put("88:1d:fc:41:92:90", "Ericsson$171235"); //EDUROAM (which one?)
+
     }
 
     /**

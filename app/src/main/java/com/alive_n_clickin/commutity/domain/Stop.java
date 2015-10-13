@@ -7,6 +7,8 @@ import lombok.ToString;
 
 /**
  * A simple implementation of the Stop interface.
+ *
+ * @since 0.2
  */
 @EqualsAndHashCode
 @ToString

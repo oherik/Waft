@@ -11,6 +11,8 @@ import java.util.List;
 
 /**
  * A helper class for talking to the Android WifiManager.
+ *
+ * @since 0.2
  */
 public class WifiHelper {
     private WifiManager wifiManager;

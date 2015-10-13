@@ -2,6 +2,8 @@ package com.alive_n_clickin.commutity.util.event;
 
 /**
  * An interface for observers that can be registered to receive events from observables.
+ *
+ * @since 0.2
  */
 public interface IObserver {
     /**

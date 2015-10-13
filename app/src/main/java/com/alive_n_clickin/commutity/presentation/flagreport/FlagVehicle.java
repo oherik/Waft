@@ -22,6 +22,7 @@ import com.alive_n_clickin.commutity.util.event.IObserver;
  * The main activity for the flag setting tool. The activity doesn't have any visual elements itself,
  * besides a frame which contains different fragments. The activity extends FragmentActivity to ensure
  * that switching fragments is pain free.
+ *
  * @since 0.1
  */
 public class FlagVehicle extends FragmentActivity implements IObserver {
