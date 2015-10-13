@@ -11,7 +11,7 @@ import lombok.ToString;
  * to 55.
  */
 @EqualsAndHashCode(callSuper = true)
-@ToString
+@ToString(callSuper = true)
 public class ElectriCityBus extends AbstractVehicle implements IElectriCityBus {
     private static final String SHORT_ROUTE_NAME = "55"; // ElectriCity buses only run on the 55 route
 
