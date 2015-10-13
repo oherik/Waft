@@ -1,7 +1,5 @@
 package com.alive_n_clickin.commutity.application;
 
-import android.util.Log;
-
 import com.alive_n_clickin.commutity.domain.ArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.ElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
@@ -88,7 +86,6 @@ public class VehicleFactory {
         List<IFlag> flags = FlagFactory.getFlags(jsonFlags);
 
         IArrivingVehicle arrivingVehicle = new ArrivingVehicle(direction, shortName, journeyId, realArrival, flags);
-        Log.d("TEST", arrivingVehicle.toString());
         return arrivingVehicle;
     }
 }
