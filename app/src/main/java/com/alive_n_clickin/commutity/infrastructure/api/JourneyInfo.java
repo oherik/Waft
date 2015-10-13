@@ -5,9 +5,6 @@ import java.io.Serializable;
 import lombok.Getter;
 
 /**
- * @author hjorthjort
- *         Created 08/10/15
- *
  * @since 0.2
  */
 public class JourneyInfo implements Serializable {
