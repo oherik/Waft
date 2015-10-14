@@ -52,14 +52,17 @@ public class NearbyBusScanner implements IObserver, IObservable {
 
         // TODO: Add all buses
         buses.put("04:f0:21:10:09:df", "Ericsson$100021"); // EPO 136
-        buses.put("04:f0:21:10:09:b9", "Ericsson$171164"); // EOG 627
         buses.put("04:f0:21:10:09:e8", "Ericsson$100022"); // EPO 143
-        buses.put("04:f0:21:10:09:b7", "Ericsson$171330"); // EOG 634
-        buses.put("04:f0:21:10:09:53", "Ericsson$171327"); // EOG 622
-        buses.put("04:f0:21:10:09:5b", "Ericsson$171235"); // EOG 616
         buses.put("04:f0:21:10:09:b8", "Ericsson$171164"); // EOG 604
+        buses.put("04:f0:21:10:09:e7", "Ericsson$171234"); // EOG 606
+        buses.put("04:f0:21:10:09:5b", "Ericsson$171235"); // EOG 616
+        buses.put("04:f0:21:10:09:53", "Ericsson$171327"); // EOG 622
+        buses.put("04:f0:21:10:09:b9", "Ericsson$171164"); // EOG 627
+        buses.put("04:f0:21:10:09:b7", "Ericsson$171330"); // EOG 634
 
         //Bssids below are purely for testing (and for fun!)
+        buses.put("00:16:b6:39:6f:f2", "Ericsson$100020"); // Maddy's Place
+        buses.put("30:91:8f:6e:a9:f9", "Ericsson$171164"); // Casa del Oscmage
         buses.put("24:a0:74:75:8a:4c", "Ericsson$171164"); // Casa del Lollo
         buses.put("d0:c7:89:33:27:3e", "Ericsson$100021"); // M-salarna
         buses.put("28:c6:8e:71:8a:b8", "Ericsson$171164"); // Casa del Hjort
@@ -67,7 +70,7 @@ public class NearbyBusScanner implements IObserver, IObservable {
         buses.put("24:de:c6:3b:21:c4", "Ericsson$171330"); // Launchpad
         buses.put("d0:c7:89:33:27:3e", "Ericsson$171327"); // EDUROAM (which one?)
         buses.put("88:1d:fc:41:92:90", "Ericsson$171235"); // EDUROAM (which one?)
-        buses.put("00:16:b6:39:6f:f2", "Ericsson$100020"); // Maddy's Place
+
     }
 
     /**

@@ -115,7 +115,6 @@ public class FlagVehicleDetailFragment extends Fragment {
      * Alerts the user that  wifi need to be enabled.
      */
     private void showEnableWifiAlert() {
-        TextView busInfo = (TextView) getView().findViewById(R.id.textViewBusInformation);
 
         AlertDialog alertDialog = new AlertDialog.Builder(getContext())
                 .setTitle(R.string.enable_wifi_alert_title)
