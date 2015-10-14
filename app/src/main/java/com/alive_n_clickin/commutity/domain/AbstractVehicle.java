@@ -7,7 +7,9 @@ import lombok.ToString;
 
 /**
  * An abstract class all other vehicles should extend. Holds a destination, a line number and
- * a journey number
+ * a journey number.
+ *
+ * @since 0.2
  */
 @EqualsAndHashCode
 @ToString

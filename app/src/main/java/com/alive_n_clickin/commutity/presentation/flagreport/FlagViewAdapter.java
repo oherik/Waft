@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * An adapter for transforming flag data into a grid view
+ * An adapter for transforming flag data into a grid view.
+ *
  * @since 0.1
  */
 public class FlagViewAdapter extends BaseAdapter  {

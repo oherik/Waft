@@ -3,6 +3,8 @@ package com.alive_n_clickin.commutity.domain;
 /**
  * An interface for bus and tram stops. A stop should be able to provide a name and a unique ID
  * that can be used to identify it when using Västtrafik's API.
+ *
+ * @since 0.2
  */
 public interface IStop {
     /**

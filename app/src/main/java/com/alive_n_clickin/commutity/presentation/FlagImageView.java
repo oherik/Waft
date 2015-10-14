@@ -15,6 +15,8 @@ import java.util.HashMap;
 /**
  * This is class is an ImageView specialized on flags from our system. It maps every flag type to an
  * image, and has a setFlag method that lets you specify what image it should show based on flag type.
+ *
+ * @since 0.2
  */
 public class FlagImageView extends ImageView {
 
@@ -29,10 +31,11 @@ public class FlagImageView extends ImageView {
         images = new HashMap<>();
         images.put(Flag.Type.DELAYED, R.drawable.flag_delayed_300px);
         images.put(Flag.Type.DISTURBANCES, R.drawable.flag_rowdy_300px);
-        images.put(Flag.Type.MESSY, R.drawable.flag_dirty_alt1_300px);
+        images.put(Flag.Type.MESSY, R.drawable.flag_dirty_300px);
         images.put(Flag.Type.OVERCROWDED, R.drawable.flag_full_300px);
         images.put(Flag.Type.NO_PRAMS, R.drawable.flag_pram_300px);
-        images.put(Flag.Type.OTHER, R.drawable.flag_other_black_300px);
+        images.put(Flag.Type.OTHER, R.drawable.flag_other_300px);
+        images.put(Flag.Type.BAD_CLIMATE, R.drawable.flag_warm_300px);
     }
 
     /**

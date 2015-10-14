@@ -12,6 +12,7 @@ import java.net.URL;
  * This class creates a valid http connection for the Vasttrafik API, which is then passed along to {@link ApiConnection}.
  *
  * The class is not meant to be instantiated directly. It's only used within {@link VasttrafikAdapter} to remove coupling.
+ *
  * @since 0.1
  */
 class VasttrafikApiConnection {

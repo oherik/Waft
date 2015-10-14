@@ -28,6 +28,8 @@ import lombok.NonNull;
 /**
  * An implementation of the IManager interface. This implementation listens to a NearbyBusScanner
  * for events regarding nearby buses to keep track of which bus the user is currently on.
+ *
+ * @since 0.2
  */
 public class Manager implements IManager, IObserver {
     private IObservableHelper observableHelper = new ObservableHelper();
@@ -115,7 +117,7 @@ public class Manager implements IManager, IObserver {
         @Override
         protected IElectriCityBus doInBackground(String... params) {
             String dgw = params[0];
-            return VehicleFactory.getBus(dgw);
+            return VehicleFactory.getElectriCityBus(dgw);
         }
 
         @Override
