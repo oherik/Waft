@@ -109,7 +109,7 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
     }
 
     private void handleSearchRequest() {
-        this.busManager.searchForVehicles(getContext().getApplicationContext());
+        this.busManager.searchForVehicles();
     }
 
     @Override
