@@ -15,10 +15,8 @@ import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.application.IManager;
 import com.alive_n_clickin.commutity.domain.Flag;
 import com.alive_n_clickin.commutity.domain.IVehicle;
-import com.alive_n_clickin.commutity.event.CurrentBusChangeEvent;
-import com.alive_n_clickin.commutity.event.WifiStateChangeEvent;
-import com.alive_n_clickin.commutity.infrastructure.WifiBroadcastReceiver;
-import com.alive_n_clickin.commutity.infrastructure.WifiHelper;
+import com.alive_n_clickin.commutity.util.event.CantSearchForVehiclesEvent;
+import com.alive_n_clickin.commutity.util.event.CurrentBusChangeEvent;
 import com.alive_n_clickin.commutity.util.event.IEvent;
 import com.alive_n_clickin.commutity.util.event.IObserver;
 
@@ -31,12 +29,9 @@ import java.util.ArrayList;
  * @since 0.1
  */
 public class FlagVehicleFragment extends Fragment implements IObserver {
-    private final static String ARG_POSITION = "position";
     private int mCurrentPosition = -1;
 
     private IManager busManager;
-    private WifiBroadcastReceiver wifiBroadcastReceiver;
-
     private FlagViewAdapter flagAdapter;
     private ArrayList<FlagButton> flagButtons;
 
@@ -60,8 +55,6 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
         MyApplication application = (MyApplication) this.getActivity().getApplicationContext();
         this.busManager = application.getManager();
         this.busManager.addObserver(this);
-        this.wifiBroadcastReceiver = application.getWifiBroadcastReceiver();
-        this.wifiBroadcastReceiver.addObserver(this);
 
         final View rootView = inflater.inflate(R.layout.fragment_flag_vehicle, container, false);
         flagAdapter = new FlagViewAdapter(getActivity(), flagButtons);
@@ -71,15 +64,13 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WifiHelper wifiHelper = new WifiHelper(getActivity());
-                boolean wifiIsEnabled = wifiHelper.isWifiEnabled();
-                if (wifiIsEnabled) {
+                boolean canSearch = busManager.canSearch();
+                if (canSearch) {
                     textView.setText(R.string.loading_looking_for_vehicle);
-                    wifiHelper.initiateWifiScan();
                 } else {
-                    textView.setText(R.string.activating_wifi);
-                    wifiHelper.enableWifi();
+                    textView.setText(R.string.enabling_search);
                 }
+                handleSearchRequest();
             }
         });
 
@@ -117,25 +108,30 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
         return rootView;
     }
 
+    private void handleSearchRequest() {
+        this.busManager.searchForVehicles();
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
 
         this.busManager.removeObserver(this);
-        this.wifiBroadcastReceiver.removeObserver(this);
+    }
+
+    private void updateBusText() {
+        this.updateBusText(getView());
     }
 
     private void updateBusText(View view) {
         final TextView textView = (TextView) view.findViewById(R.id.textViewBusInformation);
 
-        WifiHelper wifiHelper = new WifiHelper(this.getActivity());
-        if (this.busManager.isOnBus()) {
+        if (!this.busManager.canSearch()) {
+            textView.setText(R.string.cant_search);
+        } else if (this.busManager.isOnBus()) {
             IVehicle bus = this.busManager.getCurrentBus();
             String newText = getCurrentBusAsString(bus);
-
             textView.setText(newText);
-        } else if (!wifiHelper.isWifiEnabled()) {
-            textView.setText(R.string.you_must_activate_wifi);
         } else {
             textView.setText(R.string.no_buses_near);
         }
@@ -147,10 +143,6 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
         newText.append(" ");
         newText.append(bus.getDestination());
         return newText.toString();
-    }
-
-    private void updateBusText() {
-        this.updateBusText(getView());
     }
 
     /**
@@ -174,8 +166,8 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
     public void onEvent(IEvent event) {
         if (event instanceof CurrentBusChangeEvent) {
             handleCurrentBusChangeEvent((CurrentBusChangeEvent) event);
-        } else if (event instanceof WifiStateChangeEvent) {
-            handleWifiStateChangeEvent((WifiStateChangeEvent) event);
+        } else if (event instanceof CantSearchForVehiclesEvent) {
+            handleCantSearchEvent((CantSearchForVehiclesEvent) event);
         }
     }
 
@@ -183,7 +175,7 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
         this.updateBusText();
     }
 
-    private void handleWifiStateChangeEvent(WifiStateChangeEvent event) {
+    private void handleCantSearchEvent(CantSearchForVehiclesEvent event) {
         this.updateBusText();
     }
 }
