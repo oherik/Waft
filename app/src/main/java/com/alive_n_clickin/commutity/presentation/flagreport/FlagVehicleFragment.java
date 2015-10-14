@@ -2,12 +2,11 @@ package com.alive_n_clickin.commutity.presentation.flagreport;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.TextView;
 
 import com.alive_n_clickin.commutity.MyApplication;
@@ -40,6 +39,12 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
     private FlagViewAdapter flagAdapter;
     private ArrayList<FlagButton> flagButtons;
 
+    //Recycler
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private int AMOUNT_OF_COLUMNS = 2;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +68,24 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
         this.wifiBroadcastReceiver = application.getWifiBroadcastReceiver();
         this.wifiBroadcastReceiver.addObserver(this);
 
+        final View rootView = inflater.inflate(R.layout.recycler, container, false);
+        //ReyclerStuff start
+        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        mRecyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        mLayoutManager = new GridLayoutManager(getContext(), AMOUNT_OF_COLUMNS);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        // specify an adapter (see also next example)
+        mAdapter = new Recycler(flagButtons);
+        mRecyclerView.setAdapter(mAdapter);
+        //End
+
+        /*
         final View rootView = inflater.inflate(R.layout.fragment_flag_vehicle, container, false);
         flagAdapter = new FlagViewAdapter(getActivity(), flagButtons);
         final TextView textView = (TextView) rootView.findViewById(R.id.textViewBusInformation);
@@ -84,7 +107,11 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
         });
 
         this.updateBusText(rootView);
+        */
 
+
+
+        /*
         GridView flagGrid = (GridView) rootView.findViewById(R.id.flagGridView);
         flagGrid.setAdapter(flagAdapter);
         flagGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -114,6 +141,7 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
                 transaction.commit();
             }
         });
+        */
         return rootView;
     }
 
