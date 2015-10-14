@@ -10,13 +10,11 @@ import android.view.MenuItem;
 import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.application.IManager;
-import com.alive_n_clickin.commutity.domain.IVehicle;
-import com.alive_n_clickin.commutity.infrastructure.WifiBroadcastReceiver;
-import com.alive_n_clickin.commutity.infrastructure.WifiHelper;
+import com.alive_n_clickin.commutity.domain.IElectriCityBus;
+import com.alive_n_clickin.commutity.util.event.CantSearchForVehiclesEvent;
 import com.alive_n_clickin.commutity.util.event.CurrentBusChangeEvent;
 import com.alive_n_clickin.commutity.util.event.IEvent;
 import com.alive_n_clickin.commutity.util.event.IObserver;
-import com.alive_n_clickin.commutity.util.event.WifiStateChangeEvent;
 
 /**
  * The main activity for the flag setting tool. The activity doesn't have any visual elements itself,
@@ -26,30 +24,23 @@ import com.alive_n_clickin.commutity.util.event.WifiStateChangeEvent;
  * @since 0.1
  */
 public class FlagVehicle extends FragmentActivity implements IObserver {
+    private IManager manager;
+
     private ActionBar actionBar;
-    private WifiHelper wifiHelper;
-    private IManager busManager;
-    private WifiBroadcastReceiver wifiBroadcastReceiver;
     private MenuItem wifiDisabledIcon;
     private MenuItem refreshIcon;
-    private boolean isWifiEnabled;
-
 
     @Override
     protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flag_vehicle);
+
         // Register observers
         MyApplication application = (MyApplication) this.getApplicationContext();
-        this.busManager = application.getManager();
-        this.busManager.addObserver(this);
-        this.wifiBroadcastReceiver = application.getWifiBroadcastReceiver();
-        this.wifiBroadcastReceiver.addObserver(this);
-
+        this.manager = application.getManager();
+        this.manager.addObserver(this);
 
         this.actionBar = this.getActionBar();
-        this.wifiHelper = new WifiHelper(this);
-        isWifiEnabled = wifiHelper.isWifiEnabled();
 
         if (findViewById(R.id.content_frame) != null) {
             if (savedInstanceState != null) {
@@ -67,16 +58,73 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
 
         this.wifiDisabledIcon = menu.findItem(R.id.wifi_disabled_icon);
         this.refreshIcon = menu.findItem(R.id.refresh_icon);
+
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onPrepareOptionsMenu (Menu menu) {
-        updateActionbarText();
-        if (isWifiEnabled) {
-            startWifiScan();
+        if (!manager.canSearch()) {
+            setActionBarTextCantSearch();
+        } else if (!manager.isOnBus()) {
+            manager.searchForVehicles();
+            setActionBarTextSearching();
+        } else {
+            setActionBarTextToBus(manager.getCurrentBus());
         }
+
         return true;
+    }
+
+    /**
+     * Sets the action bar text to R.string.loading_looking_for_vehicle.
+     */
+    private void setActionBarTextSearching() {
+        actionBar.setTitle(R.string.loading_looking_for_vehicle);
+        displayRefreshIcon();
+    }
+
+    /**
+     * Sets the action bar text to the sent in bus.
+     *
+     * @param currentBus the bus to set the action bar text to.
+     */
+    private void setActionBarTextToBus(IElectriCityBus currentBus) {
+        String busString = currentBus.getShortRouteName() + " " + currentBus.getDestination();
+        actionBar.setTitle(busString);
+        displayRefreshIcon();
+    }
+
+    /**
+     * Sets the action bar text to R.string.no_buses_near.
+     */
+    private void setActionBarTextNotOnBus() {
+        actionBar.setTitle(R.string.no_buses_near);
+        displayRefreshIcon();
+    }
+
+    /**
+     * Sets the action bar text to R.string.cant_search.
+     */
+    private void setActionBarTextCantSearch() {
+        actionBar.setTitle(R.string.cant_search);
+        displayEnableWifiIcon();
+    }
+
+    /**
+     * Helper method to easily display the "wifi disabled" icon.
+     */
+    private void displayEnableWifiIcon() {
+        wifiDisabledIcon.setVisible(true);
+        refreshIcon.setVisible(false);
+    }
+
+    /**
+     * Helper method to easily display the "refresh" icon.
+     */
+    private void displayRefreshIcon() {
+        wifiDisabledIcon.setVisible(false);
+        refreshIcon.setVisible(true);
     }
 
     @Override
@@ -85,70 +133,15 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
             case R.id.action_settings:
                 return true;
             case R.id.wifi_disabled_icon:
-                wifiHelper.enableWifi();
+                manager.searchForVehicles();
+                setActionBarTextSearching();
                 return true;
             case R.id.refresh_icon:
-                startWifiScan();
+                manager.searchForVehicles();
+                setActionBarTextSearching();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
-        }
-    }
-
-    /**
-     * Updates the actionbar text depending on the following:
-     * You're on a bus, the wifi is disabled or you're currently not close to any bus.
-     */
-    private void updateActionbarText() {
-        if (!isWifiEnabled) {
-            actionBar.setTitle(R.string.enable_wifi_alert_title);
-            displayWifiEnabledIcon(false);
-        } else if (!busManager.isOnBus()) {
-            actionBar.setTitle(R.string.no_buses_near);
-            displayWifiEnabledIcon(true);
-        } else {
-            IVehicle bus = this.busManager.getCurrentBus();
-            String newText = getCurrentBusAsString(bus);
-            actionBar.setTitle(newText);
-            displayWifiEnabledIcon(true);
-        }
-    }
-
-    /**
-     * Helper method for creating a suitable string to be displayed
-     * @param bus the object from where you form the string.
-     * @return a string containing the route name + destination
-     */
-    private String getCurrentBusAsString(IVehicle bus) {
-        StringBuilder newText = new StringBuilder();
-        newText.append(bus.getShortRouteName());
-        newText.append(" ");
-        newText.append(bus.getDestination());
-        return newText.toString();
-    }
-
-
-    /**
-     * Initializes a wifi scan and sets the title for the actionbar accordingly.
-     */
-    private void startWifiScan() {
-        actionBar.setTitle(R.string.loading_looking_for_vehicle);
-        wifiHelper.initiateWifiScan();
-    }
-
-
-    /**
-     * Helper method to easily display either the "refresh" icon or the "wifi disabled" icon.
-     * @param value if true the "refresh" icon is displayed and the "wifi disabled" icon is set hidden.
-     * This works the other way around if the value is set to false.
-     */
-    private void displayWifiEnabledIcon(boolean value) {
-        if (value) {
-            wifiDisabledIcon.setVisible(false);
-            refreshIcon.setVisible(true);
-        } else {
-            wifiDisabledIcon.setVisible(true);
-            refreshIcon.setVisible(false);
         }
     }
 
@@ -166,21 +159,21 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
     public void onEvent(IEvent event) {
         if (event instanceof CurrentBusChangeEvent) {
             handleCurrentBusChangeEvent((CurrentBusChangeEvent) event);
-        } else if (event instanceof WifiStateChangeEvent) {
-            handleWifiStateChangeEvent((WifiStateChangeEvent) event);
+        } else if (event instanceof CantSearchForVehiclesEvent) {
+            handleCantSearchForVehiclesEvent((CantSearchForVehiclesEvent) event);
         }
     }
 
     private void handleCurrentBusChangeEvent(CurrentBusChangeEvent event) {
-        this.updateActionbarText();
+        IElectriCityBus bus = event.getBus();
+        if (bus == null) {
+            setActionBarTextNotOnBus();
+        } else {
+            setActionBarTextToBus(bus);
+        }
     }
 
-    private void handleWifiStateChangeEvent(WifiStateChangeEvent event) {
-        if (wifiHelper.isWifiEnabled()) {
-            isWifiEnabled = true;
-        } else {
-            isWifiEnabled = false;
-        }
-        updateActionbarText();
+    private void handleCantSearchForVehiclesEvent(CantSearchForVehiclesEvent event) {
+        setActionBarTextCantSearch();
     }
 }
