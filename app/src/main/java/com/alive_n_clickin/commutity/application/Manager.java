@@ -154,7 +154,7 @@ public class Manager implements IManager, IObserver {
     }
 
     @Override
-    public void searchForVehicles(Context context) {
+    public void searchForVehicles() {
         nearbyBusScanner.enableSearchingAndSearch();
     }
 }
