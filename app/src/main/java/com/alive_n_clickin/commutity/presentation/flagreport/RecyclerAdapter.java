@@ -15,19 +15,18 @@ import java.util.List;
 /**
  * Created by OscarEvertsson on 14/10/15.
  */
-public class Recycler extends  RecyclerView.Adapter<Recycler.ViewHolder> {
+public class RecyclerAdapter extends  RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
     private List<FlagButton> flagButtonList;
 
-    public Recycler(List<FlagButton> flagButtonList) {
+    public RecyclerAdapter(List<FlagButton> flagButtonList) {
         this.flagButtonList = flagButtonList;
     }
-
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView flagInfo;
         public ImageView flagImg;
         public ViewHolder(View v) {
-            super(v); //Is this correct?
+            super(v);
             flagInfo = (TextView) v.findViewById(R.id.textView);
             flagImg = (ImageView) v.findViewById(R.id.imageView);
         }
@@ -42,15 +41,10 @@ public class Recycler extends  RecyclerView.Adapter<Recycler.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         FlagButton button = this.flagButtonList.get(position);
-
         Context context = holder.flagImg.getContext();
+
         holder.flagImg.setImageDrawable(context.getResources().getDrawable(button.getImageID()));
-
         holder.flagInfo.setText(button.getDescription());
-
-
-
-        //holder.flagImg.setImageDrawable(flagButtonList.get(position).getImageID());
     }
 
     @Override
