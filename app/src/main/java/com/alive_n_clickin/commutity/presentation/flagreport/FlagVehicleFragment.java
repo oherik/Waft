@@ -69,15 +69,17 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
         this.wifiBroadcastReceiver.addObserver(this);
 
         final View rootView = inflater.inflate(R.layout.recycler, container, false);
+
         //ReyclerStuff start
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
-        mRecyclerView.setHasFixedSize(true);
+        //mRecyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
         mLayoutManager = new GridLayoutManager(getContext(), AMOUNT_OF_COLUMNS);
+
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
@@ -208,10 +210,11 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
     }
 
     private void handleCurrentBusChangeEvent(CurrentBusChangeEvent event) {
-        this.updateBusText();
+        //this.updateBusText();
     }
 
     private void handleWifiStateChangeEvent(WifiStateChangeEvent event) {
-        this.updateBusText();
+
+        //this.updateBusText();
     }
 }
