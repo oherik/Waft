@@ -24,13 +24,11 @@ public class FlagVehicleFragment extends Fragment {
     private int mCurrentPosition = -1;
     private int SPACING_BETWEEN_FLAGBUTTONS = 20;
 
-    private FlagViewAdapter flagAdapter;
     private ArrayList<FlagButton> flagButtons;
 
-    //RecyclerAdapter
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
     private int AMOUNT_OF_COLUMNS = 2;
 
     @Override
@@ -45,25 +43,16 @@ public class FlagVehicleFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.recycler, container, false);
 
-        //ReyclerStuff start
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
+        layoutManager = new GridLayoutManager(getContext(), AMOUNT_OF_COLUMNS);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(new CardDecorator(SPACING_BETWEEN_FLAGBUTTONS));
 
-        // use a linear layout manager
-        mLayoutManager = new GridLayoutManager(getContext(), AMOUNT_OF_COLUMNS);
-
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
-        mRecyclerView.addItemDecoration(new Space(SPACING_BETWEEN_FLAGBUTTONS));
-        // specify an adapter (see also next example)
-        mAdapter = new RecyclerAdapter(flagButtons);
-        mRecyclerView.setAdapter(mAdapter);
+        adapter = new RecyclerAdapter(flagButtons);
+        recyclerView.setAdapter(adapter);
         //End
 
         /* TODO: Set up on click listeners to change fragment
@@ -80,12 +69,12 @@ public class FlagVehicleFragment extends Fragment {
     }
 
     /**
-     * This class only purpose is to handles setting margin for the RecyclerView.
+     * This class only purpose is to handles set margin between cards in the RecyclerView.
      */
-    private class Space extends RecyclerView.ItemDecoration {
+    private class CardDecorator extends RecyclerView.ItemDecoration {
         private int space;
 
-        public Space(int space) {
+        public CardDecorator(int space) {
             this.space = space;
         }
 
@@ -96,11 +85,11 @@ public class FlagVehicleFragment extends Fragment {
             outRect.bottom = space;
             outRect.right = space;
 
-            // Remove the margin between the two columns.
-            if (currentItem%2 == 0) {
+            // Remove the margin in between the two columns.
+            if (currentItem % 2 == 0) {
                 outRect.left = space;
             }
-            // Add top margin only for the first item to avoid double Space between items.
+            // Add top margin only for the first item in the two columns to avoid double margin between items.
             if (currentItem == 0 || currentItem == 1) {
                 outRect.top = space;
             }
