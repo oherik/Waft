@@ -1,5 +1,6 @@
 package com.alive_n_clickin.commutity.presentation.flagreport;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -29,12 +30,13 @@ import java.util.ArrayList;
  */
 public class FlagVehicleFragment extends Fragment implements IObserver {
     private int mCurrentPosition = -1;
+    private int SPACING_BETWEEN_FLAGBUTTONS = 20;
 
     private IManager busManager;
     private FlagViewAdapter flagAdapter;
     private ArrayList<FlagButton> flagButtons;
 
-    //Recycler
+    //RecyclerAdapter
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -76,34 +78,11 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
-        int spacingInPixels = 20;
-        mRecyclerView.addItemDecoration(new Space(spacingInPixels));
+        mRecyclerView.addItemDecoration(new Space(SPACING_BETWEEN_FLAGBUTTONS));
         // specify an adapter (see also next example)
-        mAdapter = new Recycler(flagButtons);
+        mAdapter = new RecyclerAdapter(flagButtons);
         mRecyclerView.setAdapter(mAdapter);
         //End
-
-        /*
-        final View rootView = inflater.inflate(R.layout.fragment_flag_vehicle, container, false);
-        flagAdapter = new FlagViewAdapter(getActivity(), flagButtons);
-        final TextView textView = (TextView) rootView.findViewById(R.id.textViewBusInformation);
-
-        // Set up on click listener for bus text
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean canSearch = busManager.canSearch();
-                if (canSearch) {
-                    textView.setText(R.string.loading_looking_for_vehicle);
-                } else {
-                    textView.setText(R.string.enabling_search);
-                }
-                handleSearchRequest();
-            }
-        });
-
-        this.updateBusText(rootView);
-        */
 
 
 
@@ -139,6 +118,34 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
         });
         */
         return rootView;
+    }
+
+    /**
+     * This class only purpose is to handles setting margin for the RecyclerView.
+     */
+    private class Space extends RecyclerView.ItemDecoration {
+        private int space;
+
+        public Space(int space) {
+            this.space = space;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view,
+                                   RecyclerView parent, RecyclerView.State state) {
+            int currentItem = parent.getChildLayoutPosition(view);
+            outRect.bottom = space;
+            outRect.right = space;
+
+            // Remove the margin between the two columns.
+            if (currentItem%2 == 0) {
+                outRect.left = space;
+            }
+            // Add top margin only for the first item to avoid double Space between items.
+            if (currentItem == 0 || currentItem == 1) {
+                outRect.top = space;
+            }
+        }
     }
 
     private void handleSearchRequest() {
