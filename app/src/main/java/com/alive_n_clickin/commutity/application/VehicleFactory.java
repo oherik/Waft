@@ -13,6 +13,7 @@ import com.alive_n_clickin.commutity.infrastructure.api.response.JsonJourney;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrival;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import lombok.NonNull;
@@ -83,9 +84,12 @@ public class VehicleFactory {
         String journeyId = jsonArrival.getJourneyid();
         Date realArrival = jsonArrival.getRealArrival();
 
-        IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
-        List<JsonFlag> jsonFlags = waftAdapter.getFlagsForVehicle(journeyId);
-        List<IFlag> flags = FlagFactory.getFlags(jsonFlags);
+        List<IFlag> flags = new LinkedList<>();
+        if (shortName.equals("55")) {
+            IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
+            List<JsonFlag> jsonFlags = waftAdapter.getFlagsForVehicle(journeyId);
+            flags = FlagFactory.getFlags(jsonFlags);
+        }
 
         return new ArrivingVehicle(direction, shortName, journeyId, realArrival, flags);
     }
