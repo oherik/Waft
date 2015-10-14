@@ -1,8 +1,8 @@
 package com.alive_n_clickin.commutity.presentation.flagreport;
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,8 +65,12 @@ public class FlagVehicleFragment extends Fragment {
                 detailFragment.setArguments(args);
 
                 //Switch view
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().
+                FragmentTransaction transaction = getActivity().getFragmentManager().
                         beginTransaction();
+                transaction.setCustomAnimations(R.anim.slide_up,
+                        R.anim.slide_down,
+                        R.anim.slide_up,
+                        R.anim.slide_down);
                 transaction.replace(R.id.content_frame, detailFragment);
                 transaction.addToBackStack(null);
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
@@ -76,6 +80,8 @@ public class FlagVehicleFragment extends Fragment {
 
         return rootView;
     }
+
+
 
     /**
      * Adds the different buttons. At the moment it's all hard coded for testing purposes
