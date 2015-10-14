@@ -1,7 +1,6 @@
 package com.alive_n_clickin.commutity.presentation.main;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,10 +52,10 @@ public class VehicleListAdapter extends ArrayAdapter<IArrivingVehicle> {
 
         /*  This if statement purpose is to increase performance. Each card has the same width.
             IMPORTANT! if you remove this there's a possibility all flags won't be plotted out. */
-        if (maxWidth == 0) {
-            GridLayout flagListView = (GridLayout) convertView.findViewById(R.id.flagListView);
-            maxWidth = flagListView.getMeasuredWidth();
-        }
+//        if (maxWidth == 0) {
+//            GridLayout flagListView = (GridLayout) convertView.findViewById(R.id.flagListView);
+//            maxWidth = flagListView.getMeasuredWidth();
+//        }
 
         setFlags(convertView, maxWidth, vehicle);
         return convertView;
@@ -80,19 +79,19 @@ public class VehicleListAdapter extends ArrayAdapter<IArrivingVehicle> {
             final View flagContainer = inflater.inflate(R.layout.little_flag, null); //Container for the image
             FlagImageView flagImage = (FlagImageView) flagContainer.findViewById(R.id.littleFlagImageView); //The actual image
             flagImage.setFlag(flag);
-            flagContainer.measure(0, 0);
-            int flagWidth = flagContainer.getMeasuredWidth(); //The width of our current flag
-            totalWidth += flagContainer.getMeasuredWidth();
-            if (totalWidth <= maxWidth - flagWidth) { //We make sure there is room for at least one more flag before we add another one
+//            flagContainer.measure(0, 0);
+//            int flagWidth = flagContainer.getMeasuredWidth(); //The width of our current flag
+//            totalWidth += flagContainer.getMeasuredWidth();
+//            if (totalWidth <= maxWidth - flagWidth) { //We make sure there is room for at least one more flag before we add another one
                 flagListView.addView(flagContainer);
-            } else {
-                // If this is the last flag we can fit, we make it an ellipsis symbol and then stop adding flags
-                flagListView.removeView(flagContainer);
-                Drawable ellipsis = flagImage.getResources().getDrawable(R.drawable.ellipsis);
-                flagImage.setImageDrawable(ellipsis);
-                flagListView.addView(flagContainer);
-                break;
-            }
+//            } else {
+//                 If this is the last flag we can fit, we make it an ellipsis symbol and then stop adding flags
+//                flagListView.removeView(flagContainer);
+//                Drawable ellipsis = flagImage.getResources().getDrawable(R.drawable.ellipsis);
+//                flagImage.setImageDrawable(ellipsis);
+//                flagListView.addView(flagContainer);
+//                break;
+//            }
         }
     }
 }
