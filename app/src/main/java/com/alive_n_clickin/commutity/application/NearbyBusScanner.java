@@ -52,12 +52,13 @@ public class NearbyBusScanner implements IObserver, IObservable {
 
         // TODO: Add all buses
         buses.put("04:f0:21:10:09:df", "Ericsson$100021"); // EPO 136
-        buses.put("04:f0:21:10:09:b9", "Ericsson$171164"); // EOG 627
         buses.put("04:f0:21:10:09:e8", "Ericsson$100022"); // EPO 143
-        buses.put("04:f0:21:10:09:b7", "Ericsson$171330"); // EOG 634
-        buses.put("04:f0:21:10:09:53", "Ericsson$171327"); // EOG 622
-        buses.put("04:f0:21:10:09:5b", "Ericsson$171235"); // EOG 616
         buses.put("04:f0:21:10:09:b8", "Ericsson$171164"); // EOG 604
+        buses.put("04:f0:21:10:09:e7", "Ericsson$171234"); // EOG 606
+        buses.put("04:f0:21:10:09:5b", "Ericsson$171235"); // EOG 616
+        buses.put("04:f0:21:10:09:53", "Ericsson$171327"); // EOG 622
+        buses.put("04:f0:21:10:09:b9", "Ericsson$171164"); // EOG 627
+        buses.put("04:f0:21:10:09:b7", "Ericsson$171330"); // EOG 634
 
         //Bssids below are purely for testing (and for fun!)
         buses.put("00:16:b6:39:6f:f2", "Ericsson$100020"); // Maddy's Place
