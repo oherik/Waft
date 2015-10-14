@@ -8,17 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.TextView;
 
-import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
-import com.alive_n_clickin.commutity.application.IManager;
 import com.alive_n_clickin.commutity.domain.Flag;
-import com.alive_n_clickin.commutity.domain.IVehicle;
-import com.alive_n_clickin.commutity.util.event.CantSearchForVehiclesEvent;
-import com.alive_n_clickin.commutity.util.event.CurrentBusChangeEvent;
-import com.alive_n_clickin.commutity.util.event.IEvent;
-import com.alive_n_clickin.commutity.util.event.IObserver;
 
 import java.util.ArrayList;
 
@@ -28,17 +20,15 @@ import java.util.ArrayList;
  *
  * @since 0.1
  */
-public class FlagVehicleFragment extends Fragment implements IObserver {
+public class FlagVehicleFragment extends Fragment {
     private int mCurrentPosition = -1;
 
-    private IManager busManager;
     private FlagViewAdapter flagAdapter;
     private ArrayList<FlagButton> flagButtons;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         addTestButtons();
     }
 
@@ -51,30 +41,8 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Register observers
-        MyApplication application = (MyApplication) this.getActivity().getApplicationContext();
-        this.busManager = application.getManager();
-        this.busManager.addObserver(this);
-
         final View rootView = inflater.inflate(R.layout.fragment_flag_vehicle, container, false);
         flagAdapter = new FlagViewAdapter(getActivity(), flagButtons);
-        final TextView textView = (TextView) rootView.findViewById(R.id.textViewBusInformation);
-
-        // Set up on click listener for bus text
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean canSearch = busManager.canSearch();
-                if (canSearch) {
-                    textView.setText(R.string.loading_looking_for_vehicle);
-                } else {
-                    textView.setText(R.string.enabling_search);
-                }
-                handleSearchRequest();
-            }
-        });
-
-        this.updateBusText(rootView);
 
         GridView flagGrid = (GridView) rootView.findViewById(R.id.flagGridView);
         flagGrid.setAdapter(flagAdapter);
@@ -105,44 +73,8 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
                 transaction.commit();
             }
         });
+
         return rootView;
-    }
-
-    private void handleSearchRequest() {
-        this.busManager.searchForVehicles();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-
-        this.busManager.removeObserver(this);
-    }
-
-    private void updateBusText() {
-        this.updateBusText(getView());
-    }
-
-    private void updateBusText(View view) {
-        final TextView textView = (TextView) view.findViewById(R.id.textViewBusInformation);
-
-        if (!this.busManager.canSearch()) {
-            textView.setText(R.string.cant_search);
-        } else if (this.busManager.isOnBus()) {
-            IVehicle bus = this.busManager.getCurrentBus();
-            String newText = getCurrentBusAsString(bus);
-            textView.setText(newText);
-        } else {
-            textView.setText(R.string.no_buses_near);
-        }
-    }
-
-    private String getCurrentBusAsString(IVehicle bus) {
-        StringBuilder newText = new StringBuilder();
-        newText.append(bus.getShortRouteName());
-        newText.append(" ");
-        newText.append(bus.getDestination());
-        return newText.toString();
     }
 
     /**
@@ -160,22 +92,5 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
         flagButtons.add(new FlagButton(R.drawable.flag_pram_300px, getString(R.string.flag_pram), Flag.Type.NO_PRAMS));
         flagButtons.add(new FlagButton(R.drawable.flag_warm_300px, getString(R.string.flag_warm), Flag.Type.BAD_CLIMATE));
         flagButtons.add(new FlagButton(R.drawable.flag_other_300px, getString(R.string.flag_other), Flag.Type.OTHER));
-    }
-
-    @Override
-    public void onEvent(IEvent event) {
-        if (event instanceof CurrentBusChangeEvent) {
-            handleCurrentBusChangeEvent((CurrentBusChangeEvent) event);
-        } else if (event instanceof CantSearchForVehiclesEvent) {
-            handleCantSearchEvent((CantSearchForVehiclesEvent) event);
-        }
-    }
-
-    private void handleCurrentBusChangeEvent(CurrentBusChangeEvent event) {
-        this.updateBusText();
-    }
-
-    private void handleCantSearchEvent(CantSearchForVehiclesEvent event) {
-        this.updateBusText();
     }
 }
