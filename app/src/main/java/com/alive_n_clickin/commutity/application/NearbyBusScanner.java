@@ -124,9 +124,9 @@ public class NearbyBusScanner implements IObserver, IObservable {
      * location services and wifi state.
      */
     public void enableSearchingAndSearch() {
-        WifiHelper wh = new WifiHelper(context);
-        wh.enableWifi();
-        wh.initiateWifiScan();
+        WifiHelper wifiHelper = new WifiHelper(context);
+        wifiHelper.enableWifi();
+        wifiHelper.initiateWifiScan();
     }
 
     /**
