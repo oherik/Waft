@@ -57,5 +57,9 @@ public interface IManager extends IObservable {
      */
     boolean canSearch();
 
+    /**
+     * Perform a new search for vehicles. Listeners for these types of events will be notified when
+     * the search completes
+     */
     void searchForVehicles();
 }
