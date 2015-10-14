@@ -16,6 +16,8 @@ import java.util.List;
  *
  * Classes that implement this interface should be observable, and emit CurrentBusChangeEvents when
  * the bus the user is currently on changes.
+ *
+ * @since 0.2
  */
 public interface IManager extends IObservable {
     /**

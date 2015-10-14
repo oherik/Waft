@@ -8,6 +8,8 @@ import java.util.List;
 /**
  * An event for when the list of nearby wifi networks changes. The event contains information about
  * all networks that are currently in range.
+ *
+ * @since 0.2
  */
 public class NewWifiScanAvailableEvent implements IEvent {
     private List<String> BSSIDs;
