@@ -119,12 +119,20 @@ public class NearbyBusScanner implements IObserver, IObservable {
         observableHelper.removeObserver(observer);
     }
 
+    /**
+     * Enable searching and perform a new search. This might change android system settings, like
+     * location services and wifi state.
+     */
     public void enableSearchingAndSearch() {
         WifiHelper wh = new WifiHelper(context);
         wh.enableWifi();
         wh.initiateWifiScan();
     }
 
+    /**
+     * Says whether the scanner can perfomr searches or not.
+     * @return
+     */
     public boolean canSearch() {
         return new WifiHelper(context).isWifiEnabled();
     }
