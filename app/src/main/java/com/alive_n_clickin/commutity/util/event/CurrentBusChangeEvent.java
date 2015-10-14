@@ -1,9 +1,10 @@
-package com.alive_n_clickin.commutity.event;
+package com.alive_n_clickin.commutity.util.event;
 
 import com.alive_n_clickin.commutity.domain.IElectriCityBus;
-import com.alive_n_clickin.commutity.util.event.IEvent;
 
 /**
+ * An event for when the bus the user is on changes. The event sends along the bus object representing
+ * the bus the user is currently on.
  * An event for when the bus the user is on changes. The event contains information about which
  * bus the user is currently on.
  *
