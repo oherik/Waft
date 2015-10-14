@@ -1,6 +1,5 @@
 package com.alive_n_clickin.commutity.application;
 
-import android.content.Context;
 import android.os.AsyncTask;
 
 import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
