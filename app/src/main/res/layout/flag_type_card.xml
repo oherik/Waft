@@ -18,7 +18,7 @@
                 <ImageView
                     android:scaleType="fitXY"
                     android:layout_width="fill_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="150dp"
                     android:id="@+id/imageView"
                     android:src="@drawable/flag_delayed_300px"
                     android:layout_alignParentTop="true"
