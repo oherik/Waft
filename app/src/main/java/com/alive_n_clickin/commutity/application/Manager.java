@@ -32,6 +32,7 @@ public class Manager implements IManager, IObserver {
     private IObservableHelper observableHelper = new ObservableHelper();
     private IVasttrafikAdapter vasttrafikAdapter;
     private IElectriCityBus currentBus = null;
+    private boolean canSearch;
 
     /**
      * Initiates a new Manager that listens to the supplied NearbyBusScanner.
@@ -80,11 +81,13 @@ public class Manager implements IManager, IObserver {
 
     private void handleCantSearchForVehiclesEvent(CantSearchForVehiclesEvent event) {
         currentBus = null;
+        canSearch = false;
         observableHelper.notifyObservers(event);
     }
 
     private void handleNewBusNearbyEvent(NewBusNearbyEvent event) {
         String dgw = event.getDGW();
+        canSearch = true;
         if (dgw == null) {
             currentBus = null;
             CurrentBusChangeEvent newBusEvent = new CurrentBusChangeEvent(currentBus);
@@ -142,5 +145,9 @@ public class Manager implements IManager, IObserver {
             stops.add(StopFactory.getStop(s));
         }
         return stops;
+    }
+
+    public boolean canSearch() {
+        return canSearch;
     }
 }

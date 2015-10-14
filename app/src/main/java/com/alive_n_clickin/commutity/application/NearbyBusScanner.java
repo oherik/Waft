@@ -1,15 +1,15 @@
 package com.alive_n_clickin.commutity.application;
 
-import com.alive_n_clickin.commutity.util.event.CantSearchForVehiclesEvent;
-import com.alive_n_clickin.commutity.util.event.NewWifiScanAvailableEvent;
-import com.alive_n_clickin.commutity.util.event.NewBusNearbyEvent;
-import com.alive_n_clickin.commutity.util.event.WifiStateChangeEvent;
 import com.alive_n_clickin.commutity.infrastructure.WifiBroadcastReceiver;
+import com.alive_n_clickin.commutity.util.event.CantSearchForVehiclesEvent;
 import com.alive_n_clickin.commutity.util.event.IEvent;
 import com.alive_n_clickin.commutity.util.event.IObservable;
 import com.alive_n_clickin.commutity.util.event.IObservableHelper;
 import com.alive_n_clickin.commutity.util.event.IObserver;
+import com.alive_n_clickin.commutity.util.event.NewBusNearbyEvent;
+import com.alive_n_clickin.commutity.util.event.NewWifiScanAvailableEvent;
 import com.alive_n_clickin.commutity.util.event.ObservableHelper;
+import com.alive_n_clickin.commutity.util.event.WifiStateChangeEvent;
 
 import java.util.HashMap;
 import java.util.List;
