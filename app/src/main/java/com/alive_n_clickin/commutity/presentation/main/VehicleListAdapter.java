@@ -19,6 +19,8 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * This class fills the ListView within {@link MainFragment} with list items.
+ *
+ * @since 0.2
  */
 public class VehicleListAdapter extends ArrayAdapter<IArrivingVehicle> {
     private int maxWidth;

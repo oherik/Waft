@@ -13,7 +13,8 @@ import com.alive_n_clickin.commutity.domain.IStop;
 import java.util.List;
 
 /**
- * Converts the stop to a string to display in a view, i.e. the search result list
+ * Converts the stop to a string to display in a view, i.e. the search result list.
+ *
  * @since 0.1
  */
 public class SearchResultAdapter extends ArrayAdapter<IStop> {

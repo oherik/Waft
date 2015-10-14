@@ -1,9 +1,11 @@
-package com.alive_n_clickin.commutity.event;
+package com.alive_n_clickin.commutity.util.event;
 
 import com.alive_n_clickin.commutity.util.event.IEvent;
 
 /**
  * An event for when a new bus is nearby. The event contains the DGW of the bus.
+ *
+ * @since 0.2
  */
 public class NewBusNearbyEvent implements IEvent {
     private String DGW;

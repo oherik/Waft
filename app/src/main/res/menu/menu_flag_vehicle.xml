@@ -1,6 +1,18 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" tools:context=".FlagVehicle">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:context=""
+    >
+    <item android:id="@+id/refresh_icon"
+        android:title=""
+        android:icon="@drawable/ic_cached_white_36dp"
+        android:showAsAction="ifRoom"
+        />
+    <item android:id="@+id/wifi_disabled_icon"
+        android:title=""
+        android:icon="@drawable/ic_signal_wifi_off_white_36dp"
+        android:showAsAction="ifRoom"
+        android:visible="false"
+        />
+
+
 </menu>
