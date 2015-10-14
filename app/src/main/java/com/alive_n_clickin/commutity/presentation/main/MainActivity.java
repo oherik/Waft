@@ -28,7 +28,7 @@ public class MainActivity extends FragmentActivity {
 
         //Set the main fragment as the first fragment presented to the user
         MainFragment mainFragment = new MainFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.main_content_frame, mainFragment).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.main_content_frame, mainFragment).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
     }
 
     @Override
@@ -47,6 +47,7 @@ public class MainActivity extends FragmentActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_content_frame, searchFragment);
         transaction.addToBackStack(null);
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         transaction.commit();
     }
 }
