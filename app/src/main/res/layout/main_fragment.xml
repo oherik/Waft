@@ -32,6 +32,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/busListView"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10.0sp"
         android:layout_below="@+id/relativeLayout"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true" />
