@@ -1,5 +1,6 @@
 package com.alive_n_clickin.commutity.presentation.flagreport;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,21 +28,30 @@ public class Recycler extends  RecyclerView.Adapter<Recycler.ViewHolder> {
         public ImageView flagImg;
         public ViewHolder(View v) {
             super(v); //Is this correct?
-            this.flagInfo = (TextView) v.findViewById(R.id.textView);
-            this.flagImg = (ImageView) v.findViewById(R.id.imageView);
+            flagInfo = (TextView) v.findViewById(R.id.textView);
+            flagImg = (ImageView) v.findViewById(R.id.imageView);
         }
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.flag_type_card,parent,false);
+        view.setPadding(10,10,10,10);
+
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String description = flagButtonList.get(position).getDescription();
-        holder.flagInfo.setText(description);
+        FlagButton button = this.flagButtonList.get(position);
+
+        Context context = holder.flagImg.getContext();
+        holder.flagImg.setImageDrawable(context.getResources().getDrawable(button.getImageID()));
+
+        holder.flagInfo.setText(button.getDescription());
+
+
+
         //holder.flagImg.setImageDrawable(flagButtonList.get(position).getImageID());
     }
 
