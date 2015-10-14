@@ -15,7 +15,6 @@ import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.application.IManager;
 import com.alive_n_clickin.commutity.domain.Flag;
 import com.alive_n_clickin.commutity.domain.IVehicle;
-import com.alive_n_clickin.commutity.infrastructure.WifiHelper;
 import com.alive_n_clickin.commutity.util.event.CantSearchForVehiclesEvent;
 import com.alive_n_clickin.commutity.util.event.CurrentBusChangeEvent;
 import com.alive_n_clickin.commutity.util.event.IEvent;
@@ -65,15 +64,13 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WifiHelper wifiHelper = new WifiHelper(getActivity());
-                boolean wifiIsEnabled = wifiHelper.isWifiEnabled();
-                if (wifiIsEnabled) {
+                boolean canSearch = busManager.canSearch();
+                if (canSearch) {
                     textView.setText(R.string.loading_looking_for_vehicle);
-                    wifiHelper.initiateWifiScan();
                 } else {
-                    textView.setText(R.string.activating_wifi);
-                    wifiHelper.enableWifi();
+                    textView.setText(R.string.enabling_search);
                 }
+                handleSearchRequest();
             }
         });
 
@@ -109,6 +106,10 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
             }
         });
         return rootView;
+    }
+
+    private void handleSearchRequest() {
+        this.busManager.searchForVehicles(getContext().getApplicationContext());
     }
 
     @Override

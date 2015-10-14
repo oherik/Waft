@@ -1,5 +1,7 @@
 package com.alive_n_clickin.commutity.application;
 
+import android.content.Context;
+
 import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.IElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
@@ -54,4 +56,6 @@ public interface IManager extends IObservable {
      * @return true if the app can currently look for vehicles, false otherwise
      */
     boolean canSearch();
+
+    void searchForVehicles(Context context);
 }

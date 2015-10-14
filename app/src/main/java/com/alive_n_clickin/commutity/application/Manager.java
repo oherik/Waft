@@ -1,5 +1,6 @@
 package com.alive_n_clickin.commutity.application;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
@@ -32,7 +33,7 @@ public class Manager implements IManager, IObserver {
     private IObservableHelper observableHelper = new ObservableHelper();
     private IVasttrafikAdapter vasttrafikAdapter;
     private IElectriCityBus currentBus = null;
-    private boolean canSearch;
+    private NearbyBusScanner nearbyBusScanner;
 
     /**
      * Initiates a new Manager that listens to the supplied NearbyBusScanner.
@@ -41,7 +42,8 @@ public class Manager implements IManager, IObserver {
      *                         events regarding nearby buses.
      */
     public Manager(NearbyBusScanner nearbyBusScanner) {
-        nearbyBusScanner.addObserver(this);
+        this.nearbyBusScanner = nearbyBusScanner;
+        this.nearbyBusScanner.addObserver(this);
         vasttrafikAdapter = ApiAdapterFactory.createVasttrafikAdapter();
     }
 
@@ -81,13 +83,11 @@ public class Manager implements IManager, IObserver {
 
     private void handleCantSearchForVehiclesEvent(CantSearchForVehiclesEvent event) {
         currentBus = null;
-        canSearch = false;
         observableHelper.notifyObservers(event);
     }
 
     private void handleNewBusNearbyEvent(NewBusNearbyEvent event) {
         String dgw = event.getDGW();
-        canSearch = true;
         if (dgw == null) {
             currentBus = null;
             CurrentBusChangeEvent newBusEvent = new CurrentBusChangeEvent(currentBus);
@@ -148,6 +148,11 @@ public class Manager implements IManager, IObserver {
     }
 
     public boolean canSearch() {
-        return canSearch;
+        return nearbyBusScanner.canSearch();
+    }
+
+    @Override
+    public void searchForVehicles(Context context) {
+        nearbyBusScanner.enableSearchingAndSearch();
     }
 }

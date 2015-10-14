@@ -1,6 +1,9 @@
 package com.alive_n_clickin.commutity.application;
 
+import android.content.Context;
+
 import com.alive_n_clickin.commutity.infrastructure.WifiBroadcastReceiver;
+import com.alive_n_clickin.commutity.infrastructure.WifiHelper;
 import com.alive_n_clickin.commutity.util.event.CantSearchForVehiclesEvent;
 import com.alive_n_clickin.commutity.util.event.IEvent;
 import com.alive_n_clickin.commutity.util.event.IObservable;
@@ -27,16 +30,23 @@ Anyone using this class can trust *that* it can detect nearby vehicles, not *how
  */
 public class NearbyBusScanner implements IObserver, IObservable {
     private IObservableHelper observableHelper = new ObservableHelper();
+    private WifiBroadcastReceiver wifiBroadcastReceiver;
+    private Context context;
 
     private static Map<String, String> buses = new HashMap<>();
 
     /**
      * Initiates a NearbyBusScanner and registers it as an observer to the specified WifiBroadcastReceiver.
      *
+     * The scanner uses the Android system, and thus needs the application context
+     *
      * @param wifiBroadcastReceiver the WifiBroadcastReceiver to listen to for WifiBSSIDChangeEvents.
+     * @param applicationContext the context for the application
      */
-    public NearbyBusScanner(WifiBroadcastReceiver wifiBroadcastReceiver) {
-        wifiBroadcastReceiver.addObserver(this);
+    public NearbyBusScanner(WifiBroadcastReceiver wifiBroadcastReceiver, Context applicationContext) {
+        this.wifiBroadcastReceiver = wifiBroadcastReceiver;
+        this.wifiBroadcastReceiver.addObserver(this);
+        this.context = applicationContext;
 
         // TODO: Add all buses
         buses.put("04:f0:21:10:09:df", "Ericsson$100021"); // EPO 136
@@ -105,5 +115,15 @@ public class NearbyBusScanner implements IObserver, IObservable {
     @Override
     public void removeObserver(IObserver observer) {
         observableHelper.removeObserver(observer);
+    }
+
+    public void enableSearchingAndSearch() {
+        WifiHelper wh = new WifiHelper(context);
+        wh.enableWifi();
+        wh.initiateWifiScan();
+    }
+
+    public boolean canSearch() {
+        return new WifiHelper(context).isWifiEnabled();
     }
 }
