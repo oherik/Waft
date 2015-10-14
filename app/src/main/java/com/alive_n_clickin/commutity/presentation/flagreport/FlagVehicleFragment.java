@@ -1,5 +1,7 @@
 package com.alive_n_clickin.commutity.presentation.flagreport;
 
+import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -8,9 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
+import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
+import com.alive_n_clickin.commutity.application.IManager;
 import com.alive_n_clickin.commutity.domain.Flag;
+import com.alive_n_clickin.commutity.domain.IFlag;
 
 import java.util.ArrayList;
 
@@ -73,6 +79,16 @@ public class FlagVehicleFragment extends Fragment {
                 transaction.commit();
             }
         });
+        flagGrid.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                FlagButton button = flagAdapter.getItem(position);
+                IFlag newFlag = new Flag(button.getType());
+                FlagBusTask task = new FlagBusTask(getContext().getApplicationContext());
+                task.execute(newFlag);
+                return false;
+            }
+        });
 
         return rootView;
     }
@@ -92,5 +108,31 @@ public class FlagVehicleFragment extends Fragment {
         flagButtons.add(new FlagButton(R.drawable.flag_pram_300px, getString(R.string.flag_pram), Flag.Type.NO_PRAMS));
         flagButtons.add(new FlagButton(R.drawable.flag_warm_300px, getString(R.string.flag_warm), Flag.Type.BAD_CLIMATE));
         flagButtons.add(new FlagButton(R.drawable.flag_other_300px, getString(R.string.flag_other), Flag.Type.OTHER));
+    }
+
+    class FlagBusTask extends AsyncTask<IFlag, Void, Boolean> {
+
+        private final Context applicationContext;
+
+        public FlagBusTask(Context applicationContext) {
+            this.applicationContext = applicationContext;
+        }
+
+        @Override
+        protected Boolean doInBackground(IFlag... params) {
+            MyApplication app = (MyApplication) (getActivity().getApplicationContext());
+            IManager manager = app.getManager();
+            manager.addFlagToCurrentBus(params[0]);
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (result) {
+                Toast.makeText(applicationContext, R.string.flag_sent, Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(applicationContext, R.string.flag_not_sent, Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }
