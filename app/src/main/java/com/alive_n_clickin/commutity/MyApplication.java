@@ -32,7 +32,7 @@ public class MyApplication extends Application {
         super.onCreate();
 
         this.wifiBroadcastReceiver = new WifiBroadcastReceiver(this);
-        NearbyBusScanner nearbyBusScanner = new NearbyBusScanner(wifiBroadcastReceiver);
+        NearbyBusScanner nearbyBusScanner = new NearbyBusScanner(wifiBroadcastReceiver, this.getApplicationContext());
         this.manager = new Manager(nearbyBusScanner);
     }
 
