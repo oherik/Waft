@@ -85,16 +85,10 @@ public class MainFragment extends Fragment {
      * Makes a new search on the current stop when the list is pulled down.
      */
     private void refreshBusList(MainActivity activity, View view){
+        mSwipeRefreshLayout.setRefreshing(true);
         final IStop currentStop = activity.getCurrentStop();
         final View rootView = view;
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                populateBusList(currentStop, rootView);
-                mSwipeRefreshLayout.setRefreshing(false);
-            }
-        },2000);
-
+        populateBusList(currentStop, rootView);
 
     }
     /**
@@ -117,6 +111,7 @@ public class MainFragment extends Fragment {
     private void populateBusList(IStop currentStop, @NonNull View view) {
         if (currentStop==null) {
             busListView.setVisibility(view.INVISIBLE);
+            mSwipeRefreshLayout.setRefreshing(false);
         } else {
             busListView.setVisibility(view.VISIBLE);
             AddVehiclesFromAPI addVehicles = new AddVehiclesFromAPI();
@@ -159,6 +154,8 @@ public class MainFragment extends Fragment {
                 result = trimmedList(result, maxNumberOfBusesInList);
                 adapter.clear();
                 adapter.addAll(result);
+                //Finish loading animation
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         }
     }
