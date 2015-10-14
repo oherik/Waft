@@ -86,7 +86,7 @@ public class FlagVehicleFragment extends Fragment {
                 IFlag newFlag = new Flag(button.getType());
                 FlagBusTask task = new FlagBusTask(getContext().getApplicationContext());
                 task.execute(newFlag);
-                return false;
+                return true;
             }
         });
 
