@@ -36,8 +36,6 @@ public class Recycler extends  RecyclerView.Adapter<Recycler.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.flag_type_card,parent,false);
-        view.setPadding(10,10,10,10);
-
         return new ViewHolder(view);
     }
 
