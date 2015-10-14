@@ -49,4 +49,9 @@ public interface IManager extends IObservable {
      * @throws NullPointerException if the parameter is null
      */
     List<IStop> searchForStops(String searchQuery);
+
+    /**
+     * @return true if the app can currently look for vehicles, false otherwise
+     */
+    boolean canSearch();
 }
