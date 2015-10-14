@@ -75,6 +75,9 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
 
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
+        int spacingInPixels = 20;
+        mRecyclerView.addItemDecoration(new Space(spacingInPixels));
         // specify an adapter (see also next example)
         mAdapter = new Recycler(flagButtons);
         mRecyclerView.setAdapter(mAdapter);
@@ -186,10 +189,10 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
         flagButtons.add(new FlagButton(R.drawable.flag_full_300px, getString(R.string.flag_overcrowded), Flag.Type.OVERCROWDED));
         flagButtons.add(new FlagButton(R.drawable.flag_rowdy_300px, getString(R.string.flag_disturbance), Flag.Type.DISTURBANCES));
         flagButtons.add(new FlagButton(R.drawable.flag_delayed_300px, getString(R.string.flag_delayed), Flag.Type.DELAYED));
-        flagButtons.add(new FlagButton(R.drawable.flag_dirty_300px, getString(R.string.flag_messy), Flag.Type.MESSY));
+      /*  flagButtons.add(new FlagButton(R.drawable.flag_dirty_300px, getString(R.string.flag_messy), Flag.Type.MESSY));
         flagButtons.add(new FlagButton(R.drawable.flag_pram_300px, getString(R.string.flag_pram), Flag.Type.NO_PRAMS));
         flagButtons.add(new FlagButton(R.drawable.flag_warm_300px, getString(R.string.flag_warm), Flag.Type.BAD_CLIMATE));
-        flagButtons.add(new FlagButton(R.drawable.flag_other_300px, getString(R.string.flag_other), Flag.Type.OTHER));
+        flagButtons.add(new FlagButton(R.drawable.flag_other_300px, getString(R.string.flag_other), Flag.Type.OTHER));*/
     }
 
     @Override
