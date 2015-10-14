@@ -1,6 +1,5 @@
 package com.alive_n_clickin.commutity.presentation.main;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -8,7 +7,6 @@ import android.view.View;
 
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.domain.IStop;
-import com.alive_n_clickin.commutity.presentation.flagreport.FlagVehicle;
 import com.alive_n_clickin.commutity.presentation.search.SearchFragment;
 
 import lombok.Getter;
@@ -36,15 +34,6 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-    }
-
-    /**
-     * Starts the flag report activity by sending an intent to the flag vehicle class
-     * @param view The current view
-     */
-    public void plusButtonOnClick(View view){
-        Intent intent = new Intent(this, FlagVehicle.class);
-        startActivity(intent);
     }
 
     /**
