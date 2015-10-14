@@ -29,7 +29,6 @@ import java.util.ArrayList;
  * @since 0.1
  */
 public class FlagVehicleFragment extends Fragment implements IObserver {
-    private final static String ARG_POSITION = "position";
     private int mCurrentPosition = -1;
 
     private IManager busManager;
