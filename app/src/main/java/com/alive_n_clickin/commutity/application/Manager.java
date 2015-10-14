@@ -1,20 +1,23 @@
 package com.alive_n_clickin.commutity.application;
 
+import android.content.Context;
 import android.os.AsyncTask;
+
 import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.IElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.domain.IStop;
-import com.alive_n_clickin.commutity.event.CurrentBusChangeEvent;
-import com.alive_n_clickin.commutity.event.NewBusNearbyEvent;
 import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
 import com.alive_n_clickin.commutity.infrastructure.api.IVasttrafikAdapter;
 import com.alive_n_clickin.commutity.infrastructure.api.IWaftAdapter;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrival;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonStop;
+import com.alive_n_clickin.commutity.util.event.CantSearchForVehiclesEvent;
+import com.alive_n_clickin.commutity.util.event.CurrentBusChangeEvent;
 import com.alive_n_clickin.commutity.util.event.IEvent;
 import com.alive_n_clickin.commutity.util.event.IObservableHelper;
 import com.alive_n_clickin.commutity.util.event.IObserver;
+import com.alive_n_clickin.commutity.util.event.NewBusNearbyEvent;
 import com.alive_n_clickin.commutity.util.event.ObservableHelper;
 
 import java.util.ArrayList;
@@ -32,6 +35,7 @@ public class Manager implements IManager, IObserver {
     private IObservableHelper observableHelper = new ObservableHelper();
     private IVasttrafikAdapter vasttrafikAdapter;
     private IElectriCityBus currentBus = null;
+    private NearbyBusScanner nearbyBusScanner;
 
     /**
      * Initiates a new Manager that listens to the supplied NearbyBusScanner.
@@ -40,7 +44,8 @@ public class Manager implements IManager, IObserver {
      *                         events regarding nearby buses.
      */
     public Manager(NearbyBusScanner nearbyBusScanner) {
-        nearbyBusScanner.addObserver(this);
+        this.nearbyBusScanner = nearbyBusScanner;
+        this.nearbyBusScanner.addObserver(this);
         vasttrafikAdapter = ApiAdapterFactory.createVasttrafikAdapter();
     }
 
@@ -73,13 +78,22 @@ public class Manager implements IManager, IObserver {
     public void onEvent(IEvent event) {
         if (event instanceof NewBusNearbyEvent) {
             handleNewBusNearbyEvent((NewBusNearbyEvent) event);
+        } else if (event instanceof CantSearchForVehiclesEvent) {
+            handleCantSearchForVehiclesEvent((CantSearchForVehiclesEvent) event);
         }
+    }
+
+    private void handleCantSearchForVehiclesEvent(CantSearchForVehiclesEvent event) {
+        currentBus = null;
+        observableHelper.notifyObservers(event);
     }
 
     private void handleNewBusNearbyEvent(NewBusNearbyEvent event) {
         String dgw = event.getDGW();
         if (dgw == null) {
             currentBus = null;
+            CurrentBusChangeEvent newBusEvent = new CurrentBusChangeEvent(currentBus);
+            observableHelper.notifyObservers(newBusEvent);
         } else {
             //Perform AsyncTask that updates current bus
             new GetCurrentBusTask().execute(dgw);
@@ -133,5 +147,14 @@ public class Manager implements IManager, IObserver {
             stops.add(StopFactory.getStop(s));
         }
         return stops;
+    }
+
+    public boolean canSearch() {
+        return nearbyBusScanner.canSearch();
+    }
+
+    @Override
+    public void searchForVehicles() {
+        nearbyBusScanner.enableSearchingAndSearch();
     }
 }

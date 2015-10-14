@@ -1,4 +1,4 @@
-package com.alive_n_clickin.commutity.event;
+package com.alive_n_clickin.commutity.util.event;
 
 import com.alive_n_clickin.commutity.util.event.IEvent;
 
