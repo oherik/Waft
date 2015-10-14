@@ -164,6 +164,12 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
         }
     }
 
+    /**
+     * Handles a CurrentBusChangeEvent. If event.getBus() returns null, setActionBarTextNotOnBus()
+     * is called, otherwise setActionBarTextToBus(bus) is called with the bus from the event.
+     *
+     * @param event the event to handle.
+     */
     private void handleCurrentBusChangeEvent(CurrentBusChangeEvent event) {
         IElectriCityBus bus = event.getBus();
         if (bus == null) {
@@ -173,6 +179,11 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
         }
     }
 
+    /**
+     * Handles a CantSearchForVehiclesEvent. Calls setActionBarTextCantSearch().
+     *
+     * @param event the event to handle.
+     */
     private void handleCantSearchForVehiclesEvent(CantSearchForVehiclesEvent event) {
         setActionBarTextCantSearch();
     }
