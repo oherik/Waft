@@ -89,10 +89,7 @@ public class MainFragment extends Fragment {
      * @param view The view that's currently focused
      */
     private void populateBusList(IStop currentStop, @NonNull View view) {
-        if (currentStop==null) {
-            busListView.setVisibility(view.INVISIBLE);
-        } else {
-            busListView.setVisibility(view.VISIBLE);
+        if (currentStop != null) {
             AddVehiclesFromAPI addVehicles = new AddVehiclesFromAPI();
             addVehicles.execute(currentStop);
         }
