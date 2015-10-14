@@ -1,8 +1,6 @@
 package com.alive_n_clickin.commutity.util;
 
 /**
- * @author hjorthjort
- *         Created 22/09/15
  * Instead of generating Android log tags in every class that does logging, this class can be used.
  * Simply pass yourself (the current object) to the method of this class, and a suitable string will
  * be returned.

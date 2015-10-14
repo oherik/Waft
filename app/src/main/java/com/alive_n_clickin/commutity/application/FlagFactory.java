@@ -14,6 +14,7 @@ import java.util.List;
  * to build a flag from existing data (for example an ID or a response object received from
  * an external API), and that the factory simply responds with a Flag. The factory
  * is responsible for fetching all the data required for that vehicle from whatever sources it needs.
+ * @since 0.2
  */
 public class FlagFactory {
 

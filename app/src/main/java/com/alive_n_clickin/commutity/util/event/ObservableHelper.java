@@ -5,6 +5,8 @@ import java.util.List;
 
 /**
  * A concrete implementation of the IObservableHelper interface.
+ *
+ * @since 0.2
  */
 public class ObservableHelper implements IObservableHelper {
     private List<IObserver> observers = new ArrayList<>();

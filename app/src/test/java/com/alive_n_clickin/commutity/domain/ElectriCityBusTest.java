@@ -68,12 +68,6 @@ public class ElectriCityBusTest {
         assertFalse(bus1.equals(bus2));
         assertFalse(bus2.equals(bus1));
 
-        // assert that two buses with different BSSID values aren't equal
-        bus1 = new ElectriCityBus("vin", "abc123", "dgw");
-        bus2 = new ElectriCityBus ("vin", "abc123", "dgw");
-        assertFalse(bus1.equals(bus2));
-        assertFalse(bus2.equals(bus1));
-
         bus1 = new ElectriCityBus("", "", "");
         // assert that a bus equals itself
         assertTrue(bus1.equals(bus1));

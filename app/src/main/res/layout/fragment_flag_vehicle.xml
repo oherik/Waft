@@ -10,24 +10,8 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="90dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/loading_looking_for_vehicle"
-                android:id="@+id/textViewBusInformation"
-                android:layout_weight="0.7"
-                android:textAlignment="center"
-                android:gravity="center_vertical" />
-
-        </LinearLayout>
+        android:layout_height="match_parent"
+        android:weightSum="1">
 
         <GridView
             android:layout_width="wrap_content"
@@ -39,7 +23,7 @@
             android:horizontalSpacing="5dp"
             android:stretchMode="columnWidth"
             android:gravity="center"
-            />
+            android:layout_weight="1.07" />
 
     </LinearLayout>
 

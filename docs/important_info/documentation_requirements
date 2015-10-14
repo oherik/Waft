@@ -1,0 +1,56 @@
+# I dokumentation:
+
+
+## Användarupplevelse
+
+Viktigast för presentationen är användarperspektivet. Då är inte koden viktig alls.
+
+* Användardokumentation
+    * Riktat till någon som aldrig använt appen innan.
+    * Be någon utanför klassen använda appen och se vad de behöver hjälp med.
+
+Släng in *allt* som styrker tesen att det vi bygger är vad användaren/stakeholdern vill ha.
+
+Berätta om användartester, dialoger med företag, allt där ni gått utanför er själva. Ta med det.
+
+### Ta med
+* Konceptbeskrivning
+* Videolänkar
+
+Leverera hellre än dvärgelefant, från snabel till svans, än en halv enorm elefant. Leverera en hel app med mindre funktionalitet hellre än en app med mycket halvimplementerade funktioner.
+
+De estetiska kraven är inte stenhårda, men ju bättre estetik desto bättre.
+
+## Implementering
+
+Dokumentation som höjer truck factor.
+
+* En utvecklarmanual. 
+    * Byt manual med en annan grupp i klassen, be dem läsa, kolla vad de tycker är klart och oklart.
+    * Kolla vad som är enough. Undvik gold plating – att lägga till extra glitter som ingen bett om.
+* Examinatorerna ska inte behöva gissa vad som är vad i koden och varför. De kommer använda dokumentationen.
+    * Använd enkla diagram (typ layered architecture + övriga paket som man kan använda).
+    * Är Layered Architecture någon typ av Model-View-Presenter?
+    * Nämn hur vi resonerat: Att View är XML, presenter/controller är Fragment och Activity-klasser, att Application är en sorts controller för modellen, att modellen är uppdelad i två, osv.
+
+
+## Utvecklingsprocessen
+
+* Post Mortem
+* Realisationsplaner, de som lämnades in till tävlingen.
+    * Den andra planen, om framtiden, bör vara planer på hur man skulle fortsätta utvecklingen. Att säga att "förutsatt att detta händer skulle vi utveckla vidare på det här sättet" är rimligt. Det är också rimligt att säga "så här skulle man gå kunna vidare".
+* Lägg in videolänkar till youtube-filmerna
+
+
+## Imlämning
+
+* Lägg *allt* i ert repo.
+    * Kopiera hela serverrepot in huvudrepot. Allt ska finnas i ett repo under rättningen, 30 oktober och tre veckor framåt. Därefter gör man som man vill
+* En apk-fil, körbar.
+* Använd README för att förklara innehållet. Lägg in länkar till viktiga resurser som finns på andra ställen.
+* Bjud in `hburen`, `steghoja` och `rodijolak`. 
+* Allt måste vara inlämnat före kl 17, och inga ändringar får göras efter.
+
+### Lägg INTE i repot
+
+Bladet där man ratear varandras personal contribution. Detta ska mailas till Håkan, och bara Håkan.

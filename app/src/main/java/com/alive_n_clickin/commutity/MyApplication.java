@@ -15,6 +15,8 @@ import com.alive_n_clickin.commutity.infrastructure.WifiBroadcastReceiver;
  *
  * Since this class extends the Android Application class, exactly one instance of this class
  * always exists within the application.
+ *
+ * @since 0.2
  */
 public class MyApplication extends Application {
     private WifiBroadcastReceiver wifiBroadcastReceiver;
@@ -32,7 +34,7 @@ public class MyApplication extends Application {
         super.onCreate();
 
         this.wifiBroadcastReceiver = new WifiBroadcastReceiver(this);
-        NearbyBusScanner nearbyBusScanner = new NearbyBusScanner(wifiBroadcastReceiver);
+        NearbyBusScanner nearbyBusScanner = new NearbyBusScanner(wifiBroadcastReceiver, this.getApplicationContext());
         this.manager = new Manager(nearbyBusScanner);
     }
 

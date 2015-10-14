@@ -1,4 +1,4 @@
-package com.alive_n_clickin.commutity.event;
+package com.alive_n_clickin.commutity.util.event;
 
 import com.alive_n_clickin.commutity.util.event.IEvent;
 
@@ -8,16 +8,18 @@ import java.util.List;
 /**
  * An event for when the list of nearby wifi networks changes. The event contains information about
  * all networks that are currently in range.
+ *
+ * @since 0.2
  */
-public class NewWifiNetworksInRangeEvent implements IEvent {
+public class NewWifiScanAvailableEvent implements IEvent {
     private List<String> BSSIDs;
 
     /**
-     * Initiates a new NewWifiNetworksInRangeEvent.
+     * Initiates a new NewWifiScanAvailableEvent.
      *
      * @param BSSIDs a list of the BSSID:s of all networks that are currently in range.
      */
-    public NewWifiNetworksInRangeEvent(List<String> BSSIDs) {
+    public NewWifiScanAvailableEvent(List<String> BSSIDs) {
         this.BSSIDs = new ArrayList<>(BSSIDs);
     }
 
