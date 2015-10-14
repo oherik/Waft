@@ -1,38 +1,54 @@
 package com.alive_n_clickin.commutity.application;
 
-import com.alive_n_clickin.commutity.event.NewWifiNetworksInRangeEvent;
-import com.alive_n_clickin.commutity.event.NewBusNearbyEvent;
-import com.alive_n_clickin.commutity.event.WifiStateChangeEvent;
+import android.content.Context;
+
 import com.alive_n_clickin.commutity.infrastructure.WifiBroadcastReceiver;
+import com.alive_n_clickin.commutity.infrastructure.WifiHelper;
+import com.alive_n_clickin.commutity.util.event.CantSearchForVehiclesEvent;
 import com.alive_n_clickin.commutity.util.event.IEvent;
 import com.alive_n_clickin.commutity.util.event.IObservable;
 import com.alive_n_clickin.commutity.util.event.IObservableHelper;
 import com.alive_n_clickin.commutity.util.event.IObserver;
+import com.alive_n_clickin.commutity.util.event.NewBusNearbyEvent;
+import com.alive_n_clickin.commutity.util.event.NewWifiScanAvailableEvent;
 import com.alive_n_clickin.commutity.util.event.ObservableHelper;
+import com.alive_n_clickin.commutity.util.event.WifiStateChangeEvent;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * This class listens to WifiBSSIDChangeEvents and checks if any nearby BSSID belongs to a known bus.
+ * This class listens to NewWifiScanAvailableEvents and checks if any nearby BSSID belongs to a known bus.
  * If it finds a match, it sends a NewBusNearbyEvent with the DGW of the found bus. If no match is
  * found, it sends a NewBusNearbyEvent with the DGW parameter set to null.
  *
  * @since 0.2
  */
+
+/* Note: The current implementation of this class relies solely on wifi, but the interface must not reveal that fact.
+If, in the future, another method of detecting nearby vehicles is implemented, the interface should remain the same.
+Anyone using this class can trust *that* it can detect nearby vehicles, not *how*
+ */
 public class NearbyBusScanner implements IObserver, IObservable {
     private IObservableHelper observableHelper = new ObservableHelper();
+    private WifiBroadcastReceiver wifiBroadcastReceiver;
+    private Context context;
 
     private static Map<String, String> buses = new HashMap<>();
 
     /**
      * Initiates a NearbyBusScanner and registers it as an observer to the specified WifiBroadcastReceiver.
      *
+     * The scanner uses the Android system, and thus needs the application context
+     *
      * @param wifiBroadcastReceiver the WifiBroadcastReceiver to listen to for WifiBSSIDChangeEvents.
+     * @param applicationContext the context for the application
      */
-    public NearbyBusScanner(WifiBroadcastReceiver wifiBroadcastReceiver) {
-        wifiBroadcastReceiver.addObserver(this);
+    public NearbyBusScanner(WifiBroadcastReceiver wifiBroadcastReceiver, Context applicationContext) {
+        this.wifiBroadcastReceiver = wifiBroadcastReceiver;
+        this.wifiBroadcastReceiver.addObserver(this);
+        this.context = applicationContext;
 
         // TODO: Add all buses
         buses.put("04:f0:21:10:09:df", "Ericsson$100021"); // EPO 136
@@ -59,7 +75,7 @@ public class NearbyBusScanner implements IObserver, IObservable {
     /**
      * {@inheritDoc}<br><br>
      *
-     * This implementation of onEvent gets the BSSID:s from the NewWifiNetworksInRangeEvent and checks if
+     * This implementation of onEvent gets the BSSID:s from the NewWifiScanAvailableEvent and checks if
      * the BSSID of any known bus is in the list. If the list contains a known bus, a NewBusNearbyEvent
      * is sent to all observers with the DGW of the bus. If the list doesn't contain a known bus,
      * a NewBusNearbyEvent is sent to all observers with the DGW parameter set to null.
@@ -68,14 +84,14 @@ public class NearbyBusScanner implements IObserver, IObservable {
      */
     @Override
     public void onEvent(IEvent event) {
-        if (event instanceof NewWifiNetworksInRangeEvent) {
-            handleWifiBSSIDChangeEvent((NewWifiNetworksInRangeEvent) event);
+        if (event instanceof NewWifiScanAvailableEvent) {
+            handleWifiBSSIDChangeEvent((NewWifiScanAvailableEvent) event);
         } else if (event instanceof WifiStateChangeEvent) {
             handleWifiStateChangeEvent((WifiStateChangeEvent) event);
         }
     }
 
-    private void handleWifiBSSIDChangeEvent(NewWifiNetworksInRangeEvent event) {
+    private void handleWifiBSSIDChangeEvent(NewWifiScanAvailableEvent event) {
         String DGW = null;
 
         List<String> BSSIDs = event.getBSSIDs();
@@ -90,7 +106,9 @@ public class NearbyBusScanner implements IObserver, IObservable {
     }
 
     private void handleWifiStateChangeEvent(WifiStateChangeEvent event) {
-        observableHelper.notifyObservers(new NewBusNearbyEvent(null));
+        if (!event.isWifiEnabled()) {
+            observableHelper.notifyObservers(new CantSearchForVehiclesEvent());
+        }
     }
 
     @Override
@@ -101,5 +119,23 @@ public class NearbyBusScanner implements IObserver, IObservable {
     @Override
     public void removeObserver(IObserver observer) {
         observableHelper.removeObserver(observer);
+    }
+
+    /**
+     * Enable searching and perform a new search. This might change android system settings, like
+     * location services and wifi state.
+     */
+    public void enableSearchingAndSearch() {
+        WifiHelper wifiHelper = new WifiHelper(context);
+        wifiHelper.enableWifi();
+        wifiHelper.initiateWifiScan();
+    }
+
+    /**
+     * Says whether the scanner can perfomr searches or not.
+     * @return
+     */
+    public boolean canSearch() {
+        return new WifiHelper(context).isWifiEnabled();
     }
 }

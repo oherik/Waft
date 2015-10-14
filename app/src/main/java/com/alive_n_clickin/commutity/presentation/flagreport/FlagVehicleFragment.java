@@ -21,9 +21,7 @@ import java.util.ArrayList;
  * @since 0.1
  */
 public class FlagVehicleFragment extends Fragment {
-    private final static String ARG_POSITION = "position";
     private int mCurrentPosition = -1;
-
 
     private FlagViewAdapter flagAdapter;
     private ArrayList<FlagButton> flagButtons;
@@ -42,10 +40,9 @@ public class FlagVehicleFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         final View rootView = inflater.inflate(R.layout.fragment_flag_vehicle, container, false);
         flagAdapter = new FlagViewAdapter(getActivity(), flagButtons);
-
-
 
         GridView flagGrid = (GridView) rootView.findViewById(R.id.flagGridView);
         flagGrid.setAdapter(flagAdapter);
@@ -80,11 +77,6 @@ public class FlagVehicleFragment extends Fragment {
         return rootView;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
-
     /**
      * Adds the different buttons. At the moment it's all hard coded for testing purposes
      */
@@ -101,6 +93,4 @@ public class FlagVehicleFragment extends Fragment {
         flagButtons.add(new FlagButton(R.drawable.flag_warm_300px, getString(R.string.flag_warm), Flag.Type.BAD_CLIMATE));
         flagButtons.add(new FlagButton(R.drawable.flag_other_300px, getString(R.string.flag_other), Flag.Type.OTHER));
     }
-
-
 }

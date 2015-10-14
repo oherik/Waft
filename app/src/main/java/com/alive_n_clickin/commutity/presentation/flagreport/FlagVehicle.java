@@ -11,12 +11,12 @@ import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.application.IManager;
 import com.alive_n_clickin.commutity.domain.IVehicle;
-import com.alive_n_clickin.commutity.event.CurrentBusChangeEvent;
-import com.alive_n_clickin.commutity.event.WifiStateChangeEvent;
 import com.alive_n_clickin.commutity.infrastructure.WifiBroadcastReceiver;
 import com.alive_n_clickin.commutity.infrastructure.WifiHelper;
+import com.alive_n_clickin.commutity.util.event.CurrentBusChangeEvent;
 import com.alive_n_clickin.commutity.util.event.IEvent;
 import com.alive_n_clickin.commutity.util.event.IObserver;
+import com.alive_n_clickin.commutity.util.event.WifiStateChangeEvent;
 
 /**
  * The main activity for the flag setting tool. The activity doesn't have any visual elements itself,
