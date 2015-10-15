@@ -110,6 +110,9 @@ public class FlagVehicleFragment extends Fragment {
         flagButtons.add(new FlagButton(R.drawable.flag_other_300px, getString(R.string.flag_other), Flag.Type.OTHER));
     }
 
+
+    //TODO This is very similar to code in FlagVehicleFragment. Refactor to avoid violating DRY: make
+    //both types of fragments use the same async task.
     class FlagBusTask extends AsyncTask<IFlag, Void, Boolean> {
 
         private final Context applicationContext;
@@ -122,8 +125,7 @@ public class FlagVehicleFragment extends Fragment {
         protected Boolean doInBackground(IFlag... params) {
             MyApplication app = (MyApplication) (getActivity().getApplicationContext());
             IManager manager = app.getManager();
-            manager.addFlagToCurrentBus(params[0]);
-            return true;
+            return manager.addFlagToCurrentBus(params[0]);
         }
 
         @Override
