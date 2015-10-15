@@ -32,6 +32,7 @@ public class VehicleFactory {
     private final static String THM_NUMBER = "014";
     private final static String ELECTRICITY_LINE_NUMBER = "5055";
     private final static String ELECTRICITY_JOURNEY_ID_PREFIX = CLASS_NUMBER + THM_NUMBER + ELECTRICITY_LINE_NUMBER;
+    public static final String ELECTRICITY_SHORT_ROUTE_NAME = "55";
 
     /**
      * Takes a dgw and returns a new bus object with all the data for the bus with that DGW.
@@ -84,17 +85,17 @@ public class VehicleFactory {
     */
     public static IArrivingVehicle getArrivingVehicle(@NonNull JsonArrival jsonArrival) {
         String direction = jsonArrival.getDirection();
-        String shortName = jsonArrival.getSname();
+        String shortRouteName = jsonArrival.getSname();
         String journeyId = jsonArrival.getJourneyid();
         Date realArrival = jsonArrival.getRealArrival();
 
         List<IFlag> flags = new LinkedList<>();
-        if (shortName.equals("55")) {
+        if (shortRouteName.equals(ELECTRICITY_SHORT_ROUTE_NAME)) {
             IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
             List<JsonFlag> jsonFlags = waftAdapter.getFlagsForVehicle(journeyId);
             flags = FlagFactory.getFlags(jsonFlags);
         }
 
-        return new ArrivingVehicle(direction, shortName, journeyId, realArrival, flags);
+        return new ArrivingVehicle(direction, shortRouteName, journeyId, realArrival, flags);
     }
 }
