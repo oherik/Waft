@@ -1,11 +1,13 @@
 package com.alive_n_clickin.commutity.presentation.flagreport;
 
 import android.app.ActionBar;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
@@ -186,5 +188,19 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
      */
     private void handleCantSearchForVehiclesEvent(CantSearchForVehiclesEvent event) {
         setActionBarTextCantSearch();
+    }
+
+    @Override
+    public void onBackPressed() {
+        /*
+        The system back button doesn't automatically pop the fragment stack, causing the
+        activity to close if the desired behaviour is not specified.
+         */
+        FragmentManager fragmentManager = getFragmentManager();
+        if(fragmentManager.getBackStackEntryCount() != 0) {
+            fragmentManager.popBackStack();
+        } else {
+            super.onBackPressed();
+        }
     }
 }
