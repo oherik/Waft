@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.application.FlagBusTask;
@@ -85,8 +86,14 @@ public class RecyclerAdapter extends  RecyclerView.Adapter<RecyclerAdapter.ViewH
             public boolean onLongClick(View v) {
                 int currentItemPosition = holder.getLayoutPosition();
                 FlagButton currentButton = flagButtonList.get(currentItemPosition);
-                IFlag flag = new Flag(currentButton.getType());
-                new FlagBusTask(view.getContext().getApplicationContext()).execute(flag);
+                try {
+                    IFlag flag = new Flag(currentButton.getType());
+                    new FlagBusTask(view.getContext().getApplicationContext()).execute(flag);
+                } catch (IllegalArgumentException e) {
+                    // flag couldn't be created
+                    Toast.makeText(view.getContext().getApplicationContext(),
+                            view.getContext().getString(R.string.cant_send_wo_comment), Toast.LENGTH_SHORT).show();
+                }
                 return true;
             }
         });
