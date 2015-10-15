@@ -67,6 +67,7 @@ public class FlagVehicleFragment extends Fragment {
                 //Switch view
                 FragmentTransaction transaction = getActivity().getFragmentManager().
                         beginTransaction();
+                //Set the sliding animation
                 transaction.setCustomAnimations(R.anim.slide_up,
                         R.anim.slide_down,
                         R.anim.slide_up,
