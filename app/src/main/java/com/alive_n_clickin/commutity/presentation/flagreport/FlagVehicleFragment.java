@@ -1,9 +1,5 @@
 package com.alive_n_clickin.commutity.presentation.flagreport;
 
-import java.util.ArrayList;
-
-import android.content.Context;
-import android.os.AsyncTask;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,12 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-import com.alive_n_clickin.commutity.MyApplication;
+
 import com.alive_n_clickin.commutity.R;
-import com.alive_n_clickin.commutity.application.IManager;
 import com.alive_n_clickin.commutity.domain.Flag;
-import com.alive_n_clickin.commutity.domain.IFlag;
 
 import java.util.ArrayList;
 
@@ -107,33 +100,5 @@ public class FlagVehicleFragment extends Fragment {
         flagButtons.add(new FlagButton(R.drawable.flag_pram_300px, getString(R.string.flag_pram), Flag.Type.NO_PRAMS));
         flagButtons.add(new FlagButton(R.drawable.flag_warm_300px, getString(R.string.flag_warm), Flag.Type.BAD_CLIMATE));
         flagButtons.add(new FlagButton(R.drawable.flag_other_300px, getString(R.string.flag_other), Flag.Type.OTHER));
-    }
-
-
-    //TODO This is very similar to code in FlagVehicleFragment. Refactor to avoid violating DRY: make
-    //both types of fragments use the same async task.
-    class FlagBusTask extends AsyncTask<IFlag, Void, Boolean> {
-
-        private final Context applicationContext;
-
-        public FlagBusTask(Context applicationContext) {
-            this.applicationContext = applicationContext;
-        }
-
-        @Override
-        protected Boolean doInBackground(IFlag... params) {
-            MyApplication app = (MyApplication) (getActivity().getApplicationContext());
-            IManager manager = app.getManager();
-            return manager.addFlagToCurrentBus(params[0]);
-        }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            if (result) {
-                Toast.makeText(applicationContext, R.string.flag_sent, Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(applicationContext, R.string.flag_not_sent, Toast.LENGTH_LONG).show();
-            }
-        }
     }
 }

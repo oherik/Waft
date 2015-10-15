@@ -6,7 +6,6 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -21,9 +20,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
-import com.alive_n_clickin.commutity.application.IManager;
+import com.alive_n_clickin.commutity.application.FlagBusTask;
 import com.alive_n_clickin.commutity.domain.Flag;
 import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.domain.IFlagType;
@@ -45,15 +43,12 @@ public class FlagVehicleDetailFragment extends Fragment {
     @Getter(AccessLevel.PROTECTED) private final static String ARG_POSITION = "position";
     private int mCurrentPosition = -1;
     private IFlagType flagType;
-    private IManager busManager;
     private TextView charsLeft;
     private Context currentContext;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        busManager = ((MyApplication) getActivity().getApplicationContext()).getManager();
-
         if (savedInstanceState != null) {
             mCurrentPosition = savedInstanceState.getInt(ARG_POSITION);
         }
@@ -224,26 +219,4 @@ public class FlagVehicleDetailFragment extends Fragment {
         outState.putInt(ARG_POSITION, mCurrentPosition);
     }
 
-     private class FlagBusTask extends AsyncTask<IFlag, Void, Boolean> {
-
-        private final Context applicationContext;
-
-        public FlagBusTask(Context applicationContext) {
-            this.applicationContext = applicationContext;
-        }
-
-        @Override
-        protected Boolean doInBackground(IFlag... params) {
-            return busManager.addFlagToCurrentBus(params[0]);
-        }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            if (result) {
-                Toast.makeText(applicationContext, R.string.flag_sent, Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(applicationContext, R.string.flag_not_sent, Toast.LENGTH_LONG).show();
-            }
-        }
-    }
 }
