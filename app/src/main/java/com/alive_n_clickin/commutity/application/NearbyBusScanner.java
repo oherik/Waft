@@ -51,6 +51,7 @@ public class NearbyBusScanner implements IObserver, IObservable {
         this.context = applicationContext;
 
         // TODO: Add all buses
+        buses.put("04:f0:21:10:0a:07", "Ericsson$100020"); // EPO 131
         buses.put("04:f0:21:10:09:df", "Ericsson$100021"); // EPO 136
         buses.put("04:f0:21:10:09:e8", "Ericsson$100022"); // EPO 143
         buses.put("04:f0:21:10:09:b8", "Ericsson$171164"); // EOG 604
