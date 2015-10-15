@@ -73,9 +73,9 @@ public class FlagVehicleFragment extends Fragment {
                 transaction.commit();
             }
         });
-
         return rootView;
     }
+
 
     /**
      * Adds the different buttons. At the moment it's all hard coded for testing purposes

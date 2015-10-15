@@ -8,6 +8,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +45,7 @@ public class FlagVehicleDetailFragment extends Fragment {
     private int mCurrentPosition = -1;
     private IFlagType flagType;
     private IManager busManager;
+    private TextView charsLeft;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,9 +85,34 @@ public class FlagVehicleDetailFragment extends Fragment {
                 switchToFlagFragment();
             }
         });
-
+        charsLeft = (TextView) view.findViewById(R.id.commentCharsLeft);
+        EditText commentField = (EditText) view.findViewById(R.id.flagDetailCommentField);
+        commentField.addTextChangedListener(charsLeftTextWatcher);
         return view;
     }
+
+    /**
+     * Listens to an edit text field. Shows to the users how many character he or she has left,
+     * if it is 15 or less than the maximum value (otherwise it sets the text view invisible)
+     */
+    private final TextWatcher charsLeftTextWatcher = new TextWatcher() {
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            int maxLength = getContext().getResources().getInteger(R.integer.flag_comment_max_length);
+            int numberOfCharsLeft = maxLength - s.length();
+            if(numberOfCharsLeft<16) {
+                charsLeft.setVisibility(TextView.VISIBLE);
+                charsLeft.setText(String.valueOf(numberOfCharsLeft));
+            } else {
+                charsLeft.setVisibility(TextView.INVISIBLE);
+            }
+        }
+
+        public void afterTextChanged(Editable s) {
+        }
+    };
 
     /**
      * Tries sending the flag data by calling on the http request class. If it's successful it
