@@ -1,9 +1,9 @@
 package com.alive_n_clickin.commutity.presentation.flagreport;
 
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,8 +64,12 @@ public class RecyclerAdapter extends  RecyclerView.Adapter<RecyclerAdapter.ViewH
                 //Make the switch
                 FragmentActivity fragmentActivity = (FragmentActivity) parent.getContext();
                 FragmentTransaction fragmentTransaction = fragmentActivity
-                        .getSupportFragmentManager()
+                        .getFragmentManager()
                         .beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.slide_up,
+                        R.anim.slide_down,
+                        R.anim.slide_up,
+                        R.anim.slide_down);
                 fragmentTransaction.replace(R.id.content_frame, detailFragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);

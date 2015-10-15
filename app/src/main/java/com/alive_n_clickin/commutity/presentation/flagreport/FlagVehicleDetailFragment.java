@@ -1,13 +1,13 @@
 package com.alive_n_clickin.commutity.presentation.flagreport;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +43,7 @@ public class FlagVehicleDetailFragment extends Fragment {
     private int mCurrentPosition = -1;
     private IFlagType flagType;
     private IManager busManager;
+    private Context currentContext;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,7 +83,7 @@ public class FlagVehicleDetailFragment extends Fragment {
                 switchToFlagFragment();
             }
         });
-
+        this.currentContext = container.getContext();
         return view;
     }
 
@@ -100,7 +101,7 @@ public class FlagVehicleDetailFragment extends Fragment {
         IFlag flag;
         try {
             flag = new Flag(flagType, comment);
-            FlagBusTask flagBusTask = new FlagBusTask(getContext().getApplicationContext());
+            FlagBusTask flagBusTask = new FlagBusTask(currentContext.getApplicationContext());
             flagBusTask.execute(flag);
             switchToFlagFragment();
         } catch (IllegalArgumentException e) {
@@ -116,13 +117,13 @@ public class FlagVehicleDetailFragment extends Fragment {
      */
     private void showEnableWifiAlert() {
 
-        AlertDialog alertDialog = new AlertDialog.Builder(getContext())
+        AlertDialog alertDialog = new AlertDialog.Builder(currentContext)
                 .setTitle(R.string.enable_wifi_alert_title)
                 .setMessage(R.string.enable_wifi_alert_message)
                 .setPositiveButton(R.string.enable_wifi_alert_yesbutton, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        new WifiHelper(getContext()).enableWifi();
+                        new WifiHelper(currentContext).enableWifi();
                     }
 
                 }).setNegativeButton(R.string.enable_wifi_alert_nobutton, new DialogInterface.OnClickListener() {
@@ -179,7 +180,7 @@ public class FlagVehicleDetailFragment extends Fragment {
         outState.putInt(ARG_POSITION, mCurrentPosition);
     }
 
-    private class FlagBusTask extends AsyncTask<IFlag, Void, Boolean> {
+     private class FlagBusTask extends AsyncTask<IFlag, Void, Boolean> {
 
         private final Context applicationContext;
 
