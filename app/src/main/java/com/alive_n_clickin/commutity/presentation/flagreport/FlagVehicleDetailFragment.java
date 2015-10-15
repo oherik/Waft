@@ -8,9 +8,12 @@ import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,6 +46,7 @@ public class FlagVehicleDetailFragment extends Fragment {
     private int mCurrentPosition = -1;
     private IFlagType flagType;
     private IManager busManager;
+    private TextView charsLeft;
     private Context currentContext;
 
     @Override
@@ -83,9 +87,49 @@ public class FlagVehicleDetailFragment extends Fragment {
                 switchToFlagFragment();
             }
         });
+
+        charsLeft = (TextView) view.findViewById(R.id.commentCharsLeft);
+        final EditText commentField = (EditText) view.findViewById(R.id.flagDetailCommentField);
+        commentField.addTextChangedListener(charsLeftTextWatcher);
+
+        //Make sure the content is pushed up when the keyboard is showed
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+        //Set focus on the comment field
+        commentField.requestFocus();
+
+        //Show the keyboard
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+
         this.currentContext = container.getContext();
         return view;
     }
+
+    /**
+     * Listens to an edit text field. Shows to the users how many character he or she has left,
+     * if it is 15 or less than the maximum value (otherwise it sets the text view invisible)
+     */
+    private final TextWatcher charsLeftTextWatcher = new TextWatcher() {
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            int maxLength = currentContext.getResources().getInteger(R.integer.flag_comment_max_length);
+            int numberOfCharsLeft = maxLength - s.length();
+            if(numberOfCharsLeft<16) {
+                charsLeft.setVisibility(TextView.VISIBLE);
+                charsLeft.setText(String.valueOf(numberOfCharsLeft));
+            } else {
+                charsLeft.setVisibility(TextView.INVISIBLE);
+            }
+            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+        }
+
+        public void afterTextChanged(Editable s) {
+        }
+    };
 
     /**
      * Tries sending the flag data by calling on the http request class. If it's successful it
