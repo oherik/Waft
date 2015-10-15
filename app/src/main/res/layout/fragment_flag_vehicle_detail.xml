@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.alive_n_clickin.commutity.presentation.flagreport.SlidingLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -6,7 +6,8 @@
     android:weightSum="100"
     android:padding="20dp"
     android:id="@+id/flagDetail"
-    >
+    android:background="@color/white"
+    android:clickable="true">
 
     <TextView
         android:layout_width="fill_parent"
@@ -82,4 +83,4 @@
             />
     </RelativeLayout>
 
-</RelativeLayout>
+</com.alive_n_clickin.commutity.presentation.flagreport.SlidingLayout>
