@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- As seen in the guide
+http://trickyandroid.com/fragments-translate-animation/
+-->
+<objectAnimator
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+    android:propertyName="yFraction"
+    android:valueType="floatType"
+    android:valueFrom="0"
+    android:valueTo="1.0"
+    android:duration="@android:integer/config_shortAnimTime"/>

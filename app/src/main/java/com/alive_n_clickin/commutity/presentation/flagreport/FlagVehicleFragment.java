@@ -54,7 +54,6 @@ public class FlagVehicleFragment extends Fragment {
         //Sets the adapter which handles creating cards.
         adapter = new RecyclerAdapter(flagButtons);
         recyclerView.setAdapter(adapter);
-
         return rootView;
     }
 
