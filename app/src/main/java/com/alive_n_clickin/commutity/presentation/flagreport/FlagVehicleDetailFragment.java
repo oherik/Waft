@@ -1,13 +1,13 @@
 package com.alive_n_clickin.commutity.presentation.flagreport;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -47,6 +47,7 @@ public class FlagVehicleDetailFragment extends Fragment {
     private IFlagType flagType;
     private IManager busManager;
     private TextView charsLeft;
+    private Context currentContext;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,6 +87,7 @@ public class FlagVehicleDetailFragment extends Fragment {
                 switchToFlagFragment();
             }
         });
+
         charsLeft = (TextView) view.findViewById(R.id.commentCharsLeft);
         final EditText commentField = (EditText) view.findViewById(R.id.flagDetailCommentField);
         commentField.addTextChangedListener(charsLeftTextWatcher);
@@ -96,6 +98,7 @@ public class FlagVehicleDetailFragment extends Fragment {
         //Set focus on the comment field
         commentField.requestFocus();
 
+        this.currentContext = container.getContext();
         return view;
     }
 
@@ -108,7 +111,7 @@ public class FlagVehicleDetailFragment extends Fragment {
         }
 
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            int maxLength = getContext().getResources().getInteger(R.integer.flag_comment_max_length);
+            int maxLength = currentContext.getResources().getInteger(R.integer.flag_comment_max_length);
             int numberOfCharsLeft = maxLength - s.length();
             if(numberOfCharsLeft<16) {
                 charsLeft.setVisibility(TextView.VISIBLE);
@@ -138,7 +141,7 @@ public class FlagVehicleDetailFragment extends Fragment {
         IFlag flag;
         try {
             flag = new Flag(flagType, comment);
-            FlagBusTask flagBusTask = new FlagBusTask(getContext().getApplicationContext());
+            FlagBusTask flagBusTask = new FlagBusTask(currentContext.getApplicationContext());
             flagBusTask.execute(flag);
             switchToFlagFragment();
         } catch (IllegalArgumentException e) {
@@ -154,13 +157,13 @@ public class FlagVehicleDetailFragment extends Fragment {
      */
     private void showEnableWifiAlert() {
 
-        AlertDialog alertDialog = new AlertDialog.Builder(getContext())
+        AlertDialog alertDialog = new AlertDialog.Builder(currentContext)
                 .setTitle(R.string.enable_wifi_alert_title)
                 .setMessage(R.string.enable_wifi_alert_message)
                 .setPositiveButton(R.string.enable_wifi_alert_yesbutton, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        new WifiHelper(getContext()).enableWifi();
+                        new WifiHelper(currentContext).enableWifi();
                     }
 
                 }).setNegativeButton(R.string.enable_wifi_alert_nobutton, new DialogInterface.OnClickListener() {
@@ -217,7 +220,7 @@ public class FlagVehicleDetailFragment extends Fragment {
         outState.putInt(ARG_POSITION, mCurrentPosition);
     }
 
-    private class FlagBusTask extends AsyncTask<IFlag, Void, Boolean> {
+     private class FlagBusTask extends AsyncTask<IFlag, Void, Boolean> {
 
         private final Context applicationContext;
 
