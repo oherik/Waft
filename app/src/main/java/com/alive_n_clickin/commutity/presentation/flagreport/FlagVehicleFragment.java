@@ -21,7 +21,6 @@ import java.util.ArrayList;
  * @since 0.1
  */
 public class FlagVehicleFragment extends Fragment {
-    private int mCurrentPosition = -1;
     private int SPACING_BETWEEN_FLAGBUTTONS = 20;
 
     private ArrayList<FlagButton> flagButtons;
@@ -45,31 +44,22 @@ public class FlagVehicleFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.recycler, container, false);
-
         recyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
+
+        //Sets the layout
         layoutManager = new GridLayoutManager(getContext(), AMOUNT_OF_COLUMNS);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new CardDecorator(SPACING_BETWEEN_FLAGBUTTONS));
 
+        //Sets the adapter which handles creating cards.
         adapter = new RecyclerAdapter(flagButtons);
         recyclerView.setAdapter(adapter);
-        //End
-
-        /* TODO: Set up on click listeners to change fragment
-        //Switch view
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().
-                beginTransaction();
-        transaction.replace(R.id.content_frame, detailFragment);
-        transaction.addToBackStack(null);
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        transaction.commit();
-        */
 
         return rootView;
     }
 
     /**
-     * This class only purpose is to handles set margin between cards in the RecyclerView.
+     * This class only purpose is to setting the margin between cards in the RecyclerView.
      */
     private class CardDecorator extends RecyclerView.ItemDecoration {
         private int space;
