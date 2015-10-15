@@ -36,19 +36,18 @@
         android:layout_above="@+id/flagDetailFooter"
         android:layout_alignParentStart="true"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="5dp"
+        android:layout_gravity="center">
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="24.60"
             android:id="@+id/flagDetailCommentField"
-            android:layout_gravity="center"
             android:gravity="left|top"
             android:inputType="textMultiLine"
             android:padding="10dp"
             android:hint="@string/flag_comment"
-            android:singleLine="false"/>
+            android:maxLength="140"/>
 
     </android.support.design.widget.TextInputLayout>
 
