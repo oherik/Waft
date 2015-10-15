@@ -98,6 +98,10 @@ public class FlagVehicleDetailFragment extends Fragment {
         //Set focus on the comment field
         commentField.requestFocus();
 
+        //Show the keyboard
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+
         this.currentContext = container.getContext();
         return view;
     }
