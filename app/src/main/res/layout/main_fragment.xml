@@ -35,6 +35,8 @@
         android:layout_below="@+id/relativeLayout"
         >
         <ListView
+            android:divider="@android:color/transparent"
+            android:dividerHeight="10.0sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/busListView"
