@@ -1,13 +1,13 @@
 package com.alive_n_clickin.commutity.presentation.flagreport;
 
-import android.app.FragmentTransaction;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
 
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.domain.Flag;
@@ -21,10 +21,11 @@ import java.util.ArrayList;
  * @since 0.1
  */
 public class FlagVehicleFragment extends Fragment {
-    private int mCurrentPosition = -1;
-
-    private FlagViewAdapter flagAdapter;
     private ArrayList<FlagButton> flagButtons;
+
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,48 +39,50 @@ public class FlagVehicleFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        final View rootView = inflater.inflate(R.layout.recycler, container, false);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
 
-        final View rootView = inflater.inflate(R.layout.fragment_flag_vehicle, container, false);
-        flagAdapter = new FlagViewAdapter(getActivity(), flagButtons);
+        //Sets the layout
+        layoutManager = new GridLayoutManager(getContext(),
+                getContext().getResources().getInteger(R.integer.flag_columns));
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(new CardDecorator(getContext()
+                .getResources()
+                .getInteger(R.integer.spacing_between_flag_buttons)));
 
-        GridView flagGrid = (GridView) rootView.findViewById(R.id.flagGridView);
-        flagGrid.setAdapter(flagAdapter);
-        flagGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //TODO Move all this to a background service that posts when it finds a bus.
-                FlagButton button = flagAdapter.getItem(i);
-
-                //Prepare arguments
-                FlagVehicleDetailFragment detailFragment = new FlagVehicleDetailFragment();
-                Bundle args = new Bundle();
-                args.putInt(FlagVehicleDetailFragment.getARG_POSITION(), mCurrentPosition);
-
-                //Add flag data
-                args.putInt("flag_image_ID", button.getImageID());
-                args.putString("flag_description", button.getDescription());
-//                args.putString("bus_data", currentBus.getDGW());
-                args.putInt("flag_type_ID", button.getType().getId());
-                detailFragment.setArguments(args);
-
-                //Switch view
-                FragmentTransaction transaction = getActivity().getFragmentManager().
-                        beginTransaction();
-                //Set the sliding animation
-                transaction.setCustomAnimations(R.anim.slide_up,
-                        R.anim.slide_down,
-                        R.anim.slide_up,
-                        R.anim.slide_down);
-                transaction.replace(R.id.content_frame, detailFragment);
-                transaction.addToBackStack(null);
-                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                transaction.commit();
-            }
-        });
-
+        //Sets the adapter which handles creating cards.
+        adapter = new RecyclerAdapter(flagButtons);
+        recyclerView.setAdapter(adapter);
         return rootView;
+    }
+
+    /**
+     * This class only purpose is to setting the margin between cards in the RecyclerView.
+     */
+    private class CardDecorator extends RecyclerView.ItemDecoration {
+        private int space;
+
+        public CardDecorator(int space) {
+            this.space = space;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view,
+                                   RecyclerView parent, RecyclerView.State state) {
+            int currentItem = parent.getChildLayoutPosition(view);
+            outRect.bottom = space;
+            outRect.right = space;
+
+            // Remove the margin in between the two columns.
+            if (currentItem % 2 == 0) {
+                outRect.left = space;
+            }
+            // Add top margin only for the first item in the two columns to avoid double margin between items.
+            if (currentItem == 0 || currentItem == 1) {
+                outRect.top = space;
+            }
+        }
     }
 
     /**
