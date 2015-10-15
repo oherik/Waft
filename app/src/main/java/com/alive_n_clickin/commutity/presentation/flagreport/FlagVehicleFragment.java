@@ -21,14 +21,11 @@ import java.util.ArrayList;
  * @since 0.1
  */
 public class FlagVehicleFragment extends Fragment {
-    private int SPACING_BETWEEN_FLAGBUTTONS = 20;
-
     private ArrayList<FlagButton> flagButtons;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private int AMOUNT_OF_COLUMNS = 2;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,9 +44,12 @@ public class FlagVehicleFragment extends Fragment {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
 
         //Sets the layout
-        layoutManager = new GridLayoutManager(getContext(), AMOUNT_OF_COLUMNS);
+        layoutManager = new GridLayoutManager(getContext(),
+                getContext().getResources().getInteger(R.integer.flag_columns));
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new CardDecorator(SPACING_BETWEEN_FLAGBUTTONS));
+        recyclerView.addItemDecoration(new CardDecorator(getContext()
+                .getResources()
+                .getInteger(R.integer.spacing_between_flag_buttons)));
 
         //Sets the adapter which handles creating cards.
         adapter = new RecyclerAdapter(flagButtons);
