@@ -76,6 +76,14 @@ public class RecyclerAdapter extends  RecyclerView.Adapter<RecyclerAdapter.ViewH
                 fragmentTransaction.commit();
             }
         });
+
+        view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                return true;
+            }
+        });
         return holder;
     }
 
