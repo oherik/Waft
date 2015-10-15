@@ -8,27 +8,6 @@
     android:id="@+id/flagDetail"
     android:background="@color/white">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:layout_weight="10"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:gravity="center"
-        android:id="@+id/flagDetailDescription"
-        android:layout_gravity="center_horizontal"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/flagLineNumberImage"
-        android:layout_alignEnd="@+id/commentFieldLayout" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="10"
-        android:id="@+id/flagLineNumberImage"
-        android:layout_gravity="right"
-        android:layout_marginLeft="728dp" />
-
     <android.support.design.widget.TextInputLayout
         android:id="@+id/commentFieldLayout"
         android:layout_width="match_parent"
@@ -49,15 +28,6 @@
             android:maxLength="@integer/flag_comment_max_length"/>
 
     </android.support.design.widget.TextInputLayout>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/flagDetailImage"
-        android:layout_below="@+id/flagDetailDescription"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/commentFieldLayout"
-        android:layout_alignEnd="@+id/commentFieldLayout" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -88,6 +58,14 @@
             style="?android:attr/borderlessButtonStyle"
             />
 
+        <!-- This view has to be here in order to get the keyboard to not overlay the buttons -->
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/flagDetailStopKeyboard"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/flagDetailSendButton" />
+
     </RelativeLayout>
 
     <TextView
@@ -98,5 +76,25 @@
         android:layout_below="@+id/commentFieldLayout"
         android:layout_alignParentEnd="true"
         android:textColor="@color/hint_foreground_material_light" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_weight="10"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/flagDetailDescription"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/flagDetailImage"
+        android:layout_below="@+id/flagDetailDescription"
+        android:layout_alignEnd="@+id/commentFieldLayout"
+        android:layout_alignStart="@+id/flagDetailDescription"
+        android:layout_above="@+id/commentFieldLayout" />
 
 </RelativeLayout>

@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -88,6 +89,10 @@ public class FlagVehicleDetailFragment extends Fragment {
         charsLeft = (TextView) view.findViewById(R.id.commentCharsLeft);
         EditText commentField = (EditText) view.findViewById(R.id.flagDetailCommentField);
         commentField.addTextChangedListener(charsLeftTextWatcher);
+
+        //Make sure the content is pushed up when the keyboard is showed
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
         return view;
     }
 
@@ -108,6 +113,8 @@ public class FlagVehicleDetailFragment extends Fragment {
             } else {
                 charsLeft.setVisibility(TextView.INVISIBLE);
             }
+            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
         }
 
         public void afterTextChanged(Editable s) {
