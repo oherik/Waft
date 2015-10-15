@@ -33,17 +33,16 @@ public class SlidingLayout extends RelativeLayout {
      * @throws IndexOutOfBoundsException if the input is not between 0 and 1.0
      */
     public void setYFraction(float fraction) {
-        if(fraction<0 || fraction >1.0){
+        if (fraction < 0 || fraction > 1.0){
             throw new IndexOutOfBoundsException("The fraction must be [0, 1.0]");
         }
-        /*
-        Fixes a bug where the view would show for a frame, unanimated, on top of everything
-        else. This was because the height had not yet been measured. This if/else renders
-        the view invisible if no height has been set.
-         */
-        if(getHeight() == 0) {
+
+        // Fixes a bug where the view would show for a frame, unanimated, on top of everything
+        // else. This was because the height had not yet been measured. This if/else renders
+        // the view invisible if no height has been set.
+        if (getHeight() == 0) {
             setVisibility(View.INVISIBLE);
-        } else if(getVisibility()==View.INVISIBLE) {
+        } else if (getVisibility() == View.INVISIBLE) {
             setVisibility(View.VISIBLE);
         }
         float translationY = getHeight() * fraction;
@@ -55,7 +54,7 @@ public class SlidingLayout extends RelativeLayout {
      * @return  The fraction of the view height currently translated
      */
     public float getYFraction() {
-        //If the height hasn't yet been measured, don't bother with trying to divide by 0
+        // If the height hasn't yet been measured, don't bother with trying to divide by 0
         float height = getHeight();
         if (height == 0) {
             return 0;
