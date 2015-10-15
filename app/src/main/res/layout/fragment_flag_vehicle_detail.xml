@@ -6,7 +6,8 @@
     android:weightSum="100"
     android:padding="20dp"
     android:id="@+id/flagDetail"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:clickable="true">
 
     <TextView
         android:layout_width="fill_parent"
