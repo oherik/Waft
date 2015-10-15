@@ -61,7 +61,7 @@ public class RecyclerAdapter extends  RecyclerView.Adapter<RecyclerAdapter.ViewH
                 args.putInt("flag_type_ID", currentButton.getType().getId());
                 detailFragment.setArguments(args);
 
-                //Make the switch
+                //Make the switch and add animation.
                 FragmentActivity fragmentActivity = (FragmentActivity) parent.getContext();
                 FragmentTransaction fragmentTransaction = fragmentActivity
                         .getFragmentManager()
