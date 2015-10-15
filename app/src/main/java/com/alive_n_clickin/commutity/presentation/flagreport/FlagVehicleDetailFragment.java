@@ -179,27 +179,8 @@ public class FlagVehicleDetailFragment extends Fragment {
         // Save the current article selection in case we need to recreate the fragment
         outState.putInt(ARG_POSITION, mCurrentPosition);
     }
-    /*
-    @Override
-    public Animator onCreateAnimator (int transit, boolean enter, int nextAnim){
-        Display display = getActivity().getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        float displayHeight = size.y;
-        Animator animator = null;
-        if(enter) {
-            animator = ObjectAnimator.ofFloat(this, "translationY", displayHeight, 0);
-        }
-        else {
-            animator = ObjectAnimator.ofFloat(this, "translationY", 0, displayHeight);
-        }
 
-        animator.setDuration(R.400);
-        return animator;
-    }
-    */
-
-    private class FlagBusTask extends AsyncTask<IFlag, Void, Boolean> {
+     private class FlagBusTask extends AsyncTask<IFlag, Void, Boolean> {
 
         private final Context applicationContext;
 
