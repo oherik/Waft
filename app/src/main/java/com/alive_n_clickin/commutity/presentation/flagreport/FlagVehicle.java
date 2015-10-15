@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
@@ -186,5 +187,14 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
      */
     private void handleCantSearchForVehiclesEvent(CantSearchForVehiclesEvent event) {
         setActionBarTextCantSearch();
+    }
+
+    @Override
+    public void onBackPressed() {
+        EditText commentField = (EditText) findViewById(R.id.flagDetailCommentField);
+        if(commentField!=null && commentField.hasFocus()){
+            commentField.clearFocus();
+        }
+        super.onBackPressed();
     }
 }

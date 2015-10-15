@@ -87,11 +87,14 @@ public class FlagVehicleDetailFragment extends Fragment {
             }
         });
         charsLeft = (TextView) view.findViewById(R.id.commentCharsLeft);
-        EditText commentField = (EditText) view.findViewById(R.id.flagDetailCommentField);
+        final EditText commentField = (EditText) view.findViewById(R.id.flagDetailCommentField);
         commentField.addTextChangedListener(charsLeftTextWatcher);
 
         //Make sure the content is pushed up when the keyboard is showed
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+        //Set focus on the comment field
+        commentField.requestFocus();
 
         return view;
     }
