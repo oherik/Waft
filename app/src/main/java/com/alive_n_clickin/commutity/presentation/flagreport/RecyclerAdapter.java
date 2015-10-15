@@ -83,7 +83,10 @@ public class RecyclerAdapter extends  RecyclerView.Adapter<RecyclerAdapter.ViewH
         view.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-
+                int currentItemPosition = holder.getLayoutPosition();
+                FlagButton currentButton = flagButtonList.get(currentItemPosition);
+                IFlag flag = new Flag(currentButton.getType());
+                new FlagBusTask(view.getContext().getApplicationContext()).execute(flag);
                 return true;
             }
         });
