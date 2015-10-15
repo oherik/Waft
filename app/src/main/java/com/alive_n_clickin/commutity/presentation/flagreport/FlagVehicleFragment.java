@@ -85,6 +85,7 @@ public class FlagVehicleFragment extends Fragment {
         }
     }
 
+
     /**
      * Adds the different buttons. At the moment it's all hard coded for testing purposes
      */
