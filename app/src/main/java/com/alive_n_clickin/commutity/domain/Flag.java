@@ -88,7 +88,7 @@ public class Flag implements IFlag {
      */
     public Flag(@NonNull IFlagType type, @NonNull String comment, @NonNull Date createdTime) {
 
-        if (type.isCommentRequired() && (comment.length() < COMMENT_REQUIRED_MINIMUM_LENGTH)) {
+        if (type.isCommentRequired() && (comment.trim().length() < COMMENT_REQUIRED_MINIMUM_LENGTH)) {
             throw new IllegalArgumentException(
                     String.format("A comment of at least %s characters is required for flag type %s",
                             COMMENT_REQUIRED_MINIMUM_LENGTH, type));
