@@ -50,7 +50,6 @@ public class FlagVehicleFragment extends Fragment {
         recyclerView.addItemDecoration(new CardDecorator(getContext()
                 .getResources()
                 .getInteger(R.integer.spacing_between_flag_buttons)));
-
         //Sets the adapter which handles creating cards.
         adapter = new RecyclerAdapter(flagButtons);
         recyclerView.setAdapter(adapter);
