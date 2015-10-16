@@ -37,7 +37,7 @@
     <string name="title_activity_stop_search">StopSearch</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="cant_send_wo_comment">Den här waften kan inte skickas utan en kommentar</string>
+    <string name="cant_send_wo_comment">Den här flaggan kan inte skickas utan en kommentar</string>
 
     <!-- Programmatic constants -->
 </resources>
