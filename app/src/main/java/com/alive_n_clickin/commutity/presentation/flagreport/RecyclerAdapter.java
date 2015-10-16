@@ -10,8 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alive_n_clickin.commutity.R;
+import com.alive_n_clickin.commutity.application.FlagCurrentBusTask;
+import com.alive_n_clickin.commutity.domain.Flag;
+import com.alive_n_clickin.commutity.domain.IFlag;
 
 import java.util.List;
 
@@ -74,6 +78,23 @@ public class RecyclerAdapter extends  RecyclerView.Adapter<RecyclerAdapter.ViewH
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 fragmentTransaction.commit();
+            }
+        });
+
+        view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                int currentItemPosition = holder.getLayoutPosition();
+                FlagButton currentButton = flagButtonList.get(currentItemPosition);
+                try {
+                    IFlag flag = new Flag(currentButton.getType());
+                    new FlagCurrentBusTask(view.getContext().getApplicationContext()).execute(flag);
+                } catch (IllegalArgumentException e) {
+                    // flag couldn't be created
+                    Toast.makeText(view.getContext().getApplicationContext(),
+                            view.getContext().getString(R.string.cant_send_wo_comment), Toast.LENGTH_SHORT).show();
+                }
+                return true;
             }
         });
         return holder;

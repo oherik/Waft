@@ -12,6 +12,8 @@ import com.alive_n_clickin.commutity.domain.IFlagType;
 
 import java.util.HashMap;
 
+import lombok.Getter;
+
 /**
  * This is class is an ImageView specialized on flags from our system. It maps every flag type to an
  * image, and has a setFlag method that lets you specify what image it should show based on flag type.
