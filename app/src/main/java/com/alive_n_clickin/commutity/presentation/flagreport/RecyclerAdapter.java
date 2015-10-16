@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alive_n_clickin.commutity.R;
-import com.alive_n_clickin.commutity.application.FlagBusTask;
+import com.alive_n_clickin.commutity.application.FlagCurrentBusTask;
 import com.alive_n_clickin.commutity.domain.Flag;
 import com.alive_n_clickin.commutity.domain.IFlag;
 
@@ -88,7 +88,7 @@ public class RecyclerAdapter extends  RecyclerView.Adapter<RecyclerAdapter.ViewH
                 FlagButton currentButton = flagButtonList.get(currentItemPosition);
                 try {
                     IFlag flag = new Flag(currentButton.getType());
-                    new FlagBusTask(view.getContext().getApplicationContext()).execute(flag);
+                    new FlagCurrentBusTask(view.getContext().getApplicationContext()).execute(flag);
                 } catch (IllegalArgumentException e) {
                     // flag couldn't be created
                     Toast.makeText(view.getContext().getApplicationContext(),

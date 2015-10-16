@@ -9,22 +9,22 @@ import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.domain.IFlag;
 
 /**
- * @author hjorthjort
- *         Created 15/10/15
+ * An async task that adds a flag to the current bus. Since the flagging process involves network
+ * requests this task must be done asynchronously. When the task is completed, a toast is displayed
+ * in the application context with either a success message or a failure message.
  */
-public class FlagBusTask extends AsyncTask<IFlag, Void, Boolean> {
-
+public class FlagCurrentBusTask extends AsyncTask<IFlag, Void, Boolean> {
     private final Context applicationContext;
-    private final IManager busManager;
+    private final IManager manager;
 
-    public FlagBusTask(Context applicationContext) {
+    public FlagCurrentBusTask(Context applicationContext) {
         this.applicationContext = applicationContext;
-        this.busManager = ((MyApplication) applicationContext).getManager();
+        this.manager = ((MyApplication) applicationContext).getManager();
     }
 
     @Override
     protected Boolean doInBackground(IFlag... params) {
-        return busManager.addFlagToCurrentBus(params[0]);
+        return manager.addFlagToCurrentBus(params[0]);
     }
 
     @Override
