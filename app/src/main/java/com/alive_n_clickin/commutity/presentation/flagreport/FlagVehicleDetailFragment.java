@@ -21,7 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alive_n_clickin.commutity.R;
-import com.alive_n_clickin.commutity.application.FlagBusTask;
+import com.alive_n_clickin.commutity.application.FlagCurrentBusTask;
 import com.alive_n_clickin.commutity.domain.Flag;
 import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.domain.IFlagType;
@@ -140,8 +140,8 @@ public class FlagVehicleDetailFragment extends Fragment {
         IFlag flag;
         try {
             flag = new Flag(flagType, comment);
-            FlagBusTask flagBusTask = new FlagBusTask(currentContext.getApplicationContext());
-            flagBusTask.execute(flag);
+            FlagCurrentBusTask flagCurrentBusTask = new FlagCurrentBusTask(currentContext.getApplicationContext());
+            flagCurrentBusTask.execute(flag);
             switchToFlagFragment();
         } catch (IllegalArgumentException e) {
             // flag couldn't be created
