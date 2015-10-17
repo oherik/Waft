@@ -26,4 +26,11 @@ public interface IWaftAdapter {
      * @return true if sending the flag successfully or false if not.
      */
     boolean flagBus(IElectriCityBus bus, IFlag flag);
+
+    /**
+     * Remove the given flag completely.
+     * @param flag
+     * @return true if successful or false if failed.
+     */
+    boolean deleteFlag(IFlag flag);
 }
