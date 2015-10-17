@@ -15,7 +15,7 @@ import com.alive_n_clickin.commutity.presentation.FlagImageView;
 import java.util.List;
 
 /**
- * Created by OscarEvertsson on 17/10/15.
+ * This class creates list items for the RemoveFlagFromVehicleFragment's ListView.
  */
 public class FlagsOnBusAdapter extends ArrayAdapter<IFlag>{
     RemoveFlagFromVehicleFragment fragment;
@@ -36,7 +36,6 @@ public class FlagsOnBusAdapter extends ArrayAdapter<IFlag>{
 
         FlagImageView flagTypeIcon = (FlagImageView) convertView.findViewById(R.id.flagIcon);
         flagTypeIcon.setFlag(currentFlag);
-
 
         TextView flagDescription = (TextView) convertView.findViewById(R.id.flagDescription);
         flagDescription.setText(currentFlag.getComment() + "");
