@@ -1,5 +1,6 @@
 package com.alive_n_clickin.commutity.presentation.flagreport;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
@@ -28,6 +30,7 @@ import java.util.List;
 public class RemoveFlagFromVehicleFragment extends Fragment implements IObserver{
     private List<IFlag> flagList;
     private IManager manager;
+    MyApplication application;
 
     private FlagsOnBusAdapter flagsOnBusAdapter;
 
@@ -36,7 +39,7 @@ public class RemoveFlagFromVehicleFragment extends Fragment implements IObserver
         super.onCreate(savedInstanceState);
 
         // Register observers
-        MyApplication application = (MyApplication) getActivity().getApplicationContext();
+        this.application = (MyApplication) getActivity().getApplicationContext();
         this.manager = application.getManager();
         this.manager.addObserver(this);
         if (this.manager.isOnBus()) {
@@ -54,11 +57,37 @@ public class RemoveFlagFromVehicleFragment extends Fragment implements IObserver
                 findViewById(R.id.showPostFlagViewButton);
         showPostFlagViewButton.setOnClickListener(new ShowPostFlagViewButtonListener());
 
-        this.flagsOnBusAdapter = new FlagsOnBusAdapter(getContext(), flagList);
+        this.flagsOnBusAdapter = new FlagsOnBusAdapter(getContext(), flagList, this);
         ListView flagListView = (ListView) rootView.findViewById(R.id.remove_flag_listView);
         flagListView.setAdapter(this.flagsOnBusAdapter);
 
         return rootView;
+    }
+
+    protected void deleteFlag(IFlag flag){
+        new DeleteFlag().execute(flag);
+    }
+
+
+    private class DeleteFlag extends AsyncTask<IFlag, Void, Boolean> {
+        private IFlag flag;
+
+        @Override
+        protected Boolean doInBackground(IFlag... params) {
+            this.flag = params[0];
+            return manager.deleteFlag(this.flag);
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (result) {
+                flagList.remove(flag);
+                flagsOnBusAdapter.notifyDataSetChanged();
+            } else {
+                Toast toast = Toast.makeText(application, R.string.could_not_delete, Toast.LENGTH_LONG);
+                toast.show();
+            }
+        }
     }
 
     /**
