@@ -147,7 +147,7 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
     }
 
     /**
-     * Switches the view to a new flag view fragment. It creates a new FlagVehicleFragment and
+     * Switches the view to a new flag view fragment. It creates a new RemoveFlagFromVehicleFragment and
      * stores it in the fragment content frame.
      */
     private void switchToDefaultFragment(){
