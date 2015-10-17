@@ -64,6 +64,11 @@ public class Manager implements IManager, IObserver {
         return false;
     }
 
+    @Override
+    public boolean deleteFlag(IFlag flag) {
+        return this.waftAdapter.deleteFlag(flag);
+    }
+
 
     @Override
     public boolean isOnBus() {
