@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.EditText;
 
 import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
@@ -152,8 +151,8 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
      * stores it in the fragment content frame.
      */
     private void switchToDefaultFragment(){
-        FlagVehicleFragment flagFragment = new FlagVehicleFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.content_frame, flagFragment).commit() ;
+        RemoveFlagFromVehicleFragment flagFragment = new RemoveFlagFromVehicleFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.content_frame, flagFragment).commit();
     }
 
 
