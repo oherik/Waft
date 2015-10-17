@@ -10,6 +10,7 @@ import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
 import com.alive_n_clickin.commutity.infrastructure.api.IVasttrafikAdapter;
 import com.alive_n_clickin.commutity.infrastructure.api.IWaftAdapter;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrival;
+import com.alive_n_clickin.commutity.infrastructure.api.response.JsonFlag;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonStop;
 import com.alive_n_clickin.commutity.util.event.CantSearchForVehiclesEvent;
 import com.alive_n_clickin.commutity.util.event.CurrentBusChangeEvent;
@@ -33,6 +34,7 @@ import lombok.NonNull;
 public class Manager implements IManager, IObserver {
     private IObservableHelper observableHelper = new ObservableHelper();
     private IVasttrafikAdapter vasttrafikAdapter;
+    private IWaftAdapter waftAdapter;
     private IElectriCityBus currentBus = null;
     private NearbyBusScanner nearbyBusScanner;
 
@@ -45,7 +47,9 @@ public class Manager implements IManager, IObserver {
     public Manager(NearbyBusScanner nearbyBusScanner) {
         this.nearbyBusScanner = nearbyBusScanner;
         this.nearbyBusScanner.addObserver(this);
-        vasttrafikAdapter = ApiAdapterFactory.createVasttrafikAdapter();
+        this.waftAdapter = ApiAdapterFactory.createWaftAdapter();
+        this.vasttrafikAdapter = ApiAdapterFactory.createVasttrafikAdapter();
+
     }
 
     /**
@@ -57,7 +61,6 @@ public class Manager implements IManager, IObserver {
     public boolean addFlagToCurrentBus(IFlag flag) {
         if (currentBus != null) {
             // notify backend that a new flag has been added to currentBus
-            IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
             return waftAdapter.flagBus(this.currentBus, flag);
         }
         return false;
@@ -136,6 +139,15 @@ public class Manager implements IManager, IObserver {
             }
         }
         return arrivingVehicles;
+    }
+
+    @Override
+    public List<IFlag> getFlagsForBus() {
+        if (currentBus != null) {
+            List<JsonFlag> jsonFlagList = waftAdapter.getFlagsForVehicle(currentBus.getJourneyID());
+            return FlagFactory.getFlags(jsonFlagList);
+        }
+        return null;
     }
 
     @Override
