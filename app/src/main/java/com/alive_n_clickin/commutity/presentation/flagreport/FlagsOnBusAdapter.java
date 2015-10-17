@@ -18,9 +18,11 @@ import java.util.List;
  * Created by OscarEvertsson on 17/10/15.
  */
 public class FlagsOnBusAdapter extends ArrayAdapter<IFlag>{
+    RemoveFlagFromVehicleFragment fragment;
 
-    public FlagsOnBusAdapter(Context currentContext, List<IFlag> flags) {
+    public FlagsOnBusAdapter(Context currentContext, List<IFlag> flags, RemoveFlagFromVehicleFragment fragment) {
         super(currentContext, 0, flags); //The second parameter is the resource ID for a layout file containing a layout to use when instantiating views. Making it 0 means we are not sending any resource file to the super class.
+        this.fragment = fragment;
     }
 
     @Override
@@ -30,7 +32,7 @@ public class FlagsOnBusAdapter extends ArrayAdapter<IFlag>{
             //false specifies to not attach to root ViewGroup.
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.remove_flag_card, parent, false);
         }
-        IFlag currentFlag = getItem(position);
+        final IFlag currentFlag = getItem(position);
 
         FlagImageView flagTypeIcon = (FlagImageView) convertView.findViewById(R.id.flagIcon);
         flagTypeIcon.setFlag(currentFlag);
@@ -41,11 +43,16 @@ public class FlagsOnBusAdapter extends ArrayAdapter<IFlag>{
 
         ImageButton removeButton = (ImageButton) convertView.findViewById(R.id.removeButton);
         removeButton.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_clear_black_48dp));
-        //TODO: Add on click listener.
-
+        removeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragment.deleteFlag(currentFlag);
+            }
+        });
 
         return convertView;
     }
+
 
 
 
