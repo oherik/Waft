@@ -8,6 +8,7 @@ import lombok.Getter;
  * @since 0.2
  */
 public class JsonFlag {
+    @Getter private String _id;
     @Getter private int flagType;
     @Getter private String comment;
 }
