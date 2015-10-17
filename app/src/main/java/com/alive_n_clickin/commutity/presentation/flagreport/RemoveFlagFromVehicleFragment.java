@@ -16,7 +16,9 @@ import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * This class represent the view where you can remove flags on the current vehicle you're on.
+ */
 public class RemoveFlagFromVehicleFragment extends Fragment {
     private List<IArrivingVehicle> vehicleList;
 
