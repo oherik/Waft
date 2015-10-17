@@ -2,6 +2,7 @@ package com.alive_n_clickin.commutity.presentation.flagreport;
 
 import android.app.ActionBar;
 import android.app.FragmentManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
@@ -12,10 +13,14 @@ import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.application.IManager;
 import com.alive_n_clickin.commutity.domain.IElectriCityBus;
+import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.util.event.CantSearchForVehiclesEvent;
 import com.alive_n_clickin.commutity.util.event.CurrentBusChangeEvent;
 import com.alive_n_clickin.commutity.util.event.IEvent;
 import com.alive_n_clickin.commutity.util.event.IObserver;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The main activity for the flag setting tool. The activity doesn't have any visual elements itself,
@@ -166,6 +171,23 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
     }
 
     /**
+     * This class handles fetching the flags for the current bus and distribute the result to the active fragment.
+     */
+    private class FetchFlagsForCurrentBus extends AsyncTask<Void, Void, List<IFlag>> {
+
+        @Override
+        protected List<IFlag> doInBackground(Void... params) {
+            return manager.getFlagsForBus();
+        }
+
+        @Override
+        protected void onPostExecute(List<IFlag> result) {
+            new ArrayList<IFlag>(result);
+            //TODO: Tell the RemoveFlagFromVehicleFragment that the list is updated.
+        }
+    }
+
+    /**
      * Handles a CurrentBusChangeEvent. If event.getBus() returns null, setActionBarTextNotOnBus()
      * is called, otherwise setActionBarTextToBus(bus) is called with the bus from the event.
      *
@@ -174,8 +196,10 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
     private void handleCurrentBusChangeEvent(CurrentBusChangeEvent event) {
         IElectriCityBus bus = event.getBus();
         if (bus == null) {
+            //TODO: Tell the RemoveFlagFromVehicleFragment that we're currently not on a bus, clear your list of flags.
             setActionBarTextNotOnBus();
         } else {
+            new FetchFlagsForCurrentBus().execute();
             setActionBarTextToBus(bus);
         }
     }
