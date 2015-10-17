@@ -39,9 +39,10 @@ public class RemoveFlagFromVehicleFragment extends Fragment implements IObserver
         MyApplication application = (MyApplication) getActivity().getApplicationContext();
         this.manager = application.getManager();
         this.manager.addObserver(this);
-
-        if (flagList == null) {
-            flagList = new ArrayList<>();
+        if (this.manager.isOnBus()) {
+            this.flagList = new ArrayList<>(this.manager.getCurrentBus().getFlags());
+        } else {
+            this.flagList = new ArrayList<>();
         }
     }
 
