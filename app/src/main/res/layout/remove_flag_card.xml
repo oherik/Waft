@@ -15,7 +15,7 @@
         <ImageView
             android:scaleType="fitXY"
             android:layout_width="100dp"
-            android:layout_height="150dp"
+            android:layout_height="100dp"
             android:id="@+id/imageView"
             android:src="@drawable/flag_delayed_300px"
             android:layout_alignParentTop="true"
@@ -33,10 +33,11 @@
 
         <ImageButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:id="@+id/imageButton"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true"
+            android:scaleType="fitXY" />
     </RelativeLayout>
 
 
