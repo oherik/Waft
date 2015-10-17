@@ -45,12 +45,6 @@ public interface IManager extends IObservable {
     List<IArrivingVehicle> getVehicles(IStop stop);
 
     /**
-     * Retrieves the flags for this vehicle.
-     * @return a list of flags if successful otherwise returns null.
-     */
-    List<IFlag> getFlagsForBus();
-
-    /**
      * Searches for stops based on a query string
      * @param searchQuery The string the search will be conducted on
      * @return  A list of stops matching the search query

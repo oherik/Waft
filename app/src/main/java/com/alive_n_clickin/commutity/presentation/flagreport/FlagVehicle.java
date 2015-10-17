@@ -170,6 +170,8 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
         }
     }
 
+
+
     /**
      * This class handles fetching the flags for the current bus and distribute the result to the active fragment.
      */
@@ -177,7 +179,7 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
 
         @Override
         protected List<IFlag> doInBackground(Void... params) {
-            return manager.getFlagsForBus();
+            return manager.getCurrentBus().getFlags();
         }
 
         @Override

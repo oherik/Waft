@@ -10,7 +10,6 @@ import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
 import com.alive_n_clickin.commutity.infrastructure.api.IVasttrafikAdapter;
 import com.alive_n_clickin.commutity.infrastructure.api.IWaftAdapter;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrival;
-import com.alive_n_clickin.commutity.infrastructure.api.response.JsonFlag;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonStop;
 import com.alive_n_clickin.commutity.util.event.CantSearchForVehiclesEvent;
 import com.alive_n_clickin.commutity.util.event.CurrentBusChangeEvent;
@@ -49,7 +48,6 @@ public class Manager implements IManager, IObserver {
         this.nearbyBusScanner.addObserver(this);
         this.waftAdapter = ApiAdapterFactory.createWaftAdapter();
         this.vasttrafikAdapter = ApiAdapterFactory.createVasttrafikAdapter();
-
     }
 
     /**
@@ -65,6 +63,7 @@ public class Manager implements IManager, IObserver {
         }
         return false;
     }
+
 
     @Override
     public boolean isOnBus() {
@@ -139,15 +138,6 @@ public class Manager implements IManager, IObserver {
             }
         }
         return arrivingVehicles;
-    }
-
-    @Override
-    public List<IFlag> getFlagsForBus() {
-        if (currentBus != null) {
-            List<JsonFlag> jsonFlagList = waftAdapter.getFlagsForVehicle(currentBus.getJourneyID());
-            return FlagFactory.getFlags(jsonFlagList);
-        }
-        return null;
     }
 
     @Override
