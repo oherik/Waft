@@ -1,5 +1,7 @@
 package com.alive_n_clickin.commutity.domain;
 
+import java.util.List;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
@@ -30,8 +32,13 @@ public class ElectriCityBus extends AbstractVehicle implements IElectriCityBus {
      * @throws NullPointerException if any parameter is null
      */
     public ElectriCityBus(@NonNull String destination, @NonNull String journeyID,
-                          @NonNull String DGW) {
-        super(destination, SHORT_ROUTE_NAME, journeyID);
+                          @NonNull String DGW, @NonNull List<IFlag> flags) {
+        super(destination, SHORT_ROUTE_NAME, journeyID, flags);
         this.DGW = DGW;
+    }
+
+    @Override
+    public List<IFlag> getFlags() {
+        return super.getFlags();
     }
 }
