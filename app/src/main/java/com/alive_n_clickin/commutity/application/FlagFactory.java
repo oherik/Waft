@@ -3,7 +3,7 @@ package com.alive_n_clickin.commutity.application;
 import com.alive_n_clickin.commutity.domain.Flag;
 import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.domain.IFlagType;
-import com.alive_n_clickin.commutity.domain.JsonFlag;
+import com.alive_n_clickin.commutity.infrastructure.api.response.JsonFlag;
 
 import java.util.ArrayList;
 import java.util.Date;

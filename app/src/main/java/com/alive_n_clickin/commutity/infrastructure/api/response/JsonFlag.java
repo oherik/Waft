@@ -1,4 +1,4 @@
-package com.alive_n_clickin.commutity.domain;
+package com.alive_n_clickin.commutity.infrastructure.api.response;
 
 import lombok.Getter;
 
