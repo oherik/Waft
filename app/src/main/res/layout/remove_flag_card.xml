@@ -32,6 +32,7 @@
             android:layout_toEndOf="@+id/flagIcon"
             android:layout_toStartOf="@+id/removeButton"
             android:layout_centerVertical="true"
+            android:fadeScrollbars="false"
             android:id="@+id/commentScrollView">
             <TextView
                 android:paddingLeft="10dp"
