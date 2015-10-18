@@ -61,6 +61,7 @@ public class RemoveFlagFromVehicleFragment extends Fragment implements IObserver
         ListView flagListView = (ListView) rootView.findViewById(R.id.remove_flag_listView);
         flagListView.setAdapter(this.flagsOnBusAdapter);
 
+
         return rootView;
     }
 
