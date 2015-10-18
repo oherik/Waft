@@ -2,7 +2,6 @@ package com.alive_n_clickin.commutity.application;
 
 import com.alive_n_clickin.commutity.domain.ArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.ElectriCityBus;
-import com.alive_n_clickin.commutity.domain.Flag;
 import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.IElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
@@ -95,10 +94,6 @@ public class VehicleFactory {
             IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
             List<JsonFlag> jsonFlags = waftAdapter.getFlagsForVehicle(journeyId);
             flags = FlagFactory.getFlags(jsonFlags);
-        } else {
-            for (int i = 2; i < 10; i++) {
-                flags.add(new Flag(Flag.Type.getByID((i % 5) + 2)));
-            }
         }
 
         return new ArrivingVehicle(direction, shortRouteName, journeyId, realArrival, flags);
