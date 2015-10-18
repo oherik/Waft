@@ -135,6 +135,7 @@ public class FlagsOnBusFragment extends Fragment implements IObserver{
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             FragmentTransaction  fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.content_frame, flagVehicleFragment);
+            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             fragmentTransaction.addToBackStack(null).commit();
         }
     }
