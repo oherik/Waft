@@ -147,11 +147,11 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
     }
 
     /**
-     * Switches the view to a new flag view fragment. It creates a new RemoveFlagFromVehicleFragment and
+     * Switches the view to a new flag view fragment. It creates a new FlagsOnBusFragment and
      * stores it in the fragment content frame.
      */
     private void switchToDefaultFragment(){
-        RemoveFlagFromVehicleFragment flagFragment = new RemoveFlagFromVehicleFragment();
+        FlagsOnBusFragment flagFragment = new FlagsOnBusFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.content_frame, flagFragment).commit();
     }
 
@@ -174,7 +174,7 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
     private void handleCurrentBusChangeEvent(CurrentBusChangeEvent event) {
         IElectriCityBus bus = event.getBus();
         if (bus == null) {
-            //TODO: Tell the RemoveFlagFromVehicleFragment that we're currently not on a bus, clear your list of flags.
+            //TODO: Tell the FlagsOnBusFragment that we're currently not on a bus, clear your list of flags.
             setActionBarTextNotOnBus();
         } else {
             setActionBarTextToBus(bus);
