@@ -17,6 +17,7 @@ import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.application.IManager;
 import com.alive_n_clickin.commutity.domain.IElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
+import com.alive_n_clickin.commutity.util.event.CantSearchForVehiclesEvent;
 import com.alive_n_clickin.commutity.util.event.CurrentBusChangeEvent;
 import com.alive_n_clickin.commutity.util.event.IEvent;
 import com.alive_n_clickin.commutity.util.event.IObserver;
@@ -119,7 +120,16 @@ public class FlagsOnBusFragment extends Fragment implements IObserver{
     public void onEvent(IEvent event) {
         if (event instanceof CurrentBusChangeEvent) {
             handleCurrentBusChangeEvent((CurrentBusChangeEvent) event);
+        } else if (event instanceof CantSearchForVehiclesEvent) {
+            handleCantSearchForVehiclesEvent((CantSearchForVehiclesEvent) event);
         }
+    }
+
+    /**
+     * Handler for the CantSearchForVehicles, this method clears the list of flags since the manager doesn't know if you're on a bus or not.
+     */
+    private void handleCantSearchForVehiclesEvent(CantSearchForVehiclesEvent event) {
+        this.flagsOnBusAdapter.clear();
     }
 
     /**
@@ -132,7 +142,7 @@ public class FlagsOnBusFragment extends Fragment implements IObserver{
         if (bus != null) {
             updateFlags(manager.getCurrentBus().getFlags());
         } else {
-            updateFlags(new ArrayList<IFlag>());
+            this.flagsOnBusAdapter.clear();
         }
     }
 
