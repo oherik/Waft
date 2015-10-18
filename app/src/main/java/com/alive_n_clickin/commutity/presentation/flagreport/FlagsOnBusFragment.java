@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * This class represent the view where you can remove flags on the current vehicle you're on.
  */
-public class RemoveFlagFromVehicleFragment extends Fragment implements IObserver{
+public class FlagsOnBusFragment extends Fragment implements IObserver{
     private List<IFlag> flagList;
     private IManager manager;
     MyApplication application;

@@ -17,12 +17,12 @@ import com.alive_n_clickin.commutity.presentation.FlagImageView;
 import java.util.List;
 
 /**
- * This class creates list items for the RemoveFlagFromVehicleFragment's ListView.
+ * This class creates list items for the FlagsOnBusFragment's ListView.
  */
 public class FlagsOnBusAdapter extends ArrayAdapter<IFlag>{
-    RemoveFlagFromVehicleFragment fragment;
+    FlagsOnBusFragment fragment;
 
-    public FlagsOnBusAdapter(Context currentContext, List<IFlag> flags, RemoveFlagFromVehicleFragment fragment) {
+    public FlagsOnBusAdapter(Context currentContext, List<IFlag> flags, FlagsOnBusFragment fragment) {
         super(currentContext, 0, flags); //The second parameter is the resource ID for a layout file containing a layout to use when instantiating views. Making it 0 means we are not sending any resource file to the super class.
         this.fragment = fragment;
     }
