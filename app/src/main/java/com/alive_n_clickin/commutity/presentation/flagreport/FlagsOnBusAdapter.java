@@ -2,10 +2,12 @@ package com.alive_n_clickin.commutity.presentation.flagreport;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.alive_n_clickin.commutity.R;
@@ -49,6 +51,18 @@ public class FlagsOnBusAdapter extends ArrayAdapter<IFlag>{
             }
         });
 
+        /*
+        Make the comment section scrollable. This needs to be done this way, since both
+        the field and the whole list itself should be scrollable.
+         */
+        ScrollView commentView = (ScrollView) convertView.findViewById(R.id.commentScrollView);
+        commentView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
         return convertView;
     }
 
