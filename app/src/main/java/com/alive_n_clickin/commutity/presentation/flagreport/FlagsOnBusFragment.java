@@ -25,20 +25,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class represent the view where you can remove flags on the current vehicle you're on.
+ * This class represent the view where you can see the current flags for the vehicle you're on.
  */
 public class FlagsOnBusFragment extends Fragment implements IObserver{
     private List<IFlag> flagList;
     private IManager manager;
-    MyApplication application;
-
+    private MyApplication application;
     private FlagsOnBusAdapter flagsOnBusAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Register observers
+        // Register as an observer
         this.application = (MyApplication) getActivity().getApplicationContext();
         this.manager = application.getManager();
         this.manager.addObserver(this);
@@ -51,7 +50,7 @@ public class FlagsOnBusFragment extends Fragment implements IObserver{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.remove_flag_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.flags_on_bus_fragment, container, false);
 
         FloatingActionButton showPostFlagViewButton = (FloatingActionButton) rootView.
                 findViewById(R.id.showPostFlagViewButton);
@@ -65,11 +64,18 @@ public class FlagsOnBusFragment extends Fragment implements IObserver{
         return rootView;
     }
 
+    /**
+     * This method creates a new DeleteFlag object and executes the delete request with the provided flag object.
+     * @param flag the flag to delete
+     */
     protected void deleteFlag(IFlag flag){
         new DeleteFlag().execute(flag);
     }
 
-
+    /**
+     * This class handles sending a delete flag to the manager asynchronously,
+     * and updates the current list of flags depending on successful or not.
+     */
     private class DeleteFlag extends AsyncTask<IFlag, Void, Boolean> {
         private IFlag flag;
 
@@ -105,6 +111,7 @@ public class FlagsOnBusFragment extends Fragment implements IObserver{
         if(flagsOnBusAdapter != null) {
             flagsOnBusAdapter.clear();
             flagsOnBusAdapter.addAll(flagList);
+            flagsOnBusAdapter.notifyDataSetChanged();
         }
     }
 
@@ -115,6 +122,11 @@ public class FlagsOnBusFragment extends Fragment implements IObserver{
         }
     }
 
+    /**
+     * Handles the busChangeEvent. If an bus exist the updateFlags method is called with the flags for the bus,
+     * otherwise updateFlags is called with an empty list of flags.
+     * @param event the event to handle.
+     */
     private void handleCurrentBusChangeEvent(CurrentBusChangeEvent event) {
         IElectriCityBus bus = event.getBus();
         if (bus != null) {
@@ -123,7 +135,6 @@ public class FlagsOnBusFragment extends Fragment implements IObserver{
             updateFlags(new ArrayList<IFlag>());
         }
     }
-
 
     /**
      * This class purposes is to handle onClick events from the showPostFlagViewButton
