@@ -17,6 +17,7 @@
             android:scaleType="fitXY"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:padding="10dp"
             android:id="@+id/flagIcon"
             android:src="@drawable/flag_delayed_300px"
             android:layout_alignParentTop="true"
@@ -24,28 +25,35 @@
             android:layout_gravity="center_horizontal|top" />
 
         <ScrollView
-            android:layout_width="150dp"
-            android:layout_height="100dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:fillViewport="true"
             android:layout_alignParentTop="true"
+            android:scrollIndicators="top"
             android:layout_toEndOf="@+id/flagIcon"
-            android:scrollIndicators="top">
+            android:layout_centerVertical="true">
             <!--TODO: Make the scrolling work.... -->
             <TextView
-                android:layout_width="wrap_content"
+                android:padding="10dp"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/primary_dark"
+                android:textColor="@color/black_87"
                 android:id="@+id/flagDescription" />
         </ScrollView>
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:id="@+id/removeButton"
+            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:scaleType="fitXY" />
+            android:shape="oval"
+            android:scaleType="fitCenter"
+            android:tint="@color/accent"
+            />
 
 
 
