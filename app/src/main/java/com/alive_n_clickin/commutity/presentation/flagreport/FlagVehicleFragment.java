@@ -97,8 +97,6 @@ public class FlagVehicleFragment extends Fragment {
         flagButtons.add(new FlagButton(R.drawable.flag_full, getString(R.string.flag_overcrowded), Flag.Type.OVERCROWDED));
         flagButtons.add(new FlagButton(R.drawable.flag_calm, getString(R.string.flag_calm), Flag.Type.CALM));
         flagButtons.add(new FlagButton(R.drawable.flag_rowdy, getString(R.string.flag_disturbance), Flag.Type.DISTURBANCES));
-        flagButtons.add(new FlagButton(R.drawable.flag_delayed, getString(R.string.flag_delayed), Flag.Type.DELAYED));g
-        flagButtons.add(new FlagButton(R.drawable.flag_warm, getString(R.string.flag_warm), Flag.Type.BAD_CLIMATE));
         flagButtons.add(new FlagButton(R.drawable.flag_clean, getString(R.string.flag_clean), Flag.Type.CLEAN));
         flagButtons.add(new FlagButton(R.drawable.flag_dirty, getString(R.string.flag_messy), Flag.Type.MESSY));
         flagButtons.add(new FlagButton(R.drawable.flag_pram, getString(R.string.flag_pram), Flag.Type.NO_PRAM_SPOTS));
@@ -106,6 +104,7 @@ public class FlagVehicleFragment extends Fragment {
         flagButtons.add(new FlagButton(R.drawable.flag_quiet, getString(R.string.flag_quite), Flag.Type.QUIET));
         flagButtons.add(new FlagButton(R.drawable.flag_loud, getString(R.string.flag_loud), Flag.Type.LOUD));
         flagButtons.add(new FlagButton(R.drawable.flag_good_driver, getString(R.string.flag_good_driver), Flag.Type.GOOD_DRIVER));
+        flagButtons.add(new FlagButton(R.drawable.flag_warm, getString(R.string.flag_warm), Flag.Type.BAD_CLIMATE));
         flagButtons.add(new FlagButton(R.drawable.flag_broken_ticket_station, getString(R.string.flag_broken_ticket_station), Flag.Type.BROKEN_TICKET_STATION));
         flagButtons.add(new FlagButton(R.drawable.flag_other, getString(R.string.flag_other), Flag.Type.OTHER));
     }
