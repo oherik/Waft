@@ -1,7 +1,5 @@
 package com.alive_n_clickin.commutity.infrastructure.api;
 
-import android.util.Log;
-
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonJourney;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonJourneyInfo;
 
@@ -31,7 +29,6 @@ class ElectricityAdapter implements IElectricityAdapter {
     @Override
     public JsonJourney getJourneyInfo(String dgw) {
         String apiResponse = getJourneyInfoFromApi(dgw);
-        Log.d("Response",apiResponse);
         //Retrieve response as Java object
         List<JsonJourneyInfo> infoList = JsonJavaConverter.toJavaList(apiResponse, JsonJourneyInfo[].class);
 
