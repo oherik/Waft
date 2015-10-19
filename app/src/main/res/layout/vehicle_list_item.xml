@@ -28,8 +28,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:paddingEnd="@dimen/list_inner_padding"
-                android:text="55"
-                />
+                android:text="55" />
 
             <TextView
                 android:layout_width="wrap_content"
