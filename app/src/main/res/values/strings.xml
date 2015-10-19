@@ -21,6 +21,7 @@
     <string name="flag_warm">Varmt</string>
     <string name="flag_loud">Hög volym</string>
     <string name="flag_quite">Tyst</string>
+    <string name="no_wheelchair_spots">Inga rullstolsplatser</string>
     <string name="flag_other">Övrigt</string>
 
     <!-- Search related strings -->
