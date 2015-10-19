@@ -19,7 +19,8 @@ import lombok.ToString;
 public class ElectriCityBus extends AbstractVehicle implements IElectriCityBus {
     private static final String SHORT_ROUTE_NAME = "55"; // ElectriCity buses only run on the 55 route
     //Creates a color from the aRGB values (first value is alpha)
-    private static final int LINE_COLOR = Color.argb(0,143,255,66);
+    private static final String LINE_COLOR_IN_HEX = "#8FFF42";
+    private static final int LINE_COLOR = Color.parseColor(LINE_COLOR_IN_HEX);
 
 
     @Getter private final String DGW;
