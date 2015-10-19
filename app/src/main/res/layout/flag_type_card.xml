@@ -22,7 +22,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="150dp"
                     android:id="@+id/imageView"
-                    android:src="@drawable/flag_delayed_300px"
+                    android:src="@drawable/flag_delayed"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentStart="false"
                     android:layout_gravity="center_horizontal|top" />

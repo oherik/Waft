@@ -93,15 +93,15 @@ public class FlagVehicleFragment extends Fragment {
         if(flagButtons==null){
             flagButtons = new ArrayList<>();
         }
-        flagButtons.add(new FlagButton(R.drawable.flag_full_300px, getString(R.string.flag_overcrowded), Flag.Type.OVERCROWDED));
-        flagButtons.add(new FlagButton(R.drawable.flag_rowdy_300px, getString(R.string.flag_disturbance), Flag.Type.DISTURBANCES));
-        flagButtons.add(new FlagButton(R.drawable.flag_delayed_300px, getString(R.string.flag_delayed), Flag.Type.DELAYED));
-        flagButtons.add(new FlagButton(R.drawable.flag_dirty_300px, getString(R.string.flag_messy), Flag.Type.MESSY));
-        flagButtons.add(new FlagButton(R.drawable.flag_pram_300px, getString(R.string.flag_pram), Flag.Type.NO_PRAMS));
-        flagButtons.add(new FlagButton(R.drawable.flag_warm_300px, getString(R.string.flag_warm), Flag.Type.BAD_CLIMATE));
+        flagButtons.add(new FlagButton(R.drawable.flag_full, getString(R.string.flag_overcrowded), Flag.Type.OVERCROWDED));
+        flagButtons.add(new FlagButton(R.drawable.flag_rowdy, getString(R.string.flag_disturbance), Flag.Type.DISTURBANCES));
+        flagButtons.add(new FlagButton(R.drawable.flag_delayed, getString(R.string.flag_delayed), Flag.Type.DELAYED));
+        flagButtons.add(new FlagButton(R.drawable.flag_dirty, getString(R.string.flag_messy), Flag.Type.MESSY));
+        flagButtons.add(new FlagButton(R.drawable.flag_pram, getString(R.string.flag_pram), Flag.Type.NO_PRAMS));
+        flagButtons.add(new FlagButton(R.drawable.flag_warm, getString(R.string.flag_warm), Flag.Type.BAD_CLIMATE));
         flagButtons.add(new FlagButton(R.drawable.flag_quite, getString(R.string.flag_quite), Flag.Type.QUIET));
         flagButtons.add(new FlagButton(R.drawable.flag_loud, getString(R.string.flag_loud), Flag.Type.LOUD));
         flagButtons.add(new FlagButton(R.drawable.flag_no_wheelchair_spots, getString(R.string.no_wheelchair_spots), Flag.Type.NO_WHEELCHAIR_SPOTS));
-        flagButtons.add(new FlagButton(R.drawable.flag_other_300px, getString(R.string.flag_other), Flag.Type.OTHER));
+        flagButtons.add(new FlagButton(R.drawable.flag_other, getString(R.string.flag_other), Flag.Type.OTHER));
     }
 }
