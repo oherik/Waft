@@ -40,7 +40,11 @@
                 android:gravity="center_vertical|center_horizontal"
                 android:layout_alignParentTop="true"
                 android:layout_toEndOf="@+id/busNumber"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:singleLine="true"
+                android:layout_toLeftOf="@+id/timeUntilArrival"
+                android:layout_toRightOf="@+id/busNumber"
+                android:paddingRight="@dimen/list_outer_padding"/>
 
             <TextView
                 android:layout_width="wrap_content"
