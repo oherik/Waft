@@ -59,7 +59,12 @@ public class Manager implements IManager, IObserver {
     public boolean addFlagToCurrentBus(IFlag flag) {
         if (currentBus != null) {
             // notify backend that a new flag has been added to currentBus
-            return waftAdapter.flagBus(this.currentBus, flag);
+            boolean result = waftAdapter.flagBus(this.currentBus, flag);
+            if (result) {
+                //If the successful fetch the new bus from the Waft API. TODO: Make it only fetch the new flags id instead of refetching the whole bus.
+                new GetCurrentBusTask().execute(this.getCurrentBus().getDGW());
+            }
+            return result;
         }
         return false;
     }
