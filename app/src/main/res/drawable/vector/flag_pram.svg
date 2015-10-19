@@ -3,27 +3,29 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="300px" height="300px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
-<rect x="0" fill="#9B59B6" width="300" height="300"/>
+<rect x="0" fill="#D35400" width="300" height="300"/>
 <line fill="none" stroke="#ECF0F1" stroke-width="12" stroke-miterlimit="10" x1="111.762" y1="158.91" x2="74.429" y2="236.244"/>
 <line fill="none" stroke="#ECF0F1" stroke-width="12" stroke-miterlimit="10" x1="166.263" y1="159.001" x2="204.263" y2="236.335"/>
 <line fill="none" stroke="#ECF0F1" stroke-width="12" stroke-miterlimit="10" x1="213.929" y1="134.969" x2="271.263" y2="67.636"/>
-<circle fill="#9B59B6" stroke="#ECF0F1" stroke-width="12" stroke-miterlimit="10" cx="74.429" cy="236.244" r="25"/>
-<circle fill="#9B59B6" stroke="#ECF0F1" stroke-width="12" stroke-miterlimit="10" cx="204.263" cy="236.486" r="25"/>
-<path fill="#9B59B6" stroke="#ECF0F1" stroke-width="12" stroke-miterlimit="10" d="M112.762,120.41l2-71.333c0,0-74-12.667-74,70
+<circle fill="#D35400" stroke="#ECF0F1" stroke-width="12" stroke-miterlimit="10" cx="74.429" cy="236.244" r="25"/>
+<circle fill="#D35400" stroke="#ECF0F1" stroke-width="12" stroke-miterlimit="10" cx="204.263" cy="236.486" r="25"/>
+<path fill="#D35400" stroke="#ECF0F1" stroke-width="12" stroke-miterlimit="10" d="M112.762,120.41l2-71.333c0,0-74-12.667-74,70
 	c0,105.333,186,108.667,186,1.333H112.762z"/>
 <path fill="#ECF0F1" d="M12.001,0"/>
 <g>
-	<defs>
-		<rect id="SVGID_1_" x="0" width="300" height="300"/>
-	</defs>
-	<clipPath id="SVGID_2_">
-		<use xlink:href="#SVGID_1_"  overflow="visible"/>
-	</clipPath>
-	<g clip-path="url(#SVGID_2_)">
-		
-			<rect x="-84.499" y="130.264" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -50.7002 155.5369)" fill="#ECF0F1" width="493.797" height="17.41"/>
-		
-			<rect x="-103.07" y="135.434" transform="matrix(0.7071 0.7071 -0.7071 0.7071 144.0478 -59.4851)" fill="#ECF0F1" width="493.798" height="17.41"/>
+	<g>
+		<defs>
+			<rect id="SVGID_1_" x="0" width="300" height="300"/>
+		</defs>
+		<clipPath id="SVGID_2_">
+			<use xlink:href="#SVGID_1_"  overflow="visible"/>
+		</clipPath>
+		<g clip-path="url(#SVGID_2_)">
+			
+				<rect x="-84.499" y="130.265" transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 375.4956 122.4034)" fill="#ECF0F1" width="493.793" height="17.41"/>
+			
+				<rect x="-103.068" y="135.432" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 143.6105 347.7599)" fill="#ECF0F1" width="493.793" height="17.41"/>
+		</g>
 	</g>
 </g>
 </svg>
