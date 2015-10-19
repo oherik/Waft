@@ -1,5 +1,7 @@
 package com.alive_n_clickin.commutity.domain;
 
+import android.graphics.Color;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
@@ -16,6 +18,9 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class ElectriCityBus extends AbstractVehicle implements IElectriCityBus {
     private static final String SHORT_ROUTE_NAME = "55"; // ElectriCity buses only run on the 55 route
+    //Creates a color from the aRGB values (first value is alpha)
+    private static final int LINE_COLOR = Color.argb(0,143,255,66);
+
 
     @Getter private final String DGW;
 
@@ -31,7 +36,7 @@ public class ElectriCityBus extends AbstractVehicle implements IElectriCityBus {
      */
     public ElectriCityBus(@NonNull String destination, @NonNull String journeyID,
                           @NonNull String DGW) {
-        super(destination, SHORT_ROUTE_NAME, journeyID);
+        super(destination, SHORT_ROUTE_NAME, journeyID, LINE_COLOR);
         this.DGW = DGW;
     }
 }

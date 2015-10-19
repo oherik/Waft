@@ -40,6 +40,7 @@ public class VehicleListAdapter extends ArrayAdapter<IArrivingVehicle> {
 
         TextView busNumber = (TextView) convertView.findViewById(R.id.busNumber);
         busNumber.setText(vehicle.getShortRouteName());
+        busNumber.setTextColor(vehicle.getLineColor());
 
         TextView targetDestination = (TextView) convertView.findViewById(R.id.targetDestination);
         targetDestination.setText(vehicle.getDestination());

@@ -28,4 +28,6 @@ public interface IArrivingVehicle extends IVehicle, Comparable<IArrivingVehicle>
      * @return the current time to arrival, in milliseconds
      */
     long getTimeToArrival();
+
+    int getLineColor();
 }

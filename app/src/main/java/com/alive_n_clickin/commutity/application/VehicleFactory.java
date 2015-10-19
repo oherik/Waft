@@ -9,8 +9,8 @@ import com.alive_n_clickin.commutity.domain.JsonFlag;
 import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
 import com.alive_n_clickin.commutity.infrastructure.api.IElectricityAdapter;
 import com.alive_n_clickin.commutity.infrastructure.api.IWaftAdapter;
-import com.alive_n_clickin.commutity.infrastructure.api.response.JsonJourney;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrival;
+import com.alive_n_clickin.commutity.infrastructure.api.response.JsonJourney;
 
 import java.util.Date;
 import java.util.LinkedList;
@@ -88,6 +88,7 @@ public class VehicleFactory {
         String shortRouteName = jsonArrival.getSname();
         String journeyId = jsonArrival.getJourneyid();
         Date realArrival = jsonArrival.getRealArrival();
+        int lineColor = jsonArrival.getLineColor();
 
         List<IFlag> flags = new LinkedList<>();
         if (shortRouteName.equals(ELECTRICITY_SHORT_ROUTE_NAME)) {
@@ -96,6 +97,6 @@ public class VehicleFactory {
             flags = FlagFactory.getFlags(jsonFlags);
         }
 
-        return new ArrivingVehicle(direction, shortRouteName, journeyId, realArrival, flags);
+        return new ArrivingVehicle(direction, shortRouteName, journeyId, realArrival, flags, lineColor);
     }
 }
