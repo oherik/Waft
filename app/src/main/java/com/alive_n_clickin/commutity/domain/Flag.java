@@ -28,7 +28,8 @@ public class Flag implements IFlag {
         BAD_CLIMATE (5),
         DISTURBANCES (6),
         NO_PRAMS (7),
-        QUIET (8);
+        QUIET (8),
+        LOUD (9);
 
         @Getter private final int id;
         private final boolean requiresComment;
@@ -61,6 +62,8 @@ public class Flag implements IFlag {
                     return NO_PRAMS;
                 case 8:
                     return QUIET;
+                case 9:
+                    return LOUD;
                 default:
                     return null;
             }
