@@ -1,5 +1,6 @@
 package com.alive_n_clickin.commutity.infrastructure.api.response;
 
+import android.graphics.Color;
 import android.util.Log;
 
 import com.alive_n_clickin.commutity.util.LogUtils;
@@ -34,6 +35,7 @@ public class JsonArrival {
     @Getter private String journeyid;
     @Getter private String direction;
     @Getter private String name;
+    private String fgColor;
     /**
      * The line number (short name)
      */
@@ -62,6 +64,10 @@ public class JsonArrival {
             Log.e(LogUtils.getLogTag(this), e.getStackTrace().toString());
         }
         return arrival;
+    }
+
+    public int getLineColor() {
+        return Color.parseColor(this.fgColor);
     }
 
     /**
