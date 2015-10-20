@@ -1,4 +1,4 @@
-package com.alive_n_clickin.commutity.domain;
+package com.alive_n_clickin.commutity.infrastructure.api.response;
 
 import lombok.Getter;
 
@@ -8,6 +8,7 @@ import lombok.Getter;
  * @since 0.2
  */
 public class JsonFlag {
+    @Getter private String _id;
     @Getter private int flagType;
     @Getter private String comment;
 }

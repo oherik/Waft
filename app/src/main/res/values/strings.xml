@@ -11,6 +11,7 @@
     <string name="flag_sent">Flagga skickad</string>
     <string name="server_error">Serverfel</string>
     <string name="flag_not_sent">Flaggan kunde inte skickas</string>
+    <string name="could_not_delete">Flaggan kunde inte tas bort</string>
 
     <!-- Flag types -->
     <string name="flag_disturbance">Stökig</string>
