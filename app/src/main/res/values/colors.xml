@@ -21,4 +21,12 @@
     <color
         name="black">
         #000000</color>
+    <color
+        name="black_87">
+        #DE000000
+    </color>
+    <color
+        name="black_54">
+        #8A000000
+    </color>
 </resources>

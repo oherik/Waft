@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.EditText;
 
 import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
@@ -148,12 +147,12 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
     }
 
     /**
-     * Switches the view to a new flag view fragment. It creates a new FlagVehicleFragment and
+     * Switches the view to a new flag view fragment. It creates a new FlagsOnBusFragment and
      * stores it in the fragment content frame.
      */
     private void switchToDefaultFragment(){
-        FlagVehicleFragment flagFragment = new FlagVehicleFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.content_frame, flagFragment).commit() ;
+        FlagsOnBusFragment flagFragment = new FlagsOnBusFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.content_frame, flagFragment).commit();
     }
 
 
@@ -175,6 +174,7 @@ public class FlagVehicle extends FragmentActivity implements IObserver {
     private void handleCurrentBusChangeEvent(CurrentBusChangeEvent event) {
         IElectriCityBus bus = event.getBus();
         if (bus == null) {
+            //TODO: Tell the FlagsOnBusFragment that we're currently not on a bus, clear your list of flags.
             setActionBarTextNotOnBus();
         } else {
             setActionBarTextToBus(bus);
