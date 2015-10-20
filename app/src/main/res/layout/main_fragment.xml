@@ -16,12 +16,13 @@
         android:elevation="10dp">
         <TextView
         android:layout_width="wrap_content"
-        android:layout_height="70dp"
+        android:layout_height="55dp"
         android:minWidth="300dp"
         android:layout_marginLeft="10dp"
         android:textColor="@color/white"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/currentStop"
+        android:drawableLeft="@drawable/ic_search_white_36dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:textSize="20dp"
