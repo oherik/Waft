@@ -27,7 +27,18 @@ public class Flag implements IFlag {
         MESSY (4),
         BAD_CLIMATE (5),
         DISTURBANCES (6),
-        NO_PRAMS (7);
+        NO_PRAM_SPOTS(7),
+        QUIET (8),
+        LOUD (9),
+        NO_WHEELCHAIR_SPOTS (10),
+        BROKEN_TICKET_STATION(11),
+        CALM(12),
+        CLEAN(13),
+        EMPTY(14),
+        GOOD_DRIVER(15);
+
+
+
 
         @Getter private final int id;
         private final boolean requiresComment;
@@ -57,7 +68,23 @@ public class Flag implements IFlag {
                 case 6:
                     return DISTURBANCES;
                 case 7:
-                    return NO_PRAMS;
+                    return NO_PRAM_SPOTS;
+                case 8:
+                    return QUIET;
+                case 9:
+                    return LOUD;
+                case 10:
+                    return NO_WHEELCHAIR_SPOTS;
+                case 11:
+                    return BROKEN_TICKET_STATION;
+                case 12:
+                    return CALM;
+                case 13:
+                    return CLEAN;
+                case 14:
+                    return EMPTY;
+                case 15:
+                    return GOOD_DRIVER;
                 default:
                     return null;
             }
