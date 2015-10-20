@@ -2,7 +2,7 @@ package com.alive_n_clickin.commutity.infrastructure.api;
 
 import com.alive_n_clickin.commutity.domain.IElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
-import com.alive_n_clickin.commutity.domain.JsonFlag;
+import com.alive_n_clickin.commutity.infrastructure.api.response.JsonFlag;
 
 import java.util.List;
 
@@ -32,6 +32,15 @@ class WaftAdapter implements IWaftAdapter {
                 "flags",
                 getFormattedPostFlagString(bus, flag)
         );
+        return interpretResult(statusCode);
+    }
+
+    /**
+     *
+     * @param statusCode
+     * @return true if 200 otherwise false.
+     */
+    private boolean interpretResult(int statusCode) {
         switch (statusCode) {
             case -1:
                 return false;
@@ -41,6 +50,11 @@ class WaftAdapter implements IWaftAdapter {
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean deleteFlag(IFlag flag) {
+        return interpretResult(this.waftApiConnection.sendDeleteToWaft(flag.getId()));
     }
 
     private String getFormattedPostFlagString(IElectriCityBus bus, IFlag flag) {

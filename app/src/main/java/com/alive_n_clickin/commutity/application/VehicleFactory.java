@@ -5,13 +5,14 @@ import com.alive_n_clickin.commutity.domain.ElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.IElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
-import com.alive_n_clickin.commutity.domain.JsonFlag;
 import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
 import com.alive_n_clickin.commutity.infrastructure.api.IElectricityAdapter;
 import com.alive_n_clickin.commutity.infrastructure.api.IWaftAdapter;
-import com.alive_n_clickin.commutity.infrastructure.api.response.JsonJourney;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrival;
+import com.alive_n_clickin.commutity.infrastructure.api.response.JsonFlag;
+import com.alive_n_clickin.commutity.infrastructure.api.response.JsonJourney;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -51,7 +52,15 @@ public class VehicleFactory {
             destination = jsonJourney.getDestination();
             journeyId = ELECTRICITY_JOURNEY_ID_PREFIX + padWithZeroes(jsonJourney.getJourneyId(), 5);
         }
-        return new ElectriCityBus(destination, journeyId, dgw);
+        List<IFlag> flags = new ArrayList<>();
+
+        IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
+        List<JsonFlag> jsonFlagList = waftAdapter.getFlagsForVehicle(journeyId);
+        if(jsonFlagList != null) {
+            flags.addAll(FlagFactory.getFlags(jsonFlagList));
+        }
+
+        return new ElectriCityBus(destination, journeyId, dgw, flags);
     }
 
     /**

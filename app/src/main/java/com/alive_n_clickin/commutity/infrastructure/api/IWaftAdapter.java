@@ -2,7 +2,7 @@ package com.alive_n_clickin.commutity.infrastructure.api;
 
 import com.alive_n_clickin.commutity.domain.IElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
-import com.alive_n_clickin.commutity.domain.JsonFlag;
+import com.alive_n_clickin.commutity.infrastructure.api.response.JsonFlag;
 
 import java.util.List;
 
@@ -26,4 +26,11 @@ public interface IWaftAdapter {
      * @return true if sending the flag successfully or false if not.
      */
     boolean flagBus(IElectriCityBus bus, IFlag flag);
+
+    /**
+     * Remove the given flag completely.
+     * @param flag
+     * @return true if successful or false if failed.
+     */
+    boolean deleteFlag(IFlag flag);
 }

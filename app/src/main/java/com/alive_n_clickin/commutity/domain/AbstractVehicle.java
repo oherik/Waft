@@ -1,5 +1,7 @@
 package com.alive_n_clickin.commutity.domain;
 
+import java.util.List;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
@@ -17,6 +19,7 @@ public abstract class AbstractVehicle implements IVehicle {
     @Getter private final String destination;
     @Getter private final String shortRouteName;
     @Getter private final String journeyID;
+    @Getter private List<IFlag> flags;
 
     /**
      * Constructor
@@ -28,9 +31,10 @@ public abstract class AbstractVehicle implements IVehicle {
      *                  continues in the opposite direction.
      * @throws NullPointerException if any parameter is null
      */
-    public AbstractVehicle(@NonNull String destination, @NonNull String shortRouteName, String journeyID) {
+    public AbstractVehicle(@NonNull String destination, @NonNull String shortRouteName, String journeyID, @NonNull List<IFlag> flags) {
         this.destination = destination;
         this.shortRouteName = shortRouteName;
         this.journeyID = journeyID;
+        this.flags = flags;
     }
 }

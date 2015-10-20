@@ -27,6 +27,13 @@ public interface IManager extends IObservable {
     boolean addFlagToCurrentBus(IFlag flag);
 
     /**
+     * Deleted the flag if the id is valid.
+     * @param flag the flag to delete.
+     * @return true if successful.
+     */
+    boolean deleteFlag(IFlag flag);
+
+    /**
      * @return true if the user is currently on a bus, otherwise false.
      */
     boolean isOnBus();
