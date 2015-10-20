@@ -97,6 +97,7 @@ public class VehicleFactory {
         String shortRouteName = jsonArrival.getSname();
         String journeyId = jsonArrival.getJourneyid();
         Date realArrival = jsonArrival.getRealArrival();
+        int lineColor = jsonArrival.getLineColor();
 
         List<IFlag> flags = new LinkedList<>();
         if (shortRouteName.equals(ELECTRICITY_SHORT_ROUTE_NAME)) {
@@ -105,6 +106,6 @@ public class VehicleFactory {
             flags = FlagFactory.getFlags(jsonFlags);
         }
 
-        return new ArrivingVehicle(direction, shortRouteName, journeyId, realArrival, flags);
+        return new ArrivingVehicle(direction, shortRouteName, journeyId, realArrival, flags, lineColor);
     }
 }

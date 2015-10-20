@@ -19,6 +19,7 @@ public abstract class AbstractVehicle implements IVehicle {
     @Getter private final String destination;
     @Getter private final String shortRouteName;
     @Getter private final String journeyID;
+    @Getter private final int lineColor;
     @Getter private List<IFlag> flags;
 
     /**
@@ -31,10 +32,12 @@ public abstract class AbstractVehicle implements IVehicle {
      *                  continues in the opposite direction.
      * @throws NullPointerException if any parameter is null
      */
-    public AbstractVehicle(@NonNull String destination, @NonNull String shortRouteName, String journeyID, @NonNull List<IFlag> flags) {
+    public AbstractVehicle(@NonNull String destination, @NonNull String shortRouteName, String journeyID,
+                @NonNull List<IFlag> flags, int lineColor) {
         this.destination = destination;
         this.shortRouteName = shortRouteName;
         this.journeyID = journeyID;
+        this.lineColor = lineColor;
         this.flags = flags;
     }
 }

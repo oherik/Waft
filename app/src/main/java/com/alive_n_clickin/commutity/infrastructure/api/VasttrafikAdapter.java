@@ -5,8 +5,8 @@ import android.net.Uri;
 import com.alive_n_clickin.commutity.domain.IStop;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrival;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrivalList;
-import com.alive_n_clickin.commutity.infrastructure.api.response.JsonStopList;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonStop;
+import com.alive_n_clickin.commutity.infrastructure.api.response.JsonStopList;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -86,7 +86,7 @@ class VasttrafikAdapter implements IVasttrafikAdapter {
                         "&date=" + date +
                         "&time=" + time);
         if (response != null) {
-             return new JsonJavaConverter<>(JsonArrivalList.class).toJava(
+            return new JsonJavaConverter<>(JsonArrivalList.class).toJava(
                     response, "DepartureBoard").getDeparture();
         }
         return null;
