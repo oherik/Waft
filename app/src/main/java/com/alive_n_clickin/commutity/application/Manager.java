@@ -33,6 +33,7 @@ import lombok.NonNull;
 public class Manager implements IManager, IObserver {
     private IObservableHelper observableHelper = new ObservableHelper();
     private IVasttrafikAdapter vasttrafikAdapter;
+    private IWaftAdapter waftAdapter;
     private IElectriCityBus currentBus = null;
     private NearbyBusScanner nearbyBusScanner;
 
@@ -45,7 +46,8 @@ public class Manager implements IManager, IObserver {
     public Manager(NearbyBusScanner nearbyBusScanner) {
         this.nearbyBusScanner = nearbyBusScanner;
         this.nearbyBusScanner.addObserver(this);
-        vasttrafikAdapter = ApiAdapterFactory.createVasttrafikAdapter();
+        this.waftAdapter = ApiAdapterFactory.createWaftAdapter();
+        this.vasttrafikAdapter = ApiAdapterFactory.createVasttrafikAdapter();
     }
 
     /**
@@ -57,11 +59,21 @@ public class Manager implements IManager, IObserver {
     public boolean addFlagToCurrentBus(IFlag flag) {
         if (currentBus != null) {
             // notify backend that a new flag has been added to currentBus
-            IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
-            return waftAdapter.flagBus(this.currentBus, flag);
+            boolean result = waftAdapter.flagBus(this.currentBus, flag);
+            if (result) {
+                //If the successful fetch the new bus from the Waft API. TODO: Make it only fetch the new flags id instead of refetching the whole bus.
+                new GetCurrentBusTask().execute(this.getCurrentBus().getDGW());
+            }
+            return result;
         }
         return false;
     }
+
+    @Override
+    public boolean deleteFlag(IFlag flag) {
+        return this.waftAdapter.deleteFlag(flag);
+    }
+
 
     @Override
     public boolean isOnBus() {

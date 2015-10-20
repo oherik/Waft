@@ -129,7 +129,22 @@ class ApiConnection {
         return -1; //Could not send request
     }
 
+    static int delete(URL url) {
+        try {
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoOutput(true);
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            connection.setRequestMethod("DELETE");
+            connection.connect();
 
+            int status = connection.getResponseCode();
+            return status;
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Server connection error. Error message: " + e);
+        }
+        return -1; //Could not send request
+
+    }
 
     /**
      * Reads the content of any InputStream and returns it as a String.

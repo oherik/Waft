@@ -73,6 +73,7 @@ public class Flag implements IFlag {
 
     @Getter private final IFlagType type;
     @Getter private final String comment;
+    @Getter private String id;
     private final Date createdTime;
 
     /**
@@ -97,6 +98,13 @@ public class Flag implements IFlag {
         this.type = type;
         this.comment = comment;
         this.createdTime = new Date(createdTime.getTime());
+    }
+
+    public Flag(@NonNull IFlagType type, @NonNull String comment, @NonNull Date createdTime, @NonNull String id) {
+        this.type = type;
+        this.comment = comment;
+        this.createdTime = createdTime;
+        this.id = id;
     }
 
     /**
