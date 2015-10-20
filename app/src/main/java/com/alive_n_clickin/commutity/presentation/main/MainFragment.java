@@ -1,10 +1,8 @@
 package com.alive_n_clickin.commutity.presentation.main;
 
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -185,6 +183,6 @@ public class MainFragment extends Fragment {
         if (currentStop!=null && !("".equals(currentStop.getName()))) {
             stopTextView.setText(currentStop.getName());
         }
-        stopTextView.setPaintFlags(stopTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        //stopTextView.setPaintFlags(stopTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
     }
 }
