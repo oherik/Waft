@@ -43,8 +43,7 @@ public class FlagImageView extends ImageView {
         images.put(Flag.Type.OTHER, R.drawable.flag_other);
         images.put(Flag.Type.OVERCROWDED, R.drawable.flag_full);
         images.put(Flag.Type.QUIET, R.drawable.flag_quiet);
-
-
+        images.put(Flag.Type.CLEAN, R.drawable.flag_clean);
     }
 
     /**

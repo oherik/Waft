@@ -15,7 +15,7 @@ package com.alive_n_clickin.commutity.infrastructure.api;
 public class ApiAdapterFactory {
 
     public static IElectricityAdapter createElectricityAdapter() {
-        return new ElectricityAdapter();
+        return new MockElectriCityAdapter();
     }
 
     public static IVasttrafikAdapter createVasttrafikAdapter() {

@@ -2,6 +2,7 @@ package com.alive_n_clickin.commutity.application;
 
 import com.alive_n_clickin.commutity.domain.ArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.ElectriCityBus;
+import com.alive_n_clickin.commutity.domain.Flag;
 import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.IElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import lombok.NonNull;
 
@@ -104,6 +106,21 @@ public class VehicleFactory {
             IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
             List<JsonFlag> jsonFlags = waftAdapter.getFlagsForVehicle(journeyId);
             flags = FlagFactory.getFlags(jsonFlags);
+        }
+
+        Random rand = new Random();
+        List<Integer> flagTypes = new ArrayList<>();
+        // Should the bus get random flags? 1 in 2
+        if (rand.nextInt(2) == 0) {
+            // How many flags? Between 1 and 5
+            for (int i = 0; i <= rand.nextInt(5); i++) {
+                // What flag type?
+                int typeId = rand.nextInt(14) + 2;
+                if (!flagTypes.contains(typeId)) {
+                    flags.add(new Flag(Flag.Type.getByID(typeId), ""));
+                    flagTypes.add(typeId);
+                }
+            }
         }
 
         return new ArrivingVehicle(direction, shortRouteName, journeyId, realArrival, flags, lineColor);
