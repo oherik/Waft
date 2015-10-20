@@ -12,10 +12,11 @@
         android:layout_height="wrap_content"
         android:background="@color/primary"
         android:onClick="switchToSearchFragment"
-        android:id="@+id/relativeLayout">
+        android:id="@+id/relativeLayout"
+        android:elevation="10dp">
         <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:minWidth="300dp"
         android:layout_marginLeft="10dp"
         android:textColor="@color/white"
@@ -25,7 +26,8 @@
         android:layout_alignParentStart="true"
         android:textSize="20dp"
         android:padding = "6dp"
-        android:text="@string/stop_search_label" />
+        android:text="@string/stop_search_label"
+            android:gravity="center_vertical" />
     </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -33,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/relativeLayout"
-        >
+        android:layout_marginTop="10dp">
         <ListView
             android:divider="@android:color/transparent"
             android:dividerHeight="10.0sp"
