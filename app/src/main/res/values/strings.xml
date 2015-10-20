@@ -14,12 +14,20 @@
     <string name="could_not_delete">Flaggan kunde inte tas bort</string>
 
     <!-- Flag types -->
-    <string name="flag_disturbance">Stökig</string>
+    <string name="flag_disturbance">Otrygg</string>
     <string name="flag_pram">Inga barnvagnsplatser</string>
     <string name="flag_overcrowded">Full</string>
     <string name="flag_messy">Smutsig</string>
     <string name="flag_delayed">Försenad</string>
     <string name="flag_warm">Varmt</string>
+    <string name="flag_loud">Hög volym</string>
+    <string name="flag_quite">Tyst</string>
+    <string name="flag_no_wheelchair_spots">Inga rullstolsplatser</string>
+    <string name="flag_broken_ticket_station">Trasig biljettautomat</string>
+    <string name="flag_calm">Trygg</string>
+    <string name="flag_clean">Ren och städad</string>
+    <string name="flag_empty">Gott om plats</string>
+    <string name="flag_good_driver">Trevlig förare</string>
     <string name="flag_other">Övrigt</string>
 
     <!-- Search related strings -->
