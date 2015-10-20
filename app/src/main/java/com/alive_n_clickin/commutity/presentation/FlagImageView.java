@@ -29,13 +29,22 @@ public class FlagImageView extends ImageView {
     public FlagImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         images = new HashMap<>();
+        images.put(Flag.Type.BAD_CLIMATE, R.drawable.flag_warm);
+        images.put(Flag.Type.BROKEN_TICKET_STATION, R.drawable.flag_broken_ticket_station);
+        images.put(Flag.Type.CALM, R.drawable.flag_calm);
         images.put(Flag.Type.DELAYED, R.drawable.flag_delayed);
         images.put(Flag.Type.DISTURBANCES, R.drawable.flag_rowdy);
+        images.put(Flag.Type.EMPTY, R.drawable.flag_empty);
+        images.put(Flag.Type.GOOD_DRIVER, R.drawable.flag_good_driver);
+        images.put(Flag.Type.LOUD, R.drawable.flag_loud);
         images.put(Flag.Type.MESSY, R.drawable.flag_dirty);
-        images.put(Flag.Type.OVERCROWDED, R.drawable.flag_full);
         images.put(Flag.Type.NO_PRAM_SPOTS, R.drawable.flag_pram);
+        images.put(Flag.Type.NO_WHEELCHAIR_SPOTS, R.drawable.flag_no_wheelchair_spots);
         images.put(Flag.Type.OTHER, R.drawable.flag_other);
-        images.put(Flag.Type.BAD_CLIMATE, R.drawable.flag_warm);
+        images.put(Flag.Type.OVERCROWDED, R.drawable.flag_full);
+        images.put(Flag.Type.QUIET, R.drawable.flag_quiet);
+
+
     }
 
     /**
