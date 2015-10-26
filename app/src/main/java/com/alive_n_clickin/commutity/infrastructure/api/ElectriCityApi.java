@@ -29,12 +29,12 @@ class ElectriCityApi implements IElectriCityApi {
         // Sort the list according to timestamps, we only want the most current ones
         Collections.sort(journeyInfoList, new Comparator<JsonJourneyInfo>() {
             @Override
-            public int compare(JsonJourneyInfo lhs, JsonJourneyInfo rhs) {
+            public int compare(JsonJourneyInfo first, JsonJourneyInfo second) {
                 // We want a reverse sort: latest first
-                if (rhs.getTimestamp() > lhs.getTimestamp()) {
+                if (second.getTimestamp() > first.getTimestamp()) {
                     return 1;
                 } else {
-                    return rhs.getTimestamp() == lhs.getTimestamp() ? 0 : -1;
+                    return second.getTimestamp() == first.getTimestamp() ? 0 : -1;
                 }
             }
         });
