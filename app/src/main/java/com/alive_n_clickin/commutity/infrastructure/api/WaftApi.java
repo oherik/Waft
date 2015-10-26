@@ -10,11 +10,11 @@ import java.util.List;
  * A concrete implementation of IWaftApi.
  */
 class WaftApi implements IWaftApi {
-    private final WaftApiConnection waftApiConnection = new WaftApiConnection();
+    private static final WaftApiConnection waftApiConnection = new WaftApiConnection();
 
     @Override
     public List<JsonFlag> getFlagsForJourney(String journeyId) {
-        String response = this.waftApiConnection.sendGetToWaft("flags", journeyId);
+        String response = waftApiConnection.sendGetToWaft("flags", journeyId);
 
         List<JsonFlag> flags = new ArrayList<>();
 
@@ -33,13 +33,13 @@ class WaftApi implements IWaftApi {
                 "&dgw=" + dgw +
                 "&journeyID=" + journeyId;
 
-        int statusCode = this.waftApiConnection.sendPostToWaft("flags", query);
+        int statusCode = waftApiConnection.sendPostToWaft("flags", query);
         return interpretResult(statusCode);
     }
 
     @Override
     public boolean deleteFlag(String id) {
-        int statusCode = this.waftApiConnection.sendDeleteToWaft(id);
+        int statusCode = waftApiConnection.sendDeleteToWaft(id);
         return interpretResult(statusCode);
     }
 
