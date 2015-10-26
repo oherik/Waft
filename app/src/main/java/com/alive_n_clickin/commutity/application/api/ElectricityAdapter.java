@@ -17,6 +17,11 @@ import com.alive_n_clickin.commutity.infrastructure.api.response.JsonJourney;
  * @since 0.1
  */
 class ElectricityAdapter implements IElectricityAdapter {
+    private final static String CLASS_NUMBER = "9015";
+    private final static String THM_NUMBER = "014";
+    private final static String ELECTRICITY_LINE_NUMBER = "5055";
+    private final static String ELECTRICITY_JOURNEY_ID_PREFIX = CLASS_NUMBER + THM_NUMBER + ELECTRICITY_LINE_NUMBER;
+
     /**
      * The current journey, with id and destination, for the bus with the given DGW.
      *
@@ -29,6 +34,6 @@ class ElectricityAdapter implements IElectricityAdapter {
 
         JsonJourney jsonJourney = electriCityApi.getLatestJourney(dgw);
 
-        return new Journey(jsonJourney.getDestination(), jsonJourney.getJourneyId());
+        return new Journey(jsonJourney.getDestination(), ELECTRICITY_JOURNEY_ID_PREFIX + jsonJourney.getJourneyId());
     }
 }
