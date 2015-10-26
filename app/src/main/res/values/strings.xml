@@ -41,7 +41,6 @@
     <string name="enable_wifi_alert_nobutton">Avbryt</string>
     <string name="no_buses_near">Inga bussar nära dig</string>
     <string name="loading_looking_for_vehicle">Letar efter ditt fordon ...</string>
-    <string name="cant_search">Aktivera wifi för att rapportera</string>
     <string name="enabling_search">Aktiverar wifi ...</string>
     <string name="title_activity_stop_search">StopSearch</string>
 
