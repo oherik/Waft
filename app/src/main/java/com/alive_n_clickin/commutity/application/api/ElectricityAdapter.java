@@ -22,6 +22,8 @@ class ElectricityAdapter implements IElectricityAdapter {
     private final static String ELECTRICITY_LINE_NUMBER = "5055";
     private final static String ELECTRICITY_JOURNEY_ID_PREFIX = CLASS_NUMBER + THM_NUMBER + ELECTRICITY_LINE_NUMBER;
 
+    private final static IElectriCityApi electriCityApi = ApiFactory.createElectriCityApi();
+
     /**
      * The current journey, with id and destination, for the bus with the given DGW.
      *
@@ -30,10 +32,7 @@ class ElectricityAdapter implements IElectricityAdapter {
      */
     @Override
     public IJourney getCurrentJourney(String dgw) {
-        IElectriCityApi electriCityApi = ApiFactory.createElectriCityApi();
-
         JsonJourney jsonJourney = electriCityApi.getLatestJourney(dgw);
-
         return new Journey(jsonJourney.getDestination(), ELECTRICITY_JOURNEY_ID_PREFIX + padWithZeroes(jsonJourney.getJourneyId(), 5));
     }
 
