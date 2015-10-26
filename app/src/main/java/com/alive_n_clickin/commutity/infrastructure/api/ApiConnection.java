@@ -2,6 +2,7 @@ package com.alive_n_clickin.commutity.infrastructure.api;
 
 import android.util.Log;
 
+import com.alive_n_clickin.commutity.infrastructure.api.response.Response;
 import com.alive_n_clickin.commutity.util.LogUtils;
 
 import java.io.DataOutputStream;
@@ -32,7 +33,7 @@ class ApiConnection {
      * @param requestProperties an optional amount of request properties, ordered as key value pairs
      * @return the response if there is one, null otherwise. Check log messages if null is returned
      */
-    static String getResponseFromHttpConnection(URL url, Map.Entry<String, String>... requestProperties) {
+    static Response get(URL url, Map.Entry<String, String>... requestProperties) throws IOException {
         HttpURLConnection connection = establishGetConnection(url);
 
         if(connection != null){
