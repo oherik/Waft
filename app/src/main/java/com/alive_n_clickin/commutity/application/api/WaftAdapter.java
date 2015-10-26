@@ -1,71 +1,52 @@
 package com.alive_n_clickin.commutity.application.api;
 
+import com.alive_n_clickin.commutity.domain.Flag;
 import com.alive_n_clickin.commutity.domain.IElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
-import com.alive_n_clickin.commutity.infrastructure.api.JsonJavaConverter;
-import com.alive_n_clickin.commutity.infrastructure.api.WaftApiConnection;
+import com.alive_n_clickin.commutity.domain.IFlagType;
+import com.alive_n_clickin.commutity.infrastructure.api.ApiFactory;
+import com.alive_n_clickin.commutity.infrastructure.api.IWaftApi;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonFlag;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
- * This class is not meant to be instantiated. The reason is to remove as much coupling as possible.
- * Use the ApiAdapterFactory to gain access to this class.
+ * {@inheritDoc}<br><br>
  *
- * This class represents high level methods for connection to the Waft API.
+ * This class is not mean to be instantiated by outside classes (hence the package private access).
+ *
+ * This class uses IWaftApi to get response objects, and then transforms them to to domain objects.
  *
  * @since 0.2
  */
 class WaftAdapter implements IWaftAdapter {
-    private final WaftApiConnection waftApiConnection = new WaftApiConnection();
+    private final IWaftApi waftApi = ApiFactory.createWaftApi();
 
     @Override
-    public List<JsonFlag> getFlagsForVehicle(String journeyId) {
-        String response = waftApiConnection.sendGetToWaft("flags", journeyId);
-        if (response != null) {
-            return JsonJavaConverter.toJavaList(response, JsonFlag[].class);
+    public List<IFlag> getFlagsForVehicle(String journeyId) {
+        List<JsonFlag> jsonFlags = waftApi.getFlagsForJourney(journeyId);
+
+        List<IFlag> flags = new ArrayList<>();
+
+        for (JsonFlag jsonFlag : jsonFlags) {
+            IFlagType flagType = Flag.Type.getByID(jsonFlag.getFlagType());
+            // TODO: Properly parse the date from the JsonFlag
+            flags.add(new Flag(flagType, jsonFlag.getComment(), new Date(), jsonFlag.get_id()));
         }
-        return null;
+
+        return flags;
     }
 
     @Override
     public boolean flagBus(IElectriCityBus bus, IFlag flag) {
-        int statusCode = waftApiConnection.sendPostToWaft(
-                "flags",
-                getFormattedPostFlagString(bus, flag)
-        );
-        return interpretResult(statusCode);
-    }
-
-    /**
-     *
-     * @param statusCode
-     * @return true if 200 otherwise false.
-     */
-    private boolean interpretResult(int statusCode) {
-        switch (statusCode) {
-            case -1:
-                return false;
-            case 400:
-                return false;
-            case 200:
-                return true;
-        }
-        return false;
+        return waftApi.addFlag(bus.getDGW(), bus.getJourneyID(), flag.getType().getId(), flag.getComment(),
+                flag.getCreatedTime());
     }
 
     @Override
     public boolean deleteFlag(IFlag flag) {
-        return interpretResult(this.waftApiConnection.sendDeleteToWaft(flag.getId()));
-    }
-
-    private String getFormattedPostFlagString(IElectriCityBus bus, IFlag flag) {
-        //TODO: Check whether or not the parameters are added properly
-        String query = "flagType=" + flag.getType().getId() +
-                "&comment=" + flag.getComment() +
-                "&time=" + flag.getCreatedTime().toString() +
-                "&dgw=" + bus.getDGW() +
-                "&journeyID=" + bus.getJourneyID();
-        return query;
+        return waftApi.deleteFlag(flag.getId());
     }
 }
