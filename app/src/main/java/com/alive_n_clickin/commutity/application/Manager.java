@@ -2,13 +2,13 @@ package com.alive_n_clickin.commutity.application;
 
 import android.os.AsyncTask;
 
+import com.alive_n_clickin.commutity.application.api.ApiAdapterFactory;
+import com.alive_n_clickin.commutity.application.api.IVasttrafikAdapter;
+import com.alive_n_clickin.commutity.application.api.IWaftAdapter;
 import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.IElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.domain.IStop;
-import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
-import com.alive_n_clickin.commutity.infrastructure.api.IVasttrafikAdapter;
-import com.alive_n_clickin.commutity.infrastructure.api.IWaftAdapter;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrival;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonStop;
 import com.alive_n_clickin.commutity.util.event.CantSearchForVehiclesEvent;

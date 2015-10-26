@@ -1,7 +1,9 @@
-package com.alive_n_clickin.commutity.infrastructure.api;
+package com.alive_n_clickin.commutity.application.api;
 
 import com.alive_n_clickin.commutity.domain.IElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
+import com.alive_n_clickin.commutity.infrastructure.api.JsonJavaConverter;
+import com.alive_n_clickin.commutity.infrastructure.api.WaftApiConnection;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonFlag;
 
 import java.util.List;

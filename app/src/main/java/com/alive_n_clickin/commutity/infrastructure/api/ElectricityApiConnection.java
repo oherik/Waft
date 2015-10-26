@@ -13,7 +13,7 @@ import java.util.Map;
  *
  * @since 0.2
  */
-class ElectricityApiConnection {
+public class ElectricityApiConnection {
 
     private static final String BASE_URL_ELECTRICITY = "https://ece01.ericsson.net:4443/ecity";
     //Username and password, base64 encoded
@@ -26,7 +26,7 @@ class ElectricityApiConnection {
      * @return null if the connection didn't work
      * @throws MalformedURLException if the query parameter is invalid.
      */
-    protected String sendGetToElectricity(String query) {
+    public String sendGetToElectricity(String query) {
         Uri.Builder uriBuilder = Uri.parse(BASE_URL_ELECTRICITY).buildUpon();
         uriBuilder.encodedQuery(query);
         Uri uri = uriBuilder.build();

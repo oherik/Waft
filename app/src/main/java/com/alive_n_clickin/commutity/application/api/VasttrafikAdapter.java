@@ -1,8 +1,10 @@
-package com.alive_n_clickin.commutity.infrastructure.api;
+package com.alive_n_clickin.commutity.application.api;
 
 import android.net.Uri;
 
 import com.alive_n_clickin.commutity.domain.IStop;
+import com.alive_n_clickin.commutity.infrastructure.api.JsonJavaConverter;
+import com.alive_n_clickin.commutity.infrastructure.api.VasttrafikApiConnection;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrival;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrivalList;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonStop;
