@@ -108,7 +108,7 @@ public class FlagVehicleActivity extends FragmentActivity implements IObserver {
      * Sets the action bar text to R.string.cant_search.
      */
     private void setActionBarTextCantSearch() {
-        actionBar.setTitle(R.string.cant_search);
+        actionBar.setTitle(R.string.enable_wifi_alert_title);
         displayEnableWifiIcon();
     }
 
