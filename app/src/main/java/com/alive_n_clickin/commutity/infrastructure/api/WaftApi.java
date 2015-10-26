@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * A concrete implementation of IWaftApi.
  */
-public class WaftApi implements IWaftApi {
+class WaftApi implements IWaftApi {
     private final WaftApiConnection waftApiConnection = new WaftApiConnection();
 
     @Override
