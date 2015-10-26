@@ -34,5 +34,5 @@ public interface IVasttrafikApi {
      * @return a list of arrivals for a stop. If no arrivals can be found for the stop, an empty
      * list is returned.
      */
-    List<JsonArrival> getArrivalsForStop(int id);
+    List<JsonArrival> getArrivalsForStop(long id);
 }

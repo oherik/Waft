@@ -64,7 +64,7 @@ class VasttrafikApi implements IVasttrafikApi {
     }
 
     @Override
-    public List<JsonArrival> getArrivalsForStop(int id) {
+    public List<JsonArrival> getArrivalsForStop(long id) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
