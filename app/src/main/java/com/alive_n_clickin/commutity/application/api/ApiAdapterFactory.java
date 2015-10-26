@@ -1,4 +1,4 @@
-package com.alive_n_clickin.commutity.infrastructure.api;
+package com.alive_n_clickin.commutity.application.api;
 
 
 /**
@@ -6,22 +6,27 @@ package com.alive_n_clickin.commutity.infrastructure.api;
  * Since the class returns interfaces it would be easy to swap out any of the modules themselves.
  * The user doesn't need to know about the implementers directly.
  *
- * The current adapters are:
- * {@link IVasttrafikAdapter}
- * {@link IElectricityAdapter}
- *
  * @since 0.1
  */
 public class ApiAdapterFactory {
 
-    public static IElectricityAdapter createElectricityAdapter() {
-        return new ElectricityAdapter();
+    /**
+     * @return a new IElectriCityAdapter of the type ElectriCityAdapter.
+     */
+    public static IElectriCityAdapter createElectricityAdapter() {
+        return new ElectriCityAdapter();
     }
 
+    /**
+     * @return a new IVasttrafikAdapter of the type VasttrafikAdapter.
+     */
     public static IVasttrafikAdapter createVasttrafikAdapter() {
         return new VasttrafikAdapter();
     }
 
+    /**
+     * @return a new IWaftAdapter of the type WaftAdapter.
+     */
     public static IWaftAdapter createWaftAdapter() {
         return new WaftAdapter();
     }
