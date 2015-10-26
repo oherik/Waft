@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * A concrete implementation of IElectriCityApi.
  */
-public class ElectriCityApi implements IElectriCityApi {
+class ElectriCityApi implements IElectriCityApi {
     public static final String RESOURCE_SPEC_DESTINATION = "Destination_Value";
     public static final String RESOURCE_SPEC_JOURNEY_ID = "Journey_Name_Value";
 
