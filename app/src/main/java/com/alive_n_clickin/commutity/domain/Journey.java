@@ -1,11 +1,15 @@
 package com.alive_n_clickin.commutity.domain;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.ToString;
 
 /**
  * A simple journey that has a destination and a journey id.
  */
+@EqualsAndHashCode
+@ToString
 public class Journey implements IJourney {
     @Getter private String destination;
     @Getter private String journeyId;
