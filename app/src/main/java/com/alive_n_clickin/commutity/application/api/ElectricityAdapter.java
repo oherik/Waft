@@ -1,5 +1,7 @@
-package com.alive_n_clickin.commutity.infrastructure.api;
+package com.alive_n_clickin.commutity.application.api;
 
+import com.alive_n_clickin.commutity.infrastructure.api.ElectricityApiConnection;
+import com.alive_n_clickin.commutity.infrastructure.api.JsonJavaConverter;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonJourney;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonJourneyInfo;
 

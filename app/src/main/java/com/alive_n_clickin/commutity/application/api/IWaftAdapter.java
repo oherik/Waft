@@ -1,4 +1,4 @@
-package com.alive_n_clickin.commutity.infrastructure.api;
+package com.alive_n_clickin.commutity.application.api;
 
 import com.alive_n_clickin.commutity.domain.IElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IFlag;

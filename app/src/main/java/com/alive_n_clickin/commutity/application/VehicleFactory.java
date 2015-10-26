@@ -1,13 +1,13 @@
 package com.alive_n_clickin.commutity.application;
 
+import com.alive_n_clickin.commutity.application.api.ApiAdapterFactory;
+import com.alive_n_clickin.commutity.application.api.IElectricityAdapter;
+import com.alive_n_clickin.commutity.application.api.IWaftAdapter;
 import com.alive_n_clickin.commutity.domain.ArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.ElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.IElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
-import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
-import com.alive_n_clickin.commutity.infrastructure.api.IElectricityAdapter;
-import com.alive_n_clickin.commutity.infrastructure.api.IWaftAdapter;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrival;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonFlag;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonJourney;

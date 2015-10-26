@@ -11,11 +11,9 @@ import java.net.URL;
 /**
  * This class creates a valid http connection for the Vasttrafik API, which is then passed along to {@link ApiConnection}.
  *
- * The class is not meant to be instantiated directly. It's only used within {@link VasttrafikAdapter} to remove coupling.
- *
  * @since 0.1
  */
-class VasttrafikApiConnection {
+public class VasttrafikApiConnection {
     private static final String BASE_URL_VASTTRAFIK =
             "http://api.vasttrafik.se/bin/rest.exe/v1/";
     private static final String API_KEY = "69b13ace-0bc1-4203-8a56-cc95648f4dca";
