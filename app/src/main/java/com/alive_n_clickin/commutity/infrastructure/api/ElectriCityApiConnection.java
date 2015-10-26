@@ -2,10 +2,12 @@ package com.alive_n_clickin.commutity.infrastructure.api;
 
 import android.net.Uri;
 
+import com.alive_n_clickin.commutity.infrastructure.api.response.Response;
+
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class creates a valid http connection for the Electricity API, which is then passed along to {@link ApiConnection}.
@@ -16,45 +18,29 @@ import java.util.Map;
  */
 class ElectriCityApiConnection {
     private static final String BASE_URL_ELECTRICITY = "https://ece01.ericsson.net:4443/ecity";
+
     // Username and password, base64 encoded
     private static final String AUTHORIZATION = "Basic Z3JwOToza1B2MmlTU3Nu";
 
     /**
-     * Send a query to electricity. It will be appended to the base url and sent using the credentials of the team
-     * The query must be well formed
-     * @param query the query to be appended. Leave out the '?' at the beginning
-     * @return null if the connection didn't work
-     * @throws MalformedURLException if the query parameter is invalid.
+     * Send a get request to the ElectriCity API. The query will be appended to the base url and
+     * sent using the credentials of the team. The query must be well formed.
+     *
+     * @param query the query to be appended to the base url. Leave out the '?' at the beginning.
+     * @return a response object containing the response from the server.
+     * @throws IOException if the query parameter is invalid, or if anything goes wrong with the
+     * request.
      */
-    public String sendGetToElectricity(String query) {
+    public Response get(String query) throws IOException {
         Uri.Builder uriBuilder = Uri.parse(BASE_URL_ELECTRICITY).buildUpon();
         uriBuilder.encodedQuery(query);
         Uri uri = uriBuilder.build();
 
-        try {
-            URL url = new URL(uri.toString());
-            //Send the authorization to the Api connection
-            Map.Entry<String, String> authorizationProperty = new Map.Entry<String, String>() {
-                @Override
-                public String getKey() {
-                    return "Authorization";
-                }
+        URL url = new URL(uri.toString());
 
-                @Override
-                public String getValue() {
-                    return AUTHORIZATION;
-                }
+        List<Parameter> parameters = new ArrayList<>();
+        parameters.add(new Parameter("Authorization", AUTHORIZATION));
 
-                @Override
-                public String setValue(String object) {
-                    return null;
-                }
-            };
-            return ApiConnection.getResponseFromHttpConnection(url, authorizationProperty);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return ApiConnection.get(url, parameters);
     }
 }
