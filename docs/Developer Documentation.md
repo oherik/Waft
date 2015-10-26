@@ -15,24 +15,6 @@ Developer Documentation for Waft
 
 ####[2.2 Software decomposition](#softwaredecomposition)
 
-#####2.2.1 General
-
-#####2.2.2 Decomposition into subsystems
-
-#####2.2.3 Layering
-
-#####2.2.4 Dependency analysis
-
-####2.3 Concurrency issues
-
-####2.4 Persistent data management
-
-####2.5 Access control and security
-
-####2.6 Boundary conditions
-
-####3 References
-
 <a name="introduction">1. Introduction</a>
 ---------------
 
@@ -104,9 +86,9 @@ A Flag object has the information necessary to store and modify it: It's type, a
 
 ### 2.3 Server
 
-The server presents a RESTful API for ...
+The server is built upon “Node.js” and uses the node module “restify” to handle API requests. The server's purpose is to handle changes for flags. Either by getting certain flags for a vehicle or by changing the state of a flag. It does so by storing the flags and relevant information connected to the flags in a mongodb. The mongodb is located at mongolabs.
 
-[Fill in blanks]
+The API supports GET, POST, and DELETE requests.
 
 ### <a name="softwaredecomposition">2.4 Software decomposition</a>
 
@@ -143,6 +125,12 @@ The first shows the user the flags on their vehicle, and lets them delete these 
 ###### 2.4.4.1 Api
 
 ###### 2.4.4.1 Wifi
+
+#### 2.4.5 Server
+
+See the [documentation within the server repository](https://github.com/Oscmage/DAT255_server/tree/master/docs)
+
+
 
 ### 2.5 Persistent data storage
 
