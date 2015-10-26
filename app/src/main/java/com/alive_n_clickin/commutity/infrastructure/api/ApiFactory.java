@@ -19,4 +19,11 @@ public class ApiFactory {
     public static IWaftApi createWaftApi() {
         return new WaftApi();
     }
+
+    /**
+     * @return a new IVasttrafikApi of the type VasttrafikApi.
+     */
+    public static IVasttrafikApi createVasttrafikApi() {
+        return new VasttrafikApi();
+    }
 }
