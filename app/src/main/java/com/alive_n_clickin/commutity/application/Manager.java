@@ -28,9 +28,10 @@ import lombok.NonNull;
  * @since 0.2
  */
 public class Manager implements IManager, IObserver {
-    private IObservableHelper observableHelper = new ObservableHelper();
-    private IVasttrafikAdapter vasttrafikAdapter = ApiAdapterFactory.createVasttrafikAdapter();
-    private IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
+    private final IObservableHelper observableHelper = new ObservableHelper();
+    private final IVasttrafikAdapter vasttrafikAdapter = ApiAdapterFactory.createVasttrafikAdapter();
+    private final IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
+
     private IElectriCityBus currentBus = null;
     private NearbyBusScanner nearbyBusScanner;
 
