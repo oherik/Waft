@@ -1,19 +1,16 @@
 package com.alive_n_clickin.commutity.application.api;
 
-import android.net.Uri;
-
+import com.alive_n_clickin.commutity.application.VehicleFactory;
+import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.IStop;
-import com.alive_n_clickin.commutity.infrastructure.api.JsonJavaConverter;
+import com.alive_n_clickin.commutity.domain.Stop;
+import com.alive_n_clickin.commutity.infrastructure.api.ApiFactory;
+import com.alive_n_clickin.commutity.infrastructure.api.IVasttrafikApi;
 import com.alive_n_clickin.commutity.infrastructure.api.VasttrafikApiConnection;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrival;
-import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrivalList;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonStop;
-import com.alive_n_clickin.commutity.infrastructure.api.response.JsonStopList;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,71 +23,43 @@ import java.util.List;
  * @since 0.1
  */
 class VasttrafikAdapter implements IVasttrafikAdapter {
-    private final VasttrafikApiConnection vasttrafikApiConnection = new VasttrafikApiConnection();
+    private static final IVasttrafikApi vasttrafikApi = ApiFactory.createVasttrafikApi();
 
+    private IStop convertStop(JsonStop jsonStop) {
+        return new Stop(jsonStop.getName(), jsonStop.getId());
+    }
 
-    @Override
-    public List<JsonStop> getNearbyStations(double longitude, double latitude) {
-        String response = vasttrafikApiConnection.sendGetToVasttrafik(
-                "location.nearbystops",
-                "&originCoordLat=" + latitude + "&originCoordLong=" + longitude);
-        if (response != null) {
-            return new JsonJavaConverter<JsonStopList>(JsonStopList.class).toJava(
-                    response,"LocationList").getStopLocations();
-        } else {
-            return null;
+    private List<IStop> convertStops(List<JsonStop> jsonStops) {
+        List<IStop> stops = new ArrayList<>();
+        for (JsonStop jsonStop : jsonStops) {
+            stops.add(convertStop(jsonStop));
         }
+        return stops;
+    }
 
+    private List<IArrivingVehicle> convertArrivals(List<JsonArrival> jsonArrivals) {
+        List<IArrivingVehicle> arrivingVehicles = new ArrayList<>();
+        for (JsonArrival jsonArrival : jsonArrivals) {
+            arrivingVehicles.add(VehicleFactory.getArrivingVehicle(jsonArrival));
+        }
+        return arrivingVehicles;
     }
 
     @Override
-    public List<JsonStop> getSearchStops(String searchString) {
-        String response = vasttrafikApiConnection.sendGetToVasttrafik(
-                "location.name",
-                "&input=" + Uri.encode(searchString)
-        );
-
-        if (response != null) {
-            Object responseObject = new JsonJavaConverter<>(JsonStopList.class).toJava(
-                    response, "LocationList");
-            if (responseObject != null) {
-                //The api returns results that begin with "." that are not relevant to our implementation.
-                //We must filter this out. That is what the for loop does. (It's a filter)
-                JsonStopList locationList = (JsonStopList)responseObject;
-                List<JsonStop> jsonStopList = new LinkedList<>();
-                for (JsonStop jsonStop : locationList.getStopLocations()) {
-                    if (!jsonStop.getName().startsWith(".")) {
-                        jsonStopList.add(jsonStop);
-                    }
-                }
-                return jsonStopList;
-            } else {
-                return null;
-            }
-        } else {
-            return null;
-        }
+    public List<IStop> getNearbyStops(double longitude, double latitude) {
+        List<JsonStop> jsonStops = vasttrafikApi.getNearbyStops(longitude, latitude);
+        return convertStops(jsonStops);
     }
 
     @Override
-    public List<JsonArrival> getVehiclesHeadedToStop(IStop stop) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+    public List<IStop> searchForStops(String searchString) {
+        List<JsonStop> jsonStops = vasttrafikApi.searchForStops(searchString);
+        return convertStops(jsonStops);
+    }
 
-        Date dateAndTime = new Date();
-        String date = dateFormat.format(dateAndTime);
-        String time = timeFormat.format(dateAndTime);
-
-        // Since no maximum number of vehicles has been set, the API will return the 20 first.
-        String response = vasttrafikApiConnection.sendGetToVasttrafik(
-                "departureBoard",
-                        "&id=" + stop.getId() +
-                        "&date=" + date +
-                        "&time=" + time);
-        if (response != null) {
-            return new JsonJavaConverter<>(JsonArrivalList.class).toJava(
-                    response, "DepartureBoard").getDeparture();
-        }
-        return null;
+    @Override
+    public List<IArrivingVehicle> getArrivalsForStop(IStop stop) {
+        List<JsonArrival> jsonArrivals = vasttrafikApi.getArrivalsForStop(stop.getId());
+        return convertArrivals(jsonArrivals);
     }
 }
