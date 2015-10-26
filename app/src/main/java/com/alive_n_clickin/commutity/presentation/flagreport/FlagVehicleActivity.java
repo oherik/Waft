@@ -131,6 +131,9 @@ public class FlagVehicleActivity extends FragmentActivity implements IObserver {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
             case R.id.action_settings:
                 return true;
             case R.id.wifi_disabled_icon:
