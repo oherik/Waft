@@ -3,8 +3,10 @@ package com.alive_n_clickin.commutity.infrastructure.api;
 import android.net.Uri;
 import android.util.Log;
 
+import com.alive_n_clickin.commutity.infrastructure.api.response.Response;
 import com.alive_n_clickin.commutity.util.LogUtils;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -20,25 +22,24 @@ class WaftApiConnection {
     private static final String LOG_TAG = LogUtils.getLogTag(WaftApiConnection.class);
 
     /**
-     * Send a query to Waft. It will be appended to the base url.
-     * The query must be well formed.
-     * @param path the path to append for the base url, you should not add the '/' sign in front of your path.
-     * @param secondPath the query to append, leave out ? in the beginning
-     * @return a json string if successful otherwise null.
+     * Send a get request to the Waft API. The query will be appended to the base url.
+     *
+     * @param path the path to be appended to the base url.
+     * @param query the query to be appended to the url given by the base url + the specified path.
+     *              Leave out the '?' at the beginning
+     * @return a response object containing the response from the server.
+     * @throws IOException if the query parameter is invalid, or if anything goes wrong with the
+     * request.
      */
-    public String sendGetToWaft(String path,String secondPath) {
+    public Response get(String path, String query) throws IOException {
         Uri.Builder uriBuilder = Uri.parse(BASE_URL_WAFT).buildUpon();
         uriBuilder.appendPath(path);
-        uriBuilder.appendPath(secondPath);
+        uriBuilder.appendPath(query);
         Uri uri = uriBuilder.build();
 
-        try {
-            URL url = new URL(uri.toString());
-            return ApiConnection.getResponseFromHttpConnection(url);
-        } catch (MalformedURLException e) {
-            Log.e(LOG_TAG, "Couldn't create url in: sendGetToWaft with the final uri: " + uri.toString());
-        }
-        return null;
+        URL url = new URL(uri.toString());
+
+        return ApiConnection.get(url);
     }
 
     /**
