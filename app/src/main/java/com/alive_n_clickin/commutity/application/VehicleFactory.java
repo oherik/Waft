@@ -8,9 +8,9 @@ import com.alive_n_clickin.commutity.domain.ElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.IElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
+import com.alive_n_clickin.commutity.domain.IJourney;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrival;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonFlag;
-import com.alive_n_clickin.commutity.infrastructure.api.response.JsonJourney;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -45,12 +45,12 @@ public class VehicleFactory {
      */
     public static IElectriCityBus getElectriCityBus(String dgw) {
         IElectricityAdapter ecAdapter = ApiAdapterFactory.createElectricityAdapter();
-        JsonJourney jsonJourney = ecAdapter.getJourneyInfo(dgw);
+        IJourney journey = ecAdapter.getCurrentJourney(dgw);
         String destination = "";
         String journeyId = "";
-        if (jsonJourney != null) {
-            destination = jsonJourney.getDestination();
-            journeyId = ELECTRICITY_JOURNEY_ID_PREFIX + padWithZeroes(jsonJourney.getJourneyId(), 5);
+        if (journey != null) {
+            destination = journey.getDestination();
+            journeyId = ELECTRICITY_JOURNEY_ID_PREFIX + padWithZeroes(journey.getJourneyId(), 5);
         }
         List<IFlag> flags = new ArrayList<>();
 
