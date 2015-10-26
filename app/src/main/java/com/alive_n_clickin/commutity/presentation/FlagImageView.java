@@ -32,6 +32,7 @@ public class FlagImageView extends ImageView {
         images.put(Flag.Type.BAD_CLIMATE, R.drawable.flag_warm);
         images.put(Flag.Type.BROKEN_TICKET_STATION, R.drawable.flag_broken_ticket_station);
         images.put(Flag.Type.CALM, R.drawable.flag_calm);
+        images.put(Flag.Type.CLEAN, R.drawable.flag_clean);
         images.put(Flag.Type.DELAYED, R.drawable.flag_delayed);
         images.put(Flag.Type.DISTURBANCES, R.drawable.flag_rowdy);
         images.put(Flag.Type.EMPTY, R.drawable.flag_empty);
