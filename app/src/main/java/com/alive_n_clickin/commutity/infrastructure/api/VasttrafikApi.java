@@ -17,7 +17,7 @@ import java.util.List;
  * A concrete implementation of IVasttrafikApi.
  */
 class VasttrafikApi implements IVasttrafikApi {
-    private static final VasttrafikApiConnection vasttrafikApiConnection = new VasttrafikApiConnection();
+    private final VasttrafikApiConnection vasttrafikApiConnection = new VasttrafikApiConnection();
 
     @Override
     public List<JsonStop> getNearbyStops(double longitude, double latitude) {

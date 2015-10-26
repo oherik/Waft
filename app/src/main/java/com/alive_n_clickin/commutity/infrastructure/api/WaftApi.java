@@ -10,7 +10,7 @@ import java.util.List;
  * A concrete implementation of IWaftApi.
  */
 class WaftApi implements IWaftApi {
-    private static final WaftApiConnection waftApiConnection = new WaftApiConnection();
+    private final WaftApiConnection waftApiConnection = new WaftApiConnection();
 
     @Override
     public List<JsonFlag> getFlagsForJourney(String journeyId) {

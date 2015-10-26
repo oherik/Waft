@@ -23,7 +23,7 @@ import java.util.List;
  * @since 0.1
  */
 class VasttrafikAdapter implements IVasttrafikAdapter {
-    private static final IVasttrafikApi vasttrafikApi = ApiFactory.createVasttrafikApi();
+    private final IVasttrafikApi vasttrafikApi = ApiFactory.createVasttrafikApi();
 
     private IStop convertStop(JsonStop jsonStop) {
         return new Stop(jsonStop.getName(), jsonStop.getId());
