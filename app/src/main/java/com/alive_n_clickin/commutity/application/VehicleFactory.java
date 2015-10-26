@@ -26,7 +26,7 @@ import lombok.NonNull;
  * @since 0.2
  */
 public class VehicleFactory {
-    public static final String ELECTRICITY_SHORT_ROUTE_NAME = "55";
+    private static final String ELECTRICITY_SHORT_ROUTE_NAME = "55";
 
     /**
      * Takes a dgw and returns a new bus object with all the data for the bus with that DGW.
