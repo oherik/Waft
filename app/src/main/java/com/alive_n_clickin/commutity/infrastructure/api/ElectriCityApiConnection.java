@@ -2,6 +2,7 @@ package com.alive_n_clickin.commutity.infrastructure.api;
 
 import android.net.Uri;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
