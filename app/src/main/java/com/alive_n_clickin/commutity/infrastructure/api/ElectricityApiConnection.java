@@ -13,7 +13,7 @@ import java.util.Map;
  *
  * @since 0.2
  */
-public class ElectricityApiConnection {
+class ElectricityApiConnection {
     private static final String BASE_URL_ELECTRICITY = "https://ece01.ericsson.net:4443/ecity";
     // Username and password, base64 encoded
     private static final String AUTHORIZATION = "Basic Z3JwOToza1B2MmlTU3Nu";

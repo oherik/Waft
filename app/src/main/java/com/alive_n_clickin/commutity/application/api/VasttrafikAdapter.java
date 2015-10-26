@@ -6,7 +6,6 @@ import com.alive_n_clickin.commutity.domain.IStop;
 import com.alive_n_clickin.commutity.domain.Stop;
 import com.alive_n_clickin.commutity.infrastructure.api.ApiFactory;
 import com.alive_n_clickin.commutity.infrastructure.api.IVasttrafikApi;
-import com.alive_n_clickin.commutity.infrastructure.api.VasttrafikApiConnection;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrival;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonStop;
 
