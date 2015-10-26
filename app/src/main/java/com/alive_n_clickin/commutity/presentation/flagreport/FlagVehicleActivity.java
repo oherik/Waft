@@ -24,7 +24,7 @@ import com.alive_n_clickin.commutity.util.event.IObserver;
  *
  * @since 0.1
  */
-public class FlagVehicle extends FragmentActivity implements IObserver {
+public class FlagVehicleActivity extends FragmentActivity implements IObserver {
     private IManager manager;
 
     private ActionBar actionBar;
