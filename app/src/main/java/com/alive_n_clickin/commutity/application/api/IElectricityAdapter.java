@@ -1,14 +1,19 @@
 package com.alive_n_clickin.commutity.application.api;
 
 
-import com.alive_n_clickin.commutity.infrastructure.api.response.JsonJourney;
+import com.alive_n_clickin.commutity.domain.IJourney;
 
 /**
- * This interface represent the possible request to the Electricity API combined with their responses.
+ * An interface for adapters between the ElectriCity API and our domain.
  *
  * @since 0.1
  */
 public interface IElectricityAdapter {
-
-    JsonJourney getJourneyInfo(String dgw);
+    /**
+     * Returns the current journey for a bus.
+     *
+     * @param dgw the DGW of the bus to get the journey of.
+     * @return a journey object with information about the current journey of the bus.
+     */
+    IJourney getCurrentJourney(String dgw);
 }
