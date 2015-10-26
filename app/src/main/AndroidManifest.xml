@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.flagreport.FlagVehicle"
+            android:name=".presentation.flagreport.FlagVehicleActivity"
             android:parentActivityName=".presentation.main.MainActivity"
             android:theme="@style/WaftFlagTheme"
             android:label=""
