@@ -12,7 +12,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -28,52 +29,58 @@ class ApiConnection {
     private final static String LOG_TAG = LogUtils.getLogTag(ApiConnection.class);
 
     /**
-     * Returns the response of a connection. Handles parsing and exceptions
-     * @param url takes the url to make a connection to
-     * @param requestProperties an optional amount of request properties, ordered as key value pairs
-     * @return the response if there is one, null otherwise. Check log messages if null is returned
+     * Returns the response of a get request to an url without any parameters.
+     *
+     * @param url the url to send a get request to.
+     * @return the response of the query.
+     * @throws IOException if there is any error while establishing the connection or reading from it.
      */
-    static Response get(URL url, Map.Entry<String, String>... requestProperties) throws IOException {
-        HttpURLConnection connection = establishGetConnection(url);
-
-        if(connection != null){
-            try {
-                for (Map.Entry<String, String> keyValuePair :
-                        requestProperties
-                        ) {
-                    connection.setRequestProperty(keyValuePair.getKey(), keyValuePair.getValue());
-                }
-                connection.connect();
-                InputStream inputStream = connection.getInputStream();
-                if (inputStream == null) {
-                    return null;
-                }
-                return readStream(inputStream);
-
-            } catch (IOException e) {
-                String errors = readStream(connection.getErrorStream());
-            } finally {
-                connection.disconnect();
-            }
-        }
-        //If we reached this statement, we have had an exception in the try block.
-        return null;
+    static Response get(URL url) throws IOException {
+        return get(url, new ArrayList<Parameter>());
     }
 
-    private static HttpURLConnection establishGetConnection(URL url){
+    /**
+     * Returns the response of a get request to an url with the specified parameters.
+     *
+     * @param url the url to send a get request to.
+     * @param parameters a list of parameters.
+     * @return the response of the query.
+     * @throws IOException if there is any error while establishing the connection or reading from it.
+     */
+    static Response get(URL url, List<Parameter> parameters) throws IOException {
+        int status;
+        String body;
+
         HttpURLConnection connection = null;
+        InputStream inputStream = null;
+
         try {
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
-            return connection;
-        } catch (IOException e) {
-            String errorMessage = "Error establishing a connection";
-            if (connection != null) {
-                errorMessage = ApiConnection.readStream(connection.getErrorStream());
+
+            if (parameters != null) {
+                for (Parameter parameter : parameters) {
+                    connection.setRequestProperty(parameter.getKey(), parameter.getValue());
+                }
             }
-            Log.e(LOG_TAG, errorMessage, e);
+
+            connection.connect();
+
+            inputStream = connection.getInputStream();
+
+            status = connection.getResponseCode();
+            body = readStream(inputStream);
+        } finally {
+            if (inputStream != null) {
+                inputStream.close();
+            }
+
+            if (connection != null) {
+                connection.disconnect();
+            }
         }
-        return null;
+
+        return new Response(status, body);
     }
 
     /**
