@@ -28,6 +28,8 @@ import lombok.NonNull;
 public class VehicleFactory {
     private static final String ELECTRICITY_SHORT_ROUTE_NAME = "55";
 
+    private static final IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
+
     /**
      * Takes a dgw and returns a new bus object with all the data for the bus with that DGW.
      *
@@ -69,7 +71,6 @@ public class VehicleFactory {
 
         List<IFlag> flags = new LinkedList<>();
         if (shortRouteName.equals(ELECTRICITY_SHORT_ROUTE_NAME)) {
-            IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
             flags = waftAdapter.getFlagsForVehicle(journeyId);
         }
 
