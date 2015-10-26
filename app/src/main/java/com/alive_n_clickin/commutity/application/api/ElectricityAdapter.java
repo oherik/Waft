@@ -2,7 +2,7 @@ package com.alive_n_clickin.commutity.application.api;
 
 import com.alive_n_clickin.commutity.domain.IJourney;
 import com.alive_n_clickin.commutity.domain.Journey;
-import com.alive_n_clickin.commutity.infrastructure.api.ElectriCityApi;
+import com.alive_n_clickin.commutity.infrastructure.api.ApiFactory;
 import com.alive_n_clickin.commutity.infrastructure.api.IElectriCityApi;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonJourney;
 
@@ -30,7 +30,7 @@ class ElectricityAdapter implements IElectricityAdapter {
      */
     @Override
     public IJourney getCurrentJourney(String dgw) {
-        IElectriCityApi electriCityApi = new ElectriCityApi();
+        IElectriCityApi electriCityApi = ApiFactory.createElectriCityApi();
 
         JsonJourney jsonJourney = electriCityApi.getLatestJourney(dgw);
 
