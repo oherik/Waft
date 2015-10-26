@@ -15,15 +15,17 @@ import java.util.Map;
 import java.util.Scanner;
 
 /**
- * For connecting to different API:s. Allows abstraction by letting us send only the query parameters to the api we want, not bothering about authentication and the likes.
- * ApiConnection is package private: no need for layers higher up to use it directly!
+ * For connecting to different API:s. Allows abstraction by letting us send only the query parameters
+ * to the API we want, not bothering about authentication and the likes. ApiConnection is package
+ * private: no need for layers higher up to use it directly!
  *
  * @since 0.1
  */
 class ApiConnection {
-    private final static String charset = "UTF-8";
-    private final static String contentType = "application/x-www-form-urlencoded";
+    private final static String CHARSET = "UTF-8";
+    private final static String CONTENT_TYPE = "application/x-www-form-urlencoded";
     private final static String LOG_TAG = LogUtils.getLogTag(ApiConnection.class);
+
     /**
      * Returns the response of a connection. Handles parsing and exceptions
      * @param url takes the url to make a connection to
@@ -106,8 +108,8 @@ class ApiConnection {
             serverConnection.setDoOutput(true);
             serverConnection.setInstanceFollowRedirects(false);
             serverConnection.setRequestMethod("POST");
-            serverConnection.setRequestProperty("Content-Type", contentType);
-            serverConnection.setRequestProperty("charset", charset);
+            serverConnection.setRequestProperty("Content-Type", CONTENT_TYPE);
+            serverConnection.setRequestProperty("charset", CHARSET);
             serverConnection.setRequestProperty("Content-Length", Integer.toString(bodyPostDataLength));
             serverConnection.setUseCaches(false);
 
