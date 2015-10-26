@@ -28,11 +28,6 @@ import lombok.NonNull;
  * @since 0.2
  */
 public class VehicleFactory {
-
-    private final static String CLASS_NUMBER = "9015";
-    private final static String THM_NUMBER = "014";
-    private final static String ELECTRICITY_LINE_NUMBER = "5055";
-    private final static String ELECTRICITY_JOURNEY_ID_PREFIX = CLASS_NUMBER + THM_NUMBER + ELECTRICITY_LINE_NUMBER;
     public static final String ELECTRICITY_SHORT_ROUTE_NAME = "55";
 
     /**
@@ -46,12 +41,10 @@ public class VehicleFactory {
     public static IElectriCityBus getElectriCityBus(String dgw) {
         IElectricityAdapter ecAdapter = ApiAdapterFactory.createElectricityAdapter();
         IJourney journey = ecAdapter.getCurrentJourney(dgw);
-        String destination = "";
-        String journeyId = "";
-        if (journey != null) {
-            destination = journey.getDestination();
-            journeyId = ELECTRICITY_JOURNEY_ID_PREFIX + padWithZeroes(journey.getJourneyId(), 5);
-        }
+
+        String destination = journey.getDestination();
+        String journeyId = journey.getJourneyId();
+
         List<IFlag> flags = new ArrayList<>();
 
         IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
