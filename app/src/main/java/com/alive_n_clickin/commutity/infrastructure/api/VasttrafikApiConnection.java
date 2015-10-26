@@ -3,7 +3,6 @@ package com.alive_n_clickin.commutity.infrastructure.api;
 import android.net.Uri;
 
 import com.alive_n_clickin.commutity.infrastructure.api.response.Response;
-import com.alive_n_clickin.commutity.util.LogUtils;
 
 import java.io.IOException;
 import java.net.URL;
@@ -14,8 +13,6 @@ import java.net.URL;
  * @since 0.1
  */
 class VasttrafikApiConnection {
-    private static final String LOG_TAG = LogUtils.getLogTag(VasttrafikApiConnection.class);
-
     private static final String BASE_URL_VASTTRAFIK = "http://api.vasttrafik.se/bin/rest.exe/v1/";
     private static final String API_KEY = "69b13ace-0bc1-4203-8a56-cc95648f4dca";
 
