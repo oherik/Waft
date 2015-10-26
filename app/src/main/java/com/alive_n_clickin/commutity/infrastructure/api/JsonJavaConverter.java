@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class JsonJavaConverter<T> {
      */
     public static <T> List<T> toJavaList(String json, Class<T[]> classArray) {
         T[] arr = new Gson().fromJson(json, classArray);
-        return arr == null ? null : Arrays.asList(arr); //if the result couldn't be parsed, we can't create list from it.
+        return arr == null ? new ArrayList<T>() : Arrays.asList(arr); //if the result couldn't be parsed, we can't create list from it.
     }
 
     /**
