@@ -2,15 +2,13 @@ package com.alive_n_clickin.commutity.application;
 
 import android.os.AsyncTask;
 
+import com.alive_n_clickin.commutity.application.api.ApiAdapterFactory;
+import com.alive_n_clickin.commutity.application.api.IVasttrafikAdapter;
+import com.alive_n_clickin.commutity.application.api.IWaftAdapter;
 import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.IElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.domain.IStop;
-import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
-import com.alive_n_clickin.commutity.infrastructure.api.IVasttrafikAdapter;
-import com.alive_n_clickin.commutity.infrastructure.api.IWaftAdapter;
-import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrival;
-import com.alive_n_clickin.commutity.infrastructure.api.response.JsonStop;
 import com.alive_n_clickin.commutity.util.event.CantSearchForVehiclesEvent;
 import com.alive_n_clickin.commutity.util.event.CurrentBusChangeEvent;
 import com.alive_n_clickin.commutity.util.event.IEvent;
@@ -19,7 +17,6 @@ import com.alive_n_clickin.commutity.util.event.IObserver;
 import com.alive_n_clickin.commutity.util.event.NewBusNearbyEvent;
 import com.alive_n_clickin.commutity.util.event.ObservableHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import lombok.NonNull;
@@ -31,9 +28,10 @@ import lombok.NonNull;
  * @since 0.2
  */
 public class Manager implements IManager, IObserver {
-    private IObservableHelper observableHelper = new ObservableHelper();
-    private IVasttrafikAdapter vasttrafikAdapter;
-    private IWaftAdapter waftAdapter;
+    private final IObservableHelper observableHelper = new ObservableHelper();
+    private final IVasttrafikAdapter vasttrafikAdapter = ApiAdapterFactory.createVasttrafikAdapter();
+    private final IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
+
     private IElectriCityBus currentBus = null;
     private NearbyBusScanner nearbyBusScanner;
 
@@ -46,8 +44,6 @@ public class Manager implements IManager, IObserver {
     public Manager(NearbyBusScanner nearbyBusScanner) {
         this.nearbyBusScanner = nearbyBusScanner;
         this.nearbyBusScanner.addObserver(this);
-        this.waftAdapter = ApiAdapterFactory.createWaftAdapter();
-        this.vasttrafikAdapter = ApiAdapterFactory.createVasttrafikAdapter();
     }
 
     /**
@@ -140,24 +136,12 @@ public class Manager implements IManager, IObserver {
 
     @Override
     public List<IArrivingVehicle> getVehicles(@NonNull IStop stop) {
-        List<JsonArrival> jsonArrivals = vasttrafikAdapter.getVehiclesHeadedToStop(stop);
-        List<IArrivingVehicle> arrivingVehicles = new ArrayList<>();
-        if (jsonArrivals != null) {
-            for(JsonArrival a : jsonArrivals) {
-                arrivingVehicles.add(VehicleFactory.getArrivingVehicle(a));
-            }
-        }
-        return arrivingVehicles;
+        return vasttrafikAdapter.getArrivalsForStop(stop);
     }
 
     @Override
     public List<IStop> searchForStops(@NonNull String searchQuery) {
-        List<JsonStop> jsonStopResponse = vasttrafikAdapter.getSearchStops(searchQuery);
-        List<IStop> stops = new ArrayList<>();
-        for(JsonStop s : jsonStopResponse) {
-            stops.add(StopFactory.getStop(s));
-        }
-        return stops;
+        return vasttrafikAdapter.searchForStops(searchQuery);
     }
 
     public boolean canSearch() {
