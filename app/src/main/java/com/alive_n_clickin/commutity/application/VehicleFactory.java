@@ -29,6 +29,7 @@ public class VehicleFactory {
     private static final String ELECTRICITY_SHORT_ROUTE_NAME = "55";
 
     private static final IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
+    private static final IElectricityAdapter electriCityAdapter = ApiAdapterFactory.createElectricityAdapter();
 
     /**
      * Takes a dgw and returns a new bus object with all the data for the bus with that DGW.
@@ -39,13 +40,11 @@ public class VehicleFactory {
      * @return a new bus object.
      */
     public static IElectriCityBus getElectriCityBus(String dgw) {
-        IElectricityAdapter ecAdapter = ApiAdapterFactory.createElectricityAdapter();
-        IJourney journey = ecAdapter.getCurrentJourney(dgw);
+        IJourney journey = electriCityAdapter.getCurrentJourney(dgw);
 
         String destination = journey.getDestination();
         String journeyId = journey.getJourneyId();
 
-        IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
         List<IFlag> flags = waftAdapter.getFlagsForVehicle(journeyId);
 
         return new ElectriCityBus(destination, journeyId, dgw, flags);
