@@ -10,15 +10,6 @@ import java.util.List;
  */
 public interface IVasttrafikApi {
     /**
-     * Returns a list of stops near a coordinate.
-     *
-     * @param longitude the longitude of the coordinate.
-     * @param latitude the latitude of the coordinate.
-     * @return a list of stops near a coordinate. If no stops are near, an empty list is returned.
-     */
-    List<JsonStop> getNearbyStops(double longitude, double latitude);
-
-    /**
      * Returns a list of stops that matches a given search string.
      *
      * @param searchString the string to search for.

@@ -46,12 +46,6 @@ class VasttrafikAdapter implements IVasttrafikAdapter {
     }
 
     @Override
-    public List<IStop> getNearbyStops(double longitude, double latitude) {
-        List<JsonStop> jsonStops = vasttrafikApi.getNearbyStops(longitude, latitude);
-        return convertStops(jsonStops);
-    }
-
-    @Override
     public List<IStop> searchForStops(String searchString) {
         List<JsonStop> jsonStops = vasttrafikApi.searchForStops(searchString);
         return convertStops(jsonStops);
