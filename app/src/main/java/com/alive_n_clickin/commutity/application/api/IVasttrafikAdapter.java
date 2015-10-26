@@ -11,17 +11,7 @@ import java.util.List;
  * @since 0.1
  */
 public interface IVasttrafikAdapter {
-     /**
-      * This function gives you a list of the nearest stops to the location provided.
-      *
-      * @param longitude
-      * @param latitude
-      * @return a list of stops if the search was successful. If the search was unsuccessful, an
-      * empty list is returned.
-      */
-     List<IStop> getNearbyStops(double longitude, double latitude);
-
-     /**
+    /**
       * This functions gives you a list of stops related to the search string you provide.
       *
       * @param searchString

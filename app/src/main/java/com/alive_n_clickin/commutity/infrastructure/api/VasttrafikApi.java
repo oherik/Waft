@@ -20,23 +20,6 @@ class VasttrafikApi implements IVasttrafikApi {
     private final VasttrafikApiConnection vasttrafikApiConnection = new VasttrafikApiConnection();
 
     @Override
-    public List<JsonStop> getNearbyStops(double longitude, double latitude) {
-        String response = vasttrafikApiConnection.sendGetToVasttrafik(
-                "location.nearbystops",
-                "&originCoordLat=" + latitude + "&originCoordLong=" + longitude);
-
-        List<JsonStop> stops = new ArrayList<>();
-
-        if (response != null) {
-            JsonStopList jsonStopList = new JsonJavaConverter<>(JsonStopList.class).toJava(
-                    response, "LocationList");
-            stops = jsonStopList.getStopLocations();
-        }
-
-        return stops;
-    }
-
-    @Override
     public List<JsonStop> searchForStops(String searchString) {
         String response = vasttrafikApiConnection.sendGetToVasttrafik("location.name",
                 "&input=" + Uri.encode(searchString));
