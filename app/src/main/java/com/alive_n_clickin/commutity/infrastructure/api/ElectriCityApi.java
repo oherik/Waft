@@ -11,6 +11,8 @@ import java.util.List;
  * A concrete implementation of IElectriCityApi.
  */
 class ElectriCityApi implements IElectriCityApi {
+    private static final ElectricityApiConnection electricityApiConnection = new ElectricityApiConnection();
+
     public static final String RESOURCE_SPEC_DESTINATION = "Destination_Value";
     public static final String RESOURCE_SPEC_JOURNEY_ID = "Journey_Name_Value";
 
@@ -64,7 +66,6 @@ class ElectriCityApi implements IElectriCityApi {
         String query = "dgw=" + dgw + "&sensorSpec=Ericsson$Journey_Info" +
                 "&t1=" + startTime + "&t2=" + endTime;
 
-        ElectricityApiConnection electricityApiConnection = new ElectricityApiConnection();
         String response = electricityApiConnection.sendGetToElectricity(query);
 
         return JsonJavaConverter.toJavaList(response, JsonJourneyInfo[].class);
