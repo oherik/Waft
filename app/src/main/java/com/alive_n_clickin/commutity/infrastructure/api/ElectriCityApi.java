@@ -11,10 +11,10 @@ import java.util.List;
  * A concrete implementation of IElectriCityApi.
  */
 class ElectriCityApi implements IElectriCityApi {
-    private static final ElectricityApiConnection electricityApiConnection = new ElectricityApiConnection();
-
     public static final String RESOURCE_SPEC_DESTINATION = "Destination_Value";
     public static final String RESOURCE_SPEC_JOURNEY_ID = "Journey_Name_Value";
+
+    private final ElectricityApiConnection electricityApiConnection = new ElectricityApiConnection();
 
     @Override
     public JsonJourney getLatestJourney(String dgw) {
