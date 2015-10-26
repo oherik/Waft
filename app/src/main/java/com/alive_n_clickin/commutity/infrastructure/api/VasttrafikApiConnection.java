@@ -13,7 +13,7 @@ import java.net.URL;
  *
  * @since 0.1
  */
-public class VasttrafikApiConnection {
+class VasttrafikApiConnection {
     private static final String BASE_URL_VASTTRAFIK =
             "http://api.vasttrafik.se/bin/rest.exe/v1/";
     private static final String API_KEY = "<YOUR API KEY>";

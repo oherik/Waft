@@ -13,7 +13,7 @@ import java.net.URL;
  *
  * @since 0.2
  */
-public class WaftApiConnection {
+class WaftApiConnection {
     private static final String BASE_URL_WAFT = "http://95.85.21.47/";
     private static final String FLAGS = "flags";
     private static final String DELETE = "delete";
