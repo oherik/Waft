@@ -6,9 +6,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
-/**
- * Created by Sebastian on 2015-10-26.
- */
+
 public class StopTest {
 
     private long id = 10;
@@ -20,18 +18,18 @@ public class StopTest {
         boolean exception;
         //test that creating a stop with no name returns exception
         exception = false;
-        try{
+        try {
             new Stop(null, id);
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             exception = true;
         }
         assertTrue(exception);
 
         exception = false;
         //test that including stop name will not result in exception
-        try{
+        try {
             new Stop(name, id);
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             exception = true;
         }
         assertFalse(exception);
@@ -47,7 +45,7 @@ public class StopTest {
     }
 
     @Test
-    public void testGetId() throws Exception{
+    public void testGetId() throws Exception {
         Stop stop = new Stop(name, id);
         assertEquals(id, stop.getId());
     }
