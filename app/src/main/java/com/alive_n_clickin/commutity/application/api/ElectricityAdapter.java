@@ -37,7 +37,9 @@ class ElectricityAdapter implements IElectricityAdapter {
     }
 
     /**
-     * Pads a string with zeroes.
+     * Pads a string with zeroes. This is used when you want to fill a string with zeroes until it
+     * meets a certain length requirement. For example if we have the string "15" and want it to be
+     * of length 5, this method will return the string "00015".
      *
      * @param string the string to pad.
      * @param wantedLength the wanted length of the returned string
