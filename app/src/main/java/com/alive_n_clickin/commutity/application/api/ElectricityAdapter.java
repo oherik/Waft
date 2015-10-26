@@ -34,6 +34,24 @@ class ElectricityAdapter implements IElectricityAdapter {
 
         JsonJourney jsonJourney = electriCityApi.getLatestJourney(dgw);
 
-        return new Journey(jsonJourney.getDestination(), ELECTRICITY_JOURNEY_ID_PREFIX + jsonJourney.getJourneyId());
+        return new Journey(jsonJourney.getDestination(), ELECTRICITY_JOURNEY_ID_PREFIX + padWithZeroes(jsonJourney.getJourneyId(), 5));
+    }
+
+    /**
+     * Pads a string with zeroes.
+     *
+     * @param string the string to pad.
+     * @param wantedLength the wanted length of the returned string
+     * @return a new string consisting of the sent in string padded with zeroes so that it's size
+     * equals wantedLength.
+     */
+    private static String padWithZeroes(String string, int wantedLength) {
+        String zeroes = "";
+        for (int i = 0; i < wantedLength; i++) {
+            zeroes += "0";
+        }
+
+        String paddedString = zeroes + string;
+        return paddedString.substring(paddedString.length() - wantedLength, paddedString.length());
     }
 }
