@@ -12,4 +12,11 @@ public class ApiFactory {
     public static IElectriCityApi createElectriCityApi() {
         return new ElectriCityApi();
     }
+
+    /**
+     * @return a new IWaftApi of the type WaftApi.
+     */
+    public static IWaftApi createWaftApi() {
+        return new WaftApi();
+    }
 }
