@@ -9,11 +9,11 @@ import java.util.Map;
 /**
  * This class creates a valid http connection for the Electricity API, which is then passed along to {@link ApiConnection}.
  *
- * ElectricityApiConnection is package private, no need for higher layers to use it directly.
+ * ElectriCityApiConnection is package private, no need for higher layers to use it directly.
  *
  * @since 0.2
  */
-class ElectricityApiConnection {
+class ElectriCityApiConnection {
     private static final String BASE_URL_ELECTRICITY = "https://ece01.ericsson.net:4443/ecity";
     // Username and password, base64 encoded
     private static final String AUTHORIZATION = "<YOUR API KEY>";

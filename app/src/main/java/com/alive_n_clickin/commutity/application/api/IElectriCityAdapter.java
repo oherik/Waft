@@ -8,7 +8,7 @@ import com.alive_n_clickin.commutity.domain.IJourney;
  *
  * @since 0.1
  */
-public interface IElectricityAdapter {
+public interface IElectriCityAdapter {
     /**
      * Returns the current journey for a bus.
      *

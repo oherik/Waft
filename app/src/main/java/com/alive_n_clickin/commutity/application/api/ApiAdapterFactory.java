@@ -13,8 +13,8 @@ public class ApiAdapterFactory {
     /**
      * @return a new IElectriCityAdapter of the type ElectriCityAdapter.
      */
-    public static IElectricityAdapter createElectricityAdapter() {
-        return new ElectricityAdapter();
+    public static IElectriCityAdapter createElectricityAdapter() {
+        return new ElectriCityAdapter();
     }
 
     /**

@@ -14,7 +14,7 @@ class ElectriCityApi implements IElectriCityApi {
     public static final String RESOURCE_SPEC_DESTINATION = "Destination_Value";
     public static final String RESOURCE_SPEC_JOURNEY_ID = "Journey_Name_Value";
 
-    private final ElectricityApiConnection electricityApiConnection = new ElectricityApiConnection();
+    private final ElectriCityApiConnection electriCityApiConnection = new ElectriCityApiConnection();
 
     @Override
     public JsonJourney getLatestJourney(String dgw) {
@@ -66,7 +66,7 @@ class ElectriCityApi implements IElectriCityApi {
         String query = "dgw=" + dgw + "&sensorSpec=Ericsson$Journey_Info" +
                 "&t1=" + startTime + "&t2=" + endTime;
 
-        String response = electricityApiConnection.sendGetToElectricity(query);
+        String response = electriCityApiConnection.sendGetToElectricity(query);
 
         return JsonJavaConverter.toJavaList(response, JsonJourneyInfo[].class);
     }

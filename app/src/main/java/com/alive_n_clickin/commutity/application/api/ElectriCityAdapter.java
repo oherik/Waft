@@ -16,7 +16,7 @@ import com.alive_n_clickin.commutity.infrastructure.api.response.JsonJourney;
  *
  * @since 0.1
  */
-class ElectricityAdapter implements IElectricityAdapter {
+class ElectriCityAdapter implements IElectriCityAdapter {
     private final static String CLASS_NUMBER = "9015";
     private final static String THM_NUMBER = "014";
     private final static String ELECTRICITY_LINE_NUMBER = "5055";

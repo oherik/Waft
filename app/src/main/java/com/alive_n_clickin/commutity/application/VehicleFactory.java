@@ -1,7 +1,7 @@
 package com.alive_n_clickin.commutity.application;
 
 import com.alive_n_clickin.commutity.application.api.ApiAdapterFactory;
-import com.alive_n_clickin.commutity.application.api.IElectricityAdapter;
+import com.alive_n_clickin.commutity.application.api.IElectriCityAdapter;
 import com.alive_n_clickin.commutity.application.api.IWaftAdapter;
 import com.alive_n_clickin.commutity.domain.ArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.ElectriCityBus;
@@ -29,7 +29,7 @@ public class VehicleFactory {
     private static final String ELECTRICITY_SHORT_ROUTE_NAME = "55";
 
     private static final IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
-    private static final IElectricityAdapter electriCityAdapter = ApiAdapterFactory.createElectricityAdapter();
+    private static final IElectriCityAdapter electriCityAdapter = ApiAdapterFactory.createElectricityAdapter();
 
     /**
      * Takes a dgw and returns a new bus object with all the data for the bus with that DGW.
