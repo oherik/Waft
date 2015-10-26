@@ -18,7 +18,7 @@ import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.application.IManager;
 import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.IStop;
-import com.alive_n_clickin.commutity.presentation.flagreport.FlagVehicle;
+import com.alive_n_clickin.commutity.presentation.flagreport.FlagVehicleActivity;
 import com.alive_n_clickin.commutity.util.LogUtils;
 
 import java.util.ArrayList;
@@ -96,7 +96,7 @@ public class MainFragment extends Fragment {
     private class ShowPostFlagViewButtonListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(getContext(), FlagVehicle.class);
+            Intent intent = new Intent(getContext(), FlagVehicleActivity.class);
             startActivity(intent);
         }
     }
