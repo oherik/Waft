@@ -10,9 +10,7 @@ import com.alive_n_clickin.commutity.domain.IElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.domain.IJourney;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrival;
-import com.alive_n_clickin.commutity.infrastructure.api.response.JsonFlag;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -45,13 +43,8 @@ public class VehicleFactory {
         String destination = journey.getDestination();
         String journeyId = journey.getJourneyId();
 
-        List<IFlag> flags = new ArrayList<>();
-
         IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
-        List<JsonFlag> jsonFlagList = waftAdapter.getFlagsForVehicle(journeyId);
-        if(jsonFlagList != null) {
-            flags.addAll(FlagFactory.getFlags(jsonFlagList));
-        }
+        List<IFlag> flags = waftAdapter.getFlagsForVehicle(journeyId);
 
         return new ElectriCityBus(destination, journeyId, dgw, flags);
     }
@@ -95,8 +88,7 @@ public class VehicleFactory {
         List<IFlag> flags = new LinkedList<>();
         if (shortRouteName.equals(ELECTRICITY_SHORT_ROUTE_NAME)) {
             IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
-            List<JsonFlag> jsonFlags = waftAdapter.getFlagsForVehicle(journeyId);
-            flags = FlagFactory.getFlags(jsonFlags);
+            flags = waftAdapter.getFlagsForVehicle(journeyId);
         }
 
         return new ArrivingVehicle(direction, shortRouteName, journeyId, realArrival, flags, lineColor);
