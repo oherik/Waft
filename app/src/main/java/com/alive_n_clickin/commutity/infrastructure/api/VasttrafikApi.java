@@ -32,6 +32,10 @@ class VasttrafikApi implements IVasttrafikApi {
         JsonStopList jsonStopList = new JsonJavaConverter<>(JsonStopList.class).toJava(
                 response.getBody(), "LocationList");
 
+        if (jsonStopList == null) {
+            return new ArrayList<>();
+        }
+
         // The api returns results that begin with "." that are not relevant to our implementation.
         // We must filter this out. That is what the for loop does. (It's a filter)
         List<JsonStop> jsonStops = new ArrayList<>();
