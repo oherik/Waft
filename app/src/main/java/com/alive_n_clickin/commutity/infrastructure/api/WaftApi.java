@@ -1,6 +1,7 @@
 package com.alive_n_clickin.commutity.infrastructure.api;
 
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonFlag;
+import com.alive_n_clickin.commutity.infrastructure.api.response.Response;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,15 +15,13 @@ class WaftApi implements IWaftApi {
 
     @Override
     public List<JsonFlag> getFlagsForJourney(String journeyId) {
-        String response = waftApiConnection.sendGetToWaft("flags", journeyId);
+        Response response = waftApiConnection.get("flags", journeyId);
 
-        List<JsonFlag> flags = new ArrayList<>();
-
-        if (response != null) {
-            flags = JsonJavaConverter.toJavaList(response, JsonFlag[].class);
+        if (response == null) {
+            return new ArrayList<>();
         }
 
-        return flags;
+        return JsonJavaConverter.toJavaList(response.getBody(), JsonFlag[].class);
     }
 
     @Override
