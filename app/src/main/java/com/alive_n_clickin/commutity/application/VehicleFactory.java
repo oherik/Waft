@@ -42,10 +42,6 @@ public class VehicleFactory {
     public static IElectriCityBus getElectriCityBus(String dgw) {
         IJourney journey = electriCityAdapter.getCurrentJourney(dgw);
 
-        if (journey == null) {
-            return null;
-        }
-
         String destination = journey.getDestination();
         String journeyId = journey.getJourneyId();
 

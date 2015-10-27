@@ -14,7 +14,7 @@ public interface IElectriCityApi {
      *
      * @param dgw the DGW for the bus to get the latest journey for.
      * @return a journey object containing the latest journey information from the API for the
-     * specified bus.
+     * specified bus. If no journey info is found, an empty JsonJourney object is returned.
      */
     JsonJourney getLatestJourney(String dgw);
 
