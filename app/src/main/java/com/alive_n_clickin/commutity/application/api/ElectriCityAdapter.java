@@ -33,6 +33,9 @@ class ElectriCityAdapter implements IElectriCityAdapter {
     @Override
     public IJourney getCurrentJourney(String dgw) {
         JsonJourney jsonJourney = electriCityApi.getLatestJourney(dgw);
+        if (jsonJourney == null) {
+            return null;
+        }
         return new Journey(jsonJourney.getDestination(), ELECTRICITY_JOURNEY_ID_PREFIX + padWithZeroes(jsonJourney.getJourneyId(), 5));
     }
 
