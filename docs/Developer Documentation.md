@@ -132,7 +132,7 @@ See the [documentation within the server repository](https://github.com/Oscmage/
 
 ### 2.5 Persistent data storage
 
-The only data that is stored persistently is the flags. These are stored on the server, which can be manipulated via a RESTful API. The flags are stored in a MongoDB document database. There are no relations. Here is what a flag looks like, in JSON format:
+The only data that is stored persistently is the flags. These are stored at mongolabs, which can be manipulated via a RESTful API. The flags are stored in a MongoDB document database. There are no relations. Here is what a flag looks like, in JSON format:
 
         {
             "_id": "562e3bcfed6c36266108b763",
@@ -177,11 +177,29 @@ All external dependencies for the Android Application are defined in the Gradle 
 
 #### 2.7.2 Server dependencies
 
-##### 2.7.2.1 Node.js
+The server runs on [Node.js](https://nodejs.org/en/) the dependencies or modules as they're callled in node is specified below:
 
 ##### 2.7.2.2 Restify
 
-##### 2.7.2.3 MongoDB
+Restify is used to create a lightweight REST API for the server, more information regarding Restify and its docs can be found [here](http://restify.com/).
+
+##### 2.7.2.3 (MongoDB)
+
+##### 2.7.2.4 Mongoose
+
+To model the schema of flags in the database we use Mongoose, read more about Mongoose [here](http://mongoosejs.com/).
+
+##### 2.7.2.5 Nodemon
+
+Nodemon is a simple module for automaticly restarting the server when source code is updated, read more about it [here](http://nodemon.io/).
+
+##### 2.7.2.6 Chai
+
+Chai is an assertion library for node, which is used together with the module Mocha to run tests, read more about it [here](http://chaijs.com/).
+
+##### 2.7.2.6 Mocha
+
+Mocha is the test framework used, together with Chai it takes care of testing on the server, read more about Mocha [here](http://mochajs.org/).
 
 References
 ----------
