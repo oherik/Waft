@@ -16,10 +16,11 @@ import java.net.URL;
  * @since 0.2
  */
 class WaftApiConnection {
-    private static final String BASE_URL_WAFT = "http://95.85.21.47/";
-    private static final String FLAGS = "flags";
-    private static final String DELETE = "delete";
     private static final String LOG_TAG = LogUtils.getLogTag(WaftApiConnection.class);
+
+    private static final String BASE_URL_WAFT = "http://95.85.21.47/";
+    private static final String FLAGS_PATH = "flags";
+    private static final String DELETE_PATH = "delete";
 
     /**
      * Send a get request to the Waft API. The query will be appended to the base url.
@@ -72,8 +73,8 @@ class WaftApiConnection {
      */
     public int sendDeleteToWaft(String flagId){
         Uri.Builder uriBuilder = Uri.parse(BASE_URL_WAFT).buildUpon();
-        uriBuilder.appendPath(FLAGS);
-        uriBuilder.appendPath(DELETE);
+        uriBuilder.appendPath(FLAGS_PATH);
+        uriBuilder.appendPath(DELETE_PATH);
         uriBuilder.appendPath(flagId);
         Uri uri = uriBuilder.build();
         try {
