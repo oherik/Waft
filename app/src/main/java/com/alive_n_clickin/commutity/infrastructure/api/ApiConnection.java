@@ -24,18 +24,20 @@ import java.util.Scanner;
  * @since 0.1
  */
 class ApiConnection {
+    private final static String LOG_TAG = LogUtils.getLogTag(ApiConnection.class);
+
     private final static String CHARSET = "UTF-8";
     private final static String CONTENT_TYPE = "application/x-www-form-urlencoded";
-    private final static String LOG_TAG = LogUtils.getLogTag(ApiConnection.class);
 
     /**
      * Returns the response of a get request to an url without any parameters.
      *
      * @param url the url to send a get request to.
      * @return the response of the query.
-     * @throws IOException if there is any error while establishing the connection or reading from it.
+     * @throws ConnectionException if there is any error while establishing the connection or
+     * reading from it.
      */
-    static Response get(URL url) throws IOException {
+    static Response get(URL url) throws ConnectionException {
         return get(url, new ArrayList<Parameter>());
     }
 
@@ -45,9 +47,10 @@ class ApiConnection {
      * @param url the url to send a get request to.
      * @param parameters a list of parameters.
      * @return the response of the query.
-     * @throws IOException if there is any error while establishing the connection or reading from it.
+     * @throws ConnectionException if there is any error while establishing the connection to the
+     * server.
      */
-    static Response get(URL url, List<Parameter> parameters) throws IOException {
+    static Response get(URL url, List<Parameter> parameters) throws ConnectionException {
         int status;
         String body;
 
@@ -70,9 +73,16 @@ class ApiConnection {
 
             status = connection.getResponseCode();
             body = readStream(inputStream);
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Error opening or reading from HTTPUrlConnection", e);
+            throw new ConnectionException("Error opening or reading from HTTPUrlConnection", e);
         } finally {
             if (inputStream != null) {
-                inputStream.close();
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    Log.e(LOG_TAG, "Error closing HTTP input stream", e);
+                }
             }
 
             if (connection != null) {
