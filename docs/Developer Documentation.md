@@ -86,7 +86,7 @@ A Flag object has the information necessary to store and modify it: It's type, a
 
 ### 2.3 Server
 
-The server is built upon “Node.js” and uses the node module “restify” to handle API requests. The server's purpose is to handle changes for flags. Either by getting certain flags for a vehicle or by changing the state of a flag. It does so by storing the flags and relevant information connected to the flags in a mongodb. The mongodb is located at mongolabs.
+The server runs on Node.js and uses the node module *Restify* to handle API requests. The server's purpose is to handle the change and retrieval of flags. It does so by storing the flags and relevant information connected to the flags in a MongoDB database, hosted remotely, on MongoLabs.
 
 The API supports GET, POST, and DELETE requests.
 
@@ -130,8 +130,6 @@ The first shows the user the flags on their vehicle, and lets them delete these 
 
 See the [documentation within the server repository](https://github.com/Oscmage/DAT255_server/tree/master/docs)
 
-
-
 ### 2.5 Persistent data storage
 
 The only data that is stored persistently is the flags. These are stored on the server, which can be manipulated via a RESTful API. The flags are stored in a MongoDB document database. There are no relations. Here is what a flag looks like, in JSON format:
@@ -160,6 +158,30 @@ The server uses the standard HTTP protocol, and does not require authentication.
 #### 2.6.1.2 API Connections
 
 The authorization for the Västtrafik and ElectriCity API are hardcoded into Java files.
+
+### 2.7 External dependencies
+
+All external dependencies for the Android Application are defined in the Gradle build file for the application.
+
+#### 2.7.1 Android Application dependencies
+
+##### 2.7.1.1 Android SDK
+
+##### 2.7.1.2 GSON
+
+##### 2.7.1.3 Mockito
+
+##### 2.7.1.4 JUnit
+
+##### 2.7.1.5 Lombok
+
+#### 2.7.2 Server dependencies
+
+##### 2.7.2.1 Node.js
+
+##### 2.7.2.2 Restify
+
+##### 2.7.2.3 MongoDB
 
 References
 ----------
