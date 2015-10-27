@@ -6,7 +6,6 @@ import android.util.Log;
 import com.alive_n_clickin.commutity.infrastructure.api.response.Response;
 import com.alive_n_clickin.commutity.util.LogUtils;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -28,17 +27,23 @@ class WaftApiConnection {
      * @param path the path to be appended to the base url.
      * @param query the query to be appended to the url given by the base url + the specified path.
      *              Leave out the '?' at the beginning
-     * @return a response object containing the response from the server.
-     * @throws IOException if the query parameter is invalid, or if anything goes wrong with the
+     * @return a response object containing the response from the server. Null if anything goes
+     * wrong when fetching the response.
      * request.
      */
-    public Response get(String path, String query) throws IOException {
+    public Response get(String path, String query) {
         Uri.Builder uriBuilder = Uri.parse(BASE_URL_WAFT).buildUpon();
         uriBuilder.appendPath(path);
         uriBuilder.appendPath(query);
         Uri uri = uriBuilder.build();
 
-        URL url = new URL(uri.toString());
+        URL url;
+        try {
+            url = new URL(uri.toString());
+        } catch (MalformedURLException e) {
+            Log.e(LOG_TAG, "Malformed URL", e);
+            return null;
+        }
 
         return ApiConnection.get(url);
     }
