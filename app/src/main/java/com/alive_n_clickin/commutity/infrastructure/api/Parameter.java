@@ -7,9 +7,9 @@ import lombok.NonNull;
 import lombok.ToString;
 
 /**
- * Created by mats on 26/10/15.
+ * A class for parameters. A parameter has a key and a value.
  */
-@AllArgsConstructor
+@AllArgsConstructor(suppressConstructorProperties = true)
 @EqualsAndHashCode
 @ToString
 public class Parameter {

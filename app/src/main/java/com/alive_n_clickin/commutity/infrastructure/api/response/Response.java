@@ -9,7 +9,7 @@ import lombok.ToString;
 /**
  * A class for responses to HTTP requests. Responses have a status and a body.
  */
-@AllArgsConstructor
+@AllArgsConstructor(suppressConstructorProperties = true)
 @EqualsAndHashCode
 @ToString
 public class Response {
