@@ -45,7 +45,7 @@ Needless to say, we opted for option 3. We will try this novel solution to a pre
 More "Scrum, but …"
 ----------------
 
-Not all of us are happy with the whole Sprint retrospective. To some degree, the group feels it would be good to be able to just grab problems and work on them, taking another one when the first one is done. What we lose with that solution is the weeky sync, the continous shipping (what if something is semi-implemented on the develop branch, and we're ready for a release in other regard? Do we pick out the semi-feature commits? Do we ship with dead code?). We decided to do antoher "Scrum, but …" by saying that some items are sprint items, that really should get done by the end of the week, giving us a feeling of a deadline. After that, there are some items that are just up for grabs, to take and work on when we want.
+Not all of us are happy with the whole Sprint planning. To some degree, the group feels it would be good to be able to just grab problems and work on them, taking another one when the first one is done. What we lose with that solution is the weeky sync, the continous shipping (what if something is semi-implemented on the develop branch, and we're ready for a release in other regard? Do we pick out the semi-feature commits? Do we ship with dead code?). We decided to do antoher "Scrum, but …" by saying that some items are sprint items, that really should get done by the end of the week, giving us a feeling of a deadline. After that, there are some items that are just up for grabs, to take and work on when we want.
 
 Testing
 -------
