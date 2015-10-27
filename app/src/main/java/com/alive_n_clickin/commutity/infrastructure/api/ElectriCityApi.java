@@ -2,7 +2,10 @@ package com.alive_n_clickin.commutity.infrastructure.api;
 
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonJourney;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonJourneyInfo;
+import com.alive_n_clickin.commutity.infrastructure.api.response.Response;
+import com.alive_n_clickin.commutity.util.LogUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -11,6 +14,8 @@ import java.util.List;
  * A concrete implementation of IElectriCityApi.
  */
 class ElectriCityApi implements IElectriCityApi {
+    private static final String LOG_TAG = LogUtils.getLogTag(ElectriCityApi.class);
+
     public static final String RESOURCE_SPEC_DESTINATION = "Destination_Value";
     public static final String RESOURCE_SPEC_JOURNEY_ID = "Journey_Name_Value";
 
@@ -66,8 +71,12 @@ class ElectriCityApi implements IElectriCityApi {
         String query = "dgw=" + dgw + "&sensorSpec=Ericsson$Journey_Info" +
                 "&t1=" + startTime + "&t2=" + endTime;
 
-        String response = electriCityApiConnection.sendGetToElectricity(query);
+        Response response = electriCityApiConnection.get(query);
 
-        return JsonJavaConverter.toJavaList(response, JsonJourneyInfo[].class);
+        if (response == null) {
+            return new ArrayList<>();
+        }
+
+        return JsonJavaConverter.toJavaList(response.getBody(), JsonJourneyInfo[].class);
     }
 }

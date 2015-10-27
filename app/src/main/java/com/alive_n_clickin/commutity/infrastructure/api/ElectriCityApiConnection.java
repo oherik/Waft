@@ -1,10 +1,12 @@
 package com.alive_n_clickin.commutity.infrastructure.api;
 
 import android.net.Uri;
+import android.util.Log;
 
 import com.alive_n_clickin.commutity.infrastructure.api.response.Response;
+import com.alive_n_clickin.commutity.util.LogUtils;
 
-import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,8 @@ import java.util.List;
  * @since 0.2
  */
 class ElectriCityApiConnection {
+    private static final String LOG_TAG = LogUtils.getLogTag(ElectriCityApiConnection.class);
+
     private static final String BASE_URL_ELECTRICITY = "https://ece01.ericsson.net:4443/ecity";
 
     // Username and password, base64 encoded
@@ -27,16 +31,21 @@ class ElectriCityApiConnection {
      * sent using the credentials of the team. The query must be well formed.
      *
      * @param query the query to be appended to the base url. Leave out the '?' at the beginning.
-     * @return a response object containing the response from the server.
-     * @throws IOException if the query parameter is invalid, or if anything goes wrong with the
-     * request.
+     * @return a response object containing the response from the server. Null if anything goes
+     * wrong when fetching the response.
      */
-    public Response get(String query) throws IOException {
+    public Response get(String query) {
         Uri.Builder uriBuilder = Uri.parse(BASE_URL_ELECTRICITY).buildUpon();
         uriBuilder.encodedQuery(query);
         Uri uri = uriBuilder.build();
 
-        URL url = new URL(uri.toString());
+        URL url;
+        try {
+            url = new URL(uri.toString());
+        } catch (MalformedURLException e) {
+            Log.e(LOG_TAG, "Malformed URL", e);
+            return null;
+        }
 
         List<Parameter> parameters = new ArrayList<>();
         parameters.add(new Parameter("Authorization", AUTHORIZATION));
