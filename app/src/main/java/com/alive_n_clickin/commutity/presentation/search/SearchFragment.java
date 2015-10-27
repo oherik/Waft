@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -144,13 +143,7 @@ public class SearchFragment extends Fragment {
     public class SearchStopTask extends AsyncTask<String, Void, List<IStop>> {
         @Override
         protected List<IStop> doInBackground(String... params) {
-            try {
-                return manager.searchForStops(params[0]);
-            } catch (NullPointerException e) {
-                Log.e(LOG_TAG, e.getStackTrace() + "");
-            }
-            //No results found, return null
-            return null;
+            return manager.searchForStops(params[0]);
         }
         @Override
         protected void onPostExecute(List<IStop> result) {
@@ -163,9 +156,7 @@ public class SearchFragment extends Fragment {
      * @param stops The results of the search
      */
     private void displayResults(List<IStop> stops) {
-        if (stops != null) {
-            resultAdapter.clear();
-            resultAdapter.addAll(stops);
-        }
+        resultAdapter.clear();
+        resultAdapter.addAll(stops);
     }
 }
