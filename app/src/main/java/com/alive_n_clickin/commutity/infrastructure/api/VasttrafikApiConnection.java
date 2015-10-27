@@ -1,10 +1,13 @@
 package com.alive_n_clickin.commutity.infrastructure.api;
 
 import android.net.Uri;
+import android.util.Log;
 
 import com.alive_n_clickin.commutity.infrastructure.api.response.Response;
+import com.alive_n_clickin.commutity.util.LogUtils;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -13,6 +16,8 @@ import java.net.URL;
  * @since 0.1
  */
 class VasttrafikApiConnection {
+    private static final String LOG_TAG = LogUtils.getLogTag(VasttrafikApiConnection.class);
+
     private static final String BASE_URL_VASTTRAFIK = "http://api.vasttrafik.se/bin/rest.exe/v1/";
     private static final String API_KEY = "<YOUR API KEY>";
 
@@ -27,7 +32,7 @@ class VasttrafikApiConnection {
      * @throws IOException if the query parameter is invalid, or if anything goes wrong with the
      * request.
      */
-    public Response get(String path, String query) throws IOException {
+    public Response get(String path, String query) {
         Uri.Builder uriBuilder = Uri.parse(BASE_URL_VASTTRAFIK).buildUpon();
         uriBuilder.appendPath(path);
         uriBuilder.encodedQuery(query);
@@ -35,7 +40,13 @@ class VasttrafikApiConnection {
         uriBuilder.appendQueryParameter("format", "json");
         Uri uri = uriBuilder.build();
 
-        URL url = new URL(uri.toString());
+        URL url;
+        try {
+            url = new URL(uri.toString());
+        } catch (MalformedURLException e) {
+            Log.e(LOG_TAG, "Malformed URL", e);
+            return null;
+        }
 
         return ApiConnection.get(url);
     }
