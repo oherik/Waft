@@ -16,10 +16,13 @@ import java.util.List;
 class ElectriCityApi implements IElectriCityApi {
     private static final String LOG_TAG = LogUtils.getLogTag(ElectriCityApi.class);
 
+    private static final String BASE_URL = "https://ece01.ericsson.net:4443/ecity";
+
+    // Username and password, base64 encoded
+    private static final String AUTHORIZATION = "<YOUR API KEY>";
+
     public static final String RESOURCE_SPEC_DESTINATION = "Destination_Value";
     public static final String RESOURCE_SPEC_JOURNEY_ID = "Journey_Name_Value";
-
-    private final ElectriCityApiConnection electriCityApiConnection = new ElectriCityApiConnection();
 
     @Override
     public JsonJourney getLatestJourney(String dgw) {
@@ -68,15 +71,28 @@ class ElectriCityApi implements IElectriCityApi {
 
     @Override
     public List<JsonJourneyInfo> getJourneyInfo(String dgw, long startTime, long endTime) {
-        String query = "dgw=" + dgw + "&sensorSpec=Ericsson$Journey_Info" +
+        String query = "?dgw=" + dgw + "&sensorSpec=Ericsson$Journey_Info" +
                 "&t1=" + startTime + "&t2=" + endTime;
 
-        Response response = electriCityApiConnection.get(query);
+        Response response = sendGet(query);
 
         if (response == null) {
             return new ArrayList<>();
         }
 
         return JsonJavaConverter.toJavaList(response.getBody(), JsonJourneyInfo[].class);
+    }
+
+    private static String buildUrl(String query) {
+        return BASE_URL + query;
+    }
+
+    private static Response sendGet(String query) {
+        String url = buildUrl(query);
+
+        List<Parameter> parameters = new ArrayList<>();
+        parameters.add(new Parameter("Authorization", AUTHORIZATION));
+
+        return ApiConnection.get(url, parameters);
     }
 }
