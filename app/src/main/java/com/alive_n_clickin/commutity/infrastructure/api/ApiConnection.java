@@ -33,11 +33,10 @@ class ApiConnection {
      * Returns the response of a get request to an url without any parameters.
      *
      * @param url the url to send a get request to.
-     * @return the response of the query.
-     * @throws ConnectionException if there is any error while establishing the connection or
-     * reading from it.
+     * @return the response of the query. Null if anything goes wrong when fetching the response
+     * from the server.
      */
-    static Response get(URL url) throws ConnectionException {
+    static Response get(URL url) {
         return get(url, new ArrayList<Parameter>());
     }
 
@@ -46,11 +45,9 @@ class ApiConnection {
      *
      * @param url the url to send a get request to.
      * @param parameters a list of parameters.
-     * @return the response of the query.
-     * @throws ConnectionException if there is any error while establishing the connection to the
-     * server.
+     * @return the response of the query. Null if anything goes wrong when fetching the response.
      */
-    static Response get(URL url, List<Parameter> parameters) throws ConnectionException {
+    static Response get(URL url, List<Parameter> parameters) {
         int status;
         String body;
 
@@ -75,7 +72,7 @@ class ApiConnection {
             body = readStream(inputStream);
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error opening or reading from HTTPUrlConnection", e);
-            throw new ConnectionException("Error opening or reading from HTTPUrlConnection", e);
+            return null;
         } finally {
             if (inputStream != null) {
                 try {
@@ -168,13 +165,14 @@ class ApiConnection {
 
     /**
      * Reads the content of any InputStream and returns it as a String.
-     * @param inputStream
-     * @return
+     *
+     * @param inputStream the InputStream to read from.
+     * @return the content of an InputStream. Returns an empty string if the stream doesn't have
+     * a next value.
      */
     static String readStream(InputStream inputStream) {
-
         Scanner sc = new Scanner(inputStream);
-        //By setting delimiter \A (which marks the beginning of the file) the Scanner read the whole file.
+        // By setting delimiter \A (which marks the beginning of the file) the Scanner read the whole file.
         sc.useDelimiter("\\A");
         return sc.hasNext() ? sc.next() : "";
     }
