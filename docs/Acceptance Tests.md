@@ -301,9 +301,12 @@ The first two events described above happen at the first press. Consecutive pres
 User stories
 ------------
 
+These are the user stories that relate to acceptance functional accepance tests. Some user stories concern non-functional requirements, and thus are not included here.
+
 |User story | Associated tests |
 |-----------| ---------------- |
-|**Sprint 1**| |
-|-----------| ------|
-|As a traveler I want to tell others about problems with or on my vehicle by flagging them, so that I can help my fellow travelers. | T03, T06, T07|
-|
+|As a traveler, I want to tell others about problems with or on my vehicle by flagging them, so that I can help my fellow travelers. | T03.1, T06, T07|
+|As a traveler I want to be able to view information regarding the vehicles heading towards my stop, so that I can see if they have been flagged with any issues. |T01 |
+|As a traveler, I want to be able to send flags with a single press, so that I with ease can let travelers know of issues on my bus. | T03.2 |
+| As a traveller, I want to be able to refresh the list of arriving vehicles, so that I can se the latest data without having to perform a new search | T02 |
+| As a traveler I want to be able to remove flags that I find incorrect, so that others know the issue reported is no longer (or was never) there. | T04, T05 |
