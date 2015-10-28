@@ -45,16 +45,16 @@ The system consists of two parts: the Android application, and the server. The s
 
 The app software in are ordered according to the [Layered Architecture] pattern, which is a modified form of MVC. This orders packages hierarchically, meaning that higher level packages may have knowledge of lower levels, but not vice versa. Lower levels communicate with the higher ones through the Observer pattern (Gamma, Helm, Johnson and Vlissides, 1995). 
 
-The standard hierarchy is, in descending order
+We use the following hierarchy, in the descending order.
 
 1. Presentation (or View)
 1. Application (or Controller)
-1. Domain (or Model)
 1. Infrastructure
+1. Domain (or Model)
 
-The first three layers roughly correlate to MVC. The fourth, infrastructure, is for handling low level tasks such as connecting to databases and API:s, and persistent storage. The infrastructure layer allows the other layers to interact with lowere level details through abstractions, keeping the code higher up in the hierarchy pristine and focused.
+The first and second layers roughly correlate to MVC's View and Controller parts, and infrastructure together with model correlate with MVC's Model part. Infrastructure is for handling low level tasks such as connecting to databases and API:s, and persistent storage. The infrastructure layer allows the other layers to interact with lowere level details through abstractions, keeping the code higher up in the hierarchy pristine and focused.
 
-For a more detailed description of layered architecture, see [Evans (2004, p. 68-75)](#evans2004).
+For a more detailed description of layered architecture, see [Evans (2004, p. 68-75)](#evans2004). His approach uses the reversed order for the domain and infrastructure layers, which is the standard approach. However, since this application uses a very simple model and a very advanced infrastructure, the order stated above is more suitable for this project.
 
 There is also a `util` package. This is a catch all package for classes that are generally handy to have, but don't have a specified place within the rest of the architecture. It holds classes that help with event handling, and other miscellaneous tools. The event classes may have some knowlegde of the system, such as of domain obects, but not much else.
 
@@ -98,17 +98,17 @@ The Android application is composed of the layers detailed [above](#andoidapplic
 
 #### <a name="presentationdecomposition">2.4.2 Presentation</a>
 
-##### 2.4.2.1 Main
+The packages in the Presentation layer are ordered into submodules accordin to which activity they relate to. There are two activities in the app, one for searching for vehicles, and one for adding flags to vehicles.
+
+##### 2.4.2.1 Arrival list
 
 These files control the behavior of the start view, for viewing arriving vehicles and their flags.
 
 From here the user can navigate to searching or to flagging vehicles.
 
-##### 2.4.2.2 Search
+These files also control the behavior of the search view, where the user can input text and get suggested stops based on that text. It passes the information of which stop has been requested on to the main view, and sends the user back to this view.
 
-These files control the behavior of the search view, where the user can input text and get suggested stops based on that text. It passes the information of which stop has been requested on to the main view, and sends the user back to this view.
-
-##### 2.4.2.3 Flagreport
+##### 2.4.2.2 Flagreport
 
 These files control the behavior of the views that create and manipulate the flags for the current vehicle. These are navigated in the following order:
 
