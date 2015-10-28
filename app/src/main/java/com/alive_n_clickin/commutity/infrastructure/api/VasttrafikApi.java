@@ -2,6 +2,7 @@ package com.alive_n_clickin.commutity.infrastructure.api;
 
 import android.net.Uri;
 
+import com.alive_n_clickin.commutity.Config;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrival;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrivalList;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonStop;
@@ -19,7 +20,7 @@ import java.util.List;
  */
 class VasttrafikApi implements IVasttrafikApi {
     private static final String BASE_URL = "http://api.vasttrafik.se/bin/rest.exe/v1";
-    private static final String API_KEY = "<YOUR API KEY>";
+    private static final String API_KEY = Config.VASTTRAFIK_API_KEY;
 
     @Override
     public List<JsonStop> searchForStops(String searchString) {

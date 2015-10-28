@@ -1,5 +1,6 @@
 package com.alive_n_clickin.commutity.infrastructure.api;
 
+import com.alive_n_clickin.commutity.Config;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonJourney;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonJourneyInfo;
 import com.alive_n_clickin.commutity.infrastructure.api.response.Response;
@@ -17,9 +18,7 @@ class ElectriCityApi implements IElectriCityApi {
     private static final String LOG_TAG = LogUtils.getLogTag(ElectriCityApi.class);
 
     private static final String BASE_URL = "https://ece01.ericsson.net:4443/ecity";
-
-    // Username and password, base64 encoded
-    private static final String AUTHORIZATION = "<YOUR API KEY>";
+    private static final String AUTHORIZATION = Config.ELECTRICITY_AUTHORIZATION;
 
     public static final String RESOURCE_SPEC_DESTINATION = "Destination_Value";
     public static final String RESOURCE_SPEC_JOURNEY_ID = "Journey_Name_Value";
