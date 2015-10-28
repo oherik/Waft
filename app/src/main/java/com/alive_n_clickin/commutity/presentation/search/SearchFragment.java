@@ -13,7 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 
-import com.alive_n_clickin.commutity.application.MyApplication;
+import com.alive_n_clickin.commutity.application.CentralApplication;
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.application.IManager;
 import com.alive_n_clickin.commutity.domain.IStop;
@@ -44,7 +44,7 @@ public class SearchFragment extends Fragment {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        manager = ((MyApplication) getActivity().getApplicationContext()).getManager();
+        manager = ((CentralApplication) getActivity().getApplicationContext()).getManager();
     }
 
     @Override
