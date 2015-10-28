@@ -37,6 +37,41 @@ public class ElectriCityBusTest {
         }
         assertTrue(exception);
 
+        //test that creating an electricity with journeyID as null returns exception
+        exception = false;
+        try {
+            new ElectriCityBus(destination,null,dgw,flags);
+        } catch (NullPointerException e) {
+            exception = true;
+        }
+        assertTrue(exception);
+
+        //test that creating an electricity with dgw as null returns exception
+        exception = false;
+        try {
+            new ElectriCityBus(destination,journeyID,null,flags);
+        } catch (NullPointerException e) {
+            exception = true;
+        }
+        assertTrue(exception);
+
+        //test that creating an electricity with list as null returns exception
+        exception = false;
+        try {
+            new ElectriCityBus(destination,journeyID,dgw,null);
+        } catch (NullPointerException e) {
+            exception = true;
+        }
+        assertTrue(exception);
+
+        //test that creating an electricity with no null arguments does not return exception
+        exception = false;
+        try {
+            new ElectriCityBus(destination,journeyID,dgw,flags);
+        } catch (NullPointerException e) {
+            exception = true;
+        }
+        assertFalse(exception);
 
     }
 
