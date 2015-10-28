@@ -31,4 +31,9 @@ public interface IVehicle {
      * @return a list of flags that this vehicle is flagged with.
      */
     List<IFlag> getFlags();
+
+    /**
+     * @return color
+     */
+    int getLineColor();
 }

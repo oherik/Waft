@@ -2,10 +2,12 @@ package com.alive_n_clickin.commutity.infrastructure.api;
 
 import android.net.Uri;
 
+import com.alive_n_clickin.commutity.Config;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrival;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrivalList;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonStop;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonStopList;
+import com.alive_n_clickin.commutity.infrastructure.api.response.Response;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -17,29 +19,31 @@ import java.util.List;
  * A concrete implementation of IVasttrafikApi.
  */
 class VasttrafikApi implements IVasttrafikApi {
-    private final VasttrafikApiConnection vasttrafikApiConnection = new VasttrafikApiConnection();
+    private static final String BASE_URL = "http://api.vasttrafik.se/bin/rest.exe/v1";
+    private static final String API_KEY = Config.VASTTRAFIK_API_KEY;
 
     @Override
     public List<JsonStop> searchForStops(String searchString) {
-        String response = vasttrafikApiConnection.sendGetToVasttrafik("location.name",
-                "&input=" + Uri.encode(searchString));
+        Response response = sendGet("/location.name?input=" + Uri.encode(searchString));
 
+        if (response == null) {
+            return new ArrayList<>();
+        }
+
+        JsonStopList jsonStopList = new JsonJavaConverter<>(JsonStopList.class).toJava(
+                response.getBody(), "LocationList");
+
+        if (jsonStopList == null) {
+            return new ArrayList<>();
+        }
+
+        // The api returns results that begin with "." that are not relevant to our implementation.
+        // We must filter this out. That is what the for loop does. (It's a filter)
         List<JsonStop> jsonStops = new ArrayList<>();
 
-        if (response != null) {
-            Object responseObject = new JsonJavaConverter<>(JsonStopList.class).toJava(
-                    response, "LocationList");
-
-            if (responseObject != null) {
-                // The api returns results that begin with "." that are not relevant to our implementation.
-                // We must filter this out. That is what the for loop does. (It's a filter)
-                JsonStopList locationList = (JsonStopList)responseObject;
-
-                for (JsonStop jsonStop : locationList.getStopLocations()) {
-                    if (!jsonStop.getName().startsWith(".")) {
-                        jsonStops.add(jsonStop);
-                    }
-                }
+        for (JsonStop jsonStop : jsonStopList.getStopLocations()) {
+            if (!jsonStop.getName().startsWith(".")) {
+                jsonStops.add(jsonStop);
             }
         }
 
@@ -56,19 +60,24 @@ class VasttrafikApi implements IVasttrafikApi {
         String time = timeFormat.format(dateAndTime);
 
         // Since no maximum number of vehicles has been set, the API will return the 20 first.
-        String response = vasttrafikApiConnection.sendGetToVasttrafik(
-                "departureBoard",
-                "&id=" + id + "&date=" + date + "&time=" + time);
+        Response response = sendGet("/departureBoard?id=" + id + "&date=" + date + "&time=" + time);
 
-        List<JsonArrival> jsonArrivals = new ArrayList<>();
-
-        if (response != null) {
-            JsonArrivalList jsonArrivalList = new JsonJavaConverter<>(JsonArrivalList.class).toJava(
-                    response, "DepartureBoard");
-
-            jsonArrivals = jsonArrivalList.getDepartures();
+        if (response == null) {
+            return new ArrayList<>();
         }
 
-        return jsonArrivals;
+        JsonArrivalList jsonArrivalList = new JsonJavaConverter<>(JsonArrivalList.class).toJava(
+                response.getBody(), "DepartureBoard");
+
+        return jsonArrivalList.getDepartures();
+    }
+
+    private static String buildUrl(String query) {
+        return BASE_URL + query + "&authKey=" + API_KEY + "&format=json";
+    }
+
+    private static Response sendGet(String query) {
+        String url = buildUrl(query);
+        return ApiConnection.get(url);
     }
 }

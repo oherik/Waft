@@ -9,7 +9,7 @@ import com.alive_n_clickin.commutity.infrastructure.api.response.JsonJourney;
 /**
  * {@inheritDoc}<br><br>
  *
- * This class is not mean to be instantiated by outside classes (hence the package private access).
+ * This class is not meant to be instantiated by outside classes (hence the package private access).
  *
  * This class uses IElectriCityApi to get response objects, and then transforms them to to domain
  * objects.
