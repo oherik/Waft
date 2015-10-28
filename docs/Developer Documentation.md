@@ -90,6 +90,8 @@ The server runs on Node.js and uses the node module *Restify* to handle API requ
 
 The API supports GET, POST, and DELETE requests.
 
+For in depth information regarding the server see the [documentation within the server repository](https://github.com/Oscmage/DAT255_server/tree/master/docs).
+
 ### <a name="softwaredecomposition">2.4 Software decomposition</a>
 
 #### 2.4.1 General
@@ -126,80 +128,30 @@ The first shows the user the flags on their vehicle, and lets them delete these 
 
 ###### 2.4.4.1 Wifi
 
-#### 2.4.5 Server
+### 2.5 Access control and security
 
-See the [documentation within the server repository](https://github.com/Oscmage/DAT255_server/tree/master/docs)
-
-### 2.5 Persistent data storage
-
-The only data that is stored persistently is the flags. These are stored at mongolabs, which can be manipulated via a RESTful API. The flags are stored in a MongoDB document database. There are no relations. Here is what a flag looks like, in JSON format:
-
-        {
-            "_id": "562e3bcfed6c36266108b763",
-            "flagType": 14,
-            "comment": "foobar",
-            "journeyID": "9015014505500098",
-            "dgw": "Ericsson$171330",
-            "time": "Mon Oct 26 15:42:22 CET 2015",
-            "__v": 0
-        }
-
-The `_id` field is the key of the tuple. `flagType` is which of all available flags have been posted. `comment` is a string entered by the user to post with the flag. `journeyID` connects the flag to a journey, as specified by the Västtrafik API. `dgw` is the vehicle id assigned by the Electricity API.
-
-### 2.6 Access control and security
-
-#### 2.6.1 Issues
+#### 2.5.1 Issues
 Being in a prototyping stage, there are some security considerations to take into account when using and viewing the application. These should ideally be addressed, but are deemed to not pose any major security risks. A fully deployed project should address these issues.
 
-#### 2.6.1.1 Issus Server
-
-The server uses the standard HTTP protocol, and does not require authentication. Any application can send as many requests as they want.
-
-#### 2.6.1.2 API Connections
+#### 2.5.1.1 API Connections
 
 The authorization for the Västtrafik and ElectriCity API are hardcoded into Java files.
 
-### 2.7 External dependencies
+### 2.6 External dependencies
 
 All external dependencies for the Android Application are defined in the Gradle build file for the application.
 
-#### 2.7.1 Android Application dependencies
+#### 2.6.1 Android Application dependencies
 
-##### 2.7.1.1 Android SDK
+##### 2.6.1.1 Android SDK
 
-##### 2.7.1.2 GSON
+##### 2.6.1.2 GSON
 
-##### 2.7.1.3 Mockito
+##### 2.6.1.3 Mockito
 
-##### 2.7.1.4 JUnit
+##### 2.6.1.4 JUnit
 
-##### 2.7.1.5 Lombok
-
-#### 2.7.2 Server dependencies
-
-The server runs on [Node.js](https://nodejs.org/en/) the dependencies or modules as they're callled in node is specified below:
-
-##### 2.7.2.2 Restify
-
-Restify is used to create a lightweight REST API for the server, more information regarding Restify and its docs can be found [here](http://restify.com/).
-
-##### 2.7.2.3 (MongoDB)
-
-##### 2.7.2.4 Mongoose
-
-To model the schema of flags in the database we use Mongoose, read more about Mongoose [here](http://mongoosejs.com/).
-
-##### 2.7.2.5 Nodemon
-
-Nodemon is a simple module for automaticly restarting the server when source code is updated, read more about it [here](http://nodemon.io/).
-
-##### 2.7.2.6 Chai
-
-Chai is an assertion library for node, which is used together with the module Mocha to run tests, read more about it [here](http://chaijs.com/).
-
-##### 2.7.2.6 Mocha
-
-Mocha is the test framework used, together with Chai it takes care of testing on the server, read more about Mocha [here](http://mochajs.org/).
+##### 2.6.1.5 Lombok
 
 References
 ----------
