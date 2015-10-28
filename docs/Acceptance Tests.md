@@ -5,6 +5,8 @@ Acceptance Tests
 
 This document describes high level tests that must be possible to perform in the application. There is not a one-to-one mapping between the tests and specific user stories – some tests may be related to more than one user stories, and viece versa.
 
+**Note:** This testing relies on a prototypical version of the app, specifically for testing. When possible, the tests that include using the bus the user is currenlty on should also be performed on an actual bus, with an app version that doens't rely on a fake bus.
+
 View names
 ----------
 
@@ -140,17 +142,59 @@ Same as above, but press and hold the "Övrigt" icon.
 
 ### View flags for current bus
 
-**ID:** 
+**ID:** T04
 
 **Description:** See what flags the vehicle you are on have been flagged with.
 
-**Precondition:** 
+**Precondition:** That there exists at least one flag for the vehicle you are on, with a comment. (If none exists already, you can create one or more through either test T03.1 or T03.2.) Be in main view. Have wifi turned on.
 
 #### Steps
 
+1. Press bus icon.
+
+#### Expected result
+
+1. See the flags for current vehicle. If more than one person is using the application, you may see other flags than your own.
+
 ### Remove flags on current bus
 
+**ID:** T05
+
+**Description:** Delete a flag that has been posted to the vehicle you are on, either by someone else or by yourself.
+
+**Precondition:** That there exists at least one flag for the vehicle you are on. (If none exists already, you can create one or more through either test T03.1 or T03.2.) Be in main view. Have wifi turned on.
+
+#### Steps
+
+1. Press bus icon.
+1. Press 'x' icon on flag.
+
+#### Expected result
+
+1. The flag disappears from the list.
+1. The flag may reappear if you switch between view, but if you press refresh in the action bar, the flag doesn't return.
+
 ### Refresh current vehicle
+
+**ID:** T06
+
+**Description:** Update the app to look for your current vehicle.
+
+**Precondition:** Be in main view. Have wifi turned on.
+
+#### Steps
+
+1. Press the bus icon.
+1. Press the refresh icon in the top right corner.
+1. Press '+' icon.
+1. Press the refresh icon in the top right corner.
+1. Press any flag icon.
+1. Press the refresh icon in the top right corner.
+
+#### Expected result
+
+1. Whenever you press the refresh icon, the text in the action bar changes to "Letar efter ditt fordon ...".
+1. After a short while (no more than a few seconds) the text changes to line number 55 and the destination of the vehicle.
 
 ### Turn off vehicle scanning
 
