@@ -59,7 +59,7 @@ class VasttrafikApi implements IVasttrafikApi {
         String time = timeFormat.format(dateAndTime);
 
         // Since no maximum number of vehicles has been set, the API will return the 20 first.
-        Response response = sendGet("/departureBoard/?id=" + id + "&date=" + date + "&time=" + time);
+        Response response = sendGet("/departureBoard?id=" + id + "&date=" + date + "&time=" + time);
 
         if (response == null) {
             return new ArrayList<>();
