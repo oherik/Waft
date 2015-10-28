@@ -56,7 +56,7 @@ The first three layers roughly correlate to MVC. The fourth, infrastructure, is 
 
 For a more detailed description of layered architecture, see [Evans (2004, p. 68-75)](#evans2004).
 
-There is also a `util` package. It is at its core a project specific library, and it has no knowledge of the rest of the system. This is a catch all packages for classes that are generally handy to have, but don't have a specified place within the rest of the architecture. It holds classes that help with event handling, and other miscellaneous tools.
+There is also a `util` package. This is a catch all package for classes that are generally handy to have, but don't have a specified place within the rest of the architecture. It holds classes that help with event handling, and other miscellaneous tools. The event classes may have some knowlegde of the system, such as of domain obects, but not much else.
 
 #### 2.2.1 Presentation
 
