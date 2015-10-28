@@ -29,16 +29,19 @@ Tests
 
 #### Steps
 *Variation 1*
+
 1. Press the search bar at the top of the screen.
 1. Input "Chalmers, Göteborg".
 1. Choose "Chalmers, Göteborg" in the list.
 
 *Variation 2*
+
 1. Press the search bar at the top of the screen.
 1. Input "cha".
 1. Choose "Chalmers, Göteborg"
 
 *Expected result*
+
 1. You are brought back to the main view, and see a list of vehciles scheduled for arrival to that stop.
 1. The text in the search bar reads "Chalmers, Göteborg".
 
