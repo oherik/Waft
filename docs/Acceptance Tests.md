@@ -106,6 +106,38 @@ Same as above, but with flag type 1 and "Det saknas brandsläckare" as comment.
 
 1. A toast appears saying "Vänligen skriv in en kommentar (minst fem tecken)".
 
+### Add flag to current bus through quick send
+
+**ID:** T03.2
+
+**Description:** Add a flag to the bus you are currently on by a long press on a flag icon.
+
+**Precondition:** Have phone wifi turned on. Have main view open.
+
+#### Steps 
+
+*Variation 1*
+
+1. Press the bus icon.
+1. Press the '+' icon.
+1. Press and hold the "Gott om plats" icon.
+1. When the icon is fully filled in with dark red, release your finger.
+
+*Variaton 2*
+
+Same as above, but press and hold the "Övrigt" icon.
+
+#### Expected result
+
+*Variation 1*
+
+1. A toast appears saying "Flagga skickad"
+1. At the website http://95.85.21.47/flags, at the bottom a page there is a new JSON object, with flagType: 14 and comment: "".
+
+*Variation 2*
+
+1. A toast appears saying "Den här flaggan kan inte skickas utan en kommentar".
+
 ### View flags for current bus
 
 **ID:** 
