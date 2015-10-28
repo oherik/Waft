@@ -1,10 +1,7 @@
-package com.alive_n_clickin.commutity;
+package com.alive_n_clickin.commutity.application;
 
 import android.app.Application;
 
-import com.alive_n_clickin.commutity.application.Manager;
-import com.alive_n_clickin.commutity.application.IManager;
-import com.alive_n_clickin.commutity.application.NearbyBusScanner;
 import com.alive_n_clickin.commutity.infrastructure.WifiBroadcastReceiver;
 
 /**
@@ -18,7 +15,7 @@ import com.alive_n_clickin.commutity.infrastructure.WifiBroadcastReceiver;
  *
  * @since 0.2
  */
-public class MyApplication extends Application {
+public class CentralApplication extends Application {
     private WifiBroadcastReceiver wifiBroadcastReceiver;
     private IManager manager;
 

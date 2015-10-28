@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.domain.IFlag;
 
@@ -19,7 +18,7 @@ public class FlagCurrentBusTask extends AsyncTask<IFlag, Void, Boolean> {
 
     public FlagCurrentBusTask(Context applicationContext) {
         this.applicationContext = applicationContext;
-        this.manager = ((MyApplication) applicationContext).getManager();
+        this.manager = ((CentralApplication) applicationContext).getManager();
     }
 
     @Override
