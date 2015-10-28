@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
@@ -199,8 +201,14 @@ public class FlagVehicleActivity extends FragmentActivity implements IObserver {
         The system back button doesn't automatically pop the fragment stack, causing the
         activity to close if the desired behaviour is not specified.
          */
+        //Hide the keyboard if it is currently shown
+        View currentView = getCurrentFocus();
+        if (currentView != null) {
+            InputMethodManager manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            manager.hideSoftInputFromWindow(currentView.getWindowToken(), 0);
+        }
         FragmentManager fragmentManager = getFragmentManager();
-        if(fragmentManager.getBackStackEntryCount() != 0) {
+        if (fragmentManager.getBackStackEntryCount() != 0) {
             fragmentManager.popBackStack();
         } else {
             super.onBackPressed();
