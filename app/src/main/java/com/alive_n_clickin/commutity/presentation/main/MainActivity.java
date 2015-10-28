@@ -7,7 +7,6 @@ import android.view.View;
 
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.domain.IStop;
-import com.alive_n_clickin.commutity.presentation.search.SearchFragment;
 
 import lombok.Getter;
 import lombok.Setter;

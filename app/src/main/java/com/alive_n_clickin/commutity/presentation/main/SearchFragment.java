@@ -1,4 +1,4 @@
-package com.alive_n_clickin.commutity.presentation.search;
+package com.alive_n_clickin.commutity.presentation.main;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -17,8 +17,6 @@ import com.alive_n_clickin.commutity.application.CentralApplication;
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.application.IManager;
 import com.alive_n_clickin.commutity.domain.IStop;
-import com.alive_n_clickin.commutity.presentation.main.MainActivity;
-import com.alive_n_clickin.commutity.presentation.main.MainFragment;
 
 import java.util.ArrayList;
 import java.util.List;
