@@ -1,4 +1,4 @@
-package com.alive_n_clickin.commutity.presentation.main;
+package com.alive_n_clickin.commutity.presentation.arrival_list;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * This class fills the ListView within {@link MainFragment} with list items.
+ * This class fills the ListView within {@link ArrivalListFragment} with list items.
  *
  * @since 0.2
  */
