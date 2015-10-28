@@ -1,5 +1,6 @@
 package com.alive_n_clickin.commutity.infrastructure.api;
 
+import com.alive_n_clickin.commutity.Config;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonFlag;
 import com.alive_n_clickin.commutity.infrastructure.api.response.Response;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * A concrete implementation of IWaftApi.
  */
 class WaftApi implements IWaftApi {
-    private static final String BASE_URL = "http://95.85.21.47";
+    private static final String BASE_URL = Config.WAFT_URL;
 
     @Override
     public List<JsonFlag> getFlagsForJourney(String journeyId) {
