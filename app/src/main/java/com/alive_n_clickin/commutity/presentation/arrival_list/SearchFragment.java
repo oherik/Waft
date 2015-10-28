@@ -1,4 +1,4 @@
-package com.alive_n_clickin.commutity.presentation.main;
+package com.alive_n_clickin.commutity.presentation.arrival_list;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -103,8 +103,8 @@ public class SearchFragment extends Fragment {
      * @param stop The selected stop
      */
     private void setMainStop(IStop stop) {
-        MainActivity mainActivity = (MainActivity) getActivity();
-        mainActivity.setCurrentStop(stop);
+        ArrivalListActivity arrivalListActivity = (ArrivalListActivity) getActivity();
+        arrivalListActivity.setCurrentStop(stop);
 
     }
 
@@ -113,10 +113,10 @@ public class SearchFragment extends Fragment {
      * activity's container
      */
     private void switchToMainFragment() {
-        MainFragment mainFragment = new MainFragment();
+        ArrivalListFragment arrivalListFragment = new ArrivalListFragment();
 
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.main_content_frame, mainFragment);
+        transaction.replace(R.id.main_content_frame, arrivalListFragment);
         transaction.addToBackStack(null);
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         transaction.commit();

@@ -1,4 +1,4 @@
-package com.alive_n_clickin.commutity.presentation.main;
+package com.alive_n_clickin.commutity.presentation.arrival_list;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -34,7 +34,7 @@ import lombok.NonNull;
  * @since 0.1
  */
 
-public class MainFragment extends Fragment {
+public class ArrivalListFragment extends Fragment {
     private int maxNumberOfBusesInList = 10;
     private TextView stopTextView;
     private ListView busListView;
@@ -54,11 +54,11 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.main_fragment, container, false);
+        final View rootView = inflater.inflate(R.layout.arrival_list_fragment, container, false);
         stopTextView = (TextView) rootView.findViewById(R.id.currentStop);
 
-        final MainActivity mainActivity = (MainActivity) getActivity();
-        IStop currentStop = mainActivity.getCurrentStop();
+        final ArrivalListActivity arrivalListActivity = (ArrivalListActivity) getActivity();
+        IStop currentStop = arrivalListActivity.getCurrentStop();
 
         busListView = (ListView) rootView.findViewById(R.id.busListView);
         adapter = new VehicleListAdapter(getActivity(), arrivingVehicles);
@@ -67,7 +67,7 @@ public class MainFragment extends Fragment {
         mSwipeRefreshLayout.setOnRefreshListener( new SwipeRefreshLayout.OnRefreshListener(){
            @Override
             public void onRefresh(){
-               refreshBusList(mainActivity, rootView);
+               refreshBusList(arrivalListActivity, rootView);
            }
         });
 
@@ -83,7 +83,7 @@ public class MainFragment extends Fragment {
     /**
      * Makes a new search on the current stop when the list is pulled down.
      */
-    private void refreshBusList(MainActivity activity, View view){
+    private void refreshBusList(ArrivalListActivity activity, View view){
         mSwipeRefreshLayout.setRefreshing(true);
         final IStop currentStop = activity.getCurrentStop();
         final View rootView = view;
