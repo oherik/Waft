@@ -295,3 +295,15 @@ The first two events described above happen at the first press. Consecutive pres
 
 1. At first press, keyboard disappears.
 1. At second press, you are returned to the main view.
+
+******
+
+User stories
+------------
+
+|User story | Associated tests |
+|-----------| ---------------- |
+|**Sprint 1**| |
+|-----------| ------|
+|As a traveler I want to tell others about problems with or on my vehicle by flagging them, so that I can help my fellow travelers. | T03, T06, T07|
+|
