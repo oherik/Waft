@@ -19,7 +19,6 @@ import java.util.List;
  * @since 0.2
  */
 public class VehicleFactory {
-
     private static final IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
     private static final IElectriCityAdapter electriCityAdapter = ApiAdapterFactory.createElectricityAdapter();
 
@@ -41,6 +40,4 @@ public class VehicleFactory {
 
         return new ElectriCityBus(destination, journeyId, dgw, flags);
     }
-
-
 }
