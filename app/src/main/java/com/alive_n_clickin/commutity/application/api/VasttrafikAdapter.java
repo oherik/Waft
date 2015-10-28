@@ -28,9 +28,10 @@ import lombok.NonNull;
  * @since 0.1
  */
 class VasttrafikAdapter implements IVasttrafikAdapter {
-
     private static final String ELECTRICITY_SHORT_ROUTE_NAME = "55";
+
     private final IVasttrafikApi vasttrafikApi = ApiFactory.createVasttrafikApi();
+    private final IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
 
     private IStop convertStop(JsonStop jsonStop) {
         return new Stop(jsonStop.getName(), jsonStop.getId());
@@ -78,7 +79,6 @@ class VasttrafikAdapter implements IVasttrafikAdapter {
         Date realArrival = jsonArrival.getRealArrival();
         int lineColor = jsonArrival.getLineColor();
 
-        IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
         List<IFlag> flags = new LinkedList<>();
         if (shortRouteName.equals(ELECTRICITY_SHORT_ROUTE_NAME)) {
             flags = waftAdapter.getFlagsForVehicle(journeyId);
