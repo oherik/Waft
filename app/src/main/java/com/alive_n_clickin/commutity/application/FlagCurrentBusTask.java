@@ -18,7 +18,7 @@ public class FlagCurrentBusTask extends AsyncTask<IFlag, Void, Boolean> {
 
     public FlagCurrentBusTask(Context applicationContext) {
         this.applicationContext = applicationContext;
-        this.manager = ((MyApplication) applicationContext).getManager();
+        this.manager = ((CentralApplication) applicationContext).getManager();
     }
 
     @Override

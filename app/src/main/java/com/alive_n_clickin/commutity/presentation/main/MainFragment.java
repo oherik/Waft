@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.alive_n_clickin.commutity.application.MyApplication;
+import com.alive_n_clickin.commutity.application.CentralApplication;
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.application.IManager;
 import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
@@ -48,7 +48,7 @@ public class MainFragment extends Fragment {
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         arrivingVehicles = new ArrayList<>();
-        manager = ((MyApplication) getActivity().getApplicationContext()).getManager();
+        manager = ((CentralApplication) getActivity().getApplicationContext()).getManager();
     }
 
     @Override

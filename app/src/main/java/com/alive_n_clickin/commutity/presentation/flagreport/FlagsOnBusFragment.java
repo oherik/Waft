@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.alive_n_clickin.commutity.application.MyApplication;
+import com.alive_n_clickin.commutity.application.CentralApplication;
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.application.IManager;
 import com.alive_n_clickin.commutity.domain.IElectriCityBus;
@@ -31,7 +31,7 @@ import java.util.List;
 public class FlagsOnBusFragment extends Fragment implements IObserver{
     private List<IFlag> flagList;
     private IManager manager;
-    private MyApplication application;
+    private CentralApplication application;
     private FlagsOnBusAdapter flagsOnBusAdapter;
 
     @Override
@@ -39,7 +39,7 @@ public class FlagsOnBusFragment extends Fragment implements IObserver{
         super.onCreate(savedInstanceState);
 
         // Register as an observer
-        this.application = (MyApplication) getActivity().getApplicationContext();
+        this.application = (CentralApplication) getActivity().getApplicationContext();
         this.manager = application.getManager();
         this.manager.addObserver(this);
         if (this.manager.isOnBus()) {

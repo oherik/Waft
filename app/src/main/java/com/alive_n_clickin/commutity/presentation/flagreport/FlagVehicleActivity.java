@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.alive_n_clickin.commutity.application.MyApplication;
+import com.alive_n_clickin.commutity.application.CentralApplication;
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.application.IManager;
 import com.alive_n_clickin.commutity.domain.IElectriCityBus;
@@ -37,7 +37,7 @@ public class FlagVehicleActivity extends FragmentActivity implements IObserver {
         setContentView(R.layout.activity_flag_vehicle);
 
         // Register observers
-        MyApplication application = (MyApplication) this.getApplicationContext();
+        CentralApplication application = (CentralApplication) this.getApplicationContext();
         this.manager = application.getManager();
         this.manager.addObserver(this);
 
