@@ -265,33 +265,35 @@ Same as above, but press and hold the "Övrigt" icon.
 
 #### Steps
 
-*Variant 1*
+*Variation 1*
+
 1. Press the bus icon.
 1. Press the '+' icon.
 1. Press any flag icon.
 1. Press the hardware back button 4 times.
 
-*Variant 2*
+*Variation 2*
+
 1. Same as above, but press the back button in the top left corner instead of hardware button, and only press 3 times.
 
-*Variant 3*
+*Variation 3*
 1. Press the search bar.
 1. Press the hardware back button 2 times.
 
 #### Expected result
 
-*Variant 1*
+*Variation 1*
 
 1. At first press at back button, keyboard disappears.
 1. Second press, you are returned to the add flags view.
 1. Third press, you are returned to the flags on current bus view.
 1. Fourth press, you are returned to the main view.
 
-*Variant 2*
+*Variation 2*
 
 The first two events described above happen at the first press. Consecutive presses have the same effect as described above.
 
-*Variant 3*
+*Variation 3*
 
 1. At first press, keyboard disappears.
 1. At second press, you are returned to the main view.
