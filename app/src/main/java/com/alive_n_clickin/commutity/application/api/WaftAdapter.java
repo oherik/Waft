@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * {@inheritDoc}<br><br>
  *
- * This class is not mean to be instantiated by outside classes (hence the package private access).
+ * This class is not meant to be instantiated by outside classes (hence the package private access).
  *
  * This class uses IWaftApi to get response objects, and then transforms them to to domain objects.
  *

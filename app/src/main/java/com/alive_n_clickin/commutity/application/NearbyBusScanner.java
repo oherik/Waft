@@ -72,7 +72,7 @@ public class NearbyBusScanner implements IObserver, IObservable {
         buses.put("d0:c7:89:33:27:3e", "Ericsson$171327"); // EDUROAM (which one?)
         buses.put("88:1d:fc:41:92:90", "Ericsson$171235"); // EDUROAM (which one?)
         buses.put("f8:1a:67:ee:e2:68", "Ericsson$171164"); // Öhrnie's house of many pleasures
-
+        buses.put("6c:19:8f:ed:83:0a", "Ericsson$171330"); // Tingelink
     }
 
     /**

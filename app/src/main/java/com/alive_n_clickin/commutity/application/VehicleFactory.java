@@ -37,7 +37,7 @@ public class VehicleFactory {
      * This method may not be called from the UI thread.
      *
      * @param dgw the dgw id for the bus you want to have.
-     * @return a new bus object.
+     * @return a new bus object. Null if anything goes wrong when fetching data for the bus.
      */
     public static IElectriCityBus getElectriCityBus(String dgw) {
         IJourney journey = electriCityAdapter.getCurrentJourney(dgw);

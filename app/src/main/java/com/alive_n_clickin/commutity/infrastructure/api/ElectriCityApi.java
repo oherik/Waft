@@ -1,8 +1,12 @@
 package com.alive_n_clickin.commutity.infrastructure.api;
 
+import com.alive_n_clickin.commutity.Config;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonJourney;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonJourneyInfo;
+import com.alive_n_clickin.commutity.infrastructure.api.response.Response;
+import com.alive_n_clickin.commutity.util.LogUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -11,10 +15,13 @@ import java.util.List;
  * A concrete implementation of IElectriCityApi.
  */
 class ElectriCityApi implements IElectriCityApi {
+    private static final String LOG_TAG = LogUtils.getLogTag(ElectriCityApi.class);
+
+    private static final String BASE_URL = "https://ece01.ericsson.net:4443/ecity";
+    private static final String AUTHORIZATION = Config.ELECTRICITY_AUTHORIZATION;
+
     public static final String RESOURCE_SPEC_DESTINATION = "Destination_Value";
     public static final String RESOURCE_SPEC_JOURNEY_ID = "Journey_Name_Value";
-
-    private final ElectriCityApiConnection electriCityApiConnection = new ElectriCityApiConnection();
 
     @Override
     public JsonJourney getLatestJourney(String dgw) {
@@ -63,11 +70,28 @@ class ElectriCityApi implements IElectriCityApi {
 
     @Override
     public List<JsonJourneyInfo> getJourneyInfo(String dgw, long startTime, long endTime) {
-        String query = "dgw=" + dgw + "&sensorSpec=Ericsson$Journey_Info" +
+        String query = "?dgw=" + dgw + "&sensorSpec=Ericsson$Journey_Info" +
                 "&t1=" + startTime + "&t2=" + endTime;
 
-        String response = electriCityApiConnection.sendGetToElectricity(query);
+        Response response = sendGet(query);
 
-        return JsonJavaConverter.toJavaList(response, JsonJourneyInfo[].class);
+        if (response == null) {
+            return new ArrayList<>();
+        }
+
+        return JsonJavaConverter.toJavaList(response.getBody(), JsonJourneyInfo[].class);
+    }
+
+    private static String buildUrl(String query) {
+        return BASE_URL + query;
+    }
+
+    private static Response sendGet(String query) {
+        String url = buildUrl(query);
+
+        List<Parameter> parameters = new ArrayList<>();
+        parameters.add(new Parameter("Authorization", AUTHORIZATION));
+
+        return ApiConnection.get(url, parameters);
     }
 }

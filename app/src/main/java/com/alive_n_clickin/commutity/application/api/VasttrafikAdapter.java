@@ -13,11 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class is not meant to be instantiated. The reason is to remove as much coupling as possible.
- * Use the ApiAdapterFactory to gain access to this class. {@link ApiAdapterFactory}
+ * {@inheritDoc}<br><br>
  *
- * This class represents high level methods that crate suitable request string, which are
- * then passed along to {@link VasttrafikApiConnection}.
+ * This class is not meant to be instantiated by outside classes (hence the package private access).
+ *
+ * This class uses IVasttrafikApi to get response objects, and then transforms them to to domain
+ * objects.
  *
  * @since 0.1
  */
