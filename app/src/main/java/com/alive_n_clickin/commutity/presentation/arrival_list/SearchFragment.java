@@ -1,4 +1,4 @@
-package com.alive_n_clickin.commutity.presentation.search;
+package com.alive_n_clickin.commutity.presentation.arrival_list;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -13,12 +13,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 
-import com.alive_n_clickin.commutity.MyApplication;
+import com.alive_n_clickin.commutity.application.CentralApplication;
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.application.IManager;
 import com.alive_n_clickin.commutity.domain.IStop;
-import com.alive_n_clickin.commutity.presentation.main.MainActivity;
-import com.alive_n_clickin.commutity.presentation.main.MainFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +42,7 @@ public class SearchFragment extends Fragment {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        manager = ((MyApplication) getActivity().getApplicationContext()).getManager();
+        manager = ((CentralApplication) getActivity().getApplicationContext()).getManager();
     }
 
     @Override
@@ -105,8 +103,8 @@ public class SearchFragment extends Fragment {
      * @param stop The selected stop
      */
     private void setMainStop(IStop stop) {
-        MainActivity mainActivity = (MainActivity) getActivity();
-        mainActivity.setCurrentStop(stop);
+        ArrivalListActivity arrivalListActivity = (ArrivalListActivity) getActivity();
+        arrivalListActivity.setCurrentStop(stop);
 
     }
 
@@ -115,10 +113,10 @@ public class SearchFragment extends Fragment {
      * activity's container
      */
     private void switchToMainFragment() {
-        MainFragment mainFragment = new MainFragment();
+        ArrivalListFragment arrivalListFragment = new ArrivalListFragment();
 
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.main_content_frame, mainFragment);
+        transaction.replace(R.id.main_content_frame, arrivalListFragment);
         transaction.addToBackStack(null);
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         transaction.commit();

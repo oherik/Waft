@@ -1,4 +1,4 @@
-package com.alive_n_clickin.commutity.presentation.main;
+package com.alive_n_clickin.commutity.presentation.arrival_list;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -7,7 +7,6 @@ import android.view.View;
 
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.domain.IStop;
-import com.alive_n_clickin.commutity.presentation.search.SearchFragment;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,17 +17,17 @@ import lombok.Setter;
  *
  * @since 0.1
  */
-public class MainActivity extends FragmentActivity {
+public class ArrivalListActivity extends FragmentActivity {
     @Getter @Setter private IStop currentStop;
 
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        setContentView(R.layout.main_activity);
+        setContentView(R.layout.arrival_list_activity);
 
         //Set the main fragment as the first fragment presented to the user
-        MainFragment mainFragment = new MainFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.main_content_frame, mainFragment).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
+        ArrivalListFragment arrivalListFragment = new ArrivalListFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.main_content_frame, arrivalListFragment).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
     }
 
     @Override

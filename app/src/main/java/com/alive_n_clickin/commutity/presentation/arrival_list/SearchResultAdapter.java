@@ -1,4 +1,4 @@
-package com.alive_n_clickin.commutity.presentation.search;
+package com.alive_n_clickin.commutity.presentation.arrival_list;
 
 import android.content.Context;
 import android.view.LayoutInflater;
