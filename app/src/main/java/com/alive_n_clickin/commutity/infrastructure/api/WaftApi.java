@@ -40,7 +40,7 @@ class WaftApi implements IWaftApi {
 
     @Override
     public boolean deleteFlag(String id) {
-        Response response = sendDelete("/flags/" + id);
+        Response response = sendDelete("/flags/delete/" + id);
         return response != null && response.wasRequestSuccessful();
     }
 
