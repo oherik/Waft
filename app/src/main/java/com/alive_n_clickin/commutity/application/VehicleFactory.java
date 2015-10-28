@@ -57,10 +57,6 @@ public class VehicleFactory {
      * @return  A new arriving vehicle based on the response
      * @throws NullPointerException if the parameter is null
      */
-    /* TODO Create method for creating a list of arriving vehicles, that loads all flags at once.
-    Then we don't have to rely on this method for creating every vehicle in a list. Instead we can
-    fetch all flags for the relevant lines at once from the api, thus reducing the number of api calls.
-    */
     public static IArrivingVehicle getArrivingVehicle(@NonNull JsonArrival jsonArrival) {
         String direction = jsonArrival.getDirection();
         String shortRouteName = jsonArrival.getSname();
