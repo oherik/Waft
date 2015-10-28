@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -15,18 +16,19 @@ import static org.mockito.Mockito.when;
 
 public class ElectriCityBusTest {
     private IFlagType mockFlagType = mock(IFlagType.class);
+    private String destination = "SomeStop";
+    private String journeyID = "some123";
+    private String dgw = "abc123";
+    private List<IFlag> flags = new ArrayList<>();
+
 
 
     @Test
     public void testConstructorIllegalArguments() throws Exception {
         boolean exception;
-
-
-        String destination = "SomeStop";
-        String journeyID = "some123";
-        String dgw = "abc123";
-        List<IFlag> flags = new ArrayList<>();
         flags.add(new Flag(mockFlagType, "this flag", new Date()));
+
+
 
         //test that creating an electricity with destination as null returns exception
         exception = false;
@@ -76,7 +78,11 @@ public class ElectriCityBusTest {
     }
 
     @Test
-    public void testEquals() throws Exception {
-
+    public void testGetFlags(){
+        boolean exception;
+        flags.add(new Flag(mockFlagType, "this flag", new Date()));
+        ElectriCityBus bus = new ElectriCityBus(destination,journeyID,dgw,flags);
+        assertEquals(flags, bus.getFlags());
     }
+
 }
