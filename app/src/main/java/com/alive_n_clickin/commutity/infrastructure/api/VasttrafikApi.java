@@ -18,12 +18,12 @@ import java.util.List;
  * A concrete implementation of IVasttrafikApi.
  */
 class VasttrafikApi implements IVasttrafikApi {
-    private final VasttrafikApiConnection vasttrafikApiConnection = new VasttrafikApiConnection();
+    private static final String BASE_URL = "http://api.vasttrafik.se/bin/rest.exe/v1";
+    private static final String API_KEY = "<YOUR API KEY>";
 
     @Override
     public List<JsonStop> searchForStops(String searchString) {
-        Response response = vasttrafikApiConnection.get("location.name",
-                "&input=" + Uri.encode(searchString));
+        Response response = sendGet("/location.name?input=" + Uri.encode(searchString));
 
         if (response == null) {
             return new ArrayList<>();
@@ -59,9 +59,7 @@ class VasttrafikApi implements IVasttrafikApi {
         String time = timeFormat.format(dateAndTime);
 
         // Since no maximum number of vehicles has been set, the API will return the 20 first.
-        Response response = vasttrafikApiConnection.get(
-                "departureBoard",
-                "&id=" + id + "&date=" + date + "&time=" + time);
+        Response response = sendGet("/departureBoard/?id=" + id + "&date=" + date + "&time=" + time);
 
         if (response == null) {
             return new ArrayList<>();
@@ -71,5 +69,14 @@ class VasttrafikApi implements IVasttrafikApi {
                 response.getBody(), "DepartureBoard");
 
         return jsonArrivalList.getDepartures();
+    }
+
+    private static String buildUrl(String query) {
+        return BASE_URL + query + "&authKey=" + API_KEY + "&format=json";
+    }
+
+    private static Response sendGet(String query) {
+        String url = buildUrl(query);
+        return ApiConnection.get(url);
     }
 }
