@@ -1,4 +1,4 @@
-package com.alive_n_clickin.commutity;
+package com.alive_n_clickin.commutity.application;
 
 import android.app.Application;
 
