@@ -4,7 +4,6 @@ import com.alive_n_clickin.commutity.infrastructure.api.JsonJavaConverter;
 
 import java.util.List;
 
-import lombok.Getter;
 import lombok.ToString;
 
 /**
@@ -19,5 +18,9 @@ public class JsonArrivalList {
     private String noNamespaceSchemaLocation;
     private String serverTime;
     private String serverDate;
-    @Getter private List<JsonArrival> Departure;
+    private List<JsonArrival> Departure;
+
+    public List<JsonArrival> getDepartures() {
+        return this.Departure;
+    }
 }

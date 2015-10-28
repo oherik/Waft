@@ -1,18 +1,18 @@
 package com.alive_n_clickin.commutity.application;
 
+import com.alive_n_clickin.commutity.application.api.ApiAdapterFactory;
+import com.alive_n_clickin.commutity.application.api.IElectriCityAdapter;
+import com.alive_n_clickin.commutity.application.api.IWaftAdapter;
 import com.alive_n_clickin.commutity.domain.ArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.ElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IArrivingVehicle;
 import com.alive_n_clickin.commutity.domain.IElectriCityBus;
 import com.alive_n_clickin.commutity.domain.IFlag;
-import com.alive_n_clickin.commutity.domain.JsonFlag;
-import com.alive_n_clickin.commutity.infrastructure.api.ApiAdapterFactory;
-import com.alive_n_clickin.commutity.infrastructure.api.IElectricityAdapter;
-import com.alive_n_clickin.commutity.infrastructure.api.IWaftAdapter;
-import com.alive_n_clickin.commutity.infrastructure.api.response.JsonJourney;
+import com.alive_n_clickin.commutity.domain.IJourney;
 import com.alive_n_clickin.commutity.infrastructure.api.response.JsonArrival;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import lombok.NonNull;
@@ -26,11 +26,10 @@ import lombok.NonNull;
  * @since 0.2
  */
 public class VehicleFactory {
+    private static final String ELECTRICITY_SHORT_ROUTE_NAME = "55";
 
-    private final static String CLASS_NUMBER = "9015";
-    private final static String THM_NUMBER = "014";
-    private final static String ELECTRICITY_LINE_NUMBER = "5055";
-    private final static String ELECTRICITY_JOURNEY_ID_PREFIX = CLASS_NUMBER + THM_NUMBER + ELECTRICITY_LINE_NUMBER;
+    private static final IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
+    private static final IElectriCityAdapter electriCityAdapter = ApiAdapterFactory.createElectricityAdapter();
 
     /**
      * Takes a dgw and returns a new bus object with all the data for the bus with that DGW.
@@ -41,33 +40,14 @@ public class VehicleFactory {
      * @return a new bus object.
      */
     public static IElectriCityBus getElectriCityBus(String dgw) {
-        IElectricityAdapter ecAdapter = ApiAdapterFactory.createElectricityAdapter();
-        JsonJourney jsonJourney = ecAdapter.getJourneyInfo(dgw);
-        String destination = "";
-        String journeyId = "";
-        if (jsonJourney != null) {
-            destination = jsonJourney.getDestination();
-            journeyId = ELECTRICITY_JOURNEY_ID_PREFIX + padWithZeroes(jsonJourney.getJourneyId(), 5);
-        }
-        return new ElectriCityBus(destination, journeyId, dgw);
-    }
+        IJourney journey = electriCityAdapter.getCurrentJourney(dgw);
 
-    /**
-     * Pads a string with zeroes.
-     *
-     * @param string the string to pad.
-     * @param wantedLength the wanted length of the returned string
-     * @return a new string consisting of the sent in string padded with zeroes so that it's size
-     * equals wantedLength.
-     */
-    private static String padWithZeroes(String string, int wantedLength) {
-        String zeroes = "";
-        for (int i = 0; i < wantedLength; i++) {
-            zeroes += "0";
-        }
+        String destination = journey.getDestination();
+        String journeyId = journey.getJourneyId();
 
-        String paddedString = zeroes + string;
-        return paddedString.substring(paddedString.length() - wantedLength, paddedString.length());
+        List<IFlag> flags = waftAdapter.getFlagsForVehicle(journeyId);
+
+        return new ElectriCityBus(destination, journeyId, dgw, flags);
     }
 
     /**
@@ -77,16 +57,22 @@ public class VehicleFactory {
      * @return  A new arriving vehicle based on the response
      * @throws NullPointerException if the parameter is null
      */
+    /* TODO Create method for creating a list of arriving vehicles, that loads all flags at once.
+    Then we don't have to rely on this method for creating every vehicle in a list. Instead we can
+    fetch all flags for the relevant lines at once from the api, thus reducing the number of api calls.
+    */
     public static IArrivingVehicle getArrivingVehicle(@NonNull JsonArrival jsonArrival) {
         String direction = jsonArrival.getDirection();
-        String shortName = jsonArrival.getSname();
+        String shortRouteName = jsonArrival.getSname();
         String journeyId = jsonArrival.getJourneyid();
         Date realArrival = jsonArrival.getRealArrival();
+        int lineColor = jsonArrival.getLineColor();
 
-        IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
-        List<JsonFlag> jsonFlags = waftAdapter.getFlagsForVehicle(journeyId);
-        List<IFlag> flags = FlagFactory.getFlags(jsonFlags);
+        List<IFlag> flags = new LinkedList<>();
+        if (shortRouteName.equals(ELECTRICITY_SHORT_ROUTE_NAME)) {
+            flags = waftAdapter.getFlagsForVehicle(journeyId);
+        }
 
-        return new ArrivingVehicle(direction, shortName, journeyId, realArrival, flags);
+        return new ArrivingVehicle(direction, shortRouteName, journeyId, realArrival, flags, lineColor);
     }
 }

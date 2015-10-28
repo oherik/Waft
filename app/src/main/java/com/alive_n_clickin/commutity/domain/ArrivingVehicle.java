@@ -1,6 +1,5 @@
 package com.alive_n_clickin.commutity.domain;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +17,6 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class ArrivingVehicle extends AbstractVehicle implements IArrivingVehicle {
     private final Date arrivalTime;
-    private final List<IFlag> flags;
 
     /**
      * Constructor.
@@ -34,20 +32,15 @@ public class ArrivingVehicle extends AbstractVehicle implements IArrivingVehicle
      * @throws NullPointerException if any parameter is null.
      */
     public ArrivingVehicle(@NonNull String destination, @NonNull String shortRouteName,
-                           String journeyID, @NonNull Date arrivalTime, @NonNull List<IFlag> flags) {
-        super(destination, shortRouteName, journeyID);
+                           String journeyID, @NonNull Date arrivalTime, @NonNull List<IFlag> flags,
+                           int lineColor) {
+        super(destination, shortRouteName, journeyID, flags, lineColor);
         this.arrivalTime = new Date(arrivalTime.getTime());
-        this.flags = new ArrayList<>(flags);
     }
 
     @Override
     public Date getArrivalTime() {
         return new Date(this.arrivalTime.getTime());
-    }
-
-    @Override
-    public List<IFlag> getFlags() {
-        return new ArrayList<>(this.flags);
     }
 
     @Override

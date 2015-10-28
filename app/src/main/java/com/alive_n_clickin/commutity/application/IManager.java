@@ -27,6 +27,13 @@ public interface IManager extends IObservable {
     boolean addFlagToCurrentBus(IFlag flag);
 
     /**
+     * Deleted the flag if the id is valid.
+     * @param flag the flag to delete.
+     * @return true if successful.
+     */
+    boolean deleteFlag(IFlag flag);
+
+    /**
      * @return true if the user is currently on a bus, otherwise false.
      */
     boolean isOnBus();
@@ -51,4 +58,18 @@ public interface IManager extends IObservable {
      * @throws NullPointerException if the parameter is null
      */
     List<IStop> searchForStops(String searchQuery);
+
+    /**
+     * @return true if the app can currently look for vehicles, false otherwise
+     */
+    boolean canSearch();
+
+    /**
+     * Perform a new search for vehicles. Listeners for these types of events will be notified when
+     * the search completes.
+     *
+     * This method will enable the functions needed in the android system needed for searching, if they
+     * are not already enabled.
+     */
+    void searchForVehicles();
 }

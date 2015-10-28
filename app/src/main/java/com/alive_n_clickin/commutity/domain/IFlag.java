@@ -23,4 +23,11 @@ public interface IFlag {
      * @return the time of creation of the flag. This method should never return a null date.
      */
     Date getCreatedTime();
+
+    /**
+     *
+     * @return the id for the flag.
+     */
+    String getId();
+
 }

@@ -1,26 +1,16 @@
 package com.alive_n_clickin.commutity.presentation.flagreport;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.TextView;
 
-import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
-import com.alive_n_clickin.commutity.application.IManager;
 import com.alive_n_clickin.commutity.domain.Flag;
-import com.alive_n_clickin.commutity.domain.IVehicle;
-import com.alive_n_clickin.commutity.event.CurrentBusChangeEvent;
-import com.alive_n_clickin.commutity.event.WifiStateChangeEvent;
-import com.alive_n_clickin.commutity.infrastructure.WifiBroadcastReceiver;
-import com.alive_n_clickin.commutity.infrastructure.WifiHelper;
-import com.alive_n_clickin.commutity.util.event.IEvent;
-import com.alive_n_clickin.commutity.util.event.IObserver;
 
 import java.util.ArrayList;
 
@@ -30,20 +20,16 @@ import java.util.ArrayList;
  *
  * @since 0.1
  */
-public class FlagVehicleFragment extends Fragment implements IObserver {
-    private final static String ARG_POSITION = "position";
-    private int mCurrentPosition = -1;
-
-    private IManager busManager;
-    private WifiBroadcastReceiver wifiBroadcastReceiver;
-
-    private FlagViewAdapter flagAdapter;
+public class FlagVehicleFragment extends Fragment {
     private ArrayList<FlagButton> flagButtons;
+
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         addTestButtons();
     }
 
@@ -53,105 +39,51 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        final View rootView = inflater.inflate(R.layout.recycler, container, false);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
 
-        // Register observers
-        MyApplication application = (MyApplication) this.getActivity().getApplicationContext();
-        this.busManager = application.getManager();
-        this.busManager.addObserver(this);
-        this.wifiBroadcastReceiver = application.getWifiBroadcastReceiver();
-        this.wifiBroadcastReceiver.addObserver(this);
-
-        final View rootView = inflater.inflate(R.layout.fragment_flag_vehicle, container, false);
-        flagAdapter = new FlagViewAdapter(getActivity(), flagButtons);
-        final TextView textView = (TextView) rootView.findViewById(R.id.textViewBusInformation);
-
-        // Set up on click listener for bus text
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                WifiHelper wifiHelper = new WifiHelper(getActivity());
-                boolean wifiIsEnabled = wifiHelper.isWifiEnabled();
-                if (wifiIsEnabled) {
-                    textView.setText(R.string.loading_looking_for_vehicle);
-                    wifiHelper.initiateWifiScan();
-                } else {
-                    textView.setText(R.string.activating_wifi);
-                    wifiHelper.enableWifi();
-                }
-            }
-        });
-
-        this.updateBusText(rootView);
-
-        GridView flagGrid = (GridView) rootView.findViewById(R.id.flagGridView);
-        flagGrid.setAdapter(flagAdapter);
-        flagGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //TODO Move all this to a background service that posts when it finds a bus.
-                FlagButton button = flagAdapter.getItem(i);
-
-                //Prepare arguments
-                FlagVehicleDetailFragment detailFragment = new FlagVehicleDetailFragment();
-                Bundle args = new Bundle();
-                args.putInt(FlagVehicleDetailFragment.getARG_POSITION(), mCurrentPosition);
-
-                //Add flag data
-                args.putInt("flag_image_ID", button.getImageID());
-                args.putString("flag_description", button.getDescription());
-//                args.putString("bus_data", currentBus.getDGW());
-                args.putInt("flag_type_ID", button.getType().getId());
-                detailFragment.setArguments(args);
-
-                //Switch view
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().
-                        beginTransaction();
-                transaction.replace(R.id.content_frame, detailFragment);
-                transaction.addToBackStack(null);
-                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                transaction.commit();
-            }
-        });
+        //Sets the layout
+        layoutManager = new GridLayoutManager(getContext(),
+                getContext().getResources().getInteger(R.integer.flag_columns));
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(new CardDecorator(getContext()
+                .getResources()
+                .getInteger(R.integer.spacing_between_flag_buttons)));
+        //Sets the adapter which handles creating cards.
+        adapter = new RecyclerAdapter(flagButtons);
+        recyclerView.setAdapter(adapter);
         return rootView;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    /**
+     * This class only purpose is to setting the margin between cards in the RecyclerView.
+     */
+    private class CardDecorator extends RecyclerView.ItemDecoration {
+        private int space;
 
-        this.busManager.removeObserver(this);
-        this.wifiBroadcastReceiver.removeObserver(this);
-    }
+        public CardDecorator(int space) {
+            this.space = space;
+        }
 
-    private void updateBusText(View view) {
-        final TextView textView = (TextView) view.findViewById(R.id.textViewBusInformation);
+        @Override
+        public void getItemOffsets(Rect outRect, View view,
+                                   RecyclerView parent, RecyclerView.State state) {
+            int currentItem = parent.getChildLayoutPosition(view);
+            outRect.bottom = space;
+            outRect.right = space;
 
-        WifiHelper wifiHelper = new WifiHelper(this.getActivity());
-        if (this.busManager.isOnBus()) {
-            IVehicle bus = this.busManager.getCurrentBus();
-            String newText = getCurrentBusAsString(bus);
-
-            textView.setText(newText);
-        } else if (!wifiHelper.isWifiEnabled()) {
-            textView.setText(R.string.you_must_activate_wifi);
-        } else {
-            textView.setText(R.string.no_buses_near);
+            // Remove the margin in between the two columns.
+            if (currentItem % 2 == 0) {
+                outRect.left = space;
+            }
+            // Add top margin only for the first item in the two columns to avoid double margin between items.
+            if (currentItem == 0 || currentItem == 1) {
+                outRect.top = space;
+            }
         }
     }
 
-    private String getCurrentBusAsString(IVehicle bus) {
-        StringBuilder newText = new StringBuilder();
-        newText.append(bus.getShortRouteName());
-        newText.append(" ");
-        newText.append(bus.getDestination());
-        return newText.toString();
-    }
-
-    private void updateBusText() {
-        this.updateBusText(getView());
-    }
 
     /**
      * Adds the different buttons. At the moment it's all hard coded for testing purposes
@@ -161,28 +93,19 @@ public class FlagVehicleFragment extends Fragment implements IObserver {
         if(flagButtons==null){
             flagButtons = new ArrayList<>();
         }
-        flagButtons.add(new FlagButton(R.drawable.flag_full_300px, getString(R.string.flag_overcrowded), Flag.Type.OVERCROWDED));
-        flagButtons.add(new FlagButton(R.drawable.flag_rowdy_300px, getString(R.string.flag_disturbance), Flag.Type.DISTURBANCES));
-        flagButtons.add(new FlagButton(R.drawable.flag_delayed_300px, getString(R.string.flag_delayed), Flag.Type.DELAYED));
-        flagButtons.add(new FlagButton(R.drawable.flag_dirty_alt2_300px, getString(R.string.flag_messy), Flag.Type.MESSY));
-        flagButtons.add(new FlagButton(R.drawable.flag_pram_300px, getString(R.string.flag_pram), Flag.Type.NO_PRAMS));
-        flagButtons.add(new FlagButton(R.drawable.flag_other_black_300px, getString(R.string.flag_other), Flag.Type.OTHER));
-    }
-
-    @Override
-    public void onEvent(IEvent event) {
-        if (event instanceof CurrentBusChangeEvent) {
-            handleCurrentBusChangeEvent((CurrentBusChangeEvent) event);
-        } else if (event instanceof WifiStateChangeEvent) {
-            handleWifiStateChangeEvent((WifiStateChangeEvent) event);
-        }
-    }
-
-    private void handleCurrentBusChangeEvent(CurrentBusChangeEvent event) {
-        this.updateBusText();
-    }
-
-    private void handleWifiStateChangeEvent(WifiStateChangeEvent event) {
-        this.updateBusText();
+        flagButtons.add(new FlagButton(R.drawable.flag_empty, getString(R.string.flag_empty), Flag.Type.EMPTY));
+        flagButtons.add(new FlagButton(R.drawable.flag_full, getString(R.string.flag_overcrowded), Flag.Type.OVERCROWDED));
+        flagButtons.add(new FlagButton(R.drawable.flag_calm, getString(R.string.flag_calm), Flag.Type.CALM));
+        flagButtons.add(new FlagButton(R.drawable.flag_rowdy, getString(R.string.flag_disturbance), Flag.Type.DISTURBANCES));
+        flagButtons.add(new FlagButton(R.drawable.flag_pram, getString(R.string.flag_pram), Flag.Type.NO_PRAM_SPOTS));
+        flagButtons.add(new FlagButton(R.drawable.flag_no_wheelchair_spots, getString(R.string.flag_no_wheelchair_spots), Flag.Type.NO_WHEELCHAIR_SPOTS));
+        flagButtons.add(new FlagButton(R.drawable.flag_clean, getString(R.string.flag_clean), Flag.Type.CLEAN));
+        flagButtons.add(new FlagButton(R.drawable.flag_dirty, getString(R.string.flag_messy), Flag.Type.MESSY));
+        flagButtons.add(new FlagButton(R.drawable.flag_quiet, getString(R.string.flag_quite), Flag.Type.QUIET));
+        flagButtons.add(new FlagButton(R.drawable.flag_loud, getString(R.string.flag_loud), Flag.Type.LOUD));
+        flagButtons.add(new FlagButton(R.drawable.flag_good_driver, getString(R.string.flag_good_driver), Flag.Type.GOOD_DRIVER));
+        flagButtons.add(new FlagButton(R.drawable.flag_warm, getString(R.string.flag_warm), Flag.Type.BAD_CLIMATE));
+        flagButtons.add(new FlagButton(R.drawable.flag_broken_ticket_station, getString(R.string.flag_broken_ticket_station), Flag.Type.BROKEN_TICKET_STATION));
+        flagButtons.add(new FlagButton(R.drawable.flag_other, getString(R.string.flag_other), Flag.Type.OTHER));
     }
 }

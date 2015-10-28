@@ -1,5 +1,8 @@
 package com.alive_n_clickin.commutity.domain;
 
+import android.graphics.Color;
+import java.util.List;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
@@ -17,6 +20,10 @@ import lombok.ToString;
 public class ElectriCityBus extends AbstractVehicle implements IElectriCityBus {
     private static final String SHORT_ROUTE_NAME = "55"; // ElectriCity buses only run on the 55 route
 
+    //TODO: Find the real hexadecimal color for the Electricity bus.
+    private static final String LINE_COLOR_IN_HEX = "#8FFF42";
+    private static final int LINE_COLOR = Color.parseColor(LINE_COLOR_IN_HEX);
+
     @Getter private final String DGW;
 
     /**
@@ -30,8 +37,14 @@ public class ElectriCityBus extends AbstractVehicle implements IElectriCityBus {
      * @throws NullPointerException if any parameter is null
      */
     public ElectriCityBus(@NonNull String destination, @NonNull String journeyID,
-                          @NonNull String DGW) {
-        super(destination, SHORT_ROUTE_NAME, journeyID);
+                          @NonNull String DGW, @NonNull List<IFlag> flags) {
+
+        super(destination, SHORT_ROUTE_NAME, journeyID, flags, LINE_COLOR);
         this.DGW = DGW;
+    }
+
+    @Override
+    public List<IFlag> getFlags() {
+        return super.getFlags();
     }
 }

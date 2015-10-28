@@ -1,0 +1,3 @@
+[submodule "DAT255_server"]
+	path = DAT255_server
+	url = git@github.com:Oscmage/DAT255_server.git
