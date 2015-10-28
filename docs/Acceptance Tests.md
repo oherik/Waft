@@ -104,10 +104,11 @@ Tests
 
 1. You are brought back to the view add flags view.
 1. A toast appears saying "Flagga skickad"
+1. At the website http://95.85.21.47/flags, at the bottom a page there is a new JSON object, with flagType: 14 and comment: "Inte mycket folk idag".
 
 *Variation 2* 
 
-Same as above.
+Same as above, but with flag type 1 and "Det saknas brandsläckare" as comment.
 
 *Variation 3*
 
