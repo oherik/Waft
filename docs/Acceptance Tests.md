@@ -303,7 +303,7 @@ User stories
 
 These are the user stories that relate to acceptance functional accepance tests. Some user stories concern non-functional requirements, and thus are not included here.
 
-|User story | Associated tests (embedded) |
+|User story | Associated tests |
 |-----------| ---------------- |
 |**From product backlog, by product owner** | |
 |As a traveler, I want to tell others about problems with or on my vehicle by flagging them, so that I can help my fellow travelers. | T03.1, T06, T07|
@@ -311,15 +311,19 @@ These are the user stories that relate to acceptance functional accepance tests.
 |As a traveler, I want to be able to send flags with a single press, so that I with ease can let travelers know of issues on my bus. | T03.2 |
 | As a traveller, I want to be able to refresh the list of arriving vehicles, so that I can se the latest data without having to perform a new search | T02 |
 | As a traveler I want to be able to remove flags that I find incorrect, so that others know the issue reported is no longer (or was never) there. | T04, T05 |
-|**From sprint backlog, by developers**. Stories fully that exactly match product backlog story are not included | |
+|**From sprint backlog, by developers**. | |
 |User can add flag to current bus | T03.1 |
-|User can put comment on flag | (T03.1) |
+|User can put comment on flag | T03.1 |
+|User can quick send flag | T03.2 |
 |User can search for stops | T01 |
+|User can refresh vehicle list by pulling it down| T02 |
 |User can see what bus they are on through autodetection | T06, T07, T08.1 |
-|User can refresh current vehicle status | (T06)|
-|User can turn vehicle scanning on through app | (T07) |
-|User can turn vehcile scanning on when sending fails because scanning is impossible | (T08.2)
+|User can refresh current vehicle status | T06|
+|User can see when vehicle scanning is turned off because there is no wifi | T07 |
+|User can turn vehicle scanning on through app | T08.1-T08.2 |
+|User can turn vehcile scanning on when sending fails because scanning is impossible | T08.2
 |User can send flags with single press | T03.2 |
 |User can view flags on current vehicle | T04 |
+|User can remove flag from current vehicle | T05 |
 |User can use hardware button to navigate backwards through app | T09 |
 |User can use back button in action bar to navigate backwards through parts of app | T09 |
