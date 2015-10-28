@@ -84,19 +84,11 @@ Tests
 
 *Variaton 2*
 
-1. Press the bus icon.
-1. Press the '+' icon.
-1. Scroll to the bottom of list and press "Övrigt" icon.
-1. Enter "Det saknas brandsläckare"
-1. Press send.
+Same as above, but press the "Övrigt" icon and enter "Det saknas brandsläckare".
 
 *Variation 3*
 
-1. Press the bus icon.
-1. Press the '+' icon.
-1. Scroll to the bottom of list and press "Övrigt" icon.
-1. Enter "Hej".
-1. Press send.
+Same as above, but press the "Övrigt" icon and enter "Hej".
 
 #### Expected result
 
