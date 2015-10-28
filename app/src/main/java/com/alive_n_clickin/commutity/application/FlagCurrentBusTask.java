@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
 import com.alive_n_clickin.commutity.domain.IFlag;
 
