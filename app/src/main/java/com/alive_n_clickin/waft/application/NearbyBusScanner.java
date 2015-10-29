@@ -4,15 +4,13 @@ import android.content.Context;
 
 import com.alive_n_clickin.waft.infrastructure.WifiBroadcastReceiver;
 import com.alive_n_clickin.waft.infrastructure.WifiHelper;
-import com.alive_n_clickin.waft.util.event.CantSearchForVehiclesEvent;
 import com.alive_n_clickin.waft.util.event.IEvent;
 import com.alive_n_clickin.waft.util.event.IObservable;
 import com.alive_n_clickin.waft.util.event.IObservableHelper;
 import com.alive_n_clickin.waft.util.event.IObserver;
-import com.alive_n_clickin.waft.util.event.NewBusNearbyEvent;
-import com.alive_n_clickin.waft.util.event.NewWifiScanAvailableEvent;
+import com.alive_n_clickin.waft.infrastructure.NewWifiScanAvailableEvent;
 import com.alive_n_clickin.waft.util.event.ObservableHelper;
-import com.alive_n_clickin.waft.util.event.WifiStateChangeEvent;
+import com.alive_n_clickin.waft.infrastructure.WifiStateChangeEvent;
 
 import java.util.HashMap;
 import java.util.List;

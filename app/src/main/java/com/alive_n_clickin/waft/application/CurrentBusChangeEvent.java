@@ -1,6 +1,7 @@
-package com.alive_n_clickin.waft.util.event;
+package com.alive_n_clickin.waft.application;
 
 import com.alive_n_clickin.waft.domain.IElectriCityBus;
+import com.alive_n_clickin.waft.util.event.IEvent;
 
 /**
  * An event for when the bus the user is on changes. The event sends along the bus object representing
