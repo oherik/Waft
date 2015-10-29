@@ -9,7 +9,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.erik.commutity"
+        applicationId "com.alive_n_clickin.waft"
         minSdkVersion 21
         targetSdkVersion 23
         versionCode 2
