@@ -3,19 +3,19 @@ package com.alive_n_clickin.waft.presentation.flagreport;
 import android.app.ActionBar;
 import android.app.FragmentManager;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import com.alive_n_clickin.waft.application.CentralApplication;
 import com.alive_n_clickin.waft.R;
+import com.alive_n_clickin.waft.application.CantSearchForVehiclesEvent;
+import com.alive_n_clickin.waft.application.CentralApplication;
+import com.alive_n_clickin.waft.application.CurrentBusChangeEvent;
 import com.alive_n_clickin.waft.application.IManager;
 import com.alive_n_clickin.waft.domain.IElectriCityBus;
-import com.alive_n_clickin.waft.application.CantSearchForVehiclesEvent;
-import com.alive_n_clickin.waft.application.CurrentBusChangeEvent;
 import com.alive_n_clickin.waft.util.event.IEvent;
 import com.alive_n_clickin.waft.util.event.IObserver;
 
@@ -26,7 +26,7 @@ import com.alive_n_clickin.waft.util.event.IObserver;
  *
  * @since 0.1
  */
-public class FlagVehicleActivity extends FragmentActivity implements IObserver {
+public class FlagVehicleActivity extends AppCompatActivity implements IObserver {
     private IManager manager;
 
     private ActionBar actionBar;

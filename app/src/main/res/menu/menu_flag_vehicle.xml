@@ -1,16 +1,17 @@
 <menu xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     tools:context=""
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     >
     <item android:id="@+id/refresh_icon"
         android:title=""
         android:icon="@drawable/ic_cached_white_36dp"
-        android:showAsAction="ifRoom"
+        app:showAsAction="ifRoom"
         />
     <item android:id="@+id/wifi_disabled_icon"
         android:title=""
         android:icon="@drawable/ic_signal_wifi_off_white_36dp"
-        android:showAsAction="ifRoom"
+        app:showAsAction="ifRoom"
         android:visible="false"
         />
 
