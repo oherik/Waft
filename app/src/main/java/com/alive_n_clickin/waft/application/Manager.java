@@ -9,12 +9,9 @@ import com.alive_n_clickin.waft.domain.IArrivingVehicle;
 import com.alive_n_clickin.waft.domain.IElectriCityBus;
 import com.alive_n_clickin.waft.domain.IFlag;
 import com.alive_n_clickin.waft.domain.IStop;
-import com.alive_n_clickin.waft.util.event.CantSearchForVehiclesEvent;
-import com.alive_n_clickin.waft.util.event.CurrentBusChangeEvent;
 import com.alive_n_clickin.waft.util.event.IEvent;
 import com.alive_n_clickin.waft.util.event.IObservableHelper;
 import com.alive_n_clickin.waft.util.event.IObserver;
-import com.alive_n_clickin.waft.util.event.NewBusNearbyEvent;
 import com.alive_n_clickin.waft.util.event.ObservableHelper;
 
 import java.util.List;
