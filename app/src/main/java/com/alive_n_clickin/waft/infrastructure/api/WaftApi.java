@@ -10,6 +10,8 @@ import java.util.List;
 
 /**
  * A concrete implementation of IWaftApi.
+ *
+ * @since 1.0
  */
 class WaftApi implements IWaftApi {
     private static final String BASE_URL = Config.WAFT_URL;

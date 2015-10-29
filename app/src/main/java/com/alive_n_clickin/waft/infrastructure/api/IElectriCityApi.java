@@ -7,6 +7,8 @@ import java.util.List;
 
 /**
  * An interface for ElectriCity's API.
+ *
+ * @since 1.0
  */
 public interface IElectriCityApi {
     /**

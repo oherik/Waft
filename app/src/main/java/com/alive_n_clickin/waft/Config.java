@@ -3,6 +3,8 @@ package com.alive_n_clickin.waft;
 /**
  * A class for storing configuration. This class holds information like URL:s and API keys that
  * may want to be changed depending on who the developer is.
+ *
+ * @since 1.0
  */
 public class Config {
     /**

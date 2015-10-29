@@ -7,6 +7,8 @@ import java.util.List;
 
 /**
  * An interface for Waft's API.
+ *
+ * @since 1.0
  */
 public interface IWaftApi {
     /**

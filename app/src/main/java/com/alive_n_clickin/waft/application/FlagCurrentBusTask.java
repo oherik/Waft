@@ -11,6 +11,8 @@ import com.alive_n_clickin.waft.domain.IFlag;
  * An async task that adds a flag to the current bus. Since the flagging process involves network
  * requests this task must be done asynchronously. When the task is completed, a toast is displayed
  * in the application context with either a success message or a failure message.
+ *
+ * @since 1.0
  */
 public class FlagCurrentBusTask extends AsyncTask<IFlag, Void, Boolean> {
     private final Context applicationContext;

@@ -13,6 +13,8 @@ import java.util.List;
 
 /**
  * A concrete implementation of IElectriCityApi.
+ *
+ * @since 1.0
  */
 class ElectriCityApi implements IElectriCityApi {
     private static final String LOG_TAG = LogUtils.getLogTag(ElectriCityApi.class);
