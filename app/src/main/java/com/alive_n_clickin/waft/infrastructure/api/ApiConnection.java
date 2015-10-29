@@ -258,19 +258,18 @@ class ApiConnection {
 
         boolean first = true;
         for (Parameter parameter : parameters) {
-            String parameterString;
+            StringBuilder parameterString = new StringBuilder("");
 
             // If the parameter is the first one in the list, don't prepend it with a & sign
             if (first) {
-                parameterString = "";
                 first = false;
             } else {
-                parameterString = "&";
+                parameterString.append("&");
             }
 
-            parameterString = parameterString + parameter.getKey() + "=" + parameter.getValue();
+            parameterString.append(parameter.getKey() + "=" + parameter.getValue());
 
-            queryString = queryString + parameterString;
+            queryString = queryString + parameterString.toString();
         }
 
         return queryString;
