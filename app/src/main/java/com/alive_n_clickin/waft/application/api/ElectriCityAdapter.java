@@ -47,12 +47,12 @@ class ElectriCityAdapter implements IElectriCityAdapter {
      * equals wantedLength.
      */
     private static String padWithZeroes(String string, int wantedLength) {
-        String zeroes = "";
+        StringBuilder zeroes = new StringBuilder("");
         for (int i = 0; i < wantedLength; i++) {
-            zeroes += "0";
+            zeroes.append("0");
         }
 
-        String paddedString = zeroes + string;
+        String paddedString = zeroes.toString() + string;
         return paddedString.substring(paddedString.length() - wantedLength, paddedString.length());
     }
 }
