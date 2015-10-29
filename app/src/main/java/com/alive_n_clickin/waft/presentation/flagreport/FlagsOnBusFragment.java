@@ -17,8 +17,8 @@ import com.alive_n_clickin.waft.R;
 import com.alive_n_clickin.waft.application.IManager;
 import com.alive_n_clickin.waft.domain.IElectriCityBus;
 import com.alive_n_clickin.waft.domain.IFlag;
-import com.alive_n_clickin.waft.util.event.CantSearchForVehiclesEvent;
-import com.alive_n_clickin.waft.util.event.CurrentBusChangeEvent;
+import com.alive_n_clickin.waft.application.CantSearchForVehiclesEvent;
+import com.alive_n_clickin.waft.application.CurrentBusChangeEvent;
 import com.alive_n_clickin.waft.util.event.IEvent;
 import com.alive_n_clickin.waft.util.event.IObserver;
 
