@@ -55,7 +55,7 @@ public class FlagTest {
 
         exception = false;
         try {
-            new Flag(mockFlagTypeWithCommentRequired, "", new Date());
+            new Flag(mockFlagTypeWithCommentRequired, "", new Date(),"");
         } catch (IllegalArgumentException e) {
             exception = true;
         }
@@ -63,7 +63,7 @@ public class FlagTest {
 
         exception = false;
         try {
-            new Flag(mockFlagTypeWithCommentRequired, "asdf", new Date());
+            new Flag(mockFlagTypeWithCommentRequired, "asdf", new Date(),"");
         } catch (IllegalArgumentException e) {
             exception = true;
         }
@@ -71,7 +71,7 @@ public class FlagTest {
 
         exception = false;
         try {
-            new Flag(mockFlagTypeWithCommentRequired, "asdfg", new Date());
+            new Flag(mockFlagTypeWithCommentRequired, "asdfg", new Date(),"");
         } catch (IllegalArgumentException e) {
             exception = true;
         }
