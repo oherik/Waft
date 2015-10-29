@@ -1,8 +1,5 @@
 <FindBugsFilter>
     <Match>
-        <Class name="~.*_\$.*"/>
-    </Match>
-    <Match>
        <Class name="~.*R\$.*"/>
     </Match>
     <Match>
