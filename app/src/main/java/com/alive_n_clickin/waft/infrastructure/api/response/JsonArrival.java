@@ -61,7 +61,7 @@ public class JsonArrival {
         try {
             arrival = dateFormatter.parse(date + " " + time);
         } catch (ParseException e) {
-            Log.e(LogUtils.getLogTag(this), e.getStackTrace().toString());
+            Log.e(LogUtils.getLogTag(this), Log.getStackTraceString(e));
         }
         return arrival;
     }
@@ -80,7 +80,7 @@ public class JsonArrival {
         try {
             arrival = dateFormatter.parse(date + " " + rtTime);
         } catch (ParseException e) {
-            Log.e(LogUtils.getLogTag(this), e.getStackTrace().toString());
+            Log.e(LogUtils.getLogTag(this), Log.getStackTraceString(e));
         }
         return arrival;
     }
