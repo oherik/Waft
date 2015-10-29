@@ -28,8 +28,8 @@ class ElectriCityApi implements IElectriCityApi {
         // End time: right now
         long endTime = System.currentTimeMillis();
 
-        // Start time, 30 seconds ago, so that we have some margin
-        long startTime = endTime - 30 * 1000;
+        // Start time, 60 seconds ago, so that we have some margin
+        long startTime = endTime - 60 * 1000;
 
         List<JsonJourneyInfo> journeyInfoList = getJourneyInfo(dgw, startTime, endTime);
 
