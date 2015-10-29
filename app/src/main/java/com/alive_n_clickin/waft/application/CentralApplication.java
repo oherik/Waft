@@ -31,14 +31,14 @@ public class CentralApplication extends Application {
         super.onCreate();
 
         this.wifiBroadcastReceiver = new WifiBroadcastReceiver(this);
-        com.alive_n_clickin.waft.application.NearbyBusScanner nearbyBusScanner = new com.alive_n_clickin.waft.application.NearbyBusScanner(wifiBroadcastReceiver, this.getApplicationContext());
-        this.manager = new com.alive_n_clickin.waft.application.Manager(nearbyBusScanner);
+        NearbyBusScanner nearbyBusScanner = new NearbyBusScanner(wifiBroadcastReceiver, this.getApplicationContext());
+        this.manager = new Manager(nearbyBusScanner);
     }
 
     /**
      * @return the Manager instance that is used throughout the application.
      */
-    public com.alive_n_clickin.waft.application.IManager getManager() {
+    public IManager getManager() {
         return this.manager;
     }
 
