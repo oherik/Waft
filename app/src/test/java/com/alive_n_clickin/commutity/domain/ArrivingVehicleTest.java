@@ -9,7 +9,6 @@ import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
 /**
@@ -41,13 +40,13 @@ public class ArrivingVehicleTest {
     @Test
     public void testCompareTo() throws Exception {
 
-        //Vehicle one arrives later than vehicle 2 and should return -1
+        //Vehicle one arrives later than vehicle two and should return -1
         assertEquals("Should return -1", -1, arrVehic1.compareTo(arrVehic2));
 
-        //Vehicle one arrives later than vehicle 2 and should return 1
+        //Vehicle two arrives before  vehicle one and should return 1
         assertEquals("Should return 1", 1, arrVehic2.compareTo(arrVehic1));
 
-        //Same vehicle should return 0
+        //Same arriving time should return 0
         assertEquals("should return 0", 0, arrVehic1.compareTo(arrVehic1));
     }
 
@@ -55,11 +54,12 @@ public class ArrivingVehicleTest {
     public void testGetArrival() throws Exception {
         assertEquals("Should return the time of arrival", dateVehic1, arrVehic1.getArrivalTime());
 
+        //Should be false due to dateVehic2 is not the same as the arrival time in arrVehic1
         assertFalse(dateVehic2.equals(arrVehic1.getArrivalTime()));
     }
 
     @Test
     public void testGetFlags() throws Exception {
-
+        assertEquals(flags,arrVehic1.getFlags());
     }
 }
