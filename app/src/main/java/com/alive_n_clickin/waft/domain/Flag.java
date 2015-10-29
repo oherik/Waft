@@ -130,7 +130,7 @@ public class Flag implements IFlag {
     public Flag(@NonNull IFlagType type, @NonNull String comment, @NonNull Date createdTime, @NonNull String id) {
         this.type = type;
         this.comment = comment;
-        this.createdTime = createdTime;
+        this.createdTime = new Date(createdTime.getTime());
         this.id = id;
     }
 
