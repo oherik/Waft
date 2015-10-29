@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
+    apply plugin: 'findbugs'
 
     lintOptions {
         abortOnError false
@@ -36,8 +37,9 @@ repositories {
 
 task customFindbugs(type: FindBugs) {
     ignoreFailures = false
-    effort = "max"
-    reportLevel = "low"
+    effort = "default"
+    reportLevel = "medium"
+    excludeFilter = file("$rootProject.rootDir/config/findbugs/exclude.xml")
     classes = files("$project.buildDir/intermediates/classes")
     source = fileTree('src/main/java/')
     classpath = files()
@@ -64,6 +66,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     provided "org.projectlombok:lombok:1.12.6"
 }
+
+check.dependsOn customFindbugs
 
 
 
