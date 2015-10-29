@@ -9,7 +9,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.erik.commutity"
+        applicationId "com.alive_n_clickin.waft"
         minSdkVersion 21
         targetSdkVersion 23
         versionCode 2
@@ -25,6 +25,9 @@ android {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 repositories {
@@ -33,8 +36,13 @@ repositories {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:support-v4:23.0.1'
     compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.android.support:cardview-v7:23.0.1'
+    compile 'com.android.support:recyclerview-v7:23.0.1'
+    compile 'com.android.support:design:23.0.1'
     compile 'com.google.code.gson:gson:2.3.1'
+    compile 'com.android.support:cardview-v7:23.0.1'
     testCompile 'org.mockito:mockito-core:1.10.19'
     testCompile 'junit:junit:4.12'
     provided "org.projectlombok:lombok:1.12.6"
