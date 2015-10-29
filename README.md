@@ -18,19 +18,19 @@ git submodule update
 
 ## Running tests
 
-1. To run the test you need to export your sdk location by typing:
+#### To run the test you need to export your sdk location by typing:
 
 ```
 export ANDROID_HOME='<Path to Android SDK>'
 ```
 
-2. Run tests
+#### Run tests
 
 ```
 ./gradlew test
 ```
 
-3. See the result by going to the directory "/app/build/reports/tests/debug/index.html".
+See the result by going to the directory "/app/build/reports/tests/debug/index.html".
 
 ## Dependencies
 
