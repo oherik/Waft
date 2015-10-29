@@ -40,7 +40,7 @@ class WaftAdapter implements IWaftAdapter {
 
     @Override
     public boolean flagBus(IElectriCityBus bus, IFlag flag) {
-        return waftApi.addFlag(bus.getDGW(), bus.getJourneyID(), flag.getType().getId(), flag.getComment(),
+        return waftApi.addFlag(bus.getDGW(), bus.getJourneyId(), flag.getType().getId(), flag.getComment(),
                 flag.getCreatedTime());
     }
 

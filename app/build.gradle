@@ -33,7 +33,7 @@ android {
 repositories {
     jcenter()
 }
-gitg
+
 task customFindbugs(type: FindBugs) {
     ignoreFailures = false
     effort = "max"
