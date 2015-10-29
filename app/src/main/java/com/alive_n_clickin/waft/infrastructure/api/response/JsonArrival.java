@@ -78,7 +78,9 @@ public class JsonArrival {
     public Date getRealArrival() {
         Date arrival = new Date();
         try {
-            arrival = dateFormatter.parse(date + " " + rtTime);
+            if (rtTime != null) {
+                arrival = dateFormatter.parse(date + " " + rtTime);
+            }
         } catch (ParseException e) {
             Log.e(LogUtils.getLogTag(this), Log.getStackTraceString(e));
         }
