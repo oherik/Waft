@@ -103,25 +103,7 @@ public class Flag implements IFlag {
     @Getter private String id;
     private final Date createdTime;
 
-    /**
-     * Instantiates a new flag with the supplied type, comment and time of creation.
-     *
-     * @param type The flag type for the flag. See FlagType for more information.
-     * @param comment A comment for the flag.  If the supplied flag type requires a comment, the
-     *                comment must be at least 5 characters long.
-     * @param createdTime The time that the flag was created. If null,
-     * @throws IllegalArgumentException if the supplied flag type requires a
-     * comment and comment is not at least 5 characters long.
-     * @throws NullPointerException if any parameter is null
-     */
-    public Flag(@NonNull IFlagType type, @NonNull String comment, @NonNull Date createdTime) {
 
-
-
-        this.type = type;
-        this.comment = comment;
-        this.createdTime = new Date(createdTime.getTime());
-    }
 
     /**
      *
