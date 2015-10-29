@@ -32,7 +32,7 @@ class WaftApi implements IWaftApi {
         List<Parameter> parameters = new ArrayList<>();
         parameters.add(new Parameter("flagType", flagTypeId + ""));
         parameters.add(new Parameter("comment", comment));
-        parameters.add(new Parameter("time", createdTime.toString()));
+        parameters.add(new Parameter("time", createdTime.getTime() + ""));
         parameters.add(new Parameter("dgw", dgw));
         parameters.add(new Parameter("journeyID", journeyId));
 
