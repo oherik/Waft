@@ -1,22 +1,36 @@
 <resources>
-    <string name="app_name">Commutity</string>
+    <string name="app_name">Waft</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Bus line number -->
+    <string name="line_number">55</string>
 
     <!-- Flag related strings -->
     <string name="flag_description">Flagga</string>
-    <string name="flag_comment">Skriv din kommentar här...</string>
-    <string name="flag_send">Flagga!</string>
+    <string name="flag_comment">Kommentar</string>
+    <string name="flag_send">Skicka</string>
+    <string name="flag_cancel">Avbryt</string>
     <string name="flag_longer_comment_needed">Vänligen skriv in en kommentar\n(minst fem tecken)</string>
     <string name="flag_sent">Flagga skickad</string>
     <string name="server_error">Serverfel</string>
     <string name="flag_not_sent">Flaggan kunde inte skickas</string>
+    <string name="could_not_delete">Flaggan kunde inte tas bort</string>
 
     <!-- Flag types -->
-    <string name="flag_disturbance">Stökig</string>
+    <string name="flag_disturbance">Otrygg</string>
     <string name="flag_pram">Inga barnvagnsplatser</string>
     <string name="flag_overcrowded">Full</string>
     <string name="flag_messy">Smutsig</string>
     <string name="flag_delayed">Försenad</string>
+    <string name="flag_warm">Varmt</string>
+    <string name="flag_loud">Hög volym</string>
+    <string name="flag_quite">Tyst</string>
+    <string name="flag_no_wheelchair_spots">Inga rullstolsplatser</string>
+    <string name="flag_broken_ticket_station">Trasig biljettautomat</string>
+    <string name="flag_calm">Trygg</string>
+    <string name="flag_clean">Ren och städad</string>
+    <string name="flag_empty">Gott om plats</string>
+    <string name="flag_good_driver">Trevlig förare</string>
     <string name="flag_other">Övrigt</string>
 
     <!-- Search related strings -->
@@ -30,11 +44,11 @@
     <string name="enable_wifi_alert_nobutton">Avbryt</string>
     <string name="no_buses_near">Inga bussar nära dig</string>
     <string name="loading_looking_for_vehicle">Letar efter ditt fordon ...</string>
-    <string name="you_must_activate_wifi">Aktivera wifi för att rapportera</string>
-    <string name="activating_wifi">Aktiverar wifi ...</string>
+    <string name="enabling_search">Aktiverar wifi ...</string>
     <string name="title_activity_stop_search">StopSearch</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="cant_send_wo_comment">Den här flaggan kan inte skickas utan en kommentar</string>
 
     <!-- Programmatic constants -->
 </resources>

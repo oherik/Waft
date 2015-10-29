@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.alive_n_clickin.commutity" >
+    package="com.alive_n_clickin.waft" >
 
     <uses-feature android:name="android.hardware.wifi" />
 
@@ -11,14 +11,17 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
+        android:fullBackupContent="true"
         android:allowBackup="true"
         android:icon="@mipmap/penguin"
         android:label="@string/app_name"
-        android:name="com.alive_n_clickin.commutity.MyApplication">
+        android:name=".application.CentralApplication">
         <activity
-            android:name=".presentation.main.MainActivity"
+            android:name=".presentation.arrival_list.ArrivalListActivity"
             android:label="@string/app_name"
-            android:theme="@style/WaftMainTheme">
+            android:theme="@style/WaftMainTheme"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,10 +29,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.flagreport.FlagVehicle"
-            android:parentActivityName=".presentation.main.MainActivity"
-            android:theme="@style/WaftFlagTheme">
-
+            android:name=".presentation.flagreport.FlagVehicleActivity"
+            android:parentActivityName=".presentation.arrival_list.ArrivalListActivity"
+            android:theme="@style/WaftFlagTheme"
+            android:label=""
+            android:screenOrientation="portrait"
+            >
         </activity>
     </application>
 

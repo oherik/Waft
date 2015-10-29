@@ -1,69 +1,103 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.alive_n_clickin.waft.presentation.flagreport.SlidingLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.alive_n_clickin.commutity.presentation.flagreport.FlagVehicleDetailFragment"
+    tools:context="com.alive_n_clickin.waft.presentation.flagreport.FlagVehicleDetailFragment"
     android:weightSum="100"
     android:padding="20dp"
     android:id="@+id/flagDetail"
-    >
+    android:background="@color/white"
+    android:clickable="true">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/commentFieldLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/flagDetailFooter"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/flagDetailCommentField"
+            android:gravity="left|top"
+            android:inputType="textMultiLine"
+            android:padding="10dp"
+            android:hint="@string/flag_comment"
+            android:maxLength="@integer/flag_comment_max_length"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/flagDetailFooter"
+        android:layout_marginTop="5dp"
+        >
+        <Button
+           android:text="@string/flag_send"
+           android:textColor="@color/accent"
+           android:layout_alignParentEnd="true"
+           android:layout_centerVertical="true"
+           android:id="@+id/flagDetailSendButton"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           style="?android:attr/borderlessButtonStyle"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/flag_cancel"
+            android:id="@+id/flagDetailCancelButton"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/flagDetailSendButton"
+            android:textColor="@color/accent"
+            style="?android:attr/borderlessButtonStyle"
+            />
+
+        <!-- This view has to be here in order to get the keyboard to not overlay the buttons -->
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/flagDetailStopKeyboard"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/flagDetailSendButton" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/commentCharsLeft"
+        android:layout_below="@+id/commentFieldLayout"
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/hint_foreground_material_light" />
 
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:layout_weight="10"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:gravity="center"
         android:id="@+id/flagDetailDescription"
         android:layout_gravity="center_horizontal"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/flagLineNumberImage"
-        android:layout_alignEnd="@+id/flagDetailCommentField" />
+        android:layout_centerHorizontal="true"
+        android:gravity="center" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="10"
-        android:id="@+id/flagLineNumberImage"
-        android:layout_gravity="right"
-        android:layout_marginLeft="728dp" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_weight="24.60"
-        android:id="@+id/flagDetailCommentField"
-        android:layout_gravity="center"
-        android:gravity="top"
-        android:padding="10dp"
-        android:background="@android:color/white"
-        android:hint="@string/flag_comment"
-        android:layout_above="@+id/flagDetailSendButton"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp" />
-
-    <Button
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="20"
-        android:text="@string/flag_send"
-        android:id="@+id/flagDetailSendButton"
-        android:textSize="40dp"
-        android:background="@android:color/holo_blue_light"
-        android:textColor="@android:color/white"
-        android:padding="10dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/flagDetailImage"
         android:layout_below="@+id/flagDetailDescription"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/flagDetailCommentField"
-        android:layout_alignEnd="@+id/flagDetailCommentField" />
+        android:layout_alignEnd="@+id/commentFieldLayout"
+        android:layout_alignStart="@+id/flagDetailDescription"
+        android:layout_above="@+id/commentFieldLayout"
+        tools:ignore="ContentDescription" />
 
-</RelativeLayout>
+</com.alive_n_clickin.waft.presentation.flagreport.SlidingLayout>
+

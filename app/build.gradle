@@ -3,13 +3,14 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
+    apply plugin: 'findbugs'
 
     lintOptions {
         abortOnError false
     }
 
     defaultConfig {
-        applicationId "com.example.erik.commutity"
+        applicationId "com.alive_n_clickin.waft"
         minSdkVersion 21
         targetSdkVersion 23
         versionCode 2
@@ -25,20 +26,48 @@ android {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 repositories {
     jcenter()
 }
 
+task customFindbugs(type: FindBugs) {
+    ignoreFailures = false
+    effort = "default"
+    reportLevel = "medium"
+    excludeFilter = file("$rootProject.rootDir/config/findbugs/exclude.xml")
+    classes = files("$project.buildDir/intermediates/classes")
+    source = fileTree('src/main/java/')
+    classpath = files()
+    reports {
+        xml.enabled = false
+        xml.withMessages = true
+        html.enabled = !xml.isEnabled()
+        xml.destination "$project.buildDir/outputs/findbugs/findbugs-output.xml"
+        html.destination "$project.buildDir/outputs/findbugs/findbugs-output.html"
+    }
+}
+
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:support-v4:23.0.1'
     compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.android.support:cardview-v7:23.0.1'
+    compile 'com.android.support:recyclerview-v7:23.0.1'
+    compile 'com.android.support:design:23.0.1'
     compile 'com.google.code.gson:gson:2.3.1'
+    compile 'com.android.support:cardview-v7:23.0.1'
     testCompile 'org.mockito:mockito-core:1.10.19'
     testCompile 'junit:junit:4.12'
     provided "org.projectlombok:lombok:1.12.6"
 }
+
+check.dependsOn customFindbugs
 
 
 
