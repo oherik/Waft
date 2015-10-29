@@ -1,8 +1,8 @@
-<com.alive_n_clickin.commutity.presentation.flagreport.SlidingLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.alive_n_clickin.waft.presentation.flagreport.SlidingLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.alive_n_clickin.commutity.presentation.flagreport.FlagVehicleDetailFragment"
+    tools:context="com.alive_n_clickin.waft.presentation.flagreport.FlagVehicleDetailFragment"
     android:weightSum="100"
     android:padding="20dp"
     android:id="@+id/flagDetail"
@@ -98,5 +98,5 @@
         android:layout_alignStart="@+id/flagDetailDescription"
         android:layout_above="@+id/commentFieldLayout" />
 
-</com.alive_n_clickin.commutity.presentation.flagreport.SlidingLayout>
+</com.alive_n_clickin.waft.presentation.flagreport.SlidingLayout>
 
