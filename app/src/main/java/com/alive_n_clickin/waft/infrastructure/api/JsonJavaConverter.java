@@ -18,8 +18,8 @@ import java.util.List;
  * @since 0.1
  */
 public class JsonJavaConverter<T> {
-    
     private final String LOG_TAG = this.getClass().getSimpleName();
+
     private static final Gson GSON = new Gson();
     private static final JsonParser PARSER = new JsonParser();
     private final Class<T> classType;
@@ -41,7 +41,7 @@ public class JsonJavaConverter<T> {
      * @return a list of type T with objects representing the objects in the JSON array
      */
     public static <T> List<T> toJavaList(String json, Class<T[]> classArray) {
-        T[] arr = new Gson().fromJson(json, classArray);
+        T[] arr = GSON.fromJson(json, classArray);
         return arr == null ? new ArrayList<T>() : Arrays.asList(arr); //if the result couldn't be parsed, we can't create list from it.
     }
 
