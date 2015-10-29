@@ -12,4 +12,5 @@ public class JsonJourneyInfo implements Serializable {
     @Getter private long timestamp;
     @Getter private String value;
     @Getter private String gateway;
+    private static final long serialVersionUID = 42L;
 }

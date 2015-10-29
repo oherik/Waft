@@ -31,8 +31,8 @@ public class ArrivingVehicle extends AbstractVehicle implements IArrivingVehicle
      *              empty list (i.e. not null).
      * @throws NullPointerException if any parameter is null.
      */
-    public ArrivingVehicle(@NonNull String destination, @NonNull String shortRouteName,
-                           String journeyID, @NonNull Date arrivalTime, @NonNull List<IFlag> flags,
+    public ArrivingVehicle(String destination, String shortRouteName,
+                           String journeyID, @NonNull Date arrivalTime, List<IFlag> flags,
                            int lineColor) {
         super(destination, shortRouteName, journeyID, flags, lineColor);
         this.arrivalTime = new Date(arrivalTime.getTime());

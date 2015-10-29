@@ -2,6 +2,9 @@
     <string name="app_name">Waft</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Bus line number -->
+    <string name="line_number">55</string>
+
     <!-- Flag related strings -->
     <string name="flag_description">Flagga</string>
     <string name="flag_comment">Kommentar</string>
