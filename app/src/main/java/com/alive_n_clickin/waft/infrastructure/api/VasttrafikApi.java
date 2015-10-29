@@ -77,7 +77,17 @@ class VasttrafikApi implements IVasttrafikApi {
         JsonArrivalList jsonArrivalList = new JsonJavaConverter<>(JsonArrivalList.class).toJava(
                 response.getBody(), "DepartureBoard");
 
-        return jsonArrivalList.getDepartures();
+        if (jsonArrivalList == null) {
+            return new ArrayList<>();
+        }
+
+        List<JsonArrival> jsonArrivals = jsonArrivalList.getDepartures();
+
+        if (jsonArrivals == null) {
+            return new ArrayList<>();
+        }
+
+        return jsonArrivals;
     }
 
     private static String buildUrl(String query) {
