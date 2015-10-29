@@ -21,11 +21,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alive_n_clickin.waft.R;
+import com.alive_n_clickin.waft.application.CentralApplication;
 import com.alive_n_clickin.waft.application.FlagCurrentBusTask;
+import com.alive_n_clickin.waft.application.IManager;
 import com.alive_n_clickin.waft.domain.Flag;
 import com.alive_n_clickin.waft.domain.IFlag;
 import com.alive_n_clickin.waft.domain.IFlagType;
-import com.alive_n_clickin.waft.infrastructure.WifiHelper;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -46,9 +47,13 @@ public class FlagVehicleDetailFragment extends Fragment {
     private TextView charsLeft;
     private Context currentContext;
 
+    private IManager manager;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        this.manager = ((CentralApplication) getActivity().getApplicationContext()).getManager();
+
         if (savedInstanceState != null) {
             mCurrentPosition = savedInstanceState.getInt(ARG_POSITION);
         }
@@ -63,8 +68,8 @@ public class FlagVehicleDetailFragment extends Fragment {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean isWifiEnabled = new WifiHelper(getActivity()).isWifiEnabled();
-                if (!isWifiEnabled) {
+                boolean canSearch = manager.canSearch();
+                if (!canSearch) {
                     showEnableWifiAlert();
                 } else {
                     trySendingFlag();
@@ -154,14 +159,13 @@ public class FlagVehicleDetailFragment extends Fragment {
      * Alerts the user that  wifi need to be enabled.
      */
     private void showEnableWifiAlert() {
-
-        AlertDialog alertDialog = new AlertDialog.Builder(currentContext)
+        new AlertDialog.Builder(currentContext)
                 .setTitle(R.string.enable_wifi_alert_title)
                 .setMessage(R.string.enable_wifi_alert_message)
                 .setPositiveButton(R.string.enable_wifi_alert_yesbutton, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        new WifiHelper(currentContext).enableWifi();
+                        manager.searchForVehicles();
                     }
 
                 }).setNegativeButton(R.string.enable_wifi_alert_nobutton, new DialogInterface.OnClickListener() {
@@ -169,8 +173,7 @@ public class FlagVehicleDetailFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         //Do nothing
                     }
-                })
-                .show();
+                }).show();
     }
     /**
      * Switches the view back to the main flag fragment
