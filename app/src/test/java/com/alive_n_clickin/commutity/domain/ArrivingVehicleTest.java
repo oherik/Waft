@@ -11,13 +11,9 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
 
-/**
- * Created by mats on 09/10/15.
- *
- */
 
 public class ArrivingVehicleTest {
-    private List<IFlag> flags = new ArrayList<>();
+    private List<IFlag> flagList = new ArrayList<>();
     private IFlag flag = mock(IFlag.class);
     private ArrivingVehicle arrVehic1;
     private ArrivingVehicle arrVehic2;
@@ -26,15 +22,15 @@ public class ArrivingVehicleTest {
 
     @Before
     public void initialize(){
-        flags.add(flag);
+        flagList.add(flag);
         String dest = "destination";
         String shortRoute = "shortRoute";
         String journeyID = "journey";
         dateVehic1 = new Date();
         dateVehic2 = new Date(2015, 10,29,7,57);
         int lineColor = 2;
-        arrVehic1 = new ArrivingVehicle(dest,shortRoute,journeyID,dateVehic1, flags, lineColor);
-        arrVehic2 = new ArrivingVehicle(dest, shortRoute,journeyID,dateVehic2, flags, lineColor);
+        arrVehic1 = new ArrivingVehicle(dest, shortRoute, journeyID, dateVehic1, flagList, lineColor);
+        arrVehic2 = new ArrivingVehicle(dest, shortRoute, journeyID, dateVehic2, flagList, lineColor);
     }
 
     @Test
@@ -60,6 +56,6 @@ public class ArrivingVehicleTest {
 
     @Test
     public void testGetFlags() throws Exception {
-        assertEquals(flags,arrVehic1.getFlags());
+        assertEquals(flagList, arrVehic1.getFlags());
     }
 }
