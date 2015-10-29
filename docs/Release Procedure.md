@@ -10,3 +10,6 @@ When the develop branch is in an release ready state, follow this procedure to c
 1. Search for all Java files not containing a `@since` Javadoc tag, and add a `@since` tag with the version number.
 1. Merge the release branch into `master` and `develop`.
 1. Delete the release branch.
+1. Tag the merge commit on master with the release number.
+1. Generate an .apk file
+1. Draft a release on GitHub. Attach the .apk as a binary to the release.
