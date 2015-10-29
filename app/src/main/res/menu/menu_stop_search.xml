@@ -7,7 +7,7 @@
         android:id="@+id/menu_search"
         android:title="@string/stop_search_label"
         appcompat:actionViewClass="android.support.v7.widget.SearchView"
-        appcompat:showAsAction="always"/>
+        appcompat:showAsAction="ifRoom"/>
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>

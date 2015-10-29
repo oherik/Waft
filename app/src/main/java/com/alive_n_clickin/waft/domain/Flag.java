@@ -37,9 +37,6 @@ public class Flag implements IFlag {
         EMPTY(14),
         GOOD_DRIVER(15);
 
-
-
-
         @Getter private final int id;
         private final boolean requiresComment;
 
@@ -103,8 +100,6 @@ public class Flag implements IFlag {
     @Getter private String id;
     private final Date createdTime;
 
-
-
     /**
      *
      * @param type The flag type for the flag. See FlagType for more information.
@@ -137,9 +132,9 @@ public class Flag implements IFlag {
      * @param comment A comment for the flag. If null, comment will be set to an empty string. If
      *                the supplied flag type requires a comment, the comment must be at least 5
      *                characters longs
-     * @throws NullPointerException if any parameter is nullg
+     * @throws NullPointerException if any parameter is null
      */
-    public Flag(@NonNull IFlagType type, @NonNull String comment) {
+    public Flag(IFlagType type, String comment) {
         this(type, comment, new Date(), "");
     }
 
@@ -151,7 +146,7 @@ public class Flag implements IFlag {
      * @throws IllegalArgumentException if  the supplied flag type requires a comment.
      * @throws NullPointerException if the parameter is null
      */
-    public Flag(@NonNull IFlagType type) {
+    public Flag(IFlagType type) {
         this(type, "", new Date(), "");
     }
 
