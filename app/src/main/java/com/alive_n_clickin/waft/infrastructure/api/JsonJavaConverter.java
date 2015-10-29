@@ -1,7 +1,5 @@
 package com.alive_n_clickin.waft.infrastructure.api;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -58,20 +56,6 @@ public class JsonJavaConverter<T> {
             return GSON.fromJson(obj.get(startNode), classType);
         } catch(com.google.gson.JsonSyntaxException e) {
             return null;
-        }
-    }
-
-    /**
-     * Turn a Java object into a JSON object.
-     * @param object
-     * @return
-     */
-    public String toJson(T object) {
-        try {
-            return GSON.toJson(object);
-        } catch (StackOverflowError e) {
-            Log.e(LOG_TAG, "Stack Overflow: Is there a circular reference in the object you tried to parse? https://sites.google.com/site/gson/gson-user-guide#TOC-Object-Examples", e);
-            throw e;
         }
     }
 }
