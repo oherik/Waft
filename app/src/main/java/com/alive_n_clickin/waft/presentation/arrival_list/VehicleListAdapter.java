@@ -22,7 +22,6 @@ import java.util.concurrent.TimeUnit;
  * @since 0.2
  */
 public class VehicleListAdapter extends ArrayAdapter<IArrivingVehicle> {
-    private int maxWidth;
 
     public VehicleListAdapter(Context currentContext, List<IArrivingVehicle> arrivingVehicleList) {
         super(currentContext,0, arrivingVehicleList); //The second parameter is the resource ID for a layout file containing a layout to use when instantiating views. Making it 0 means we are not sending any resource file to the super class.
@@ -51,21 +50,20 @@ public class VehicleListAdapter extends ArrayAdapter<IArrivingVehicle> {
         TextView timeUntilArrival = (TextView) convertView.findViewById(R.id.timeUntilArrival);
         timeUntilArrival.setText(realDiffInMinutes + " min");
 
-        setFlags(convertView, maxWidth, vehicle);
+        setFlags(convertView, vehicle);
         return convertView;
     }
 
     /*
     Helper method: take the view that should be created, and add flags to the gui element holding the flags.
      */
-    private void setFlags(View convertView, int maxWidth, IArrivingVehicle vehicle) {
+    private void setFlags(View convertView, IArrivingVehicle vehicle) {
 
         GridLayout flagListView = (GridLayout) convertView.findViewById(R.id.flagListView);
-        // Clear the flaglist, otherwise Androids reuse mechanism may preserve some flags, and we
+        // Clear the flag list, otherwise Androids reuse mechanism may preserve some flags, and we
         // will get duplicates
         flagListView.removeAllViews();
 
-        int totalWidth = 0;
         //For every flag in our vehicle, add the flag image and keep track of the size
         //When te size reaches max, replace it with an ellipsis symbol
         for (IFlag flag : vehicle.getFlags()) {
