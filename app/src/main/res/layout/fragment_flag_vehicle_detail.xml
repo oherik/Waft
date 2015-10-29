@@ -96,7 +96,8 @@
         android:layout_below="@+id/flagDetailDescription"
         android:layout_alignEnd="@+id/commentFieldLayout"
         android:layout_alignStart="@+id/flagDetailDescription"
-        android:layout_above="@+id/commentFieldLayout" />
+        android:layout_above="@+id/commentFieldLayout"
+        tools:ignore="ContentDescription" />
 
 </com.alive_n_clickin.waft.presentation.flagreport.SlidingLayout>
 
