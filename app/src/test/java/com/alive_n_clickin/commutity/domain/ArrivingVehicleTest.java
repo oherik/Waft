@@ -1,5 +1,6 @@
 package com.alive_n_clickin.commutity.domain;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -19,19 +20,26 @@ import static org.mockito.Mockito.mock;
 public class ArrivingVehicleTest {
     private List<IFlag> flags = new ArrayList<>();
     private IFlag flag = mock(IFlag.class);
+    private ArrivingVehicle arrVehic1;
+    private ArrivingVehicle arrVehic2;
+    private Date dateVehic1;
+    private Date dateVehic2;
 
-
-    @Test
-    public void testCompareTo() throws Exception {
+    @Before
+    public void initialize(){
         flags.add(flag);
         String dest = "destination";
         String shortRoute = "shortRoute";
         String journeyID = "journey";
-        Date date = new Date();
-        Date oldDate = new Date(2015, 10,29,7,57);
+        dateVehic1 = new Date();
+        dateVehic2 = new Date(2015, 10,29,7,57);
         int lineColor = 2;
-        ArrivingVehicle arrVehic1 = new ArrivingVehicle(dest,shortRoute,journeyID,date, flags, lineColor);
-        ArrivingVehicle arrVehic2 = new ArrivingVehicle(dest, shortRoute,journeyID,oldDate, flags, lineColor);
+        arrVehic1 = new ArrivingVehicle(dest,shortRoute,journeyID,dateVehic1, flags, lineColor);
+        arrVehic2 = new ArrivingVehicle(dest, shortRoute,journeyID,dateVehic2, flags, lineColor);
+    }
+
+    @Test
+    public void testCompareTo() throws Exception {
 
         //Vehicle one arrives later than vehicle 2 and should return -1
         assertEquals("Should return -1", -1, arrVehic1.compareTo(arrVehic2));
@@ -45,7 +53,9 @@ public class ArrivingVehicleTest {
 
     @Test
     public void testGetArrival() throws Exception {
+        assertEquals("Should return the time of arrival", dateVehic1, arrVehic1.getArrivalTime());
 
+        assertFalse(dateVehic2.equals(arrVehic1.getArrivalTime()));
     }
 
     @Test
