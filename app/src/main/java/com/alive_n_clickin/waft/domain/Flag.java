@@ -116,21 +116,34 @@ public class Flag implements IFlag {
      */
     public Flag(@NonNull IFlagType type, @NonNull String comment, @NonNull Date createdTime) {
 
-        if (type.isCommentRequired() && (comment.trim().length() < COMMENT_REQUIRED_MINIMUM_LENGTH)) {
-            throw new IllegalArgumentException(
-                    String.format("A comment of at least %s characters is required for flag type %s",
-                            COMMENT_REQUIRED_MINIMUM_LENGTH, type));
-        }
+
 
         this.type = type;
         this.comment = comment;
         this.createdTime = new Date(createdTime.getTime());
     }
 
+    /**
+     *
+     * @param type The flag type for the flag. See FlagType for more information.
+     * @param comment A comment for the flag.  If the supplied flag type requires a comment, the
+     *                comment must be at least 5 characters long.
+     * @param createdTime The time that the flag was created. If null,
+     * @throws IllegalArgumentException if the supplied flag type requires a
+     * comment and comment is not at least 5 characters long.
+     * @throws NullPointerException if any parameter is null
+     *
+     * @param id Id for the flag
+     */
     public Flag(@NonNull IFlagType type, @NonNull String comment, @NonNull Date createdTime, @NonNull String id) {
+        if (type.isCommentRequired() && (comment.trim().length() < COMMENT_REQUIRED_MINIMUM_LENGTH)) {
+            throw new IllegalArgumentException(
+                    String.format("A comment of at least %s characters is required for flag type %s",
+                            COMMENT_REQUIRED_MINIMUM_LENGTH, type));
+        }
         this.type = type;
         this.comment = comment;
-        this.createdTime = createdTime;
+        this.createdTime = new Date(createdTime.getTime());
         this.id = id;
     }
 
@@ -145,7 +158,7 @@ public class Flag implements IFlag {
      * @throws NullPointerException if any parameter is nullg
      */
     public Flag(@NonNull IFlagType type, @NonNull String comment) {
-        this(type, comment, new Date());
+        this(type, comment, new Date(), "");
     }
 
     /**
@@ -157,7 +170,7 @@ public class Flag implements IFlag {
      * @throws NullPointerException if the parameter is null
      */
     public Flag(@NonNull IFlagType type) {
-        this(type, "", new Date());
+        this(type, "", new Date(), "");
     }
 
     /**
