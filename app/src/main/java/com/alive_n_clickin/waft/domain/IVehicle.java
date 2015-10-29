@@ -25,7 +25,7 @@ public interface IVehicle {
      * vehicle gets to the end stop. This ID is used by Västtrafik to identify journeys.
      *
      */
-    String getJourneyID();
+    String getJourneyId();
 
     /**
      * @return a list of flags that this vehicle is flagged with.
