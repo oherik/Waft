@@ -145,7 +145,6 @@ public class FlagVehicleDetailFragment extends Fragment {
             switchToFlagFragment();
         } catch (IllegalArgumentException e) {
             // flag couldn't be created
-            //TODO make the comment field blink or make some other non-intrusive indicator.
             Toast.makeText(getActivity().getApplicationContext(),
                     getString(R.string.flag_longer_comment_needed), Toast.LENGTH_SHORT).show();
         }
@@ -207,8 +206,6 @@ public class FlagVehicleDetailFragment extends Fragment {
 
         //Set additional data
         flagType = Flag.Type.getByID(args.getInt("flag_type_ID"));
-        //TODO add more data
-
     }
 
     @Override

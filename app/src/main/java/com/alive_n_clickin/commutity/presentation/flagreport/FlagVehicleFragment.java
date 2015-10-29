@@ -89,7 +89,6 @@ public class FlagVehicleFragment extends Fragment {
      * Adds the different buttons. At the moment it's all hard coded for testing purposes
      */
     private void addTestButtons(){
-        //TODO hard coded flag data for testing purposes
         if(flagButtons==null){
             flagButtons = new ArrayList<>();
         }

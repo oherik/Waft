@@ -179,7 +179,6 @@ public class FlagVehicleActivity extends FragmentActivity implements IObserver {
     private void handleCurrentBusChangeEvent(CurrentBusChangeEvent event) {
         IElectriCityBus bus = event.getBus();
         if (bus == null) {
-            //TODO: Tell the FlagsOnBusFragment that we're currently not on a bus, clear your list of flags.
             setActionBarTextNotOnBus();
         } else {
             setActionBarTextToBus(bus);
