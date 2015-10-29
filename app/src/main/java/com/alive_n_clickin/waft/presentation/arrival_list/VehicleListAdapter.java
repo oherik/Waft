@@ -70,7 +70,7 @@ public class VehicleListAdapter extends ArrayAdapter<IArrivingVehicle> {
         //When te size reaches max, replace it with an ellipsis symbol
         for (IFlag flag : vehicle.getFlags()) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            final View flagContainer = inflater.inflate(R.layout.little_flag, null); //Container for the image
+            final View flagContainer = inflater.inflate(R.layout.little_flag, flagListView); //Container for the image
             FlagImageView flagImage = (FlagImageView) flagContainer.findViewById(R.id.littleFlagImageView); //The actual image
             flagImage.setFlag(flag);
             flagListView.addView(flagContainer);
