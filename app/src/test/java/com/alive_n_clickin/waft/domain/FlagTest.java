@@ -23,7 +23,7 @@ public class FlagTest {
 
         exception = false;
         try {
-            new Flag(null, "", new Date());
+            new Flag(null, "", new Date(),"");
         } catch (NullPointerException e) {
             exception = true;
         }
@@ -47,7 +47,7 @@ public class FlagTest {
 
         exception = false;
         try {
-            new Flag(mockFlagTypeWithCommentRequired, null, new Date());
+            new Flag(mockFlagTypeWithCommentRequired, null, new Date(),"");
         } catch (NullPointerException e) {
             exception = true;
         }
@@ -121,7 +121,7 @@ public class FlagTest {
     @Test
     public void testImmutability() throws Exception {
         Date initialDate = new Date(2015, 9, 22);
-        Flag flag = new Flag(mockFlagType, "", initialDate);
+        Flag flag = new Flag(mockFlagType, "", initialDate,"");
 
         initialDate.setTime(1);
         assertFalse(flag.getCreatedTime().equals(initialDate));
@@ -135,7 +135,7 @@ public class FlagTest {
     public void testGetComment() throws Exception {
         Flag flag;
 
-        flag = new Flag(mockFlagType, "foo", new Date());
+        flag = new Flag(mockFlagType, "foo", new Date(),"");
         assertEquals(flag.getComment(), "foo");
 
         flag = new Flag(mockFlagType, "bar");
@@ -150,7 +150,7 @@ public class FlagTest {
         Flag flag;
         Date date = new Date();
 
-        flag = new Flag(mockFlagType, "", date);
+        flag = new Flag(mockFlagType, "", date,"");
         assertEquals(flag.getCreatedTime(), date);
 
         flag = new Flag(mockFlagType, "");
@@ -168,27 +168,27 @@ public class FlagTest {
         Date date1 = new Date(1934, 8, 21);
         Date date2 = new Date(1966, 9, 12);
 
-        flag1 = new Flag(mockFlagType, "foo", date1);
-        flag2 = new Flag(mockFlagType, "foo", date1);
+        flag1 = new Flag(mockFlagType, "foo", date1,"");
+        flag2 = new Flag(mockFlagType, "foo", date1,"");
         assertTrue(flag1.equals(flag2));
         assertTrue(flag2.equals(flag1));
 
-        flag1 = new Flag(mockFlagType, "foo", date1);
-        flag2 = new Flag(mockFlagType2, "foo", date1);
+        flag1 = new Flag(mockFlagType, "foo", date1,"");
+        flag2 = new Flag(mockFlagType2, "foo", date1,"");
         assertFalse(flag1.equals(flag2));
         assertFalse(flag2.equals(flag1));
 
-        flag1 = new Flag(mockFlagType, "foo", date1);
-        flag2 = new Flag(mockFlagType, "bar", date1);
+        flag1 = new Flag(mockFlagType, "foo", date1,"");
+        flag2 = new Flag(mockFlagType, "bar", date1,"");
         assertFalse(flag1.equals(flag2));
         assertFalse(flag2.equals(flag1));
 
-        flag1 = new Flag(mockFlagType, "foo", date1);
-        flag2 = new Flag(mockFlagType, "foo", date2);
+        flag1 = new Flag(mockFlagType, "foo", date1,"");
+        flag2 = new Flag(mockFlagType, "foo", date2,"");
         assertFalse(flag1.equals(flag2));
         assertFalse(flag2.equals(flag1));
 
-        flag1 = new Flag(mockFlagType, "foo", new Date());
+        flag1 = new Flag(mockFlagType, "foo", new Date(),"");
         assertTrue(flag1.equals(flag1));
         assertFalse(flag1.equals(null));
         assertFalse(flag1.equals("abc"));
@@ -199,7 +199,7 @@ public class FlagTest {
     public void testGetType() throws Exception {
         Flag flag;
 
-        flag = new Flag(mockFlagType, "", new Date());
+        flag = new Flag(mockFlagType, "", new Date(),"");
         assertEquals(flag.getType(), mockFlagType);
 
         flag = new Flag(mockFlagType, "");
