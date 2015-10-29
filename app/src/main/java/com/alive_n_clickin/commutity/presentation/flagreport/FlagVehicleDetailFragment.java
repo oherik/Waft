@@ -1,25 +1,27 @@
 package com.alive_n_clickin.commutity.presentation.flagreport;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alive_n_clickin.commutity.MyApplication;
 import com.alive_n_clickin.commutity.R;
-import com.alive_n_clickin.commutity.application.IManager;
+import com.alive_n_clickin.commutity.application.FlagCurrentBusTask;
 import com.alive_n_clickin.commutity.domain.Flag;
 import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.domain.IFlagType;
@@ -41,13 +43,12 @@ public class FlagVehicleDetailFragment extends Fragment {
     @Getter(AccessLevel.PROTECTED) private final static String ARG_POSITION = "position";
     private int mCurrentPosition = -1;
     private IFlagType flagType;
-    private IManager busManager;
+    private TextView charsLeft;
+    private Context currentContext;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        busManager = ((MyApplication) getActivity().getApplicationContext()).getManager();
-
         if (savedInstanceState != null) {
             mCurrentPosition = savedInstanceState.getInt(ARG_POSITION);
         }
@@ -56,6 +57,7 @@ public class FlagVehicleDetailFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_flag_vehicle_detail,
                 container, false);
         Button sendButton = (Button) view.findViewById(R.id.flagDetailSendButton);
+        Button cancelButton = (Button) view.findViewById(R.id.flagDetailCancelButton);
 
         // Check if wifi is enabled, if not display a message, if it is, try sending the flag
         sendButton.setOnClickListener(new View.OnClickListener() {
@@ -69,8 +71,60 @@ public class FlagVehicleDetailFragment extends Fragment {
                 }
             }
         });
+
+        /*
+        Set a listener on the cancel button, if pressed it should simulate a back button press
+        (i.e. returning the user to the previous view)
+        */
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchToFlagFragment();
+            }
+        });
+
+        charsLeft = (TextView) view.findViewById(R.id.commentCharsLeft);
+        final EditText commentField = (EditText) view.findViewById(R.id.flagDetailCommentField);
+        commentField.addTextChangedListener(charsLeftTextWatcher);
+
+        //Make sure the content is pushed up when the keyboard is showed
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+        //Set focus on the comment field
+        commentField.requestFocus();
+
+        //Show the keyboard
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+
+        this.currentContext = container.getContext();
         return view;
     }
+
+    /**
+     * Listens to an edit text field. Shows to the users how many character he or she has left,
+     * if it is 15 or less than the maximum value (otherwise it sets the text view invisible)
+     */
+    private final TextWatcher charsLeftTextWatcher = new TextWatcher() {
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            int maxLength = currentContext.getResources().getInteger(R.integer.flag_comment_max_length);
+            int numberOfCharsLeft = maxLength - s.length();
+            if(numberOfCharsLeft<16) {
+                charsLeft.setVisibility(TextView.VISIBLE);
+                charsLeft.setText(String.valueOf(numberOfCharsLeft));
+            } else {
+                charsLeft.setVisibility(TextView.INVISIBLE);
+            }
+            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+        }
+
+        public void afterTextChanged(Editable s) {
+        }
+    };
 
     /**
      * Tries sending the flag data by calling on the http request class. If it's successful it
@@ -86,12 +140,11 @@ public class FlagVehicleDetailFragment extends Fragment {
         IFlag flag;
         try {
             flag = new Flag(flagType, comment);
-            FlagBusTask flagBusTask = new FlagBusTask(getContext().getApplicationContext());
-            flagBusTask.execute(flag);
+            FlagCurrentBusTask flagCurrentBusTask = new FlagCurrentBusTask(currentContext.getApplicationContext());
+            flagCurrentBusTask.execute(flag);
             switchToFlagFragment();
         } catch (IllegalArgumentException e) {
             // flag couldn't be created
-            //TODO make the comment field blink or make some other non-intrusive indicator.
             Toast.makeText(getActivity().getApplicationContext(),
                     getString(R.string.flag_longer_comment_needed), Toast.LENGTH_SHORT).show();
         }
@@ -101,15 +154,14 @@ public class FlagVehicleDetailFragment extends Fragment {
      * Alerts the user that  wifi need to be enabled.
      */
     private void showEnableWifiAlert() {
-        TextView busInfo = (TextView) getView().findViewById(R.id.textViewBusInformation);
 
-        AlertDialog alertDialog = new AlertDialog.Builder(getContext())
+        AlertDialog alertDialog = new AlertDialog.Builder(currentContext)
                 .setTitle(R.string.enable_wifi_alert_title)
                 .setMessage(R.string.enable_wifi_alert_message)
                 .setPositiveButton(R.string.enable_wifi_alert_yesbutton, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        new WifiHelper(getContext()).enableWifi();
+                        new WifiHelper(currentContext).enableWifi();
                     }
 
                 }).setNegativeButton(R.string.enable_wifi_alert_nobutton, new DialogInterface.OnClickListener() {
@@ -124,9 +176,10 @@ public class FlagVehicleDetailFragment extends Fragment {
      * Switches the view back to the main flag fragment
      */
     private void switchToFlagFragment(){
-        //Hide keyboard
+        //Hide keyboard from the current window
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+        EditText commentField  =  (EditText) getActivity().findViewById(R.id.flagDetailCommentField);
+        imm.hideSoftInputFromWindow(commentField.getWindowToken(), 0);
 
         FragmentManager fm = getFragmentManager();
         fm.popBackStack();
@@ -153,8 +206,6 @@ public class FlagVehicleDetailFragment extends Fragment {
 
         //Set additional data
         flagType = Flag.Type.getByID(args.getInt("flag_type_ID"));
-        //TODO add more data
-
     }
 
     @Override
@@ -165,26 +216,4 @@ public class FlagVehicleDetailFragment extends Fragment {
         outState.putInt(ARG_POSITION, mCurrentPosition);
     }
 
-    private class FlagBusTask extends AsyncTask<IFlag, Void, Boolean> {
-
-        private final Context applicationContext;
-
-        public FlagBusTask(Context applicationContext) {
-            this.applicationContext = applicationContext;
-        }
-
-        @Override
-        protected Boolean doInBackground(IFlag... params) {
-            return busManager.addFlagToCurrentBus(params[0]);
-        }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            if (result) {
-                Toast.makeText(applicationContext, R.string.flag_sent, Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(applicationContext, R.string.flag_not_sent, Toast.LENGTH_LONG).show();
-            }
-        }
-    }
 }

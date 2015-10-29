@@ -1,7 +1,6 @@
 package com.alive_n_clickin.commutity.domain;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * An interface for vehicles arriving to a stop. An arriving vehicle should be able to provide time
@@ -19,13 +18,10 @@ public interface IArrivingVehicle extends IVehicle, Comparable<IArrivingVehicle>
     Date getArrivalTime();
 
     /**
-     * @return a list of flags that this vehicle is flagged with.
-     */
-    List<IFlag> getFlags();
-
-    /**
      * Get the current time to arrival
      * @return the current time to arrival, in milliseconds
      */
     long getTimeToArrival();
+
+    int getLineColor();
 }

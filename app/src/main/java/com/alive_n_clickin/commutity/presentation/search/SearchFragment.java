@@ -82,8 +82,6 @@ public class SearchFragment extends Fragment {
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                // TODO Auto-generated method stub
-
                 return false;
             }
 
@@ -121,6 +119,7 @@ public class SearchFragment extends Fragment {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_content_frame, mainFragment);
         transaction.addToBackStack(null);
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         transaction.commit();
 
         //Hide keyboard

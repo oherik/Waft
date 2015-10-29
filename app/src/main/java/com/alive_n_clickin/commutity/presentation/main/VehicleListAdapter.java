@@ -1,7 +1,6 @@
 package com.alive_n_clickin.commutity.presentation.main;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,7 @@ import java.util.concurrent.TimeUnit;
  * @since 0.2
  */
 public class VehicleListAdapter extends ArrayAdapter<IArrivingVehicle> {
-
+    private int maxWidth;
 
     public VehicleListAdapter(Context currentContext, List<IArrivingVehicle> arrivingVehicleList) {
         super(currentContext,0, arrivingVehicleList); //The second parameter is the resource ID for a layout file containing a layout to use when instantiating views. Making it 0 means we are not sending any resource file to the super class.
@@ -34,13 +33,14 @@ public class VehicleListAdapter extends ArrayAdapter<IArrivingVehicle> {
 
         if (convertView == null) {
             //false specifies to not attach to root ViewGroup.
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.vehicle_list, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.vehicle_list_item, parent, false);
         }
 
         IArrivingVehicle vehicle = getItem(position);
 
         TextView busNumber = (TextView) convertView.findViewById(R.id.busNumber);
         busNumber.setText(vehicle.getShortRouteName());
+        busNumber.setTextColor(vehicle.getLineColor());
 
         TextView targetDestination = (TextView) convertView.findViewById(R.id.targetDestination);
         targetDestination.setText(vehicle.getDestination());
@@ -51,9 +51,7 @@ public class VehicleListAdapter extends ArrayAdapter<IArrivingVehicle> {
         TextView timeUntilArrival = (TextView) convertView.findViewById(R.id.timeUntilArrival);
         timeUntilArrival.setText(realDiffInMinutes + " min");
 
-        int maxWidth = parent.getMeasuredWidth();
         setFlags(convertView, maxWidth, vehicle);
-
         return convertView;
     }
 
@@ -75,19 +73,7 @@ public class VehicleListAdapter extends ArrayAdapter<IArrivingVehicle> {
             final View flagContainer = inflater.inflate(R.layout.little_flag, null); //Container for the image
             FlagImageView flagImage = (FlagImageView) flagContainer.findViewById(R.id.littleFlagImageView); //The actual image
             flagImage.setFlag(flag);
-            flagContainer.measure(0, 0);
-            int flagWidth = flagContainer.getMeasuredWidth(); //The width of our current flag
-            totalWidth += flagContainer.getMeasuredWidth();
-            if (totalWidth <= maxWidth - flagWidth) { //We make sure there is room for at least one more flag before we add another one
-                flagListView.addView(flagContainer);
-            } else {
-                // If this is the last flag we can fit, we make it an ellipsis symbol and then stop adding flags
-                flagListView.removeView(flagContainer);
-                Drawable ellipsis = flagImage.getResources().getDrawable(R.drawable.ellipsis);
-                flagImage.setImageDrawable(ellipsis);
-                flagListView.addView(flagContainer);
-                break;
-            }
+            flagListView.addView(flagContainer);
         }
     }
 }

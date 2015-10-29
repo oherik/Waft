@@ -3,7 +3,7 @@ package com.alive_n_clickin.commutity.application;
 import com.alive_n_clickin.commutity.domain.Flag;
 import com.alive_n_clickin.commutity.domain.IFlag;
 import com.alive_n_clickin.commutity.domain.IFlagType;
-import com.alive_n_clickin.commutity.domain.JsonFlag;
+import com.alive_n_clickin.commutity.infrastructure.api.response.JsonFlag;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,8 +28,7 @@ public class FlagFactory {
         List<IFlag> flagList = new ArrayList<>();
         for(JsonFlag j: jsonFlags) {
             IFlagType flagType = Flag.Type.getByID(j.getFlagType());
-            //TODO Change date to add proper date.
-            IFlag flag = new Flag(flagType, j.getComment(), new Date());
+            IFlag flag = new Flag(flagType, j.getComment(), new Date(), j.get_id());
             flagList.add(flag);
         }
         return flagList;
