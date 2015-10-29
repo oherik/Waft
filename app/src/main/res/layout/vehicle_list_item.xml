@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    cardview:cardElevation="5dp"
+    android:id="@+id/vehicle_card_view"
+    xmlns:cardview="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/list_inner_padding"
+            android:clickable="true"
+            android:focusableInTouchMode="true"
+            android:focusable="true"
+            android:id="@+id/vehicle_info">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/busNumber"
+                android:layout_alignParentStart="true"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:paddingEnd="@dimen/list_inner_padding"
+                android:text="@string/line_number" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/targetDestination"
+                android:gravity="center_vertical"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/busNumber"
+                android:layout_gravity="center_horizontal"
+                android:singleLine="true"
+                android:layout_toLeftOf="@+id/timeUntilArrival"
+                android:layout_toRightOf="@+id/busNumber" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/timeUntilArrival"
+                android:layout_alignParentEnd="true"
+                android:gravity="center_horizontal|right"
+                android:layout_alignParentTop="true"
+                android:paddingStart="@dimen/list_inner_padding" />
+
+            <HorizontalScrollView
+                android:id="@+id/flagsScrollListView"
+                android:layout_below="@+id/busNumber"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <GridLayout
+                    android:id="@+id/flagListView"
+                    android:orientation="horizontal"
+                    android:nestedScrollingEnabled="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    />
+            </HorizontalScrollView>
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
