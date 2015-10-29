@@ -8,4 +8,8 @@
     <Match>
         <Class name="~.*Manifest\$.*"/>
     </Match>
+<!-- Our Json parsing classes are not like normal Java classes, so they should be excluded -->
+    <Match>
+        <Package name="com.alive_n_clickin.waft.infrastructure.api.response"/>
+    </Match>
 </FindBugsFilter>
