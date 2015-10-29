@@ -31,6 +31,8 @@ If, in the future, another method of detecting nearby vehicles is implemented, t
 Anyone using this class can trust *that* it can detect nearby vehicles, not *how*
  */
 public class NearbyBusScanner implements IObserver, IObservable {
+
+    private static final String TEST_BUS_DGW = "Ericsson$Vin_Num_001";
     private IObservableHelper observableHelper = new ObservableHelper();
     private WifiBroadcastReceiver wifiBroadcastReceiver;
     private Context context;
@@ -95,7 +97,8 @@ public class NearbyBusScanner implements IObserver, IObservable {
     }
 
     private void handleWifiBSSIDChangeEvent(NewWifiScanAvailableEvent event) {
-        String DGW = null;
+        //If we don't find the bus in our list, we always return the test bus, for testing purposes
+        String DGW = TEST_BUS_DGW;
 
         List<String> BSSIDs = event.getBSSIDs();
         for (String BSSID : BSSIDs) {
