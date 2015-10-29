@@ -7,6 +7,8 @@ import lombok.ToString;
 
 /**
  * A simple journey that has a destination and a journey id.
+ *
+ * @since 1.0
  */
 @EqualsAndHashCode
 @ToString

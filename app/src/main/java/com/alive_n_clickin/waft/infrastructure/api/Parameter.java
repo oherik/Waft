@@ -8,6 +8,8 @@ import lombok.ToString;
 
 /**
  * A class for parameters. A parameter has a key and a value.
+ *
+ * @since 1.0
  */
 @AllArgsConstructor(suppressConstructorProperties = true)
 @EqualsAndHashCode

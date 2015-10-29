@@ -21,6 +21,8 @@ import java.util.List;
 
 /**
  * This class handles creation of each Flag Type button and puts them in the RecyclerView element.
+ *
+ * @since 1.0
  */
 public class RecyclerAdapter extends  RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
     private List<FlagButton> flagButtonList;

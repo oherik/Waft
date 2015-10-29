@@ -10,6 +10,8 @@ import android.widget.RelativeLayout;
  * detailed flag view fragment. This will make it possible, in the future, to have the
  * fragment animate for a set percentage of the screen, something that wouldn't have
  * been possible if just using the built in animations.
+ *
+ * @since 1.0
  */
 public class SlidingLayout extends RelativeLayout {
 

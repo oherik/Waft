@@ -27,6 +27,8 @@ import java.util.List;
 
 /**
  * This class represent the view where you can see the current flags for the vehicle you're on.
+ *
+ * @since 1.0
  */
 public class FlagsOnBusFragment extends Fragment implements IObserver{
     private List<IFlag> flagList;

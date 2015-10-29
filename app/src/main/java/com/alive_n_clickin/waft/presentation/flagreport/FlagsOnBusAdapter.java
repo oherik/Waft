@@ -18,6 +18,8 @@ import java.util.List;
 
 /**
  * This class creates list items for the FlagsOnBusFragment's ListView.
+ *
+ * @since 1.0
  */
 public class FlagsOnBusAdapter extends ArrayAdapter<IFlag>{
     FlagsOnBusFragment fragment;

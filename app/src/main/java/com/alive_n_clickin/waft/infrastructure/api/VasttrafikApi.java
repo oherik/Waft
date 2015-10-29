@@ -17,6 +17,8 @@ import java.util.List;
 
 /**
  * A concrete implementation of IVasttrafikApi.
+ *
+ * @since 1.0
  */
 class VasttrafikApi implements IVasttrafikApi {
     private static final String BASE_URL = "http://api.vasttrafik.se/bin/rest.exe/v1";

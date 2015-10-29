@@ -8,6 +8,8 @@ import lombok.ToString;
 
 /**
  * A class for responses to HTTP requests. Responses have a status and a body.
+ *
+ * @since 1.0
  */
 @AllArgsConstructor(suppressConstructorProperties = true)
 @EqualsAndHashCode
