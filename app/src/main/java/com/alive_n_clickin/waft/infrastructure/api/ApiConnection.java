@@ -206,7 +206,7 @@ class ApiConnection {
      * a next value.
      */
     static String readStream(InputStream inputStream) {
-        Scanner sc = new Scanner(inputStream);
+        Scanner sc = new Scanner(inputStream, "UTF-8");
         // By setting delimiter \A (which marks the beginning of the file) the Scanner read the whole file.
         sc.useDelimiter("\\A");
         return sc.hasNext() ? sc.next() : "";
