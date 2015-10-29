@@ -1,9 +1,8 @@
-
 # Vision
 
-## Who is the target customer?
+*The app is mainly a tool for companies to get refined, detailed status reports in real time from real customers. The target customer i Västtrafik, since they are the ones immediately responsible for collecting customer claims. In the end, subcontractors like Keolis and Volvo will get and be able to use the same data.*
 
-The app is mainly a tool for companies to get refined, detailed status reports in real time from real customers. The target customer i Västtrafik, since they are the ones immediately responsible for collecting customer claims. In the end, subcontractors like Keolis and Volvo will get and be able to use the same data.
+## Who is the target customer?
 
 The companies that together are responsible for the public transport of Gothenburg. The main target customer is Västtrafik, as it has the overall responsibility and is most visible to everyday commuters. Companies like Keolis and Volvo could also quite possibly benefit from our product.
 
