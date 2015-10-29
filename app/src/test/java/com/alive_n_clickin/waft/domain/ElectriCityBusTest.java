@@ -26,7 +26,7 @@ public class ElectriCityBusTest {
     @Test
     public void testConstructorIllegalArguments() throws Exception {
         boolean exception;
-        flags.add(new Flag(mockFlagType, "this flag", new Date()));
+        flags.add(new Flag(mockFlagType, "this flag", new Date(),""));
 
 
 
@@ -80,7 +80,7 @@ public class ElectriCityBusTest {
     @Test
     public void testGetFlags(){
         boolean exception;
-        flags.add(new Flag(mockFlagType, "this flag", new Date()));
+        flags.add(new Flag(mockFlagType, "this flag", new Date(),""));
         ElectriCityBus bus = new ElectriCityBus(destination,journeyID,dgw,flags);
         assertEquals(flags, bus.getFlags());
     }
