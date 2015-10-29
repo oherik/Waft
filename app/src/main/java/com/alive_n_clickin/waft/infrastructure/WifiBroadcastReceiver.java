@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.WifiManager;
 
-import com.alive_n_clickin.waft.util.event.NewWifiScanAvailableEvent;
-import com.alive_n_clickin.waft.util.event.WifiStateChangeEvent;
 import com.alive_n_clickin.waft.util.event.IObservable;
 import com.alive_n_clickin.waft.util.event.IObservableHelper;
 import com.alive_n_clickin.waft.util.event.IObserver;

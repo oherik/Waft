@@ -1,4 +1,4 @@
-package com.alive_n_clickin.waft.util.event;
+package com.alive_n_clickin.waft.infrastructure;
 
 import com.alive_n_clickin.waft.util.event.IEvent;
 
