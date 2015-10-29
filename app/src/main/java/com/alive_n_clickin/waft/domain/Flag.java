@@ -144,7 +144,7 @@ public class Flag implements IFlag {
      *                characters longs
      * @throws NullPointerException if any parameter is nullg
      */
-    public Flag(@NonNull IFlagType type, @NonNull String comment) {
+    public Flag(IFlagType type, String comment) {
         this(type, comment, new Date());
     }
 
@@ -156,7 +156,7 @@ public class Flag implements IFlag {
      * @throws IllegalArgumentException if  the supplied flag type requires a comment.
      * @throws NullPointerException if the parameter is null
      */
-    public Flag(@NonNull IFlagType type) {
+    public Flag(IFlagType type) {
         this(type, "", new Date());
     }
 
