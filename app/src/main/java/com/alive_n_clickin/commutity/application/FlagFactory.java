@@ -28,7 +28,6 @@ public class FlagFactory {
         List<IFlag> flagList = new ArrayList<>();
         for(JsonFlag j: jsonFlags) {
             IFlagType flagType = Flag.Type.getByID(j.getFlagType());
-            //TODO Change date to add proper date.
             IFlag flag = new Flag(flagType, j.getComment(), new Date(), j.get_id());
             flagList.add(flag);
         }

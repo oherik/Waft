@@ -82,8 +82,6 @@ public class SearchFragment extends Fragment {
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                // TODO Auto-generated method stub
-
                 return false;
             }
 

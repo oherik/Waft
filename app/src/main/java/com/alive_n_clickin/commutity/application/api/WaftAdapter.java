@@ -32,7 +32,6 @@ class WaftAdapter implements IWaftAdapter {
 
         for (JsonFlag jsonFlag : jsonFlags) {
             IFlagType flagType = Flag.Type.getByID(jsonFlag.getFlagType());
-            // TODO: Properly parse the date from the JsonFlag
             flags.add(new Flag(flagType, jsonFlag.getComment(), new Date(), jsonFlag.get_id()));
         }
 
