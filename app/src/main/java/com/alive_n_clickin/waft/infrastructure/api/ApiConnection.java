@@ -254,24 +254,24 @@ class ApiConnection {
      * @return a query string.
      */
     private static String buildQueryString(List<Parameter> parameters) {
-        String queryString = "";
+        StringBuilder queryString = new StringBuilder("");
 
         boolean first = true;
         for (Parameter parameter : parameters) {
-            StringBuilder parameterString = new StringBuilder("");
+            String parameterString = "";
 
             // If the parameter is the first one in the list, don't prepend it with a & sign
             if (first) {
                 first = false;
             } else {
-                parameterString.append("&");
+                parameterString = "&";
             }
 
-            parameterString.append(parameter.getKey() + "=" + parameter.getValue());
+            parameterString+=parameter.getKey() + "=" + parameter.getValue();
 
-            queryString = queryString + parameterString.toString();
+            queryString.append(parameterString.toString());
         }
 
-        return queryString;
+        return queryString.toString();
     }
 }
