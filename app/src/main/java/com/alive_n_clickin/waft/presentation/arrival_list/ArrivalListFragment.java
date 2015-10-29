@@ -137,7 +137,7 @@ public class ArrivalListFragment extends Fragment {
                 //Arriving vehicles list has been deleted, create a new one
                 Log.e(LogUtils.getLogTag(this), "The list of vehicles has been deleted. This list" +
                         " should always be present. Creating an empty one. \n" +
-                        e.getStackTrace().toString());
+                        Log.getStackTraceString(e));
                 arrivingVehicles = new ArrayList<>();
             }
             if (result != null) {

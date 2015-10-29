@@ -39,11 +39,17 @@ class VasttrafikApi implements IVasttrafikApi {
             return new ArrayList<>();
         }
 
-        // The api returns results that begin with "." that are not relevant to our implementation.
-        // We must filter this out. That is what the for loop does. (It's a filter)
+        List<JsonStop> stopLocations = jsonStopList.getStopLocations();
+
+        if (stopLocations == null) {
+            return new ArrayList<>();
+        }
+
         List<JsonStop> jsonStops = new ArrayList<>();
 
-        for (JsonStop jsonStop : jsonStopList.getStopLocations()) {
+        // The api returns results that begin with "." that are not relevant to our implementation.
+        // We must filter this out. That is what the for loop does. (It's a filter)
+        for (JsonStop jsonStop : stopLocations) {
             if (!jsonStop.getName().startsWith(".")) {
                 jsonStops.add(jsonStop);
             }

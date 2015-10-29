@@ -206,7 +206,7 @@ class ApiConnection {
      * a next value.
      */
     static String readStream(InputStream inputStream) {
-        Scanner sc = new Scanner(inputStream);
+        Scanner sc = new Scanner(inputStream, "UTF-8");
         // By setting delimiter \A (which marks the beginning of the file) the Scanner read the whole file.
         sc.useDelimiter("\\A");
         return sc.hasNext() ? sc.next() : "";
@@ -254,25 +254,24 @@ class ApiConnection {
      * @return a query string.
      */
     private static String buildQueryString(List<Parameter> parameters) {
-        String queryString = "";
+        StringBuilder queryString = new StringBuilder("");
 
         boolean first = true;
         for (Parameter parameter : parameters) {
-            String parameterString;
+            String parameterString = "";
 
             // If the parameter is the first one in the list, don't prepend it with a & sign
             if (first) {
-                parameterString = "";
                 first = false;
             } else {
                 parameterString = "&";
             }
 
-            parameterString = parameterString + parameter.getKey() + "=" + parameter.getValue();
+            parameterString+=parameter.getKey() + "=" + parameter.getValue();
 
-            queryString = queryString + parameterString;
+            queryString.append(parameterString.toString());
         }
 
-        return queryString;
+        return queryString.toString();
     }
 }
