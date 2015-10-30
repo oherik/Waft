@@ -22,11 +22,13 @@ The URL to the server and all API keys are declared in the Config class in the p
 
 ## Installing the APK
 
-To install the APK, run the following command while in the repository root folder:
+To install the APK on a phone, run the following command while in the repository root folder:
 
 ```
 adb install app-release.apk
 ```
+
+Note that the app requires a minimum SDK level of 21 to be run.
 
 ## Running tests
 
