@@ -1,4 +1,4 @@
-package com.alive_n_clickin.waft.infrastructure.api.response;
+package com.alive_n_clickin.waft.infrastructure.api;
 
 import java.io.IOException;
 

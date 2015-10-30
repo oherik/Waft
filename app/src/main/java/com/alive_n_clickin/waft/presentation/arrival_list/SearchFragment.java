@@ -18,7 +18,7 @@ import com.alive_n_clickin.waft.R;
 import com.alive_n_clickin.waft.application.CentralApplication;
 import com.alive_n_clickin.waft.application.IManager;
 import com.alive_n_clickin.waft.domain.IStop;
-import com.alive_n_clickin.waft.infrastructure.api.response.ConnectionException;
+import com.alive_n_clickin.waft.infrastructure.api.ConnectionException;
 
 import java.util.ArrayList;
 import java.util.List;

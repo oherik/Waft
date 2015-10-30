@@ -5,7 +5,7 @@ import com.alive_n_clickin.waft.domain.IElectriCityBus;
 import com.alive_n_clickin.waft.domain.IFlag;
 import com.alive_n_clickin.waft.domain.IFlagType;
 import com.alive_n_clickin.waft.infrastructure.api.ApiFactory;
-import com.alive_n_clickin.waft.infrastructure.api.response.ConnectionException;
+import com.alive_n_clickin.waft.infrastructure.api.ConnectionException;
 import com.alive_n_clickin.waft.infrastructure.api.IWaftApi;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonFlag;
 
