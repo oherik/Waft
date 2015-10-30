@@ -3,6 +3,7 @@ package com.alive_n_clickin.waft.infrastructure.api;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonJourney;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonJourneyInfo;
 
+import java.net.SocketTimeoutException;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public interface IElectriCityApi {
      * @return a journey object containing the latest journey information from the API for the
      * specified bus. If no journey info is found, an empty JsonJourney object is returned.
      */
-    JsonJourney getLatestJourney(String dgw);
+    JsonJourney getLatestJourney(String dgw) throws SocketTimeoutException;
 
     /**
      * Returns all recorded journey info between two timestamps for a bus.
@@ -29,5 +30,5 @@ public interface IElectriCityApi {
      * @return the latest journey info the API has for the specified bus. If no journey info is found,
      * it returns an empty list.
      */
-    List<JsonJourneyInfo> getJourneyInfo(String dgw, long startTime, long endTime);
+    List<JsonJourneyInfo> getJourneyInfo(String dgw, long startTime, long endTime) throws SocketTimeoutException;
 }

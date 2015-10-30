@@ -3,6 +3,8 @@ package com.alive_n_clickin.waft.application.api;
 
 import com.alive_n_clickin.waft.domain.IJourney;
 
+import java.net.SocketTimeoutException;
+
 /**
  * An interface for adapters between the ElectriCity API and our domain.
  *
@@ -16,5 +18,5 @@ public interface IElectriCityAdapter {
      * @return a journey object with information about the current journey of the bus. If the bus
      * is not currently on a journey, and empty IJourney object is returned.
      */
-    IJourney getCurrentJourney(String dgw);
+    IJourney getCurrentJourney(String dgw) throws SocketTimeoutException;
 }

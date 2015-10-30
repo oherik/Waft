@@ -9,6 +9,7 @@ import com.alive_n_clickin.waft.infrastructure.api.response.JsonStop;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonStopList;
 import com.alive_n_clickin.waft.infrastructure.api.response.Response;
 
+import java.net.SocketTimeoutException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ class VasttrafikApi implements IVasttrafikApi {
     private static final String API_KEY = Config.VASTTRAFIK_API_KEY;
 
     @Override
-    public List<JsonStop> searchForStops(String searchString) {
+    public List<JsonStop> searchForStops(String searchString) throws SocketTimeoutException {
         Response response = sendGet("/location.name?input=" + Uri.encode(searchString));
 
         if (response == null) {
@@ -59,7 +60,7 @@ class VasttrafikApi implements IVasttrafikApi {
     }
 
     @Override
-    public List<JsonArrival> getArrivalsForStop(long id) {
+    public List<JsonArrival> getArrivalsForStop(long id) throws SocketTimeoutException {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
@@ -84,7 +85,7 @@ class VasttrafikApi implements IVasttrafikApi {
         return BASE_URL + query + "&authKey=" + API_KEY + "&format=json";
     }
 
-    private static Response sendGet(String query) {
+    private static Response sendGet(String query) throws SocketTimeoutException {
         String url = buildUrl(query);
         return ApiConnection.get(url);
     }

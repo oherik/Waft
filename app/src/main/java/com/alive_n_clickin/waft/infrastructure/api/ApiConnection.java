@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ class ApiConnection {
 
     private final static String CHARSET = "UTF-8";
     private final static String CONTENT_TYPE = "application/x-www-form-urlencoded";
+    private static final int CONNECTION_TIMEOUT = 5000;
 
     /**
      * Returns the response of a get request to an url.
@@ -38,7 +40,7 @@ class ApiConnection {
      * @return the response of the query. Null if anything goes wrong when fetching the response
      * from the server.
      */
-    static Response get(String url) {
+    static Response get(String url) throws SocketTimeoutException {
         return get(url, new ArrayList<Parameter>());
     }
 
@@ -49,7 +51,7 @@ class ApiConnection {
      * @param headers a list of header parameters to append to the query.
      * @return the response of the query. Null if anything goes wrong when fetching the response.
      */
-    static Response get(String url, List<Parameter> headers) {
+    static Response get(String url, List<Parameter> headers) throws SocketTimeoutException {
         URL httpUrl = buildUrlFromString(url);
 
         int status;
@@ -62,6 +64,7 @@ class ApiConnection {
             connection = (HttpURLConnection) httpUrl.openConnection();
             connection.setRequestMethod("GET");
 
+            connection.setConnectTimeout(CONNECTION_TIMEOUT);
             if (headers != null) {
                 for (Parameter parameter : headers) {
                     connection.setRequestProperty(parameter.getKey(), parameter.getValue());
@@ -70,12 +73,16 @@ class ApiConnection {
 
             connection.connect();
 
+
             inputStream = connection.getInputStream();
 
             status = connection.getResponseCode();
             body = readStream(inputStream);
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error opening or reading from HTTPUrlConnection", e);
+            if (e instanceof SocketTimeoutException) {
+                throw (SocketTimeoutException) e;
+            }
             return null;
         } finally {
             closeStream(inputStream);

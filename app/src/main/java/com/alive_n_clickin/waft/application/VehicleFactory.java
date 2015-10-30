@@ -8,6 +8,7 @@ import com.alive_n_clickin.waft.domain.IElectriCityBus;
 import com.alive_n_clickin.waft.domain.IFlag;
 import com.alive_n_clickin.waft.domain.IJourney;
 
+import java.net.SocketTimeoutException;
 import java.util.List;
 
 /**
@@ -30,7 +31,7 @@ public class VehicleFactory {
      * @param dgw the dgw id for the bus you want to have.
      * @return a new bus object. Null if anything goes wrong when fetching data for the bus.
      */
-    public static IElectriCityBus getElectriCityBus(String dgw) {
+    public static IElectriCityBus getElectriCityBus(String dgw) throws SocketTimeoutException {
         IJourney journey = electriCityAdapter.getCurrentJourney(dgw);
 
         String destination = journey.getDestination();

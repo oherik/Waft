@@ -14,6 +14,8 @@ import com.alive_n_clickin.waft.util.event.IObservableHelper;
 import com.alive_n_clickin.waft.util.event.IObserver;
 import com.alive_n_clickin.waft.util.event.ObservableHelper;
 
+import java.net.SocketTimeoutException;
+import java.util.LinkedList;
 import java.util.List;
 
 import lombok.NonNull;
@@ -118,27 +120,47 @@ public class Manager implements IManager, IObserver {
     //on the main thread, so we use the async task.
     private class GetCurrentBusTask extends AsyncTask<String, Void, IElectriCityBus> {
 
+        boolean connectionTimedOut = false;
+
         @Override
         protected IElectriCityBus doInBackground(String... params) {
             String dgw = params[0];
-            return VehicleFactory.getElectriCityBus(dgw);
+            try {
+                return VehicleFactory.getElectriCityBus(dgw);
+            } catch (SocketTimeoutException e) {
+                connectionTimedOut = true;
+                return null;
+            }
         }
 
         @Override
         protected void onPostExecute(IElectriCityBus bus) {
             currentBus = bus;
+            if (connectionTimedOut) {
+                observableHelper.notifyObservers(new ConnectionTimedOutEvent());
+            }
             observableHelper.notifyObservers(new CurrentBusChangeEvent(currentBus));
         }
     }
 
     @Override
     public List<IArrivingVehicle> getVehicles(@NonNull IStop stop) {
-        return vasttrafikAdapter.getArrivalsForStop(stop);
+        try {
+            return vasttrafikAdapter.getArrivalsForStop(stop);
+        } catch (SocketTimeoutException e) {
+            observableHelper.notifyObservers(new ConnectionTimedOutEvent());
+            return new LinkedList<>();
+        }
     }
 
     @Override
     public List<IStop> searchForStops(@NonNull String searchQuery) {
-        return vasttrafikAdapter.searchForStops(searchQuery);
+        try {
+            return vasttrafikAdapter.searchForStops(searchQuery);
+        } catch (SocketTimeoutException e) {
+            observableHelper.notifyObservers(new ConnectionTimedOutEvent());
+            return new LinkedList<>();
+        }
     }
 
     public boolean canSearch() {
