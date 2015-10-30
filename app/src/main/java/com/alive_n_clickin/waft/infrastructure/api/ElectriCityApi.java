@@ -35,6 +35,10 @@ class ElectriCityApi implements IElectriCityApi {
 
         List<JsonJourneyInfo> journeyInfoList = getJourneyInfo(dgw, startTime, endTime);
 
+        if (journeyInfoList == null) {
+            return null;
+        }
+
         // Sort the list according to timestamps, we only want the most current ones
         Collections.sort(journeyInfoList, new Comparator<JsonJourneyInfo>() {
             @Override
@@ -77,11 +81,7 @@ class ElectriCityApi implements IElectriCityApi {
 
         Response response = sendGet(query);
 
-        if (response == null) {
-            return new ArrayList<>();
-        }
-
-        return JsonJavaConverter.toJavaList(response.getBody(), JsonJourneyInfo[].class);
+        return response == null ? null : JsonJavaConverter.toJavaList(response.getBody(), JsonJourneyInfo[].class);
     }
 
     private static String buildUrl(String query) {
