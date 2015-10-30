@@ -49,6 +49,7 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="cant_send_wo_comment">Den här flaggan kan inte skickas utan en kommentar</string>
+    <string name="connection_timed_out">Det går inte att ansluta. Försök igen senare.</string>
 
     <!-- Programmatic constants -->
 </resources>

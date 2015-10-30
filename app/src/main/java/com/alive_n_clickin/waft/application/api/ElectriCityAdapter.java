@@ -6,6 +6,8 @@ import com.alive_n_clickin.waft.infrastructure.api.ApiFactory;
 import com.alive_n_clickin.waft.infrastructure.api.IElectriCityApi;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonJourney;
 
+import java.net.SocketTimeoutException;
+
 /**
  * {@inheritDoc}<br><br>
  *
@@ -31,7 +33,7 @@ class ElectriCityAdapter implements IElectriCityAdapter {
      * @return journey object with journey id and destination if there was a valid response, null otherwise.
      */
     @Override
-    public IJourney getCurrentJourney(String dgw) {
+    public IJourney getCurrentJourney(String dgw) throws SocketTimeoutException {
         JsonJourney jsonJourney = electriCityApi.getLatestJourney(dgw);
         return new Journey(jsonJourney.getDestination(), ELECTRICITY_JOURNEY_ID_PREFIX + padWithZeroes(jsonJourney.getJourneyId(), 5));
     }

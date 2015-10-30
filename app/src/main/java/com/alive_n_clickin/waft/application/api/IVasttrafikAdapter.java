@@ -3,6 +3,7 @@ package com.alive_n_clickin.waft.application.api;
 import com.alive_n_clickin.waft.domain.IArrivingVehicle;
 import com.alive_n_clickin.waft.domain.IStop;
 
+import java.net.SocketTimeoutException;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public interface IVasttrafikAdapter {
       * @return a list of stops if the search was successful. If the search was unsuccessful, an
       * empty list is returned.
       */
-     List<IStop> searchForStops(String searchString);
+     List<IStop> searchForStops(String searchString) throws SocketTimeoutException;
 
     /**
      * This function gives you a list of the 20 next vehicles headed to a certain stop at the
@@ -28,5 +29,5 @@ public interface IVasttrafikAdapter {
      * @return a list of vehicles headed to the specified stop, if the search was successful. If the
      * search was unsuccessful, an empty list is returned.
      */
-     List<IArrivingVehicle> getArrivalsForStop(IStop stop);
+     List<IArrivingVehicle> getArrivalsForStop(IStop stop) throws SocketTimeoutException;
 }

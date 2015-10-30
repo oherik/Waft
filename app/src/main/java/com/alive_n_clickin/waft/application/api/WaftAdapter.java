@@ -8,6 +8,7 @@ import com.alive_n_clickin.waft.infrastructure.api.ApiFactory;
 import com.alive_n_clickin.waft.infrastructure.api.IWaftApi;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonFlag;
 
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +26,7 @@ class WaftAdapter implements IWaftAdapter {
     private final IWaftApi waftApi = ApiFactory.createWaftApi();
 
     @Override
-    public List<IFlag> getFlagsForVehicle(String journeyId) {
+    public List<IFlag> getFlagsForVehicle(String journeyId) throws SocketTimeoutException {
         List<JsonFlag> jsonFlags = waftApi.getFlagsForJourney(journeyId);
 
         List<IFlag> flags = new ArrayList<>();

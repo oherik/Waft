@@ -9,13 +9,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
-import com.alive_n_clickin.waft.application.CentralApplication;
 import com.alive_n_clickin.waft.R;
+import com.alive_n_clickin.waft.application.CantSearchForVehiclesEvent;
+import com.alive_n_clickin.waft.application.CentralApplication;
+import com.alive_n_clickin.waft.application.ConnectionTimedOutEvent;
+import com.alive_n_clickin.waft.application.CurrentBusChangeEvent;
 import com.alive_n_clickin.waft.application.IManager;
 import com.alive_n_clickin.waft.domain.IElectriCityBus;
-import com.alive_n_clickin.waft.application.CantSearchForVehiclesEvent;
-import com.alive_n_clickin.waft.application.CurrentBusChangeEvent;
 import com.alive_n_clickin.waft.util.event.IEvent;
 import com.alive_n_clickin.waft.util.event.IObserver;
 
@@ -167,6 +169,8 @@ public class FlagVehicleActivity extends FragmentActivity implements IObserver {
             handleCurrentBusChangeEvent((CurrentBusChangeEvent) event);
         } else if (event instanceof CantSearchForVehiclesEvent) {
             handleCantSearchForVehiclesEvent((CantSearchForVehiclesEvent) event);
+        } else if (event instanceof ConnectionTimedOutEvent) {
+            Toast.makeText(getApplicationContext(), R.string.connection_timed_out, Toast.LENGTH_LONG).show();
         }
     }
 
