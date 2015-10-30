@@ -45,7 +45,7 @@ repositories {
 }
 
 task customFindbugs(type: FindBugs) {
-    ignoreFailures = false
+    ignoreFailures = true
     effort = "default"
     reportLevel = "medium"
     excludeFilter = file("$rootProject.rootDir/config/findbugs/exclude.xml")
@@ -77,6 +77,3 @@ dependencies {
 }
 
 check.dependsOn customFindbugs
-
-
-
