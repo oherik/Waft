@@ -1,6 +1,7 @@
 package com.alive_n_clickin.waft.infrastructure.api;
 
 import android.net.Uri;
+import android.util.Log;
 
 import com.alive_n_clickin.waft.Config;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonArrival;
@@ -8,6 +9,8 @@ import com.alive_n_clickin.waft.infrastructure.api.response.JsonArrivalList;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonStop;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonStopList;
 import com.alive_n_clickin.waft.infrastructure.api.response.Response;
+import com.alive_n_clickin.waft.util.LogUtils;
+import com.google.gson.JsonSyntaxException;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -21,6 +24,8 @@ import java.util.List;
  * @since 1.0
  */
 class VasttrafikApi implements IVasttrafikApi {
+    private final String LOG_TAG = LogUtils.getLogTag(this);
+
     private static final String BASE_URL = "http://api.vasttrafik.se/bin/rest.exe/v1";
     private static final String API_KEY = Config.VASTTRAFIK_API_KEY;
 
@@ -28,11 +33,13 @@ class VasttrafikApi implements IVasttrafikApi {
     public List<JsonStop> searchForStops(String searchString) throws ConnectionException {
         Response response = sendGet("/location.name?input=" + Uri.encode(searchString));
 
-        JsonStopList jsonStopList = new JsonJavaConverter<>(JsonStopList.class).toJava(
-                response.getBody(), "LocationList");
-
-        if (jsonStopList == null) {
-            return new ArrayList<>();
+        JsonStopList jsonStopList;
+        try {
+            jsonStopList = new JsonJavaConverter<>(JsonStopList.class).toJava(
+                    response.getBody(), "LocationList");
+        } catch (JsonSyntaxException e) {
+            Log.e(LOG_TAG, "Error parsing JSON", e);
+            throw new ConnectionException("Error parsing response from server", e);
         }
 
         List<JsonStop> stopLocations = jsonStopList.getStopLocations();
@@ -66,8 +73,15 @@ class VasttrafikApi implements IVasttrafikApi {
         // Since no maximum number of vehicles has been set, the API will return the 20 first.
         Response response = sendGet("/departureBoard?id=" + id + "&date=" + date + "&time=" + time);
 
-        JsonArrivalList jsonArrivalList = new JsonJavaConverter<>(JsonArrivalList.class).toJava(
-                response.getBody(), "DepartureBoard");
+        JsonArrivalList jsonArrivalList;
+
+        try {
+            jsonArrivalList = new JsonJavaConverter<>(JsonArrivalList.class).toJava(
+                    response.getBody(), "DepartureBoard");
+        } catch (JsonSyntaxException e) {
+            Log.e(LOG_TAG, "Error parsing JSON", e);
+            throw new ConnectionException("Error parsing response from server", e);
+        }
 
         List<JsonArrival> jsonArrivals = jsonArrivalList.getDepartures();
 

@@ -1,10 +1,13 @@
 package com.alive_n_clickin.waft.infrastructure.api;
 
+import android.util.Log;
+
 import com.alive_n_clickin.waft.Config;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonJourney;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonJourneyInfo;
 import com.alive_n_clickin.waft.infrastructure.api.response.Response;
 import com.alive_n_clickin.waft.util.LogUtils;
+import com.google.gson.JsonSyntaxException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -79,7 +82,12 @@ class ElectriCityApi implements IElectriCityApi {
 
         Response response = sendGet(query);
 
-        return JsonJavaConverter.toJavaList(response.getBody(), JsonJourneyInfo[].class);
+        try {
+            return JsonJavaConverter.toJavaList(response.getBody(), JsonJourneyInfo[].class);
+        } catch (JsonSyntaxException e) {
+            Log.e(LOG_TAG, "Error parsing JSON", e);
+            throw new ConnectionException("Error parsing response from server", e);
+        }
     }
 
     private static String buildUrl(String query) {

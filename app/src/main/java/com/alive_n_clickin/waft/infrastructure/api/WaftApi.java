@@ -1,8 +1,12 @@
 package com.alive_n_clickin.waft.infrastructure.api;
 
+import android.util.Log;
+
 import com.alive_n_clickin.waft.Config;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonFlag;
 import com.alive_n_clickin.waft.infrastructure.api.response.Response;
+import com.alive_n_clickin.waft.util.LogUtils;
+import com.google.gson.JsonSyntaxException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,13 +18,20 @@ import java.util.List;
  * @since 1.0
  */
 class WaftApi implements IWaftApi {
+    private final String LOG_TAG = LogUtils.getLogTag(this);
+
     private static final String BASE_URL = Config.WAFT_URL;
 
     @Override
     public List<JsonFlag> getFlagsForJourney(String journeyId) throws ConnectionException {
         Response response = sendGet("/flags/" + journeyId);
 
-        return JsonJavaConverter.toJavaList(response.getBody(), JsonFlag[].class);
+        try {
+            return JsonJavaConverter.toJavaList(response.getBody(), JsonFlag[].class);
+        } catch (JsonSyntaxException e) {
+            Log.e(LOG_TAG, "Error parsing JSON", e);
+            throw new ConnectionException("Error parsing response from server", e);
+        }
     }
 
     @Override

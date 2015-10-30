@@ -1,12 +1,12 @@
 package com.alive_n_clickin.waft.infrastructure.api;
 
-import android.util.Log;
-
+import com.alive_n_clickin.waft.util.LogUtils;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,8 +18,8 @@ import java.util.List;
  * @since 0.1
  */
 public class JsonJavaConverter<T> {
-    
-    private final String LOG_TAG = this.getClass().getSimpleName();
+    private static final String LOG_TAG = LogUtils.getLogTag(JsonJavaConverter.class);
+
     private static final Gson GSON = new Gson();
     private static final JsonParser PARSER = new JsonParser();
     private final Class<T> classType;
@@ -40,9 +40,9 @@ public class JsonJavaConverter<T> {
      * @param <T> the type of the java object to be returned
      * @return a list of type T with objects representing the objects in the JSON array
      */
-    public static <T> List<T> toJavaList(String json, Class<T[]> classArray) {
-        T[] arr = new Gson().fromJson(json, classArray);
-        return arr == null ? new ArrayList<T>() : Arrays.asList(arr); //if the result couldn't be parsed, we can't create list from it.
+    public static <T> List<T> toJavaList(String json, Class<T[]> classArray) throws JsonSyntaxException {
+        T[] parsedResult = GSON.fromJson(json, classArray);
+        return Arrays.asList(parsedResult);
     }
 
     /**
@@ -52,26 +52,14 @@ public class JsonJavaConverter<T> {
      * @param startNode is the node within the json file to start converting data from.
      * @return the type matching the class of the converter or null if unsuccessful
      */
-    public T toJava(String json,String startNode) {
-        JsonObject obj = PARSER.parse(json).getAsJsonObject();
-        try{
-            return GSON.fromJson(obj.get(startNode), classType);
-        } catch(com.google.gson.JsonSyntaxException e) {
-            return null;
+    public T toJava(String json,String startNode) throws JsonSyntaxException {
+        T parsedResult;
+        JsonObject jsonObject = PARSER.parse(json).getAsJsonObject();
+        JsonElement startElement = jsonObject.get(startNode);
+        if (startElement == null) {
+            throw new JsonSyntaxException("Unable to find startElement in json string");
         }
-    }
-
-    /**
-     * Turn a Java object into a JSON object.
-     * @param object
-     * @return
-     */
-    public String toJson(T object) {
-        try {
-            return GSON.toJson(object);
-        } catch (StackOverflowError e) {
-            Log.e(LOG_TAG, "Stack Overflow: Is there a circular reference in the object you tried to parse? https://sites.google.com/site/gson/gson-user-guide#TOC-Object-Examples", e);
-            throw e;
-        }
+        parsedResult = GSON.fromJson(startElement, classType);
+        return parsedResult;
     }
 }
