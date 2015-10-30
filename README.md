@@ -16,6 +16,10 @@ followed by:
 git submodule update
 ```
 
+### Configuration
+
+The URL to the server and all API keys are declared in the Config class in the package `package com.alive_n_clickin.waft.infrastructure.api`. It is recommended to use the server that is running over at Digital Ocean, but theoretically you should be able to run a local copy of it.
+
 ## Running tests
 
 #### To run the test you need to export your sdk location by typing:
@@ -31,6 +35,14 @@ export ANDROID_HOME='<Path to Android SDK>'
 ```
 
 See the result by going to the directory "/app/build/reports/tests/debug/index.html".
+
+#### Run all checks
+
+```
+./gradlew check
+```
+
+This generates result files for the lint checks and FindBugs. You can find them in the directory "/app/build/outputs/".
 
 ## Dependencies
 
