@@ -52,7 +52,7 @@ class WaftApi implements IWaftApi {
         return BASE_URL + query;
     }
 
-    private static Response sendGet(String query) throws SocketTimeoutException {
+    private static Response sendGet(String query) {
         String url = buildUrl(query);
         return ApiConnection.get(url);
     }

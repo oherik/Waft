@@ -85,7 +85,7 @@ class VasttrafikApi implements IVasttrafikApi {
         return BASE_URL + query + "&authKey=" + API_KEY + "&format=json";
     }
 
-    private static Response sendGet(String query) throws SocketTimeoutException {
+    private static Response sendGet(String query) {
         String url = buildUrl(query);
         return ApiConnection.get(url);
     }
