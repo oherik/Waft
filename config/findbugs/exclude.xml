@@ -1,0 +1,12 @@
+<FindBugsFilter>
+    <Match>
+       <Class name="~.*R\$.*"/>
+    </Match>
+    <Match>
+        <Class name="~.*Manifest\$.*"/>
+    </Match>
+    <!-- The Json api classes will fail, since they are a bit special and custom made for the APIs. Ignore these in the bug check -->
+    <Match>
+        <Package name="com.alive_n_clickin.waft.infrastructure.api.response"/>
+    </Match>
+</FindBugsFilter>
