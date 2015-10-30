@@ -77,13 +77,20 @@ public class Manager implements IManager, IObserver {
 
     @Override
     public boolean deleteFlag(IFlag flag) {
+        boolean result;
         try {
-            return this.waftAdapter.deleteFlag(flag);
+            result = this.waftAdapter.deleteFlag(flag);
         } catch (ConnectionException e) {
             Log.e(LOG_TAG, "Error deleting flag", e);
-            observableHelper.notifyObservers(new ConnectionTimedOutEvent());
-            return false;
+            result = false;
         }
+
+        if (result) {
+            //If the successful fetch the new bus from the Waft API.
+            new GetCurrentBusTask().execute(this.getCurrentBus().getDGW());
+        }
+
+        return result;
     }
 
 
