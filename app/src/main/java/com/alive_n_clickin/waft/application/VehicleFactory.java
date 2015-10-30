@@ -10,7 +10,7 @@ import com.alive_n_clickin.waft.domain.IElectriCityBus;
 import com.alive_n_clickin.waft.domain.IFlag;
 import com.alive_n_clickin.waft.domain.IJourney;
 import com.alive_n_clickin.waft.domain.Journey;
-import com.alive_n_clickin.waft.infrastructure.api.response.ConnectionException;
+import com.alive_n_clickin.waft.infrastructure.api.ConnectionException;
 import com.alive_n_clickin.waft.util.LogUtils;
 
 import java.util.ArrayList;

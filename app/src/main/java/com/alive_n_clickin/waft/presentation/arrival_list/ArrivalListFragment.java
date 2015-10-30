@@ -18,7 +18,7 @@ import com.alive_n_clickin.waft.application.CentralApplication;
 import com.alive_n_clickin.waft.application.IManager;
 import com.alive_n_clickin.waft.domain.IArrivingVehicle;
 import com.alive_n_clickin.waft.domain.IStop;
-import com.alive_n_clickin.waft.infrastructure.api.response.ConnectionException;
+import com.alive_n_clickin.waft.infrastructure.api.ConnectionException;
 import com.alive_n_clickin.waft.presentation.flagreport.FlagVehicleActivity;
 import com.alive_n_clickin.waft.util.LogUtils;
 

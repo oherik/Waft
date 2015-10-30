@@ -10,7 +10,7 @@ import com.alive_n_clickin.waft.domain.IArrivingVehicle;
 import com.alive_n_clickin.waft.domain.IElectriCityBus;
 import com.alive_n_clickin.waft.domain.IFlag;
 import com.alive_n_clickin.waft.domain.IStop;
-import com.alive_n_clickin.waft.infrastructure.api.response.ConnectionException;
+import com.alive_n_clickin.waft.infrastructure.api.ConnectionException;
 import com.alive_n_clickin.waft.util.LogUtils;
 import com.alive_n_clickin.waft.util.event.IEvent;
 import com.alive_n_clickin.waft.util.event.IObservableHelper;

@@ -1,7 +1,6 @@
 package com.alive_n_clickin.waft.infrastructure.api;
 
 import com.alive_n_clickin.waft.Config;
-import com.alive_n_clickin.waft.infrastructure.api.response.ConnectionException;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonFlag;
 import com.alive_n_clickin.waft.infrastructure.api.response.Response;
 

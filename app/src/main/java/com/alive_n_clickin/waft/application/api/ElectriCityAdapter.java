@@ -3,7 +3,7 @@ package com.alive_n_clickin.waft.application.api;
 import com.alive_n_clickin.waft.domain.IJourney;
 import com.alive_n_clickin.waft.domain.Journey;
 import com.alive_n_clickin.waft.infrastructure.api.ApiFactory;
-import com.alive_n_clickin.waft.infrastructure.api.response.ConnectionException;
+import com.alive_n_clickin.waft.infrastructure.api.ConnectionException;
 import com.alive_n_clickin.waft.infrastructure.api.IElectriCityApi;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonJourney;
 
