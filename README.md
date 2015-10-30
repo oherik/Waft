@@ -61,6 +61,10 @@ This generates result files for the lint checks and FindBugs. You can find them 
 * A (virtual) Android device
 * Android SDK targets
 
+## Using the application
+
+The application uses WiFi to determine if you're on a bus or not. Currently if you're not a bus, the app defaults to the testing bus that is provided by the ElectriCity Innovation Platform. This is to make testing easier, and it should not be present in a publicly released version of the app.
+
 ## SDK targets
 
 * Minimum SDK: 21
