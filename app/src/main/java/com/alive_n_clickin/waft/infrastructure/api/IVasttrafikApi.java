@@ -3,7 +3,6 @@ package com.alive_n_clickin.waft.infrastructure.api;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonArrival;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonStop;
 
-import java.net.SocketTimeoutException;
 import java.util.List;
 
 /**
@@ -19,7 +18,7 @@ public interface IVasttrafikApi {
      * @return a list of stops that matches the given search string. If no stops matches, an empty
      * list is returned. If anything goes wrong with the request, null is returned.
      */
-    List<JsonStop> searchForStops(String searchString) throws SocketTimeoutException;
+    List<JsonStop> searchForStops(String searchString);
 
     /**
      * Returns a list of arrivals for a stop.
@@ -28,5 +27,5 @@ public interface IVasttrafikApi {
      * @return a list of arrivals for a stop. If no arrivals can be found for the stop, an empty
      * list is returned.  If anything goes wrong with the request, null is returned.
      */
-    List<JsonArrival> getArrivalsForStop(long id) throws SocketTimeoutException;
+    List<JsonArrival> getArrivalsForStop(long id);
 }

@@ -2,7 +2,6 @@ package com.alive_n_clickin.waft.infrastructure.api;
 
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonFlag;
 
-import java.net.SocketTimeoutException;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +18,7 @@ public interface IWaftApi {
      * @return a list of all flags for a specific journey. If there are no flags for the journey,
      * an empty list is returned. If anything goes wrong with the request, null is returned.
      */
-    List<JsonFlag> getFlagsForJourney(String journeyId) throws SocketTimeoutException;
+    List<JsonFlag> getFlagsForJourney(String journeyId);
 
     /**
      * Adds a flag to the Waft database with the specified info.
