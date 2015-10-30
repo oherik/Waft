@@ -6,8 +6,6 @@ import com.alive_n_clickin.waft.infrastructure.api.ApiFactory;
 import com.alive_n_clickin.waft.infrastructure.api.IElectriCityApi;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonJourney;
 
-import java.net.SocketTimeoutException;
-
 /**
  * {@inheritDoc}<br><br>
  *
@@ -26,16 +24,11 @@ class ElectriCityAdapter implements IElectriCityAdapter {
 
     private final IElectriCityApi electriCityApi = ApiFactory.createElectriCityApi();
 
-    /**
-     * The current journey, with id and destination, for the bus with the given DGW.
-     *
-     * @param dgw id of the bus we are looking for.
-     * @return journey object with journey id and destination if there was a valid response, null otherwise.
-     */
     @Override
-    public IJourney getCurrentJourney(String dgw) throws SocketTimeoutException {
+    public IJourney getCurrentJourney(String dgw) {
         JsonJourney jsonJourney = electriCityApi.getLatestJourney(dgw);
-        return new Journey(jsonJourney.getDestination(), ELECTRICITY_JOURNEY_ID_PREFIX + padWithZeroes(jsonJourney.getJourneyId(), 5));
+        return jsonJourney == null ? null :
+                new Journey(jsonJourney.getDestination(), ELECTRICITY_JOURNEY_ID_PREFIX + padWithZeroes(jsonJourney.getJourneyId(), 5));
     }
 
     /**
