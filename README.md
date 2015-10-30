@@ -1,5 +1,11 @@
 # Waft
 
+Waft is an Android application with the purpose to enable commuters to share information with each other regarding public transport. This goal is to give commuters more information about what's happening on buses, trams and trains, and also to be able to gather data about how the commuters experience public transport.
+
+The application consists of two parts - a server written in Node.js, and an application written in Java that requires an Android SDK version of 21 or higher. The server stores data that is generated in the application, and enables other instances of the application to use it.
+
+All external documentation is found in the `docs/` folder.
+
 ## Getting Started
 
 ### Clone the repo
