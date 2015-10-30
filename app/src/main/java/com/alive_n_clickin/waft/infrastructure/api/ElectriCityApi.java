@@ -89,7 +89,7 @@ class ElectriCityApi implements IElectriCityApi {
         return BASE_URL + query;
     }
 
-    private static Response sendGet(String query) throws SocketTimeoutException {
+    private static Response sendGet(String query) {
         String url = buildUrl(query);
 
         List<Parameter> parameters = new ArrayList<>();
