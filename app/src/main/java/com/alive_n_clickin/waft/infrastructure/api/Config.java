@@ -1,4 +1,4 @@
-package com.alive_n_clickin.waft;
+package com.alive_n_clickin.waft.infrastructure.api;
 
 /**
  * A class for storing configuration. This class holds information like URL:s and API keys that
@@ -6,7 +6,7 @@ package com.alive_n_clickin.waft;
  *
  * @since 1.0
  */
-public class Config {
+class Config {
     /**
      * The URL to the Waft API.
      */
