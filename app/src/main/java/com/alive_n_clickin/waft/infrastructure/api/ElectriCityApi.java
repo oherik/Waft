@@ -2,7 +2,6 @@ package com.alive_n_clickin.waft.infrastructure.api;
 
 import android.util.Log;
 
-import com.alive_n_clickin.waft.Config;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonJourney;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonJourneyInfo;
 import com.alive_n_clickin.waft.infrastructure.api.response.Response;

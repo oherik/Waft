@@ -3,7 +3,6 @@ package com.alive_n_clickin.waft.infrastructure.api;
 import android.net.Uri;
 import android.util.Log;
 
-import com.alive_n_clickin.waft.Config;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonArrival;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonArrivalList;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonStop;
