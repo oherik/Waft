@@ -52,7 +52,7 @@ class WaftApi implements IWaftApi {
     @Override
     public boolean deleteFlag(String id) throws ConnectionException {
         Response response = sendDelete("/flags/delete/" + id);
-        return response != null && response.wasRequestSuccessful();
+        return response.wasRequestSuccessful();
     }
 
     private static String buildUrl(String query) {
