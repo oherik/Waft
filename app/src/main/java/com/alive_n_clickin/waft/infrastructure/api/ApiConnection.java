@@ -36,10 +36,11 @@ class ApiConnection {
      * Returns the response of a get request to an url.
      *
      * @param url the url to send a get request to.
-     * @return the response of the query. Null if anything goes wrong when fetching the response, or
-     * if the server takes more than 5 seconds to respond.
+     * @return the response of the query.
+     * @throws ConnectionException if anything goes wrong when fetching the response, or if the
+     * server takes more than 5 seconds to respond.
      */
-    static Response get(String url) {
+    static Response get(String url) throws ConnectionException {
         return get(url, new ArrayList<Parameter>());
     }
 
@@ -48,10 +49,11 @@ class ApiConnection {
      *
      * @param url the url to send a get request to.
      * @param headers a list of header parameters to append to the query.
-     * @return the response of the query. Null if anything goes wrong when fetching the response, or
-     * if the server takes more than 5 seconds to respond.
+     * @return the response of the query.
+     * @throws ConnectionException if anything goes wrong when fetching the response, or if the
+     * server takes more than 5 seconds to respond.
      */
-    static Response get(String url, List<Parameter> headers) {
+    static Response get(String url, List<Parameter> headers) throws ConnectionException {
         URL httpUrl = buildUrlFromString(url);
 
         int status;
@@ -79,8 +81,7 @@ class ApiConnection {
             status = connection.getResponseCode();
             body = readStream(inputStream);
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Error opening or reading from HTTPUrlConnection", e);
-            return null;
+            throw new ConnectionException("Error connecting to API", e);
         } finally {
             closeStream(inputStream);
 

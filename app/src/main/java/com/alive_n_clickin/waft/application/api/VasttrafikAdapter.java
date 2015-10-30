@@ -6,11 +6,11 @@ import com.alive_n_clickin.waft.domain.IFlag;
 import com.alive_n_clickin.waft.domain.IStop;
 import com.alive_n_clickin.waft.domain.Stop;
 import com.alive_n_clickin.waft.infrastructure.api.ApiFactory;
+import com.alive_n_clickin.waft.infrastructure.api.ConnectionException;
 import com.alive_n_clickin.waft.infrastructure.api.IVasttrafikApi;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonArrival;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonStop;
 
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
@@ -46,7 +46,7 @@ class VasttrafikAdapter implements IVasttrafikAdapter {
         return stops;
     }
 
-    private List<IArrivingVehicle> convertArrivals(List<JsonArrival> jsonArrivals) throws SocketTimeoutException {
+    private List<IArrivingVehicle> convertArrivals(List<JsonArrival> jsonArrivals) {
         List<IArrivingVehicle> arrivingVehicles = new ArrayList<>();
         for (JsonArrival jsonArrival : jsonArrivals) {
             arrivingVehicles.add(convertArrival(jsonArrival));
@@ -55,13 +55,13 @@ class VasttrafikAdapter implements IVasttrafikAdapter {
     }
 
     @Override
-    public List<IStop> searchForStops(String searchString) throws SocketTimeoutException {
+    public List<IStop> searchForStops(String searchString) throws ConnectionException {
         List<JsonStop> jsonStops = vasttrafikApi.searchForStops(searchString);
         return convertStops(jsonStops);
     }
 
     @Override
-    public List<IArrivingVehicle> getArrivalsForStop(IStop stop) throws SocketTimeoutException {
+    public List<IArrivingVehicle> getArrivalsForStop(IStop stop) throws ConnectionException {
         List<JsonArrival> jsonArrivals = vasttrafikApi.getArrivalsForStop(stop.getId());
         return convertArrivals(jsonArrivals);
     }
@@ -73,7 +73,7 @@ class VasttrafikAdapter implements IVasttrafikAdapter {
      * @return  A new arriving vehicle based on the response
      * @throws NullPointerException if the parameter is null
      */
-    private IArrivingVehicle convertArrival(@NonNull JsonArrival jsonArrival) throws SocketTimeoutException {
+    private IArrivingVehicle convertArrival(@NonNull JsonArrival jsonArrival) {
         String direction = jsonArrival.getDirection();
         String shortRouteName = jsonArrival.getSname();
         String journeyId = jsonArrival.getJourneyid();
@@ -82,7 +82,11 @@ class VasttrafikAdapter implements IVasttrafikAdapter {
 
         List<IFlag> flags = new LinkedList<>();
         if (shortRouteName.equals(ELECTRICITY_SHORT_ROUTE_NAME)) {
-            flags = waftAdapter.getFlagsForVehicle(journeyId);
+            try {
+                flags = waftAdapter.getFlagsForVehicle(journeyId);
+            } catch (ConnectionException e) {
+                flags = new ArrayList<>();
+            }
         }
 
         return new ArrivingVehicle(direction, shortRouteName, journeyId, realArrival, flags, lineColor);

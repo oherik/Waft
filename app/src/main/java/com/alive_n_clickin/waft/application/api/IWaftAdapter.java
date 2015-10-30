@@ -2,8 +2,8 @@ package com.alive_n_clickin.waft.application.api;
 
 import com.alive_n_clickin.waft.domain.IElectriCityBus;
 import com.alive_n_clickin.waft.domain.IFlag;
+import com.alive_n_clickin.waft.infrastructure.api.ConnectionException;
 
-import java.net.SocketTimeoutException;
 import java.util.List;
 
 /**
@@ -17,8 +17,9 @@ public interface IWaftAdapter {
      *
      * @param journeyId the id to get flags for.
      * @return a list of IFlags. If there are no flags on the vehicle the list is empty.
+     * @throws ConnectionException if anything goes wrong with the request.
      */
-    List<IFlag> getFlagsForVehicle(String journeyId) throws SocketTimeoutException;
+    List<IFlag> getFlagsForVehicle(String journeyId) throws ConnectionException;
 
     /**
      * Flags the specified bus with the given flag.

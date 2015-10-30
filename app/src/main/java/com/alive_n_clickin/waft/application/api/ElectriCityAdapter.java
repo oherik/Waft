@@ -3,6 +3,7 @@ package com.alive_n_clickin.waft.application.api;
 import com.alive_n_clickin.waft.domain.IJourney;
 import com.alive_n_clickin.waft.domain.Journey;
 import com.alive_n_clickin.waft.infrastructure.api.ApiFactory;
+import com.alive_n_clickin.waft.infrastructure.api.ConnectionException;
 import com.alive_n_clickin.waft.infrastructure.api.IElectriCityApi;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonJourney;
 
@@ -25,10 +26,9 @@ class ElectriCityAdapter implements IElectriCityAdapter {
     private final IElectriCityApi electriCityApi = ApiFactory.createElectriCityApi();
 
     @Override
-    public IJourney getCurrentJourney(String dgw) {
+    public IJourney getCurrentJourney(String dgw) throws ConnectionException {
         JsonJourney jsonJourney = electriCityApi.getLatestJourney(dgw);
-        return jsonJourney == null ? null :
-                new Journey(jsonJourney.getDestination(), ELECTRICITY_JOURNEY_ID_PREFIX + padWithZeroes(jsonJourney.getJourneyId(), 5));
+        return new Journey(jsonJourney.getDestination(), ELECTRICITY_JOURNEY_ID_PREFIX + padWithZeroes(jsonJourney.getJourneyId(), 5));
     }
 
     /**

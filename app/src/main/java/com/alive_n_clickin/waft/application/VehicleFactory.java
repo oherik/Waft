@@ -7,8 +7,10 @@ import com.alive_n_clickin.waft.domain.ElectriCityBus;
 import com.alive_n_clickin.waft.domain.IElectriCityBus;
 import com.alive_n_clickin.waft.domain.IFlag;
 import com.alive_n_clickin.waft.domain.IJourney;
+import com.alive_n_clickin.waft.domain.Journey;
+import com.alive_n_clickin.waft.infrastructure.api.ConnectionException;
 
-import java.net.SocketTimeoutException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,13 +33,23 @@ public class VehicleFactory {
      * @param dgw the dgw id for the bus you want to have.
      * @return a new bus object. Null if anything goes wrong when fetching data for the bus.
      */
-    public static IElectriCityBus getElectriCityBus(String dgw) throws SocketTimeoutException {
-        IJourney journey = electriCityAdapter.getCurrentJourney(dgw);
+    public static IElectriCityBus getElectriCityBus(String dgw) {
+        IJourney journey;
+        try {
+            journey = electriCityAdapter.getCurrentJourney(dgw);
+        } catch (ConnectionException e) {
+            journey = new Journey("Okänd destination", "NO_JOURNEY_ID");
+        }
 
         String destination = journey.getDestination();
         String journeyId = journey.getJourneyId();
 
-        List<IFlag> flags = waftAdapter.getFlagsForVehicle(journeyId);
+        List<IFlag> flags;
+        try {
+            flags = waftAdapter.getFlagsForVehicle(journeyId);
+        } catch (ConnectionException e) {
+            flags = new ArrayList<>();
+        }
 
         return new ElectriCityBus(destination, journeyId, dgw, flags);
     }
