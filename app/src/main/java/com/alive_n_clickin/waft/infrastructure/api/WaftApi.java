@@ -20,11 +20,7 @@ class WaftApi implements IWaftApi {
     public List<JsonFlag> getFlagsForJourney(String journeyId) {
         Response response = sendGet("/flags/" + journeyId);
 
-        if (response == null) {
-            return new ArrayList<>();
-        }
-
-        return JsonJavaConverter.toJavaList(response.getBody(), JsonFlag[].class);
+        return response == null ? null : JsonJavaConverter.toJavaList(response.getBody(), JsonFlag[].class);
     }
 
     @Override

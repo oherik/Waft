@@ -29,7 +29,7 @@ class VasttrafikApi implements IVasttrafikApi {
         Response response = sendGet("/location.name?input=" + Uri.encode(searchString));
 
         if (response == null) {
-            return new ArrayList<>();
+            return null;
         }
 
         JsonStopList jsonStopList = new JsonJavaConverter<>(JsonStopList.class).toJava(
@@ -71,13 +71,15 @@ class VasttrafikApi implements IVasttrafikApi {
         Response response = sendGet("/departureBoard?id=" + id + "&date=" + date + "&time=" + time);
 
         if (response == null) {
-            return new ArrayList<>();
+            return null;
         }
 
         JsonArrivalList jsonArrivalList = new JsonJavaConverter<>(JsonArrivalList.class).toJava(
                 response.getBody(), "DepartureBoard");
 
-        return jsonArrivalList.getDepartures();
+        List<JsonArrival> jsonArrivals = jsonArrivalList.getDepartures();
+
+        return jsonArrivals == null ? new ArrayList<JsonArrival>() : jsonArrivals;
     }
 
     private static String buildUrl(String query) {
