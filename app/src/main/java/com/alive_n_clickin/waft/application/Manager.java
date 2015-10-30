@@ -1,6 +1,7 @@
 package com.alive_n_clickin.waft.application;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.alive_n_clickin.waft.application.api.ApiAdapterFactory;
 import com.alive_n_clickin.waft.application.api.IVasttrafikAdapter;
@@ -9,6 +10,8 @@ import com.alive_n_clickin.waft.domain.IArrivingVehicle;
 import com.alive_n_clickin.waft.domain.IElectriCityBus;
 import com.alive_n_clickin.waft.domain.IFlag;
 import com.alive_n_clickin.waft.domain.IStop;
+import com.alive_n_clickin.waft.infrastructure.api.ConnectionException;
+import com.alive_n_clickin.waft.util.LogUtils;
 import com.alive_n_clickin.waft.util.event.IEvent;
 import com.alive_n_clickin.waft.util.event.IObservableHelper;
 import com.alive_n_clickin.waft.util.event.IObserver;
@@ -25,6 +28,8 @@ import lombok.NonNull;
  * @since 0.2
  */
 public class Manager implements IManager, IObserver {
+    private final String LOG_TAG = LogUtils.getLogTag(this);
+
     private final IObservableHelper observableHelper = new ObservableHelper();
     private final IVasttrafikAdapter vasttrafikAdapter = ApiAdapterFactory.createVasttrafikAdapter();
     private final IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
@@ -52,11 +57,19 @@ public class Manager implements IManager, IObserver {
     public boolean addFlagToCurrentBus(IFlag flag) {
         if (currentBus != null) {
             // notify backend that a new flag has been added to currentBus
-            boolean result = waftAdapter.flagBus(this.currentBus, flag);
+            boolean result;
+            try {
+                result = waftAdapter.flagBus(this.currentBus, flag);
+            } catch (ConnectionException e) {
+                Log.e(LOG_TAG, "Error adding flag to bus", e);
+                result = false;
+            }
+
             if (result) {
                 //If the successful fetch the new bus from the Waft API.
                 new GetCurrentBusTask().execute(this.getCurrentBus().getDGW());
             }
+
             return result;
         }
         return false;
@@ -64,7 +77,20 @@ public class Manager implements IManager, IObserver {
 
     @Override
     public boolean deleteFlag(IFlag flag) {
-        return this.waftAdapter.deleteFlag(flag);
+        boolean result;
+        try {
+            result = this.waftAdapter.deleteFlag(flag);
+        } catch (ConnectionException e) {
+            Log.e(LOG_TAG, "Error deleting flag", e);
+            result = false;
+        }
+
+        if (result) {
+            //If the successful fetch the new bus from the Waft API.
+            new GetCurrentBusTask().execute(this.getCurrentBus().getDGW());
+        }
+
+        return result;
     }
 
 
@@ -117,7 +143,6 @@ public class Manager implements IManager, IObserver {
     //Updates the current bus by getting a new one from VehicleFactory. Calls to VehicleFactory can no be made
     //on the main thread, so we use the async task.
     private class GetCurrentBusTask extends AsyncTask<String, Void, IElectriCityBus> {
-
         @Override
         protected IElectriCityBus doInBackground(String... params) {
             String dgw = params[0];
@@ -132,12 +157,12 @@ public class Manager implements IManager, IObserver {
     }
 
     @Override
-    public List<IArrivingVehicle> getVehicles(@NonNull IStop stop) {
+    public List<IArrivingVehicle> getVehicles(@NonNull IStop stop) throws ConnectionException {
         return vasttrafikAdapter.getArrivalsForStop(stop);
     }
 
     @Override
-    public List<IStop> searchForStops(@NonNull String searchQuery) {
+    public List<IStop> searchForStops(@NonNull String searchQuery) throws ConnectionException {
         return vasttrafikAdapter.searchForStops(searchQuery);
     }
 

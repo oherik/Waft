@@ -17,8 +17,10 @@ public interface IVasttrafikApi {
      * @param searchString the string to search for.
      * @return a list of stops that matches the given search string. If no stops matches, an empty
      * list is returned.
+     * @throws ConnectionException if anything goes wrong when fetching the response, or if the
+     * server takes more than 5 seconds to respond.
      */
-    List<JsonStop> searchForStops(String searchString);
+    List<JsonStop> searchForStops(String searchString) throws ConnectionException;
 
     /**
      * Returns a list of arrivals for a stop.
@@ -26,6 +28,8 @@ public interface IVasttrafikApi {
      * @param id the id of the stop to get arrivals to.
      * @return a list of arrivals for a stop. If no arrivals can be found for the stop, an empty
      * list is returned.
+     * @throws ConnectionException if anything goes wrong when fetching the response, or if the
+     * server takes more than 5 seconds to respond.
      */
-    List<JsonArrival> getArrivalsForStop(long id);
+    List<JsonArrival> getArrivalsForStop(long id) throws ConnectionException;
 }

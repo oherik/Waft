@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 
-import com.alive_n_clickin.waft.application.CentralApplication;
 import com.alive_n_clickin.waft.R;
+import com.alive_n_clickin.waft.application.CentralApplication;
 import com.alive_n_clickin.waft.application.IManager;
 import com.alive_n_clickin.waft.domain.IStop;
+import com.alive_n_clickin.waft.infrastructure.api.ConnectionException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -139,8 +141,14 @@ public class SearchFragment extends Fragment {
     public class SearchStopTask extends AsyncTask<String, Void, List<IStop>> {
         @Override
         protected List<IStop> doInBackground(String... params) {
-            return manager.searchForStops(params[0]);
+            try {
+                return manager.searchForStops(params[0]);
+            } catch (ConnectionException e) {
+                Log.e(LOG_TAG, "Error searching for stops vehicles", e);
+                return new ArrayList<>();
+            }
         }
+
         @Override
         protected void onPostExecute(List<IStop> result) {
             displayResults(result);
