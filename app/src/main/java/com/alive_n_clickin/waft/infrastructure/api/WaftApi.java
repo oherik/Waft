@@ -4,7 +4,6 @@ import com.alive_n_clickin.waft.Config;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonFlag;
 import com.alive_n_clickin.waft.infrastructure.api.response.Response;
 
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +17,7 @@ class WaftApi implements IWaftApi {
     private static final String BASE_URL = Config.WAFT_URL;
 
     @Override
-    public List<JsonFlag> getFlagsForJourney(String journeyId) throws SocketTimeoutException {
+    public List<JsonFlag> getFlagsForJourney(String journeyId) {
         Response response = sendGet("/flags/" + journeyId);
 
         if (response == null) {

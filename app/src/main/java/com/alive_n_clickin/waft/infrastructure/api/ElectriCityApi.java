@@ -6,7 +6,6 @@ import com.alive_n_clickin.waft.infrastructure.api.response.JsonJourneyInfo;
 import com.alive_n_clickin.waft.infrastructure.api.response.Response;
 import com.alive_n_clickin.waft.util.LogUtils;
 
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -27,7 +26,7 @@ class ElectriCityApi implements IElectriCityApi {
     public static final String RESOURCE_SPEC_JOURNEY_ID = "Journey_Name_Value";
 
     @Override
-    public JsonJourney getLatestJourney(String dgw) throws SocketTimeoutException {
+    public JsonJourney getLatestJourney(String dgw) {
         // End time: right now
         long endTime = System.currentTimeMillis();
 
@@ -72,7 +71,7 @@ class ElectriCityApi implements IElectriCityApi {
     }
 
     @Override
-    public List<JsonJourneyInfo> getJourneyInfo(String dgw, long startTime, long endTime) throws SocketTimeoutException {
+    public List<JsonJourneyInfo> getJourneyInfo(String dgw, long startTime, long endTime) {
         String query = "?dgw=" + dgw + "&sensorSpec=Ericsson$Journey_Info" +
                 "&t1=" + startTime + "&t2=" + endTime;
 
