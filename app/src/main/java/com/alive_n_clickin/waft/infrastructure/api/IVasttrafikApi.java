@@ -17,7 +17,7 @@ public interface IVasttrafikApi {
      *
      * @param searchString the string to search for.
      * @return a list of stops that matches the given search string. If no stops matches, an empty
-     * list is returned.
+     * list is returned. If anything goes wrong with the request, null is returned.
      */
     List<JsonStop> searchForStops(String searchString) throws SocketTimeoutException;
 
@@ -26,7 +26,7 @@ public interface IVasttrafikApi {
      *
      * @param id the id of the stop to get arrivals to.
      * @return a list of arrivals for a stop. If no arrivals can be found for the stop, an empty
-     * list is returned.
+     * list is returned.  If anything goes wrong with the request, null is returned.
      */
     List<JsonArrival> getArrivalsForStop(long id) throws SocketTimeoutException;
 }

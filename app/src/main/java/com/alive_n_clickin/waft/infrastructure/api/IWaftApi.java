@@ -17,7 +17,7 @@ public interface IWaftApi {
      *
      * @param journeyId the journey to get flags for.
      * @return a list of all flags for a specific journey. If there are no flags for the journey,
-     * an empty list is returned.
+     * an empty list is returned. If anything goes wrong with the request, null is returned.
      */
     List<JsonFlag> getFlagsForJourney(String journeyId) throws SocketTimeoutException;
 
