@@ -1,5 +1,7 @@
 package com.alive_n_clickin.waft.application.api;
 
+import android.util.Log;
+
 import com.alive_n_clickin.waft.domain.ArrivingVehicle;
 import com.alive_n_clickin.waft.domain.IArrivingVehicle;
 import com.alive_n_clickin.waft.domain.IFlag;
@@ -10,6 +12,7 @@ import com.alive_n_clickin.waft.infrastructure.api.ConnectionException;
 import com.alive_n_clickin.waft.infrastructure.api.IVasttrafikApi;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonArrival;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonStop;
+import com.alive_n_clickin.waft.util.LogUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,6 +32,8 @@ import lombok.NonNull;
  * @since 0.1
  */
 class VasttrafikAdapter implements IVasttrafikAdapter {
+    private final String LOG_TAG = LogUtils.getLogTag(this);
+
     private static final String ELECTRICITY_SHORT_ROUTE_NAME = "55";
 
     private final IVasttrafikApi vasttrafikApi = ApiFactory.createVasttrafikApi();
@@ -85,6 +90,7 @@ class VasttrafikAdapter implements IVasttrafikAdapter {
             try {
                 flags = waftAdapter.getFlagsForVehicle(journeyId);
             } catch (ConnectionException e) {
+                Log.e(LOG_TAG, "Error fetching flags for vehicle", e);
                 flags = new ArrayList<>();
             }
         }
