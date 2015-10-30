@@ -119,26 +119,15 @@ public class Manager implements IManager, IObserver {
     //Updates the current bus by getting a new one from VehicleFactory. Calls to VehicleFactory can no be made
     //on the main thread, so we use the async task.
     private class GetCurrentBusTask extends AsyncTask<String, Void, IElectriCityBus> {
-
-        boolean connectionTimedOut = false;
-
         @Override
         protected IElectriCityBus doInBackground(String... params) {
             String dgw = params[0];
-            try {
-                return VehicleFactory.getElectriCityBus(dgw);
-            } catch (SocketTimeoutException e) {
-                connectionTimedOut = true;
-                return null;
-            }
+            return VehicleFactory.getElectriCityBus(dgw);
         }
 
         @Override
         protected void onPostExecute(IElectriCityBus bus) {
             currentBus = bus;
-            if (connectionTimedOut) {
-                observableHelper.notifyObservers(new ConnectionTimedOutEvent());
-            }
             observableHelper.notifyObservers(new CurrentBusChangeEvent(currentBus));
         }
     }

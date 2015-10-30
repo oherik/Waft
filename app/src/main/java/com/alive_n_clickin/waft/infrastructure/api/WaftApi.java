@@ -17,10 +17,10 @@ class WaftApi implements IWaftApi {
     private static final String BASE_URL = Config.WAFT_URL;
 
     @Override
-    public List<JsonFlag> getFlagsForJourney(String journeyId) {
+    public List<JsonFlag> getFlagsForJourney(String journeyId) throws ConnectionException {
         Response response = sendGet("/flags/" + journeyId);
 
-        return response == null ? null : JsonJavaConverter.toJavaList(response.getBody(), JsonFlag[].class);
+        return JsonJavaConverter.toJavaList(response.getBody(), JsonFlag[].class);
     }
 
     @Override
@@ -47,7 +47,7 @@ class WaftApi implements IWaftApi {
         return BASE_URL + query;
     }
 
-    private static Response sendGet(String query) {
+    private static Response sendGet(String query) throws ConnectionException {
         String url = buildUrl(query);
         return ApiConnection.get(url);
     }

@@ -16,9 +16,11 @@ public interface IWaftApi {
      *
      * @param journeyId the journey to get flags for.
      * @return a list of all flags for a specific journey. If there are no flags for the journey,
-     * an empty list is returned. If anything goes wrong with the request, null is returned.
+     * an empty list is returned.
+     * @throws ConnectionException if anything goes wrong when fetching the response, or if the
+     * server takes more than 5 seconds to respond.
      */
-    List<JsonFlag> getFlagsForJourney(String journeyId);
+    List<JsonFlag> getFlagsForJourney(String journeyId) throws ConnectionException;
 
     /**
      * Adds a flag to the Waft database with the specified info.

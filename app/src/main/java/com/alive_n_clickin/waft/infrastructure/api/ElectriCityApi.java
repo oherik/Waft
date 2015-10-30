@@ -26,7 +26,7 @@ class ElectriCityApi implements IElectriCityApi {
     public static final String RESOURCE_SPEC_JOURNEY_ID = "Journey_Name_Value";
 
     @Override
-    public JsonJourney getLatestJourney(String dgw) {
+    public JsonJourney getLatestJourney(String dgw) throws ConnectionException {
         // End time: right now
         long endTime = System.currentTimeMillis();
 
@@ -34,10 +34,6 @@ class ElectriCityApi implements IElectriCityApi {
         long startTime = endTime - 60 * 1000;
 
         List<JsonJourneyInfo> journeyInfoList = getJourneyInfo(dgw, startTime, endTime);
-
-        if (journeyInfoList == null) {
-            return null;
-        }
 
         // Sort the list according to timestamps, we only want the most current ones
         Collections.sort(journeyInfoList, new Comparator<JsonJourneyInfo>() {
@@ -75,20 +71,22 @@ class ElectriCityApi implements IElectriCityApi {
     }
 
     @Override
-    public List<JsonJourneyInfo> getJourneyInfo(String dgw, long startTime, long endTime) {
+    public List<JsonJourneyInfo> getJourneyInfo(String dgw, long startTime, long endTime)
+            throws ConnectionException {
+
         String query = "?dgw=" + dgw + "&sensorSpec=Ericsson$Journey_Info" +
                 "&t1=" + startTime + "&t2=" + endTime;
 
         Response response = sendGet(query);
 
-        return response == null ? null : JsonJavaConverter.toJavaList(response.getBody(), JsonJourneyInfo[].class);
+        return JsonJavaConverter.toJavaList(response.getBody(), JsonJourneyInfo[].class);
     }
 
     private static String buildUrl(String query) {
         return BASE_URL + query;
     }
 
-    private static Response sendGet(String query) {
+    private static Response sendGet(String query) throws ConnectionException {
         String url = buildUrl(query);
 
         List<Parameter> parameters = new ArrayList<>();
