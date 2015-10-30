@@ -2,7 +2,7 @@ package com.alive_n_clickin.waft.application.api;
 
 import com.alive_n_clickin.waft.domain.IArrivingVehicle;
 import com.alive_n_clickin.waft.domain.IStop;
-import com.alive_n_clickin.waft.infrastructure.api.ConnectionException;
+import com.alive_n_clickin.waft.infrastructure.api.response.ConnectionException;
 
 import java.util.List;
 

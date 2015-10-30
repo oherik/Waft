@@ -1,6 +1,7 @@
 package com.alive_n_clickin.waft.infrastructure.api;
 
 import com.alive_n_clickin.waft.Config;
+import com.alive_n_clickin.waft.infrastructure.api.response.ConnectionException;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonFlag;
 import com.alive_n_clickin.waft.infrastructure.api.response.Response;
 
@@ -24,7 +25,8 @@ class WaftApi implements IWaftApi {
     }
 
     @Override
-    public boolean addFlag(String dgw, String journeyId, int flagTypeId, String comment, Date createdTime) {
+    public boolean addFlag(String dgw, String journeyId, int flagTypeId, String comment, Date createdTime)
+            throws ConnectionException {
         List<Parameter> parameters = new ArrayList<>();
         parameters.add(new Parameter("flagType", flagTypeId + ""));
         parameters.add(new Parameter("comment", comment));
@@ -34,11 +36,11 @@ class WaftApi implements IWaftApi {
 
         Response response = sendPost("/flags", parameters);
 
-        return response != null && response.wasRequestSuccessful();
+        return response.wasRequestSuccessful();
     }
 
     @Override
-    public boolean deleteFlag(String id) {
+    public boolean deleteFlag(String id) throws ConnectionException {
         Response response = sendDelete("/flags/delete/" + id);
         return response != null && response.wasRequestSuccessful();
     }
@@ -52,12 +54,12 @@ class WaftApi implements IWaftApi {
         return ApiConnection.get(url);
     }
 
-    private static Response sendPost(String query, List<Parameter> parameters) {
+    private static Response sendPost(String query, List<Parameter> parameters) throws ConnectionException {
         String url = buildUrl(query);
         return ApiConnection.post(url, parameters);
     }
 
-    private static Response sendDelete(String query) {
+    private static Response sendDelete(String query) throws ConnectionException {
         String url = buildUrl(query);
         return ApiConnection.delete(url);
     }

@@ -2,6 +2,7 @@ package com.alive_n_clickin.waft.infrastructure.api;
 
 import android.util.Log;
 
+import com.alive_n_clickin.waft.infrastructure.api.response.ConnectionException;
 import com.alive_n_clickin.waft.infrastructure.api.response.Response;
 import com.alive_n_clickin.waft.util.LogUtils;
 
@@ -99,8 +100,10 @@ class ApiConnection {
      * @param url the full address for the location where to send the request.
      * @param parameters the post parameters to send along with the request.
      * @return the response of the query. Null if anything goes wrong when fetching the response.
+     * @throws ConnectionException if anything goes wrong when fetching the response, or if the
+     * server takes more than 5 seconds to respond.
      */
-    static Response post(String url, List<Parameter> parameters) {
+    static Response post(String url, List<Parameter> parameters) throws ConnectionException {
         URL httpUrl = buildUrlFromString(url);
         String query = buildQueryString(parameters);
 
@@ -122,6 +125,7 @@ class ApiConnection {
             connection.setDoOutput(true);
 
             connection.setRequestMethod("POST");
+            connection.setConnectTimeout(CONNECTION_TIMEOUT_LIMIT);
 
             // The setRequest methods specify which kind of message that's being sent to the server. In
             // this case it's a POST request, using the default internet media type
@@ -147,8 +151,7 @@ class ApiConnection {
             status = connection.getResponseCode();
             body = readStream(inputStream);
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Error opening, reading from or writing to HTTPUrlConnection", e);
-            return null;
+            throw new ConnectionException("Error connecting to API", e);
         } finally {
             closeStream(inputStream);
             closeStream(outputStream);
@@ -166,8 +169,10 @@ class ApiConnection {
      *
      * @param url The full address for the location where to send the request
      * @return The response code from the server, or -1 if the request couldn't be sent
+     * @throws ConnectionException if anything goes wrong when fetching the response, or if the
+     * server takes more than 5 seconds to respond.
      */
-    static Response delete(String url) {
+    static Response delete(String url) throws ConnectionException {
         URL httpUrl = buildUrlFromString(url);
 
         int status;
@@ -182,6 +187,7 @@ class ApiConnection {
             connection.setDoOutput(true);
             connection.setRequestProperty("Content-Type", CONTENT_TYPE);
             connection.setRequestMethod("DELETE");
+            connection.setConnectTimeout(CONNECTION_TIMEOUT_LIMIT);
 
             connection.connect();
 
@@ -190,8 +196,7 @@ class ApiConnection {
             status = connection.getResponseCode();
             body = readStream(inputStream);
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Error opening or reading from HTTPUrlConnection", e);
-            return null;
+            throw new ConnectionException("Error connecting to API", e);
         } finally {
             closeStream(inputStream);
 

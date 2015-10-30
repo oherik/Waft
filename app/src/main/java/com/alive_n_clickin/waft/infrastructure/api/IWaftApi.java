@@ -1,5 +1,6 @@
 package com.alive_n_clickin.waft.infrastructure.api;
 
+import com.alive_n_clickin.waft.infrastructure.api.response.ConnectionException;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonFlag;
 
 import java.util.Date;
@@ -31,14 +32,18 @@ public interface IWaftApi {
      * @param comment a comment for the flag.
      * @param createdTime the time the flag was created.
      * @return true if the bus was successfully flagged, otherwise false.
+     * @throws ConnectionException if anything goes wrong when fetching the response, or if the
+     * server takes more than 5 seconds to respond.
      */
-    boolean addFlag(String dgw, String journeyId, int flagTypeId, String comment, Date createdTime);
-
+    boolean addFlag(String dgw, String journeyId, int flagTypeId, String comment, Date createdTime)
+            throws ConnectionException;
     /**
      * Removes a flag from the Waft database.
      *
      * @param id the id of the flag to remove.
      * @return true if the removal was successful, otherwise false.
+     * @throws ConnectionException if anything goes wrong when fetching the response, or if the
+     * server takes more than 5 seconds to respond.
      */
-    boolean deleteFlag(String id);
+    boolean deleteFlag(String id) throws ConnectionException;
 }

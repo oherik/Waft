@@ -6,7 +6,7 @@ import com.alive_n_clickin.waft.domain.IFlag;
 import com.alive_n_clickin.waft.domain.IStop;
 import com.alive_n_clickin.waft.domain.Stop;
 import com.alive_n_clickin.waft.infrastructure.api.ApiFactory;
-import com.alive_n_clickin.waft.infrastructure.api.ConnectionException;
+import com.alive_n_clickin.waft.infrastructure.api.response.ConnectionException;
 import com.alive_n_clickin.waft.infrastructure.api.IVasttrafikApi;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonArrival;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonStop;

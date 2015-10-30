@@ -5,7 +5,7 @@ import com.alive_n_clickin.waft.domain.IElectriCityBus;
 import com.alive_n_clickin.waft.domain.IFlag;
 import com.alive_n_clickin.waft.domain.IFlagType;
 import com.alive_n_clickin.waft.infrastructure.api.ApiFactory;
-import com.alive_n_clickin.waft.infrastructure.api.ConnectionException;
+import com.alive_n_clickin.waft.infrastructure.api.response.ConnectionException;
 import com.alive_n_clickin.waft.infrastructure.api.IWaftApi;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonFlag;
 
@@ -40,13 +40,13 @@ class WaftAdapter implements IWaftAdapter {
     }
 
     @Override
-    public boolean flagBus(IElectriCityBus bus, IFlag flag) {
+    public boolean flagBus(IElectriCityBus bus, IFlag flag) throws ConnectionException {
         return waftApi.addFlag(bus.getDGW(), bus.getJourneyId(), flag.getType().getId(), flag.getComment(),
                 flag.getCreatedTime());
     }
 
     @Override
-    public boolean deleteFlag(IFlag flag) {
+    public boolean deleteFlag(IFlag flag) throws ConnectionException {
         return waftApi.deleteFlag(flag.getId());
     }
 }
