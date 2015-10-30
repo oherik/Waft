@@ -13,11 +13,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.alive_n_clickin.waft.application.CentralApplication;
 import com.alive_n_clickin.waft.R;
+import com.alive_n_clickin.waft.application.CentralApplication;
 import com.alive_n_clickin.waft.application.IManager;
 import com.alive_n_clickin.waft.domain.IArrivingVehicle;
 import com.alive_n_clickin.waft.domain.IStop;
+import com.alive_n_clickin.waft.infrastructure.api.response.ConnectionException;
 import com.alive_n_clickin.waft.presentation.flagreport.FlagVehicleActivity;
 import com.alive_n_clickin.waft.util.LogUtils;
 
@@ -35,6 +36,8 @@ import lombok.NonNull;
  */
 
 public class ArrivalListFragment extends Fragment {
+    private final String LOG_TAG = LogUtils.getLogTag(this);
+
     private int maxNumberOfBusesInList = 10;
     private TextView stopTextView;
     private ListView busListView;
@@ -126,7 +129,12 @@ public class ArrivalListFragment extends Fragment {
 
         @Override
         protected List<IArrivingVehicle> doInBackground(IStop... params) {
-            return manager.getVehicles(params[0]);
+            try {
+                return manager.getVehicles(params[0]);
+            } catch (ConnectionException e) {
+                Log.e(LOG_TAG, "Error fetching vehicles", e);
+                return new ArrayList<>();
+            }
         }
 
         @Override

@@ -1,5 +1,7 @@
 package com.alive_n_clickin.waft.application;
 
+import android.util.Log;
+
 import com.alive_n_clickin.waft.application.api.ApiAdapterFactory;
 import com.alive_n_clickin.waft.application.api.IElectriCityAdapter;
 import com.alive_n_clickin.waft.application.api.IWaftAdapter;
@@ -8,7 +10,8 @@ import com.alive_n_clickin.waft.domain.IElectriCityBus;
 import com.alive_n_clickin.waft.domain.IFlag;
 import com.alive_n_clickin.waft.domain.IJourney;
 import com.alive_n_clickin.waft.domain.Journey;
-import com.alive_n_clickin.waft.infrastructure.api.ConnectionException;
+import com.alive_n_clickin.waft.infrastructure.api.response.ConnectionException;
+import com.alive_n_clickin.waft.util.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,8 @@ import java.util.List;
  * @since 0.2
  */
 public class VehicleFactory {
+    private static final String LOG_TAG = LogUtils.getLogTag(VehicleFactory.class);
+
     private static final IWaftAdapter waftAdapter = ApiAdapterFactory.createWaftAdapter();
     private static final IElectriCityAdapter electriCityAdapter = ApiAdapterFactory.createElectricityAdapter();
 
@@ -38,6 +43,7 @@ public class VehicleFactory {
         try {
             journey = electriCityAdapter.getCurrentJourney(dgw);
         } catch (ConnectionException e) {
+            Log.e(LOG_TAG, "Error fetching current journey for bus", e);
             journey = new Journey("Okänd destination", "NO_JOURNEY_ID");
         }
 
@@ -48,6 +54,7 @@ public class VehicleFactory {
         try {
             flags = waftAdapter.getFlagsForVehicle(journeyId);
         } catch (ConnectionException e) {
+            Log.e(LOG_TAG, "Error fetching flags for vehicle", e);
             flags = new ArrayList<>();
         }
 

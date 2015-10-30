@@ -2,7 +2,7 @@ package com.alive_n_clickin.waft.application.api;
 
 
 import com.alive_n_clickin.waft.domain.IJourney;
-import com.alive_n_clickin.waft.infrastructure.api.ConnectionException;
+import com.alive_n_clickin.waft.infrastructure.api.response.ConnectionException;
 
 /**
  * An interface for adapters between the ElectriCity API and our domain.

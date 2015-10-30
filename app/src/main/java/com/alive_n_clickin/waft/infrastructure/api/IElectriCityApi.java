@@ -1,5 +1,6 @@
 package com.alive_n_clickin.waft.infrastructure.api;
 
+import com.alive_n_clickin.waft.infrastructure.api.response.ConnectionException;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonJourney;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonJourneyInfo;
 
