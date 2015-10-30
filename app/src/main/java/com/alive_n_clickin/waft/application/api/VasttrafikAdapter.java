@@ -1,14 +1,18 @@
 package com.alive_n_clickin.waft.application.api;
 
+import android.util.Log;
+
 import com.alive_n_clickin.waft.domain.ArrivingVehicle;
 import com.alive_n_clickin.waft.domain.IArrivingVehicle;
 import com.alive_n_clickin.waft.domain.IFlag;
 import com.alive_n_clickin.waft.domain.IStop;
 import com.alive_n_clickin.waft.domain.Stop;
 import com.alive_n_clickin.waft.infrastructure.api.ApiFactory;
+import com.alive_n_clickin.waft.infrastructure.api.ConnectionException;
 import com.alive_n_clickin.waft.infrastructure.api.IVasttrafikApi;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonArrival;
 import com.alive_n_clickin.waft.infrastructure.api.response.JsonStop;
+import com.alive_n_clickin.waft.util.LogUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,6 +32,8 @@ import lombok.NonNull;
  * @since 0.1
  */
 class VasttrafikAdapter implements IVasttrafikAdapter {
+    private final String LOG_TAG = LogUtils.getLogTag(this);
+
     private static final String ELECTRICITY_SHORT_ROUTE_NAME = "55";
 
     private final IVasttrafikApi vasttrafikApi = ApiFactory.createVasttrafikApi();
@@ -54,13 +60,13 @@ class VasttrafikAdapter implements IVasttrafikAdapter {
     }
 
     @Override
-    public List<IStop> searchForStops(String searchString) {
+    public List<IStop> searchForStops(String searchString) throws ConnectionException {
         List<JsonStop> jsonStops = vasttrafikApi.searchForStops(searchString);
         return convertStops(jsonStops);
     }
 
     @Override
-    public List<IArrivingVehicle> getArrivalsForStop(IStop stop) {
+    public List<IArrivingVehicle> getArrivalsForStop(IStop stop) throws ConnectionException {
         List<JsonArrival> jsonArrivals = vasttrafikApi.getArrivalsForStop(stop.getId());
         return convertArrivals(jsonArrivals);
     }
@@ -81,7 +87,12 @@ class VasttrafikAdapter implements IVasttrafikAdapter {
 
         List<IFlag> flags = new LinkedList<>();
         if (shortRouteName.equals(ELECTRICITY_SHORT_ROUTE_NAME)) {
-            flags = waftAdapter.getFlagsForVehicle(journeyId);
+            try {
+                flags = waftAdapter.getFlagsForVehicle(journeyId);
+            } catch (ConnectionException e) {
+                Log.e(LOG_TAG, "Error fetching flags for vehicle", e);
+                flags = new ArrayList<>();
+            }
         }
 
         return new ArrivingVehicle(direction, shortRouteName, journeyId, realArrival, flags, lineColor);

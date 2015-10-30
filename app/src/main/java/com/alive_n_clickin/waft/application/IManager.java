@@ -4,6 +4,7 @@ import com.alive_n_clickin.waft.domain.IArrivingVehicle;
 import com.alive_n_clickin.waft.domain.IElectriCityBus;
 import com.alive_n_clickin.waft.domain.IFlag;
 import com.alive_n_clickin.waft.domain.IStop;
+import com.alive_n_clickin.waft.infrastructure.api.ConnectionException;
 import com.alive_n_clickin.waft.util.event.IObservable;
 
 import java.util.List;
@@ -49,7 +50,7 @@ public interface IManager extends IObservable {
      * @return  A list of the 20 first vehicles arriving to the stop
      * @throws NullPointerException if the parameter is null
      */
-    List<IArrivingVehicle> getVehicles(IStop stop);
+    List<IArrivingVehicle> getVehicles(IStop stop) throws ConnectionException;
 
     /**
      * Searches for stops based on a query string
@@ -57,7 +58,7 @@ public interface IManager extends IObservable {
      * @return  A list of stops matching the search query
      * @throws NullPointerException if the parameter is null
      */
-    List<IStop> searchForStops(String searchQuery);
+    List<IStop> searchForStops(String searchQuery) throws ConnectionException;
 
     /**
      * @return true if the app can currently look for vehicles, false otherwise

@@ -30,15 +30,17 @@ class ApiConnection {
 
     private final static String CHARSET = "UTF-8";
     private final static String CONTENT_TYPE = "application/x-www-form-urlencoded";
+    private static final int CONNECTION_TIMEOUT_LIMIT = 5000;
 
     /**
      * Returns the response of a get request to an url.
      *
      * @param url the url to send a get request to.
-     * @return the response of the query. Null if anything goes wrong when fetching the response
-     * from the server.
+     * @return the response of the query.
+     * @throws ConnectionException if anything goes wrong when fetching the response, or if the
+     * server takes more than 5 seconds to respond.
      */
-    static Response get(String url) {
+    static Response get(String url) throws ConnectionException {
         return get(url, new ArrayList<Parameter>());
     }
 
@@ -47,9 +49,11 @@ class ApiConnection {
      *
      * @param url the url to send a get request to.
      * @param headers a list of header parameters to append to the query.
-     * @return the response of the query. Null if anything goes wrong when fetching the response.
+     * @return the response of the query.
+     * @throws ConnectionException if anything goes wrong when fetching the response, or if the
+     * server takes more than 5 seconds to respond.
      */
-    static Response get(String url, List<Parameter> headers) {
+    static Response get(String url, List<Parameter> headers) throws ConnectionException {
         URL httpUrl = buildUrlFromString(url);
 
         int status;
@@ -61,6 +65,7 @@ class ApiConnection {
         try {
             connection = (HttpURLConnection) httpUrl.openConnection();
             connection.setRequestMethod("GET");
+            connection.setConnectTimeout(CONNECTION_TIMEOUT_LIMIT);
 
             if (headers != null) {
                 for (Parameter parameter : headers) {
@@ -70,13 +75,13 @@ class ApiConnection {
 
             connection.connect();
 
+
             inputStream = connection.getInputStream();
 
             status = connection.getResponseCode();
             body = readStream(inputStream);
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Error opening or reading from HTTPUrlConnection", e);
-            return null;
+            throw new ConnectionException("Error connecting to API", e);
         } finally {
             closeStream(inputStream);
 
@@ -94,8 +99,10 @@ class ApiConnection {
      * @param url the full address for the location where to send the request.
      * @param parameters the post parameters to send along with the request.
      * @return the response of the query. Null if anything goes wrong when fetching the response.
+     * @throws ConnectionException if anything goes wrong when fetching the response, or if the
+     * server takes more than 5 seconds to respond.
      */
-    static Response post(String url, List<Parameter> parameters) {
+    static Response post(String url, List<Parameter> parameters) throws ConnectionException {
         URL httpUrl = buildUrlFromString(url);
         String query = buildQueryString(parameters);
 
@@ -117,6 +124,7 @@ class ApiConnection {
             connection.setDoOutput(true);
 
             connection.setRequestMethod("POST");
+            connection.setConnectTimeout(CONNECTION_TIMEOUT_LIMIT);
 
             // The setRequest methods specify which kind of message that's being sent to the server. In
             // this case it's a POST request, using the default internet media type
@@ -142,8 +150,7 @@ class ApiConnection {
             status = connection.getResponseCode();
             body = readStream(inputStream);
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Error opening, reading from or writing to HTTPUrlConnection", e);
-            return null;
+            throw new ConnectionException("Error connecting to API", e);
         } finally {
             closeStream(inputStream);
             closeStream(outputStream);
@@ -161,8 +168,10 @@ class ApiConnection {
      *
      * @param url The full address for the location where to send the request
      * @return The response code from the server, or -1 if the request couldn't be sent
+     * @throws ConnectionException if anything goes wrong when fetching the response, or if the
+     * server takes more than 5 seconds to respond.
      */
-    static Response delete(String url) {
+    static Response delete(String url) throws ConnectionException {
         URL httpUrl = buildUrlFromString(url);
 
         int status;
@@ -177,6 +186,7 @@ class ApiConnection {
             connection.setDoOutput(true);
             connection.setRequestProperty("Content-Type", CONTENT_TYPE);
             connection.setRequestMethod("DELETE");
+            connection.setConnectTimeout(CONNECTION_TIMEOUT_LIMIT);
 
             connection.connect();
 
@@ -185,8 +195,7 @@ class ApiConnection {
             status = connection.getResponseCode();
             body = readStream(inputStream);
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Error opening or reading from HTTPUrlConnection", e);
-            return null;
+            throw new ConnectionException("Error connecting to API", e);
         } finally {
             closeStream(inputStream);
 
