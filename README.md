@@ -24,7 +24,9 @@ git submodule update
 
 ### Configuration
 
-The URL to the server and all API keys are declared in the Config class in the package `package com.alive_n_clickin.waft.infrastructure.api`. It is recommended to use the server that is running over at Digital Ocean, but theoretically you should be able to run a local copy of it.
+The URL to the server and all API keys are declared in the Config class in the package `package com.alive_n_clickin.waft.infrastructure.api`. Add your own API keys in the appropriate places.
+
+It is recommended to use the server that is running over at Digital Ocean, but theoretically you should be able to run a local copy of it.
 
 ## Installing the APK
 
