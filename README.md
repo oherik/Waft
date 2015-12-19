@@ -10,16 +10,7 @@ All external documentation is found in the `docs/` folder.
 
 ### Clone the repo
 ```
-git clone git@github.com:oherik/DAT255.git
-```
-
-### Get the associated server
-```
-git submodule init
-```
-followed by:
-```
-git submodule update
+git clone --recursive git@github.com:hjorthjort/Waft.git
 ```
 
 ### Configuration
